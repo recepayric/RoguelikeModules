@@ -1,0 +1,102 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Runtime.Enums;
+using Sirenix.OdinInspector;
+using UnityEngine;
+
+public class BasicPool : MonoBehaviour
+{
+    public static BasicPool instance;
+
+    private void Awake()
+    {
+        instance = this;
+        poolObjects = new Dictionary<PoolKeys, PoolObjectHolder>();
+        _allObjects = new Dictionary<GameObject, IPoolObject>();
+    }
+
+    public List<PoolKeys> keys;
+    public List<GameObject> prefabs;
+
+    private Dictionary<PoolKeys, PoolObjectHolder> poolObjects;
+    private Dictionary<GameObject, IPoolObject> _allObjects;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    public GameObject prefab;
+    public PoolKeys key;
+    
+    [Button]
+    public void AddToPool()
+    {
+        keys.Add(key);
+        prefabs.Add(prefab);
+
+        prefab = null;
+    }
+
+    public GameObject Get(PoolKeys poolObject)
+    {
+        if (!poolObjects.ContainsKey(poolObject))
+        {
+            var objHolder = new PoolObjectHolder();
+            objHolder.key = poolObject;
+            poolObjects.Add(poolObject, objHolder);
+        }
+
+        var obj = poolObjects[poolObject].GetAvailable();
+        return obj;
+    }
+
+    public void Return(GameObject obj)
+    {
+        poolObjects[_allObjects[obj].PoolKeys].ReturnObject(obj);
+    }
+    
+    private class PoolObjectHolder
+    {
+        public PoolKeys key;
+        public Dictionary<GameObject, IPoolObject> PoolObjects = new Dictionary<GameObject, IPoolObject>();
+        public Dictionary<GameObject, IPoolObject> ObjectsInUse = new Dictionary<GameObject, IPoolObject>();
+
+        public GameObject GetAvailable()
+        {
+            if (PoolObjects.Count == 0)
+            {
+                var index = instance.keys.IndexOf(key);
+                var prefab = instance.prefabs[index];
+                var objCreated = Instantiate(prefab);
+                var sc = objCreated.GetComponent<IPoolObject>();
+                PoolObjects.Add(objCreated, sc);
+                instance._allObjects.Add(objCreated, sc);
+            }
+
+            var objToReturn = PoolObjects.Keys.First();
+            objToReturn.SetActive(true);
+            PoolObjects[objToReturn].OnGet();
+            PoolObjects[objToReturn].PoolKeys = key;
+            
+            ObjectsInUse.Add(objToReturn, PoolObjects[objToReturn]);
+            PoolObjects.Remove(objToReturn);
+            return objToReturn;
+        }
+
+        public void ReturnObject(GameObject gameObject)
+        {
+            if(!ObjectsInUse.ContainsKey(gameObject))
+                return;
+            
+            ObjectsInUse[gameObject].OnReturn();
+            gameObject.SetActive(false);
+            gameObject.transform.parent = instance.transform;
+            PoolObjects.Add(gameObject, ObjectsInUse[gameObject]);
+            ObjectsInUse.Remove(gameObject);
+        }
+    }
+}
