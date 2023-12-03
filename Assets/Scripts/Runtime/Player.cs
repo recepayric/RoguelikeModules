@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Data;
 using Runtime.Configs;
 using Runtime.Enums;
 using Runtime.ItemsRelated;
 using Runtime.Minions;
+using Runtime.Modifiers;
 using Runtime.PlayerRelated;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -12,6 +14,7 @@ namespace Runtime
 {
     public class Player : MonoBehaviour
     {
+        public CharacterDataSo characterDataSo;
         public PlayerTargetFollower playerTargetFollower;
         public LineRenderer LineRenderer;
         public GameObject WeaponPoint;
@@ -32,35 +35,88 @@ namespace Runtime
         public float baseRange = 10;
         public float finalRange;
 
+        public float damageTaken;
+        public float maxHealth;
+        public float currentHealth;
+
         public List<GameObject> enemiesInRadius;
 
         public GameObject closestEnemy;
         public bool isEnemyWithinRange;
 
+        public List<SpecialModifiers> specialModifiersList;
+        public List<Modifier> modifiers;
+
 
         // Start is called before the first frame update
         void Start()
         {
-            var circleCollider = GetComponent<CircleCollider2D>();
-            circleCollider.radius = baseRange + (stats.baseRange / GameConfig.RangeToRadius);
+            SetSpecialModifiers();
+            CalculateStats();
+            ApplySpecialModifiers();
 
-            finalRange = baseRange * GameConfig.RangeToRadius + stats.baseRange;
+            var circleCollider = GetComponent<CircleCollider2D>();
+            circleCollider.radius = baseRange + (stats.range / GameConfig.RangeToRadius);
+
+            finalRange = baseRange * GameConfig.RangeToRadius + stats.range;
 
             ScriptDictionaryHolder.Player = this;
 
-            stats.SetStats();
-            UpdateStatsWithItems();
+            //stats.SetStats();
+            //UpdateStatsWithItems();
         }
 
         // Update is called once per frame
         void Update()
         {
-            
-            if(Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E))
                 AddWeapon();
-            
+
             CheckForCollectables();
             CheckEnemies();
+            UpdateHealth();
+        }
+
+        private void CalculateStats()
+        {
+            stats.SetBaseStat(characterDataSo);
+            stats.SetBaseStats();
+            stats.CalculateStats();
+
+            damageTaken = 0;
+            maxHealth = stats.GetStat(AllStats.MaxHealth);
+        }
+
+        private void UpdateHealth()
+        {
+            currentHealth = maxHealth - damageTaken;
+        }
+
+        [Button]
+        private void Hit(float damage)
+        {
+            damageTaken += damage;
+
+            for (int i = 0; i < modifiers.Count; i++)
+            {
+                modifiers[i].ApplyEffect(this);
+            }
+        }
+
+        private void SetSpecialModifiers()
+        {
+            for (int i = 0; i < specialModifiersList.Count; i++)
+            {
+                modifiers.Add(ModifierCreator.GetModifier(specialModifiersList[i]));
+            }
+        }
+        
+        private void ApplySpecialModifiers()
+        {
+            for (int i = 0; i < modifiers.Count; i++)
+            {
+                modifiers[i].ApplyEffect(this);
+            }
         }
 
         private void CheckForCollectables()
@@ -68,7 +124,7 @@ namespace Runtime
             foreach (var collectable in ScriptDictionaryHolder.Collectables)
             {
                 var dist = Vector3.Distance(transform.position, collectable.Key.transform.position);
-                if (dist <= stats.baseCollectRange)
+                if (dist <= stats.collectRange)
                     collectable.Value.Collect(transform);
             }
         }
@@ -91,7 +147,7 @@ namespace Runtime
         public void AddItem(ItemsRelated.Item itemToAdd)
         {
             items.Add(itemToAdd);
-            UpdateStatsWithItems();
+            //UpdateStatsWithItems();
         }
 
         //todo need optimisation! 

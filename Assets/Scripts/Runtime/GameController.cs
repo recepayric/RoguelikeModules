@@ -24,6 +24,8 @@ public class GameController : MonoBehaviour
     #endregion
     
     public EnemySpawner enemySpawner;
+    public FloorInitializer floorInitializer;
+    
     public float xBound = 8.5f;
     public float yBound = 4.5f;
 
@@ -37,6 +39,9 @@ public class GameController : MonoBehaviour
     
     void Start()
     {
+        floorInitializer.Initialise();
+        enemySpawner.Initialise();
+        
         SetSpawnEnemyTimer();
         _currencyDataSo = Resources.Load<CurrencyDataSo>("CollectableData");
     }
@@ -61,14 +66,12 @@ public class GameController : MonoBehaviour
     public void StartSpawningMonsters()
     {
         enemySpawner.StartSpawning();
-        EventManager.Instance.SetMonsterSpawn(true);
     }
 
     [Button]
     public void StopSpawningMonsters()
     {
         enemySpawner.StopSpawning();
-        EventManager.Instance.SetMonsterSpawn(false);
     }
 
    
@@ -98,5 +101,11 @@ public class GameController : MonoBehaviour
             var enemy = BasicPool.instance.Get(PoolKeys.Enemy1);
             enemy.transform.position = new Vector3(randX, randY, 0);
         }
+    }
+
+
+    private void OnDestroy()
+    {
+        floorInitializer.Destroy();
     }
 }

@@ -1,0 +1,84 @@
+﻿using System;
+using System.Collections.Generic;
+using Runtime.Managers;
+using UnityEngine;
+
+namespace Runtime.UIRelated
+{
+    public class UIControllerOpen : MonoBehaviour
+    {
+        public GameObject activeScreen;
+        public GameObject weaponUpgradeScreen;
+        public GameObject floorScreen;
+
+        private Dictionary<Screens, GameObject> _gameScreens;
+
+        private void Start()
+        {
+            AddScreensIntoDictionary();
+            AddEvents();
+        }
+
+        public void OnOpenScreen(Screens screen, bool destroyPreviousScreen)
+        {
+            //Destroy Previous Screens
+            if (destroyPreviousScreen)
+            {
+                foreach (var sc in _gameScreens)
+                {
+                    if(sc.Key == screen)
+                        continue;
+                    
+                    //todo Get its interface and call "Closed" method.
+                    sc.Value.SetActive(false);
+                }
+            }
+            
+            //Open new screen
+            _gameScreens[screen].SetActive(true);
+            
+            //todo Get its interface and call "Opened" method.
+        }
+        
+        
+        public void OnCloseScreen(Screens screen)
+        {
+            //Open new screen
+            _gameScreens[screen].SetActive(false);
+            
+            //todo Get its interface and call "Closed" method.
+        }
+        
+        
+
+        private void AddScreensIntoDictionary()
+        {
+            _gameScreens ??= new Dictionary<Screens, GameObject>();
+            _gameScreens.Add(Screens.WeaponUpgrade, weaponUpgradeScreen);
+            _gameScreens.Add(Screens.Floor, floorScreen);
+        }
+
+        private void AddEvents()
+        {
+            EventManager.Instance.OnOpenScreen += OnOpenScreen;
+            EventManager.Instance.OnCloseScreen += OnCloseScreen;
+        }
+
+        private void RemoveEvents()
+        {
+            EventManager.Instance.OnOpenScreen -= OnOpenScreen;
+            EventManager.Instance.OnCloseScreen -= OnCloseScreen;
+        }
+
+        private void OnDestroy()
+        {
+            RemoveEvents();
+        }
+    }
+
+    public enum Screens
+    {
+        WeaponUpgrade,
+        Floor,
+    }
+}

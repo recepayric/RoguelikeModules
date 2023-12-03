@@ -18,8 +18,7 @@ namespace Runtime
         public Weapons weaponType;
         public Stats characterStats;
         public WeaponStats weaponStats;
-
-
+        
         public float timer;
         public float distanceToEnemy;
         public float attackTime;
@@ -36,17 +35,21 @@ namespace Runtime
 
         public List<Modifier> modifiers;
         public List<SpecialModifiers> SpecialModifiersList;
-
-
+        
+        public static float rotationGlobal;
+        
+        
         void Start()
         {
             circleCollider2D = GetComponent<CircleCollider2D>();
-            SetSpecialModifiers();
             SetStats();
+            SetSpecialModifiers();
+            ActivateModifiers();
         }
 
         void Update()
         {
+            rotationGlobal += Time.deltaTime*100f;
             timer += Time.deltaTime;
 
             //transform.right = targetEnemy.transform.position - transform.position;
@@ -77,19 +80,45 @@ namespace Runtime
             {
                 modifiers.Add(ModifierCreator.GetModifier(spModifier));
             }
+            
+            foreach (var spModifier in weaponStats.specialModifiers)
+            {
+                modifiers.Add(ModifierCreator.GetModifier(spModifier));
+            }
+        }
+
+        private void ActivateModifiers()
+        {
+            for (int i = 0; i < modifiers.Count; i++)
+            {
+                modifiers[i].ApplyEffect(this);
+            }
         }
 
         private void SetStats()
         {
+            //extra damages
+            var extraDamage = 0f;
+
+            if (weaponType == Weapons.Gun)
+                extraDamage = ScriptDictionaryHolder.Player.stats.GetStat(AllStats.RangedAttack);
+           
+            if (weaponType == Weapons.Sword)
+                extraDamage = ScriptDictionaryHolder.Player.stats.GetStat(AllStats.MeleeAttack);
+
+            
+            weaponStats.specialModifiers = weaponDatsSo.specialModifiersList;
+            
             var data = weaponDatsSo.WeaponData[weaponType];
-            weaponStats.damage = data.BaseDamage;
+            weaponStats.damage = data.BaseDamage + extraDamage;
             weaponStats.range = data.BaseAttackRange;
             weaponStats.attackSpeed = data.BaseAttackSpeed;
             weaponStats.projectileAmount = data.BaseProjectileAmount;
             weaponStats.criticalHitChance = data.BaseCriticalHitChance;
             weaponStats.criticalHitDamage = data.BaseCriticalHitDamage;
 
-
+            weaponStats.pierceNum = (int)(data.BasePierceNumber+ScriptDictionaryHolder.Player.stats.GetStat(AllStats.PierceNumber));
+            
             if (circleCollider2D != null)
                 circleCollider2D.radius = (weaponStats.range / GameConfig.RangeToRadius);
         }
@@ -133,6 +162,7 @@ namespace Runtime
 
             for (int i = 0; i < weaponStats.projectileAmount; i++)
             {
+                //todo change this to pool and dictionary.
                 var projectile = Instantiate(projectilePrefab);
                 projectile.transform.position = projectilePoint.transform.position;
                 projectile.transform.right = targetEnemy.transform.position - projectile.transform.position;
@@ -140,11 +170,13 @@ namespace Runtime
                 var sc = projectile.GetComponent<Projectile>();
 
                 //sc.bounceNum = 1;
-                //sc.pierceNum = 1;
+                sc.pierceNum = weaponStats.pierceNum;
                 sc.criticalHitChance = weaponStats.criticalHitChance / 100f;
                 sc.criticalHitDamage = weaponStats.criticalHitDamage;
-                sc.modifiers = modifiers;
+                sc.weapon = this;
+                sc.SetModifiers(modifiers);
                 sc.SetMaxDistance(weaponStats.range);
+                sc.SetHomingProjectile(true, targetEnemy);
             }
         }
 
@@ -190,7 +222,6 @@ namespace Runtime
             //Debug.Log("Entered Range!");
             if (col.CompareTag("Enemy"))
             {
-                Debug.Log("Weapon hit enemy!");
                 if (isActivated)
                     DealDamage(col.gameObject);
             }
@@ -200,7 +231,6 @@ namespace Runtime
         {
             if (other.CompareTag("Enemy"))
             {
-                Debug.Log("Weapon exit enemy!");
                 enemiesInRange.Remove(other.gameObject);
                 CheckForEnemy();
             }

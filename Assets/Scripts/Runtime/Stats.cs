@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data;
 using Runtime.Enums;
 using Runtime.StatValue;
 using UnityEngine;
@@ -9,33 +10,32 @@ namespace Runtime
     [Serializable]
     public class Stats
     {
-        public Dictionary<AllStats, int> stats;
-        [Header("Base Stats")]
-        public int baseStrength;
-        public int baseDexterity;
-        public int baseIntelligence;
-        public int baseMagic;
-        public int baseMaxHealth;
-        public int baseMeleeAttack;
-        public int baseRangedAttack;
-        public int baseMagicalAttack;
-        public int baseRange;
-        public int baseDamage;
-        public int baseProjectileAmount;
-        public int baseCollectRange;
-        public int baseMoveSpeed;
-        public int baseAttackSpeed;
+        private CharacterDataSo _baseStats;
 
-        [Header("Stats To Display")]
-        public int strength;
-        public int intelligence;
-        public int dexterity;
-        public int attackSpeed;
-        public int moveSpeed;
-        public int maxHealth;
-        public int meleeDamage;
-        public int rangedDamage;
-        public int magicDamage;
+        public Dictionary<AllStats, float> stats;
+        [Header("Base Stats")]
+        public float strength;
+        public float dexterity;
+        public float intelligence;
+        public float magic;
+        public float maxHealth;
+        public float meleeAttack;
+        public float rangedAttack;
+        public float magicalAttack;
+        public float range;
+        public float damage;
+        public float projectileAmount;
+        public float collectRange;
+        public float moveSpeed;
+        public float attackSpeed;
+        public float pierceNum;
+        public float pierceDamage;
+        public float bounceNum;
+        
+        public void SetBaseStat(CharacterDataSo baseStats)
+        {
+            _baseStats = baseStats;
+        }
 
         public void AddStats(Stats statsToAdd)
         {
@@ -49,29 +49,34 @@ namespace Runtime
             }
         }
 
-        private void SetStatValues()
-        {   
+        public void SetStatValues()
+        {
             SetStatValue(AllStats.Strength, ref strength);
-            SetStatValue(AllStats.Intelligence, ref intelligence);
             SetStatValue(AllStats.Dexterity, ref dexterity);
-            SetStatValue(AllStats.AttackSpeed, ref attackSpeed);
-            SetStatValue(AllStats.MoveSpeed, ref moveSpeed);
+            SetStatValue(AllStats.Intelligence, ref intelligence);
+            SetStatValue(AllStats.Magic, ref magic);
             SetStatValue(AllStats.MaxHealth, ref maxHealth);
-            SetStatValue(AllStats.MeleeAttack, ref meleeDamage);
-            SetStatValue(AllStats.RangedAttack, ref rangedDamage);
-            SetStatValue(AllStats.MagicalAttack, ref magicDamage);
+            SetStatValue(AllStats.MeleeAttack, ref meleeAttack);
+            SetStatValue(AllStats.RangedAttack, ref rangedAttack);
+            SetStatValue(AllStats.MagicalAttack, ref magicalAttack);
+            SetStatValue(AllStats.Range, ref range);
+            SetStatValue(AllStats.Damage, ref damage);
+            SetStatValue(AllStats.ProjectileNumber, ref projectileAmount);
+            SetStatValue(AllStats.CollectRange, ref collectRange);
+            SetStatValue(AllStats.MoveSpeed, ref moveSpeed);
+            SetStatValue(AllStats.AttackSpeed, ref attackSpeed);
         }
 
         public void CalculateStats()
         {
-            var attackSpeedIncrease = stats[AllStats.Dexterity] * StatConverter.DexToAttackSpeed;
-            var moveSpeedIncrease = stats[AllStats.Dexterity] * StatConverter.DexToMoveSpeed;
-            var rangedDamageIncreaseIncrease = stats[AllStats.Dexterity] * StatConverter.DexToRangedDamage;
+            var attackSpeedIncrease = GetStat(AllStats.Dexterity) * StatConverter.DexToAttackSpeed;
+            var moveSpeedIncrease = GetStat(AllStats.Dexterity) * StatConverter.DexToMoveSpeed;
+            var rangedDamageIncreaseIncrease = GetStat(AllStats.Dexterity) * StatConverter.DexToRangedDamage;
 
-            var meleeDamageIncreaseIncrease = stats[AllStats.Strength] * StatConverter.StrToMeleeDamage;
-            var healthIncrease = stats[AllStats.Strength] * StatConverter.StrToHealth;
+            var meleeDamageIncreaseIncrease = GetStat(AllStats.Strength) * StatConverter.StrToMeleeDamage;
+            var healthIncrease = GetStat(AllStats.Strength) * StatConverter.StrToHealth;
 
-            var magicDamageIncreaseIncrease = stats[AllStats.Intelligence] * StatConverter.IntToMagicDamage;
+            var magicDamageIncreaseIncrease = GetStat(AllStats.Intelligence) * StatConverter.IntToMagicDamage;
 
             IncreaseStat(AllStats.MoveSpeed, moveSpeedIncrease);
             IncreaseStat(AllStats.AttackSpeed, attackSpeedIncrease);
@@ -85,49 +90,45 @@ namespace Runtime
 
         public void SetBaseStats()
         {
-            //Main Stats
-            SetStat(AllStats.Strength, baseStrength);
-            SetStat(AllStats.Dexterity, baseDexterity);
-            SetStat(AllStats.Intelligence, baseIntelligence);
-            SetStat(AllStats.Magic, baseMagic);
-
-            SetStat(AllStats.MoveSpeed, baseMoveSpeed);
-            SetStat(AllStats.AttackSpeed, baseAttackSpeed);
-            SetStat(AllStats.MeleeAttack, baseMeleeAttack);
-            SetStat(AllStats.RangedAttack, baseRangedAttack);
-            SetStat(AllStats.MagicalAttack, baseMagicalAttack);
-            SetStat(AllStats.MaxHealth, baseMaxHealth);
+            SetStats();
+            foreach (var stat in _baseStats.BaseStats)
+            {
+                AddStat(stat.Key, stat.Value);
+            }
         }
 
         public void SetStats()
         {
             if (stats == null)
-                stats = new Dictionary<AllStats, int>();
+                stats = new Dictionary<AllStats, float>();
             else
                 stats.Clear();
 
             //Main Stats
-            AddStat(AllStats.Strength, baseStrength);
-            AddStat(AllStats.Dexterity, baseDexterity);
-            AddStat(AllStats.Intelligence, baseIntelligence);
-            AddStat(AllStats.Magic, baseMagic);
+            AddStat(AllStats.Strength, 0);
+            AddStat(AllStats.Dexterity, 0);
+            AddStat(AllStats.Intelligence, 0);
+            AddStat(AllStats.Magic, 0);
 
             //Base Stats
-            AddStat(AllStats.MagicalAttack, baseMagicalAttack);
-            AddStat(AllStats.RangedAttack, baseRangedAttack);
-            AddStat(AllStats.Damage, baseDamage);
-            AddStat(AllStats.MeleeAttack, baseMeleeAttack);
-            AddStat(AllStats.Range, baseRange);
-            AddStat(AllStats.MaxHealth, baseMaxHealth);
-            AddStat(AllStats.CollectRange, baseCollectRange);
+            AddStat(AllStats.MagicalAttack, 1);
+            AddStat(AllStats.RangedAttack, 1);
+            AddStat(AllStats.Damage, 0);
+            AddStat(AllStats.MeleeAttack, 1);
+            AddStat(AllStats.Range, 0);
+            AddStat(AllStats.MaxHealth, 10);
+            AddStat(AllStats.CollectRange, 3);
 
-            AddStat(AllStats.MoveSpeed, baseMoveSpeed);
-            AddStat(AllStats.AttackSpeed, baseAttackSpeed);
+            AddStat(AllStats.MoveSpeed, 0);
+            AddStat(AllStats.AttackSpeed, 0);
+            AddStat(AllStats.PierceNumber, 0);
+            AddStat(AllStats.PierceDamage, 0.5f);
+            AddStat(AllStats.BounceNumber, 0);
 
             //Secondary Stats
         }
 
-        private void AddStat(AllStats stat, int value)
+        private void AddStat(AllStats stat, float value)
         {
             if (value != 0)
             {
@@ -135,7 +136,7 @@ namespace Runtime
             }
         }
 
-        private void SetStat(AllStats stat, int value)
+        private void SetStat(AllStats stat, float value)
         {
             if (stats.ContainsKey(stat))
                 stats[stat] = value;
@@ -143,7 +144,7 @@ namespace Runtime
                 AddStat(stat, value);
         }
 
-        private void IncreaseStat(AllStats stat, int value)
+        public void IncreaseStat(AllStats stat, float value)
         {
             if (stats.ContainsKey(stat))
                 stats[stat] += value;
@@ -151,12 +152,19 @@ namespace Runtime
                 stats.Add(stat, value);
         }
 
-        private void SetStatValue(AllStats stat, ref int value)
+        private void SetStatValue(AllStats stat, ref float value)
         {
             if (stats.ContainsKey(stat))
                 value = stats[stat];
             else
                 value = 0;
+        }
+
+        public float GetStat(AllStats stat)
+        {
+            var val = 0f;
+            stats.TryGetValue(stat, out val);
+            return val;
         }
     }
 }

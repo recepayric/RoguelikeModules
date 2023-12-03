@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Runtime.Managers;
+using Runtime.UIRelated;
 using TMPro;
 using UnityEngine;
 
@@ -36,5 +38,10 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+            EventManager.Instance.OpenScreen(Screens.Floor, true);
+        
+        if(Input.GetKeyDown(KeyCode.Alpha2))
+            EventManager.Instance.OpenScreen(Screens.WeaponUpgrade, true);
     }
 }

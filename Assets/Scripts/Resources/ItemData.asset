@@ -24,215 +24,143 @@ MonoBehaviour:
   itemData:
   - name: Damned Helmet
     itemStats:
-      baseStrength: 4
-      baseDexterity: -4
-      baseIntelligence: 0
-      baseMagic: 0
-      baseMaxHealth: 0
-      baseMeleeAttack: 0
-      baseRangedAttack: 0
-      baseMagicalAttack: 0
-      baseRange: 0
-      baseDamage: 0
-      baseProjectileAmount: 0
-      baseCollectRange: 0
-      baseMoveSpeed: 0
-      baseAttackSpeed: 0
-      strength: 0
+      strength: 12
+      dexterity: 12
       intelligence: 0
-      dexterity: 0
-      attackSpeed: 0
-      moveSpeed: 0
+      magic: 0
       maxHealth: 0
-      meleeDamage: 0
-      rangedDamage: 0
-      magicDamage: 0
+      meleeAttack: 0
+      rangedAttack: 0
+      magicalAttack: 0
+      range: 0
+      damage: 0
+      projectileAmount: 0
+      collectRange: 0
+      moveSpeed: 0
+      attackSpeed: 0
     rarity: 0
-    quantity: 17
+    quantity: 0
   - name: Damned Boots
     itemStats:
-      baseStrength: 0
-      baseDexterity: 10
-      baseIntelligence: -4
-      baseMagic: 0
-      baseMaxHealth: 0
-      baseMeleeAttack: 0
-      baseRangedAttack: 0
-      baseMagicalAttack: 0
-      baseRange: 0
-      baseDamage: 0
-      baseProjectileAmount: 0
-      baseCollectRange: 0
-      baseMoveSpeed: 10
-      baseAttackSpeed: 0
       strength: 0
-      intelligence: 0
       dexterity: 0
-      attackSpeed: 0
-      moveSpeed: 0
+      intelligence: 0
+      magic: 0
       maxHealth: 0
-      meleeDamage: 0
-      rangedDamage: 0
-      magicDamage: 0
+      meleeAttack: 0
+      rangedAttack: 0
+      magicalAttack: 0
+      range: 0
+      damage: 0
+      projectileAmount: 0
+      collectRange: 0
+      moveSpeed: 0
+      attackSpeed: 0
     rarity: 0
-    quantity: 26
+    quantity: 0
   - name: Enchanted Helmet
     itemStats:
-      baseStrength: 4
-      baseDexterity: -2
-      baseIntelligence: 0
-      baseMagic: 0
-      baseMaxHealth: 0
-      baseMeleeAttack: 0
-      baseRangedAttack: 0
-      baseMagicalAttack: 0
-      baseRange: 0
-      baseDamage: 0
-      baseProjectileAmount: 0
-      baseCollectRange: 0
-      baseMoveSpeed: 0
-      baseAttackSpeed: 0
       strength: 0
-      intelligence: 0
       dexterity: 0
-      attackSpeed: 0
-      moveSpeed: 0
+      intelligence: 0
+      magic: 0
       maxHealth: 0
-      meleeDamage: 0
-      rangedDamage: 0
-      magicDamage: 0
+      meleeAttack: 0
+      rangedAttack: 0
+      magicalAttack: 0
+      range: 0
+      damage: 0
+      projectileAmount: 0
+      collectRange: 0
+      moveSpeed: 0
+      attackSpeed: 0
     rarity: 0
-    quantity: 11
+    quantity: 0
   - name: Enchanted Cape
     itemStats:
-      baseStrength: 0
-      baseDexterity: 6
-      baseIntelligence: 0
-      baseMagic: 0
-      baseMaxHealth: 0
-      baseMeleeAttack: 0
-      baseRangedAttack: 0
-      baseMagicalAttack: 0
-      baseRange: 0
-      baseDamage: 0
-      baseProjectileAmount: 0
-      baseCollectRange: 0
-      baseMoveSpeed: 0
-      baseAttackSpeed: 0
       strength: 0
-      intelligence: 0
       dexterity: 0
-      attackSpeed: 0
-      moveSpeed: 0
+      intelligence: 0
+      magic: 0
       maxHealth: 0
-      meleeDamage: 0
-      rangedDamage: 0
-      magicDamage: 0
+      meleeAttack: 0
+      rangedAttack: 0
+      magicalAttack: 0
+      range: 0
+      damage: 0
+      projectileAmount: 0
+      collectRange: 0
+      moveSpeed: 0
+      attackSpeed: 0
     rarity: 0
-    quantity: 15
+    quantity: 0
   - name: Cursed Earrings
     itemStats:
-      baseStrength: 0
-      baseDexterity: 0
-      baseIntelligence: 4
-      baseMagic: 0
-      baseMaxHealth: 0
-      baseMeleeAttack: 0
-      baseRangedAttack: 0
-      baseMagicalAttack: 0
-      baseRange: 0
-      baseDamage: 0
-      baseProjectileAmount: 0
-      baseCollectRange: 0
-      baseMoveSpeed: 0
-      baseAttackSpeed: 0
       strength: 0
-      intelligence: 0
       dexterity: 0
-      attackSpeed: 0
-      moveSpeed: 0
+      intelligence: 0
+      magic: 0
       maxHealth: 0
-      meleeDamage: 0
-      rangedDamage: 0
-      magicDamage: 0
+      meleeAttack: 0
+      rangedAttack: 0
+      magicalAttack: 0
+      range: 0
+      damage: 0
+      projectileAmount: 0
+      collectRange: 0
+      moveSpeed: 0
+      attackSpeed: 0
     rarity: 0
-    quantity: 9
+    quantity: 0
   - name: Cursed Braclet
     itemStats:
-      baseStrength: 4
-      baseDexterity: 0
-      baseIntelligence: 0
-      baseMagic: 0
-      baseMaxHealth: 0
-      baseMeleeAttack: 0
-      baseRangedAttack: 0
-      baseMagicalAttack: 0
-      baseRange: 0
-      baseDamage: 0
-      baseProjectileAmount: 0
-      baseCollectRange: 0
-      baseMoveSpeed: 0
-      baseAttackSpeed: 0
       strength: 0
-      intelligence: 0
       dexterity: 0
-      attackSpeed: 0
-      moveSpeed: 0
+      intelligence: 0
+      magic: 0
       maxHealth: 0
-      meleeDamage: 0
-      rangedDamage: 0
-      magicDamage: 0
+      meleeAttack: 0
+      rangedAttack: 0
+      magicalAttack: 0
+      range: 0
+      damage: 0
+      projectileAmount: 0
+      collectRange: 0
+      moveSpeed: 0
+      attackSpeed: 0
     rarity: 0
-    quantity: 11
+    quantity: 0
   - name: Cursed Necklace
     itemStats:
-      baseStrength: 2
-      baseDexterity: 2
-      baseIntelligence: 2
-      baseMagic: 0
-      baseMaxHealth: 0
-      baseMeleeAttack: 0
-      baseRangedAttack: 0
-      baseMagicalAttack: 0
-      baseRange: 0
-      baseDamage: 0
-      baseProjectileAmount: 0
-      baseCollectRange: 0
-      baseMoveSpeed: 0
-      baseAttackSpeed: 0
       strength: 0
-      intelligence: 0
       dexterity: 0
-      attackSpeed: 0
-      moveSpeed: 0
+      intelligence: 0
+      magic: 0
       maxHealth: 0
-      meleeDamage: 0
-      rangedDamage: 0
-      magicDamage: 0
+      meleeAttack: 0
+      rangedAttack: 0
+      magicalAttack: 0
+      range: 0
+      damage: 0
+      projectileAmount: 0
+      collectRange: 0
+      moveSpeed: 0
+      attackSpeed: 0
     rarity: 0
-    quantity: 78
+    quantity: 0
   name: 
   Stats:
-    baseStrength: 0
-    baseDexterity: 0
-    baseIntelligence: 0
-    baseMagic: 0
-    baseMaxHealth: 0
-    baseMeleeAttack: 0
-    baseRangedAttack: 0
-    baseMagicalAttack: 0
-    baseRange: 0
-    baseDamage: 0
-    baseProjectileAmount: 0
-    baseCollectRange: 0
-    baseMoveSpeed: 0
-    baseAttackSpeed: 0
     strength: 0
-    intelligence: 0
     dexterity: 0
-    attackSpeed: 0
-    moveSpeed: 0
+    intelligence: 0
+    magic: 0
     maxHealth: 0
-    meleeDamage: 0
-    rangedDamage: 0
-    magicDamage: 0
+    meleeAttack: 0
+    rangedAttack: 0
+    magicalAttack: 0
+    range: 0
+    damage: 0
+    projectileAmount: 0
+    collectRange: 0
+    moveSpeed: 0
+    attackSpeed: 0

@@ -10,6 +10,8 @@ namespace Data
     [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/ItemDataObject", order = 2)]
     public class ItemDataSo : SerializedScriptableObject
     {
+        public Item item;
+        
         public List<Item> itemData;
 
         [Button]

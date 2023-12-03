@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 310aeadee1bb4cc589ec2dc953d53828, type: 3}
+  m_Name: Wand
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: TreeNodes
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[Data.UpgradeTreeNode, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 1|Data.UpgradeTreeNode, Assembly-CSharp
+    - Name: ID
+      Entry: 1
+      Data: 1
+    - Name: NodeName
+      Entry: 1
+      Data: Fire!
+    - Name: NodeText
+      Entry: 1
+      Data: Add Fire Element!
+    - Name: WeaponType
+      Entry: 3
+      Data: 0
+    - Name: UpgradeType
+      Entry: 3
+      Data: 2
+    - Name: ElementToAdd
+      Entry: 3
+      Data: 0
+    - Name: Stat
+      Entry: 3
+      Data: 6
+    - Name: IncreaseAmount
+      Entry: 4
+      Data: 10
+    - Name: Modifier
+      Entry: 3
+      Data: 0
+    - Name: PreviousNodeIDs
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 2|Data.UpgradeTreeNode, Assembly-CSharp
+    - Name: ID
+      Entry: 1
+      Data: 2
+    - Name: NodeName
+      Entry: 1
+      Data: Ice!
+    - Name: NodeText
+      Entry: 1
+      Data: Add Ice Element!
+    - Name: WeaponType
+      Entry: 3
+      Data: 0
+    - Name: UpgradeType
+      Entry: 3
+      Data: 2
+    - Name: ElementToAdd
+      Entry: 3
+      Data: 1
+    - Name: Stat
+      Entry: 3
+      Data: 0
+    - Name: IncreaseAmount
+      Entry: 4
+      Data: 0
+    - Name: Modifier
+      Entry: 3
+      Data: 0
+    - Name: PreviousNodeIDs
+      Entry: 7
+      Data: 3|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 1
+      Data: 1
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

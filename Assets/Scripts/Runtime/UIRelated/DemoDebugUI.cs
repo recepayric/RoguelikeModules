@@ -31,6 +31,12 @@ namespace Runtime.UIRelated
             textFPS.text = CalculateFPS();
         }
 
+        public void StartFloor()
+        {
+            EventManager.Instance.FloorLoad();
+        }
+        
+        
         private string CalculateFPS()
         {
             var fps = 1f / Time.unscaledDeltaTime;

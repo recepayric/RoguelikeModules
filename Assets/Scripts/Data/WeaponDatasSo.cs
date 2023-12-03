@@ -2,6 +2,7 @@
 using Runtime.Enums;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Data
 {
@@ -9,6 +10,7 @@ namespace Data
     public class WeaponDatasSo : SerializedScriptableObject
     {
         public Dictionary<Weapons, WeaponData> WeaponData;
+        public List<SpecialModifiers> specialModifiersList;
     }
 
     public class WeaponData
@@ -20,6 +22,7 @@ namespace Data
         public int BaseProjectileAmount;
         public int BaseCriticalHitChance;
         public int BaseCriticalHitDamage;
+        public int BasePierceNumber;
     }
 }
 

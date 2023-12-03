@@ -37,13 +37,44 @@
         ProjectileNumber,
         CollectRange,
         MoveSpeed,
-        AttackSpeed
+        AttackSpeed,
+        PierceNumber,
+        BounceNumber,
+        PierceDamage,
+        
+        //Elemental
+        BurnDamagePercentage,
+        BurnDamage,
+        ChanceToBurn,
+        
+        FreezingEffect,
+        ChanceToFreeze,
+        
+        ShockEffect,
+        ChanceToShock
     }
 
     public enum SpecialModifiers
     {
         BounceOnCriticalStrike,
         SplitOnHit,
+        RotatingProjectiles,
+        HomingProjectiles,
+        
+        //Elemental
+        BurnOnHit,
+        FreezeOnHit,
+        ShockOnHit,
+        
+        //Damage
+        LowHealthMoreAttackSpeed
+    }
+
+    public enum ElementModifiers
+    {
+        Fire,
+        Ice,
+        Lightning,
     }
 
     public enum WeaponAllStats

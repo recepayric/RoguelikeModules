@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Data;
 using DG.Tweening;
 using Runtime.Enums;
+using Runtime.Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -29,15 +30,22 @@ namespace Runtime.WorldRelated
 
         private bool isStarted = false;
 
+        public void Initialise()
+        {
+            EventManager.Instance.FloorStartsEvent += StartSpawning;
+        }
+
         public void Setup()
         {
-            isStarted = false;
-            waveSpawned = 0;
-            totalWave = 0;
-            spawnTime = 5f;
-            totalWave = (int)(totalWaveTime / spawnTime);
+            
             
             SpawnDatas = enemySpawnDataSo.SpawnDatas;
+
+            isStarted = false;
+            waveSpawned = 0;
+            totalWave = SpawnDatas.Count;
+            spawnTime = totalWaveTime/totalWave;
+            //totalWave = (int)(totalWaveTime / spawnTime);
         }
 
         public void SpawnMonster()
@@ -69,6 +77,7 @@ namespace Runtime.WorldRelated
         public void StopSpawning()
         {
             DOTween.Pause(SpawnID);
+            EventManager.Instance.SetMonsterSpawn(false);
         }
 
         public void StartSpawning()
@@ -80,6 +89,14 @@ namespace Runtime.WorldRelated
                 Setup();
                 SpawnMonster();
             }
+            
+            EventManager.Instance.SetMonsterSpawn(true);
+        }
+
+
+        public void Destroy()
+        {
+            EventManager.Instance.FloorStartsEvent -= StartSpawning;
         }
     }
 }

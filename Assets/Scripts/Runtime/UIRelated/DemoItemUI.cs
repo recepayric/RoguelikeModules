@@ -1,15 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Data;
 using Runtime;
+using Runtime.Managers;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Item = Runtime.ItemsRelated.Item;
+using Random = UnityEngine.Random;
 
 public class DemoItemUI : MonoBehaviour
 {
+    public GameObject itemPanel;
     public ItemDataSo itemSo;
 
     // Start is called before the first frame update
@@ -19,11 +23,6 @@ public class DemoItemUI : MonoBehaviour
         itemButtons[1].onClick.AddListener(delegate { BuyItem(1); });
         itemButtons[2].onClick.AddListener(delegate { BuyItem(2); });
         itemButtons[3].onClick.AddListener(delegate { BuyItem(3); });
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public GameObject[] itemPanels;
@@ -91,5 +90,39 @@ public class DemoItemUI : MonoBehaviour
 
         itemsOnScreen[index].quantity++;
         ScriptDictionaryHolder.Player.AddItem(itemsOnScreen[index]);
+    }
+
+
+    private void OpenPanel()
+    {
+        itemPanel.SetActive(true);
+        GetRandomItems();
+    }
+
+    private void ClosePanel()
+    {
+        itemPanel.SetActive(false);
+    }
+    
+    private void OnFloorEnds()
+    {
+        OpenPanel();
+    }
+
+    private void OnFloorLoads()
+    {
+        ClosePanel();
+    }
+
+    private void OnEnable()
+    {
+        EventManager.Instance.FloorEndsEvent += OnFloorEnds;
+        EventManager.Instance.FloorLoadEvent += OnFloorLoads;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.FloorEndsEvent -= OnFloorEnds;
+        EventManager.Instance.FloorLoadEvent -= OnFloorLoads;
     }
 }

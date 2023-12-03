@@ -11,6 +11,8 @@
         Enemy3,
         Enemy4,
         Enemy5,
-        Enemy6
+        Enemy6,
+        ProjectileMagic,
+        ProjectileRock,
     }
 }

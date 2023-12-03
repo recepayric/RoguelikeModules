@@ -55,7 +55,7 @@ MonoBehaviour:
       Data: 0
     - Name: BaseAttackSpeed
       Entry: 4
-      Data: 0.5
+      Data: 0.01
     - Name: BaseAttackRange
       Entry: 4
       Data: 400
@@ -71,6 +71,9 @@ MonoBehaviour:
     - Name: BaseCriticalHitDamage
       Entry: 3
       Data: 2
+    - Name: BasePierceNumber
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -107,6 +110,9 @@ MonoBehaviour:
     - Name: BaseCriticalHitDamage
       Entry: 3
       Data: 2
+    - Name: BasePierceNumber
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -119,3 +125,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  specialModifiersList: 04000000

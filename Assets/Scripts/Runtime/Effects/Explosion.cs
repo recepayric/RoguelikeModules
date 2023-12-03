@@ -31,7 +31,7 @@ namespace Runtime.Effects
 
         private void SetStats()
         {
-            explosionRange = 1;
+            //explosionRange = 1;
             explosionDamage = 1;
         }
         
@@ -45,6 +45,11 @@ namespace Runtime.Effects
                 Explode();
                 explosionTimer -= explosionTimer;
             }
+        }
+
+        public void SetSize(float size)
+        {
+            explosionRange = size;
         }
 
         [Button]
