@@ -43,5 +43,11 @@ public class UIController : MonoBehaviour
         
         if(Input.GetKeyDown(KeyCode.Alpha2))
             EventManager.Instance.OpenScreen(Screens.WeaponUpgrade, true);
+        
+        if(Input.GetKeyDown(KeyCode.Alpha3))
+            EventManager.Instance.OpenScreen(Screens.CharacterSelect, true);
+        
+        if(Input.GetKeyDown(KeyCode.Alpha4))
+            EventManager.Instance.OpenScreen(Screens.MapSelect, true);
     }
 }

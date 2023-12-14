@@ -68,7 +68,7 @@ namespace Runtime
         private CircleCollider2D _collider2D;
 
         //Damage Related
-        [Header("Damages")] public int damage;
+        [Header("Damages")] public float damage;
         
         //RotatingData
         public bool isRotating;
@@ -304,10 +304,11 @@ namespace Runtime
                 DOTween.Kill(gameObject.GetInstanceID() + "turn");
             }
 
+            damage = weapon.weaponStats.damage;
             //ResetTravelData();
             var isCrit = Random.Range(0, 1f) <= criticalHitChance;
 
-            enemy.GetHit(damage, isCrit);
+            enemy.GetHit((int)damage, isCrit);
 
             //Apply Ailments!
             if (weapon.weaponStats.addBurn)
@@ -373,6 +374,11 @@ namespace Runtime
 
 
             return null;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            Debug.Log("Projectile hit enemy!");
         }
 
         public PoolKeys PoolKeys { get; set; }

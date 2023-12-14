@@ -51,7 +51,6 @@ namespace Runtime.Managers
 
         private void CollectOrb()
         {
-            Debug.Log("Orb collected!");
             //todo amount change depends on if we have remaining ones from previous floor.
             _currencyDataSo.AddCollectable(CollectableTypes.Orb, 1);
             EventManager.Instance.UpdateResCount();

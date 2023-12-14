@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Runtime.Enums;
 using UnityEngine;
 
 namespace Runtime.Modifiers
@@ -7,11 +8,16 @@ namespace Runtime.Modifiers
     /// Splits to a certain amount of projectiles on impact
     /// Doesn't hit the same target again
     /// </summary>
-    public class SplittingProjectile : Modifier
+    public class SplitOnHit : Modifier
     {
         public int[] SplitAmount = new[] { 10, 4, 5, 6};
 
         public int tier = 0;
+
+        public SplitOnHit()
+        {
+            SetUseArea(ModifierUseArea.OnHit);
+        }
         
         public override void ApplyEffect(GameObject projectile, Projectile projectileScript, bool isCrit)
         {

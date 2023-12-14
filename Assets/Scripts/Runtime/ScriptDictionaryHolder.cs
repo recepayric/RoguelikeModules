@@ -2,6 +2,7 @@
 using Runtime.Collectables;
 using Runtime.Effects;
 using Runtime.Minions;
+using Runtime.TowerRelated;
 using UnityEngine;
 
 namespace Runtime
@@ -14,5 +15,8 @@ namespace Runtime
         public static Dictionary<GameObject, Minion> Minions = new Dictionary<GameObject, Minion>();
         public static Dictionary<GameObject, Enemy> Enemies = new Dictionary<GameObject, Enemy>();
         public static Dictionary<GameObject, Collectable> Collectables = new Dictionary<GameObject, Collectable>();
+
+
+        public static Tower CurrentTower;
     }
 }

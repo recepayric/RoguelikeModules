@@ -9,7 +9,7 @@ namespace Data
     public class CurrencyDataSo : SerializedScriptableObject
     {
         public Dictionary<CollectableTypes, int> collectables = new Dictionary<CollectableTypes, int>();
-
+        
         public void AddCollectable(CollectableTypes type, int amount)
         {
             if (!collectables.ContainsKey(type))

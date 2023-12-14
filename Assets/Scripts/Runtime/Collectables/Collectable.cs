@@ -23,7 +23,6 @@ namespace Runtime.Collectables
 
         private IEnumerator ReturnMoveLoop()
         {
-            Debug.Log("Start collecting the orb!");
             var isCloseToTarget = false;
             do
             {

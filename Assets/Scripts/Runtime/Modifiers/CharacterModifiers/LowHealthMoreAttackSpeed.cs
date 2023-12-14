@@ -8,6 +8,11 @@ namespace Runtime.Modifiers.CharacterModifiers
     {
         public Dictionary<GameObject, float> addedAttackSpeeds;
 
+        public LowHealthMoreAttackSpeed()
+        {
+            SetUseArea(ModifierUseArea.OnHealthChange);
+        }
+        
         public override void ApplyEffect(Player player)
         {
             base.ApplyEffect(player);
@@ -30,6 +35,7 @@ namespace Runtime.Modifiers.CharacterModifiers
             addedAttackSpeeds[player.gameObject] = missingHealth;
             player.stats.IncreaseStat(AllStats.AttackSpeed, value);
             player.stats.SetStatValues();
+            player.UpdateWeaponStats();
         }
     }
 }

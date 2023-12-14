@@ -8,6 +8,12 @@ namespace Runtime.Modifiers.ElementalModifiers
     [Serializable]
     public class AddShockOnHit : Modifier
     { 
+        
+        public AddShockOnHit()
+        {
+            SetUseArea(ModifierUseArea.OnStart);
+        }
+        
         public override void ApplyEffect(Weapon weapon)
         {
             base.ApplyEffect(weapon);

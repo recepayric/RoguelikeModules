@@ -12,7 +12,7 @@ namespace Runtime.Managers
         private void Awake()
         {
             Instance = this;
-            Debug.Log("Event Manager is loaded!");
+            //Debug.Log("Event Manager is loaded!");
         }
 
 
@@ -23,6 +23,21 @@ namespace Runtime.Managers
         public event UnityAction UpdateResCountEvent;
         public void UpdateResCount() => UpdateResCountEvent?.Invoke();
 
+        public event UnityAction<int> CreateTowerEvent;
+        public void CreateTower(int tier) => CreateTowerEvent?.Invoke(tier);
+        
+        public event UnityAction<int> PrepareTowerEvent;
+        public void PrepareTower(int tier) => PrepareTowerEvent?.Invoke(tier);
+
+
+        #region Gameplay Ralated
+
+        public event UnityAction LoadTowerEvent;
+        public void LoadTower() => LoadTowerEvent?.Invoke();
+        
+
+        #endregion
+        
         #region Floor Related
 
         public event UnityAction FloorEndsEvent;

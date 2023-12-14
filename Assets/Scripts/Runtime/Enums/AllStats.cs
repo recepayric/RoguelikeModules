@@ -51,7 +51,8 @@
         ChanceToFreeze,
         
         ShockEffect,
-        ChanceToShock
+        ChanceToShock,
+        Thorn
     }
 
     public enum SpecialModifiers

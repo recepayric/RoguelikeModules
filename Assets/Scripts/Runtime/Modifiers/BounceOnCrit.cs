@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Runtime.Enums;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,6 +14,13 @@ namespace Runtime.Modifiers
 
         public int tier = 0;
         public Dictionary<GameObject, int> projectiles = new Dictionary<GameObject, int>();
+        
+        
+        public BounceOnCrit()
+        {
+            SetUseArea(ModifierUseArea.OnHit);
+        }
+        
         
         public override void ApplyEffect(GameObject projectile, Projectile projectileScript, bool isCrit)
         {

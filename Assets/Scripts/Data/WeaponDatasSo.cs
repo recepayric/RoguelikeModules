@@ -15,6 +15,8 @@ namespace Data
 
     public class WeaponData
     {
+        public string WeaponName;
+        public string Description;
         public WeaponTypes WeaponType;
         public float BaseAttackSpeed;
         public float BaseAttackRange;
@@ -23,6 +25,7 @@ namespace Data
         public int BaseCriticalHitChance;
         public int BaseCriticalHitDamage;
         public int BasePierceNumber;
+        public PoolKeys WeaponPoolKey;
     }
 }
 

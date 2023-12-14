@@ -9,12 +9,15 @@ using UnityEngine;
 public class BasicPool : MonoBehaviour
 {
     public static BasicPool instance;
+    public bool isLoaded;
 
     private void Awake()
     {
         instance = this;
         poolObjects = new Dictionary<PoolKeys, PoolObjectHolder>();
         _allObjects = new Dictionary<GameObject, IPoolObject>();
+
+        isLoaded = true;
     }
 
     public List<PoolKeys> keys;

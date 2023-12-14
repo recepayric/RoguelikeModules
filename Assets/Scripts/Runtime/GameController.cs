@@ -5,6 +5,7 @@ using Data;
 using DG.Tweening;
 using Runtime.Enums;
 using Runtime.Managers;
+using Runtime.UIRelated;
 using Runtime.WorldRelated;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -44,6 +45,8 @@ public class GameController : MonoBehaviour
         
         SetSpawnEnemyTimer();
         _currencyDataSo = Resources.Load<CurrencyDataSo>("CollectableData");
+        
+        AddEvents();
     }
     
     void Update()
@@ -103,9 +106,25 @@ public class GameController : MonoBehaviour
         }
     }
 
+    private void OnLoadLevel()
+    {
+        EventManager.Instance.OpenScreen(Screens.Floor, true);
+    }
+
+    private void AddEvents()
+    {
+        EventManager.Instance.LoadTowerEvent += OnLoadLevel;
+    }
+
+    private void RemoveEvents()
+    {
+        EventManager.Instance.LoadTowerEvent -= OnLoadLevel;
+    }
 
     private void OnDestroy()
     {
+        RemoveEvents();
         floorInitializer.Destroy();
     }
+    
 }

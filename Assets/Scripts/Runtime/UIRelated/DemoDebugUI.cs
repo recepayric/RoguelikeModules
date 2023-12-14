@@ -17,7 +17,7 @@ namespace Runtime.UIRelated
 
         private void Start()
         {
-            Debug.Log("Loading");
+            //Debug.Log("Loading");
             _currencyDataSo = Resources.Load<CurrencyDataSo>("CollectableData");
         }
 

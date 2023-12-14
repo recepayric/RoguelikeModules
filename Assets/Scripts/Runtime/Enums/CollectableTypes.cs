@@ -4,6 +4,7 @@
     {
         Orb,
         Food,
-        Chest
+        Chest,
+        MapFragment,
     }
 }

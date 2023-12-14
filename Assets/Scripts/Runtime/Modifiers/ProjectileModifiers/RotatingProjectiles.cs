@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Runtime.Enums;
 using UnityEngine;
 
 namespace Runtime.Modifiers.ProjectileModifiers
@@ -7,6 +8,11 @@ namespace Runtime.Modifiers.ProjectileModifiers
     [Serializable]
     public class RotatingProjectiles : Modifier
     {
+        public RotatingProjectiles()
+        {
+            SetUseArea(ModifierUseArea.OnStart);
+        }
+        
         public int tier = 0;
         public Dictionary<GameObject, int> projectiles = new Dictionary<GameObject, int>();
 

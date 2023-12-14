@@ -7,7 +7,12 @@ namespace Runtime.Modifiers.ElementalModifiers
 {
     [Serializable]
     public class AddBurningEffect : Modifier
-    { 
+    {
+        public AddBurningEffect()
+        {
+            SetUseArea(ModifierUseArea.OnStart);
+        }
+        
         public override void ApplyEffect(Weapon weapon)
         {
             base.ApplyEffect(weapon);

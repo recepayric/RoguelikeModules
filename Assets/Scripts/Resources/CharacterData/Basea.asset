@@ -71,4 +71,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  level: 0
+  characterName: Demon
+  description: A very balanced and easy to play character! Very few bad things can
+    be said about this little fella!
+  footer: Not many of them surviveD
   specialModifiers: 
+  unlockCondition: 

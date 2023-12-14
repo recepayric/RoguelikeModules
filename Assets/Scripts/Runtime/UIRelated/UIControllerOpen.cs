@@ -10,6 +10,8 @@ namespace Runtime.UIRelated
         public GameObject activeScreen;
         public GameObject weaponUpgradeScreen;
         public GameObject floorScreen;
+        public GameObject characterSelectScreen;
+        public GameObject mapSelectScreen;
 
         private Dictionary<Screens, GameObject> _gameScreens;
 
@@ -36,7 +38,9 @@ namespace Runtime.UIRelated
             
             //Open new screen
             _gameScreens[screen].SetActive(true);
-            
+            var scOpenable = _gameScreens[screen].GetComponent<IOpenable>();
+            if(scOpenable != null)
+                scOpenable.OnOpened();
             //todo Get its interface and call "Opened" method.
         }
         
@@ -49,13 +53,13 @@ namespace Runtime.UIRelated
             //todo Get its interface and call "Closed" method.
         }
         
-        
-
         private void AddScreensIntoDictionary()
         {
             _gameScreens ??= new Dictionary<Screens, GameObject>();
             _gameScreens.Add(Screens.WeaponUpgrade, weaponUpgradeScreen);
             _gameScreens.Add(Screens.Floor, floorScreen);
+            _gameScreens.Add(Screens.CharacterSelect, characterSelectScreen);
+            _gameScreens.Add(Screens.MapSelect, mapSelectScreen);
         }
 
         private void AddEvents()
@@ -80,5 +84,7 @@ namespace Runtime.UIRelated
     {
         WeaponUpgrade,
         Floor,
+        CharacterSelect,
+        MapSelect
     }
 }

@@ -1,13 +1,22 @@
+using System;
+using Data.EnemyDataRelated;
 using DG.Tweening;
+using EnemyMoveBehaviours;
 using Runtime.Enums;
 using Runtime.Managers;
+using Runtime.PlayerRelated;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Runtime
 {
+    [RequireComponent(typeof(Health))]
     public class Enemy : MonoBehaviour, IPoolObject
     {
+        [Header("Data")] public EnemyData enemyData;
+
+        public Health health;
+
         //Ailments
         [Header("Ailment Objects")] public GameObject burnAilmentObject;
         public GameObject freezeAilmentObject;
@@ -23,33 +32,102 @@ namespace Runtime
         public float shockTime;
 
         //Ailment Effects
-        [Header("Ailment Effects")] 
-        public float burningDamagePerSecond;
+        [Header("Ailment Effects")] public float burningDamagePerSecond;
         public float freezeEffect;
         public float shockEffect;
 
         public float burningTimer;
-        
+
         public float xBound = 8.5f;
         public float yBound = 4.5f;
 
         public bool moveAround = true;
         public bool isImmortal = false;
 
+        [Header("Stats")] public float currentHealth;
+        public float currentMaxHealth;
+        public float currentSpeed;
+        public float currentDamage;
+        public float currentAttackSpeed;
+        public float currentEvasion;
+        public float currentDefence;
+        public float currentAttackRange;
+        public float currentMaxAttackRange;
+        public AttackType AttackType;
+
+        public float damageTaken;
+
+        public Player playerScript;
+        public GameObject playerObject;
+
+        //Current States
+        [Header("Current States")] public bool isAttackingEnemy;
+
         // Start is called before the first frame update
         void Start()
         {
+            //health = GetComponent<Health>();
             if (moveAround)
                 StartRandomMoving();
         }
 
-        public float moveSpeed = 5;
         // Update is called once per frame
         void Update()
         {
             UpdateAilments();
-            
-            //transform.position = Vector3.Lerp(transform.position, ScriptDictionaryHolder.Player.transform.position, Time.deltaTime*moveSpeed);
+        }
+
+        private void FixedUpdate()
+        {
+            MoveToPlayer();
+        }
+
+        private void MoveToPlayer()
+        {
+            if (isAttackingEnemy) return;
+
+            if (IsCloseToEnemy())
+            {
+                isAttackingEnemy = true;
+                AttackEnemy();
+                return;
+            }
+
+            var posX = transform.position.x;
+            var posY = transform.position.y;
+            var playerX = playerObject.transform.position.x;
+            var playerY = playerObject.transform.position.y;
+
+            var angle = Mathf.Atan2(playerY - posY, playerX - posX);
+
+            var deltaX = Time.deltaTime * currentSpeed * Mathf.Cos(angle);
+            var deltaY = Time.deltaTime * currentSpeed * Mathf.Sin(angle);
+
+            transform.position += new Vector3(deltaX, deltaY, 0);
+        }
+
+        //Perform an animation and attack!
+        private void AttackEnemy()
+        {
+            DOVirtual.DelayedCall(currentAttackSpeed, () =>
+            {
+                if (IsCloseToEnemy())
+                {
+                    playerScript.Hit(currentDamage, AttackType);
+                }
+
+                isAttackingEnemy = false;
+            });
+        }
+
+        private bool IsCloseToEnemy()
+        {
+            var distance = Vector3.Distance(transform.position, playerObject.transform.position);
+            var distanceToCheck = isAttackingEnemy ? currentMaxAttackRange : currentAttackRange;
+            if (distance <= distanceToCheck)
+                return true;
+            else
+                return false;
         }
 
         private void UpdateAilments()
@@ -62,6 +140,7 @@ namespace Runtime
                     burningTimer -= 1;
                     GetHit((int)burningDamagePerSecond, false);
                 }
+
                 burnTime -= Time.deltaTime;
                 if (burnTime <= 0)
                 {
@@ -94,6 +173,7 @@ namespace Runtime
         }
 
         #region Burn
+
         public void AddBurning(float burnTimeToAdd, float burningDamage)
         {
             burningDamagePerSecond = burningDamage;
@@ -107,20 +187,24 @@ namespace Runtime
             burningDamagePerSecond = 0;
             burnAilmentObject.SetActive(false);
         }
+
         #endregion
-        
+
         #region Freeze
+
         public void AddFreeze(float freezeTimeToAdd, float freezeEffect)
         {
             freezeTime = freezeTimeToAdd;
             this.freezeEffect = freezeEffect;
             freezeAilmentObject.SetActive(true);
         }
+
         private void FinishFreeze()
         {
             freezeEffect = 0;
             freezeAilmentObject.SetActive(false);
         }
+
         #endregion
 
         #region Shock
@@ -131,6 +215,7 @@ namespace Runtime
             this.shockEffect = shockEffect;
             shockAilmentObject.SetActive(true);
         }
+
         private void FinishShock()
         {
             shockEffect = 0;
@@ -139,7 +224,7 @@ namespace Runtime
 
         #endregion
 
-        
+
         public void StartRandomMoving()
         {
             var randX = Random.Range(-xBound, xBound);
@@ -167,14 +252,16 @@ namespace Runtime
         {
             if (col.CompareTag("Projectile"))
             {
+                //todo change this!!!
                 col.GetComponent<Projectile>().HitTarget(this);
             }
         }
 
         public void GetHit(int damage, bool isCriticalHit)
         {
+            damageTaken += damage;
             UIController.instance.AddDamageText(gameObject, damage, isCriticalHit);
-
+            UpdateHealth();
             if (!isImmortal)
             {
                 //BasicPool.instance.Return(gameObject);
@@ -182,27 +269,68 @@ namespace Runtime
             }
         }
 
+        private void UpdateHealth()
+        {
+            currentHealth = currentMaxHealth - damageTaken;
+
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                Die();
+            }
+
+            health.UpdateHealth(currentHealth);
+        }
+
         private void Die()
         {
-            //ItemDropManager.instance.DropItemFromEnemy(this);
+            BasicPool.instance.Return(gameObject);
+            ItemDropManager.instance.DropItemFromEnemy(this);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            
+        }
+
+        private void SetStats()
+        {
+            if (enemyData == null) return;
+            if (health == null) health = GetComponent<Health>();
+
+            playerScript = ScriptDictionaryHolder.Player;
+            playerObject = playerScript.gameObject;
+
+            currentDamage = enemyData.baseDamage;
+            currentMaxHealth = enemyData.baseHealth;
+            currentHealth = currentMaxHealth;
+            currentSpeed = enemyData.baseMoveSpeed;
+            currentAttackSpeed = enemyData.baseAttackSpeed;
+            currentAttackRange = enemyData.baseAttackRange;
+            currentMaxAttackRange = enemyData.baseMaxAttackRange;
+            currentEvasion = enemyData.baseEvasion;
+            currentDefence = enemyData.baseDefence;
+            AttackType = enemyData.attackType;
+
+            SetTowerStats();
+
+            health.SetMaxHealth(currentMaxHealth);
+        }
+
+        private void SetTowerStats()
+        {
         }
 
         public PoolKeys PoolKeys { get; set; }
 
         public void OnReturn()
         {
-            Debug.Log("Removing this enemy!");
             ScriptDictionaryHolder.Enemies.Remove(gameObject);
         }
 
         public void OnGet()
         {
             ScriptDictionaryHolder.Enemies.Add(gameObject, this);
+            SetStats();
         }
     }
 }

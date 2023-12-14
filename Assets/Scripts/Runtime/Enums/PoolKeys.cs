@@ -14,5 +14,7 @@
         Enemy6,
         ProjectileMagic,
         ProjectileRock,
+        CharacterIconUI,
+        WeaponIconUI
     }
 }

@@ -18,7 +18,7 @@ namespace Runtime
         public Weapons weaponType;
         public Stats characterStats;
         public WeaponStats weaponStats;
-        
+
         public float timer;
         public float distanceToEnemy;
         public float attackTime;
@@ -33,23 +33,29 @@ namespace Runtime
         public bool hasEnemyInRange;
         public GameObject targetEnemy;
 
+        public List<SpecialModifiers> specialModifiersList;
         public List<Modifier> modifiers;
-        public List<SpecialModifiers> SpecialModifiersList;
-        
+        public List<Modifier> modifiersOnStart;
+        public List<Modifier> modifiersOnGetHit;
+        public List<Modifier> modifiersOnHealthChange;
+        public List<Modifier> modifiersOnItemBuy;
+
         public static float rotationGlobal;
-        
-        
+
+
         void Start()
         {
             circleCollider2D = GetComponent<CircleCollider2D>();
             SetStats();
-            SetSpecialModifiers();
+            //SetSpecialModifiers();
+            SetSpecialModifiers(specialModifiersList);
+            SetSpecialModifiers(weaponStats.specialModifiers);
             ActivateModifiers();
         }
 
         void Update()
         {
-            rotationGlobal += Time.deltaTime*100f;
+            rotationGlobal += Time.deltaTime * 100f;
             timer += Time.deltaTime;
 
             //transform.right = targetEnemy.transform.position - transform.position;
@@ -59,7 +65,7 @@ namespace Runtime
                 if (CanAttack())
                 {
                     timer = 0;
-                    Attack();   
+                    Attack();
                 }
                 else
                 {
@@ -68,30 +74,68 @@ namespace Runtime
             }
         }
 
+        public void UpdateAttackSpeed()
+        {
+            var attackSpeedBuff = ScriptDictionaryHolder.Player.stats.GetStat(AllStats.AttackSpeed);
+            var currentSpeed = weaponDatsSo.WeaponData[weaponType].BaseAttackSpeed;
+            var multiplier = (1 + attackSpeedBuff / 100f);
+            if (multiplier == 0)
+                multiplier = 0.01f;
+            weaponStats.attackSpeed = currentSpeed / multiplier;
+        }
+
         private bool CanAttack()
         {
             //Debug.Log(weaponStats.range);
-            return targetEnemy != null && distanceToEnemy <= weaponStats.range/GameConfig.RangeToRadius;
+            return targetEnemy != null && distanceToEnemy <= weaponStats.range / GameConfig.RangeToRadius;
         }
 
-        private void SetSpecialModifiers()
+        private void SetSpecialModifiers(List<SpecialModifiers> specialModifiersList)
         {
-            foreach (var spModifier in SpecialModifiersList)
+            for (int i = 0; i < specialModifiersList.Count; i++)
             {
-                modifiers.Add(ModifierCreator.GetModifier(spModifier));
-            }
-            
-            foreach (var spModifier in weaponStats.specialModifiers)
-            {
-                modifiers.Add(ModifierCreator.GetModifier(spModifier));
+                var modifier = ModifierCreator.GetModifier(specialModifiersList[i]);
+                modifier.RegisterUser(gameObject);
+                switch (modifier.useArea)
+                {
+                    case ModifierUseArea.OnStart:
+                        if (!modifiersOnStart.Contains(modifier))
+                            modifiersOnStart.Add(modifier);
+                        break;
+
+                    case ModifierUseArea.OnHit:
+                        break;
+
+                    case ModifierUseArea.OnGetHit:
+                        if (!modifiersOnGetHit.Contains(modifier))
+                            modifiersOnGetHit.Add(modifier);
+                        break;
+
+                    case ModifierUseArea.OnBuyItem:
+                        if (!modifiersOnItemBuy.Contains(modifier))
+                            modifiersOnItemBuy.Add(modifier);
+                        break;
+
+                    case ModifierUseArea.OnUpdate:
+                        break;
+
+                    case ModifierUseArea.OnHealthChange:
+                        if (!modifiersOnHealthChange.Contains(modifier))
+                            modifiersOnHealthChange.Add(modifier);
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                //modifiers.Add();
             }
         }
 
         private void ActivateModifiers()
         {
-            for (int i = 0; i < modifiers.Count; i++)
+            for (int i = 0; i < modifiersOnStart.Count; i++)
             {
-                modifiers[i].ApplyEffect(this);
+                modifiersOnStart[i].ApplyEffect(this);
             }
         }
 
@@ -102,23 +146,27 @@ namespace Runtime
 
             if (weaponType == Weapons.Gun)
                 extraDamage = ScriptDictionaryHolder.Player.stats.GetStat(AllStats.RangedAttack);
-           
+
             if (weaponType == Weapons.Sword)
                 extraDamage = ScriptDictionaryHolder.Player.stats.GetStat(AllStats.MeleeAttack);
 
-            
+            var damageIncreasePercentage = ScriptDictionaryHolder.Player.stats.GetStat(AllStats.Damage);
+
+
             weaponStats.specialModifiers = weaponDatsSo.specialModifiersList;
-            
+
             var data = weaponDatsSo.WeaponData[weaponType];
             weaponStats.damage = data.BaseDamage + extraDamage;
+            weaponStats.damage += weaponStats.damage*damageIncreasePercentage;
             weaponStats.range = data.BaseAttackRange;
             weaponStats.attackSpeed = data.BaseAttackSpeed;
             weaponStats.projectileAmount = data.BaseProjectileAmount;
             weaponStats.criticalHitChance = data.BaseCriticalHitChance;
             weaponStats.criticalHitDamage = data.BaseCriticalHitDamage;
 
-            weaponStats.pierceNum = (int)(data.BasePierceNumber+ScriptDictionaryHolder.Player.stats.GetStat(AllStats.PierceNumber));
-            
+            weaponStats.pierceNum = (int)(data.BasePierceNumber +
+                                          ScriptDictionaryHolder.Player.stats.GetStat(AllStats.PierceNumber));
+
             if (circleCollider2D != null)
                 circleCollider2D.radius = (weaponStats.range / GameConfig.RangeToRadius);
         }
@@ -133,7 +181,7 @@ namespace Runtime
 
             targetEnemy = enemy;
         }
-        
+
         public void SetEnemy(GameObject enemy, float distance)
         {
             if (enemy == null)
@@ -145,14 +193,14 @@ namespace Runtime
             targetEnemy = enemy;
 
             distanceToEnemy = distance;
-            EventManager.Instance.SetDistanceBetweenEnemy(distance*GameConfig.RangeToRadius);
+            EventManager.Instance.SetDistanceBetweenEnemy(distance * GameConfig.RangeToRadius);
         }
 
         public void Attack()
         {
             if (weaponType != Weapons.Gun)
                 return;
-            
+
             //CheckForEnemy();
 
             if (targetEnemy == null)

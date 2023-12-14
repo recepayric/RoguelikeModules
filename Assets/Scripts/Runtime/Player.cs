@@ -14,6 +14,7 @@ namespace Runtime
 {
     public class Player : MonoBehaviour
     {
+        public Health healthBar;
         public CharacterDataSo characterDataSo;
         public PlayerTargetFollower playerTargetFollower;
         public LineRenderer LineRenderer;
@@ -45,7 +46,11 @@ namespace Runtime
         public bool isEnemyWithinRange;
 
         public List<SpecialModifiers> specialModifiersList;
-        public List<Modifier> modifiers;
+        //public List<Modifier> modifiers;
+        public List<Modifier> modifiersOnStart;
+        public List<Modifier> modifiersOnGetHit;
+        public List<Modifier> modifiersOnHealthChange;
+        public List<Modifier> modifiersOnItemBuy;
 
 
         // Start is called before the first frame update
@@ -64,6 +69,8 @@ namespace Runtime
 
             //stats.SetStats();
             //UpdateStatsWithItems();
+            
+            healthBar.SetMaxHealth(stats.GetStat(AllStats.MaxHealth));
         }
 
         // Update is called once per frame
@@ -90,16 +97,22 @@ namespace Runtime
         private void UpdateHealth()
         {
             currentHealth = maxHealth - damageTaken;
+            healthBar.UpdateHealth(currentHealth);
+
+            for (int i = 0; i < modifiersOnHealthChange.Count; i++)
+            {
+                modifiersOnHealthChange[i].ApplyEffect(this);
+            }
         }
 
         [Button]
-        private void Hit(float damage)
+        public void Hit(float damage, AttackType attackType)
         {
             damageTaken += damage;
 
-            for (int i = 0; i < modifiers.Count; i++)
+            for (int i = 0; i < modifiersOnGetHit.Count; i++)
             {
-                modifiers[i].ApplyEffect(this);
+                modifiersOnGetHit[i].ApplyEffect(this);
             }
         }
 
@@ -107,15 +120,56 @@ namespace Runtime
         {
             for (int i = 0; i < specialModifiersList.Count; i++)
             {
-                modifiers.Add(ModifierCreator.GetModifier(specialModifiersList[i]));
+                var modifier = ModifierCreator.GetModifier(specialModifiersList[i]);
+                modifier.RegisterUser(gameObject);
+                switch (modifier.useArea)
+                {
+                    case ModifierUseArea.OnStart:
+                        if (!modifiersOnStart.Contains(modifier))
+                            modifiersOnStart.Add(modifier);
+                        break;
+                    
+                    case ModifierUseArea.OnHit:
+                        break;
+                    
+                    case ModifierUseArea.OnGetHit:
+                        if (!modifiersOnGetHit.Contains(modifier))
+                            modifiersOnGetHit.Add(modifier);
+                        break;
+                    
+                    case ModifierUseArea.OnBuyItem:
+                        if (!modifiersOnItemBuy.Contains(modifier))
+                            modifiersOnItemBuy.Add(modifier);
+                        break;
+                    
+                    case ModifierUseArea.OnUpdate:
+                        break;
+                    
+                    case ModifierUseArea.OnHealthChange:
+                        if (!modifiersOnHealthChange.Contains(modifier))
+                            modifiersOnHealthChange.Add(modifier);
+                        break;
+                    
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                //modifiers.Add();
             }
         }
-        
+
+        public void UpdateWeaponStats()
+        {
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                weapons[i].UpdateAttackSpeed();
+            }
+        }
+
         private void ApplySpecialModifiers()
         {
-            for (int i = 0; i < modifiers.Count; i++)
+            for (int i = 0; i < modifiersOnStart.Count; i++)
             {
-                modifiers[i].ApplyEffect(this);
+                modifiersOnStart[i].ApplyEffect(this);
             }
         }
 
