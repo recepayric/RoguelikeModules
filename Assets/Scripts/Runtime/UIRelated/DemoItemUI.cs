@@ -63,7 +63,7 @@ public class DemoItemUI : MonoBehaviour
 
             var randItem = itemSo.itemData[Random.Range(0, totalItemCount)];
             itemsOnScreen[i] = randItem;
-            randItem.itemStats.SetStats();
+            //randItem.itemStats.SetStats();
 
             itemNames[i].text = randItem.name;
             itemStats[i].text = GetStatTexts(randItem);
@@ -74,10 +74,10 @@ public class DemoItemUI : MonoBehaviour
     {
         var itemString = "";
 
-        foreach (var stat in item.itemStats.stats)
-        {
-            itemString += stat.Key + ": " + stat.Value + "\n";
-        }
+        //foreach (var stat in item.itemStats.stats)
+        //{
+        //    itemString += stat.Key + ": " + stat.Value + "\n";
+        //}
 
 
         return itemString;
@@ -104,14 +104,14 @@ public class DemoItemUI : MonoBehaviour
         itemPanel.SetActive(false);
     }
     
-    private void OnFloorEnds()
+    private void OnFloorEnds(int floorNum)
     {
-        OpenPanel();
+        //OpenPanel();
     }
 
     private void OnFloorLoads()
     {
-        ClosePanel();
+        //ClosePanel();
     }
 
     private void OnEnable()

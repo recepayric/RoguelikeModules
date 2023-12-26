@@ -4,9 +4,11 @@ using Data;
 using Runtime.Configs;
 using Runtime.Enums;
 using Runtime.ItemsRelated;
+using Runtime.Managers;
 using Runtime.Minions;
 using Runtime.Modifiers;
 using Runtime.PlayerRelated;
+using Runtime.StatValue;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -14,6 +16,8 @@ namespace Runtime
 {
     public class Player : MonoBehaviour
     {
+        public ActiveCharacterSo activeCharacterSo;
+        public PlayerLevel playerLevel;
         public Health healthBar;
         public CharacterDataSo characterDataSo;
         public PlayerTargetFollower playerTargetFollower;
@@ -27,6 +31,7 @@ namespace Runtime
         public List<Minion> minions;
         public List<GameObject> weaponObjects;
         public List<Weapon> allWeapons;
+        public List<LevelUpStats> levelUpStatsList;
         public Weapon equippedWeapon;
 
         public GameObject weaponPrefab;
@@ -56,8 +61,9 @@ namespace Runtime
         // Start is called before the first frame update
         void Start()
         {
+            playerLevel.SetPlayerData(characterDataSo, stats);
             SetSpecialModifiers();
-            CalculateStats();
+            CalculateBaseStats();
             ApplySpecialModifiers();
 
             var circleCollider = GetComponent<CircleCollider2D>();
@@ -71,6 +77,18 @@ namespace Runtime
             //UpdateStatsWithItems();
             
             healthBar.SetMaxHealth(stats.GetStat(AllStats.MaxHealth));
+            
+            AddEvents();
+            
+            SetActiveCharacter();
+        }
+
+        private void SetActiveCharacter()
+        {
+            activeCharacterSo = Resources.Load<ActiveCharacterSo>("CharacterData/ActiveCharacterData");
+            activeCharacterSo.playerObject = gameObject;
+            activeCharacterSo.playerScript = this;
+            activeCharacterSo.playerWeapons = weapons;
         }
 
         // Update is called once per frame
@@ -84,7 +102,7 @@ namespace Runtime
             UpdateHealth();
         }
 
-        private void CalculateStats()
+        private void CalculateBaseStats()
         {
             stats.SetBaseStat(characterDataSo);
             stats.SetBaseStats();
@@ -178,7 +196,7 @@ namespace Runtime
             foreach (var collectable in ScriptDictionaryHolder.Collectables)
             {
                 var dist = Vector3.Distance(transform.position, collectable.Key.transform.position);
-                if (dist <= stats.collectRange)
+                if (dist <= 2+stats.collectRange)
                     collectable.Value.Collect(transform);
             }
         }
@@ -191,17 +209,50 @@ namespace Runtime
             {
                 //for (int j = 0; j < items[i].quantity; j++)
                 // {
-                stats.AddStats(items[i].itemStats);
+                //stats.AddStats(items[i].itemStats);
                 // }
             }
-
+            
             stats.CalculateStats();
         }
 
-        public void AddItem(ItemsRelated.Item itemToAdd)
+        private void CalculateStats()
+        {
+            stats.SetBaseStats();
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                stats.AddItemStats(items[i]);
+            }
+
+            for (int i = 0; i < levelUpStatsList.Count; i++)
+            {
+                stats.AddLevelUpStat(levelUpStatsList[i]);
+            }
+            
+            stats.CalculateStats();
+        }
+
+        public void AddItem(Item itemToAdd)
         {
             items.Add(itemToAdd);
             //UpdateStatsWithItems();
+            
+            CalculateStats();
+        }
+
+        private void OnItemBuy(Item item)
+        {
+            items.Add(item);
+            CalculateStats();
+        }
+
+        public void OnLevelUpStatSelected(LevelUpStats levelUpStat)
+        {
+            if(!levelUpStatsList.Contains(levelUpStat))
+                levelUpStatsList.Add(levelUpStat);
+            
+            CalculateStats();
         }
 
         //todo need optimisation! 
@@ -296,6 +347,8 @@ namespace Runtime
                 minions.Add(minionScript);
                 OrganiseWeapons();
             }
+            
+            EventManager.Instance.WeaponsUpdated();
         }
 
         [Button]
@@ -341,6 +394,23 @@ namespace Runtime
             {
                 enemiesInRadius.Remove(other.gameObject);
             }
+        }
+
+        private void AddEvents()
+        {
+            EventManager.Instance.LevelUpStatSelectedEvent += OnLevelUpStatSelected;
+            EventManager.Instance.ItemBuyEvent += OnItemBuy;
+        }
+
+        private void RemoveEvents()
+        {
+            EventManager.Instance.LevelUpStatSelectedEvent -= OnLevelUpStatSelected;
+            EventManager.Instance.ItemBuyEvent -= OnItemBuy;
+        }
+
+        private void OnDestroy()
+        {
+            RemoveEvents();
         }
     }
 }

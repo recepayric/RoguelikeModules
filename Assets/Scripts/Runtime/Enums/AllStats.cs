@@ -52,7 +52,9 @@
         
         ShockEffect,
         ChanceToShock,
-        Thorn
+        Thorn,
+        
+        ExpGainMultiplier
     }
 
     public enum SpecialModifiers

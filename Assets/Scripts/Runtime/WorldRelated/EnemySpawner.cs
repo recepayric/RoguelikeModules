@@ -37,8 +37,6 @@ namespace Runtime.WorldRelated
 
         public void Setup()
         {
-            
-            
             SpawnDatas = enemySpawnDataSo.SpawnDatas;
 
             isStarted = false;

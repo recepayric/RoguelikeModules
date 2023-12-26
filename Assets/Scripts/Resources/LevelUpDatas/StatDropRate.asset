@@ -1,0 +1,390 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 903e5200dc0d44bfbd4c4c2668cb47ce, type: 3}
+  m_Name: StatDropRate
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  normalDropRateIncrease: 1
+  magicDropRateIncrease: 1
+  rareDropRateIncrease: 1
+  epicDropRateIncrease: 1
+  uniqueDropRateIncrease: 1
+  levelUpDrops:
+  - rarity: 0
+    stat: 0
+    statIncrease: 0
+    value: 1
+    baseWeight: 16
+    weight: 16
+    percentage: 5.16129
+  - rarity: 1
+    stat: 0
+    statIncrease: 0
+    value: 2
+    baseWeight: 8
+    weight: 8
+    percentage: 2.580645
+  - rarity: 2
+    stat: 0
+    statIncrease: 0
+    value: 4
+    baseWeight: 4
+    weight: 4
+    percentage: 1.2903225
+  - rarity: 3
+    stat: 0
+    statIncrease: 0
+    value: 8
+    baseWeight: 2
+    weight: 2
+    percentage: 0.6451613
+  - rarity: 4
+    stat: 0
+    statIncrease: 0
+    value: 16
+    baseWeight: 1
+    weight: 1
+    percentage: 0.32258064
+  - rarity: 0
+    stat: 1
+    statIncrease: 0
+    value: 1
+    baseWeight: 16
+    weight: 16
+    percentage: 5.16129
+  - rarity: 1
+    stat: 1
+    statIncrease: 0
+    value: 2
+    baseWeight: 8
+    weight: 8
+    percentage: 2.580645
+  - rarity: 2
+    stat: 1
+    statIncrease: 0
+    value: 4
+    baseWeight: 4
+    weight: 4
+    percentage: 1.2903225
+  - rarity: 3
+    stat: 1
+    statIncrease: 0
+    value: 8
+    baseWeight: 2
+    weight: 2
+    percentage: 0.6451613
+  - rarity: 4
+    stat: 1
+    statIncrease: 0
+    value: 16
+    baseWeight: 1
+    weight: 1
+    percentage: 0.32258064
+  - rarity: 0
+    stat: 2
+    statIncrease: 0
+    value: 1
+    baseWeight: 16
+    weight: 16
+    percentage: 5.16129
+  - rarity: 1
+    stat: 2
+    statIncrease: 0
+    value: 2
+    baseWeight: 8
+    weight: 8
+    percentage: 2.580645
+  - rarity: 2
+    stat: 2
+    statIncrease: 0
+    value: 4
+    baseWeight: 4
+    weight: 4
+    percentage: 1.2903225
+  - rarity: 3
+    stat: 2
+    statIncrease: 0
+    value: 8
+    baseWeight: 2
+    weight: 2
+    percentage: 0.6451613
+  - rarity: 4
+    stat: 2
+    statIncrease: 0
+    value: 16
+    baseWeight: 1
+    weight: 1
+    percentage: 0.32258064
+  - rarity: 0
+    stat: 3
+    statIncrease: 0
+    value: 1
+    baseWeight: 16
+    weight: 16
+    percentage: 5.16129
+  - rarity: 1
+    stat: 3
+    statIncrease: 0
+    value: 2
+    baseWeight: 8
+    weight: 8
+    percentage: 2.580645
+  - rarity: 2
+    stat: 3
+    statIncrease: 0
+    value: 4
+    baseWeight: 4
+    weight: 4
+    percentage: 1.2903225
+  - rarity: 3
+    stat: 3
+    statIncrease: 0
+    value: 8
+    baseWeight: 2
+    weight: 2
+    percentage: 0.6451613
+  - rarity: 4
+    stat: 3
+    statIncrease: 0
+    value: 16
+    baseWeight: 1
+    weight: 1
+    percentage: 0.32258064
+  - rarity: 0
+    stat: 4
+    statIncrease: 0
+    value: 2
+    baseWeight: 16
+    weight: 16
+    percentage: 5.16129
+  - rarity: 1
+    stat: 4
+    statIncrease: 0
+    value: 4
+    baseWeight: 8
+    weight: 8
+    percentage: 2.580645
+  - rarity: 2
+    stat: 4
+    statIncrease: 0
+    value: 8
+    baseWeight: 4
+    weight: 4
+    percentage: 1.2903225
+  - rarity: 3
+    stat: 4
+    statIncrease: 0
+    value: 16
+    baseWeight: 2
+    weight: 2
+    percentage: 0.6451613
+  - rarity: 4
+    stat: 4
+    statIncrease: 0
+    value: 32
+    baseWeight: 1
+    weight: 1
+    percentage: 0.32258064
+  - rarity: 0
+    stat: 5
+    statIncrease: 0
+    value: 1
+    baseWeight: 16
+    weight: 16
+    percentage: 5.16129
+  - rarity: 1
+    stat: 5
+    statIncrease: 0
+    value: 2
+    baseWeight: 8
+    weight: 8
+    percentage: 2.580645
+  - rarity: 2
+    stat: 5
+    statIncrease: 0
+    value: 3
+    baseWeight: 4
+    weight: 4
+    percentage: 1.2903225
+  - rarity: 3
+    stat: 5
+    statIncrease: 0
+    value: 4
+    baseWeight: 2
+    weight: 2
+    percentage: 0.6451613
+  - rarity: 4
+    stat: 5
+    statIncrease: 0
+    value: 5
+    baseWeight: 1
+    weight: 1
+    percentage: 0.32258064
+  - rarity: 0
+    stat: 6
+    statIncrease: 0
+    value: 1
+    baseWeight: 16
+    weight: 16
+    percentage: 5.16129
+  - rarity: 1
+    stat: 6
+    statIncrease: 0
+    value: 2
+    baseWeight: 8
+    weight: 8
+    percentage: 2.580645
+  - rarity: 2
+    stat: 6
+    statIncrease: 0
+    value: 4
+    baseWeight: 4
+    weight: 4
+    percentage: 1.2903225
+  - rarity: 3
+    stat: 6
+    statIncrease: 0
+    value: 8
+    baseWeight: 2
+    weight: 2
+    percentage: 0.6451613
+  - rarity: 4
+    stat: 6
+    statIncrease: 0
+    value: 16
+    baseWeight: 1
+    weight: 1
+    percentage: 0.32258064
+  - rarity: 0
+    stat: 7
+    statIncrease: 0
+    value: 1
+    baseWeight: 16
+    weight: 16
+    percentage: 5.16129
+  - rarity: 1
+    stat: 7
+    statIncrease: 0
+    value: 2
+    baseWeight: 8
+    weight: 8
+    percentage: 2.580645
+  - rarity: 2
+    stat: 7
+    statIncrease: 0
+    value: 4
+    baseWeight: 4
+    weight: 4
+    percentage: 1.2903225
+  - rarity: 3
+    stat: 7
+    statIncrease: 0
+    value: 8
+    baseWeight: 2
+    weight: 2
+    percentage: 0.6451613
+  - rarity: 4
+    stat: 7
+    statIncrease: 0
+    value: 16
+    baseWeight: 1
+    weight: 1
+    percentage: 0.32258064
+  - rarity: 0
+    stat: 8
+    statIncrease: 0
+    value: 1
+    baseWeight: 16
+    weight: 16
+    percentage: 5.16129
+  - rarity: 1
+    stat: 8
+    statIncrease: 0
+    value: 2
+    baseWeight: 8
+    weight: 8
+    percentage: 2.580645
+  - rarity: 2
+    stat: 8
+    statIncrease: 0
+    value: 4
+    baseWeight: 4
+    weight: 4
+    percentage: 1.2903225
+  - rarity: 3
+    stat: 8
+    statIncrease: 0
+    value: 8
+    baseWeight: 2
+    weight: 2
+    percentage: 0.6451613
+  - rarity: 4
+    stat: 8
+    statIncrease: 0
+    value: 16
+    baseWeight: 1
+    weight: 1
+    percentage: 0.32258064
+  - rarity: 0
+    stat: 9
+    statIncrease: 0
+    value: 5
+    baseWeight: 16
+    weight: 16
+    percentage: 5.16129
+  - rarity: 1
+    stat: 9
+    statIncrease: 0
+    value: 10
+    baseWeight: 8
+    weight: 8
+    percentage: 2.580645
+  - rarity: 2
+    stat: 9
+    statIncrease: 0
+    value: 15
+    baseWeight: 4
+    weight: 4
+    percentage: 1.2903225
+  - rarity: 3
+    stat: 9
+    statIncrease: 0
+    value: 20
+    baseWeight: 2
+    weight: 2
+    percentage: 0.6451613
+  - rarity: 4
+    stat: 9
+    statIncrease: 0
+    value: 25
+    baseWeight: 1
+    weight: 1
+    percentage: 0.32258064
+  stat: 10
+  normalValue: 5
+  magicValue: 10
+  rareValue: 15
+  epicValue: 20
+  legendaryValue: 25
+  normalWeight: 16
+  magicWeight: 8
+  rareWeight: 4
+  epicWeight: 2
+  legendaryWeight: 1

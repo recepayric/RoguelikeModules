@@ -17,5 +17,9 @@ namespace Data
         public List<SpecialModifiers> specialModifiers;
 
         public string unlockCondition;
+
+        public float baseExpNeeded;
+        public float baseExpNeedIncrease;
+        public float baseExpGainMultiplier;
     }
 }

@@ -22,83 +22,83 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   SpawnDatas:
-  - EnemyKey: 8
+  - EnemyKey: 6
     Amount: 7
     spawnWait: 3
   - EnemyKey: 8
-    Amount: 5
-    spawnWait: 2.95
-  - EnemyKey: 7
-    Amount: 6
-    spawnWait: 2.9
-  - EnemyKey: 6
     Amount: 8
+    spawnWait: 2.95
+  - EnemyKey: 6
+    Amount: 5
+    spawnWait: 2.9
+  - EnemyKey: 5
+    Amount: 6
     spawnWait: 2.85
   - EnemyKey: 8
-    Amount: 9
+    Amount: 7
     spawnWait: 2.8
-  - EnemyKey: 8
-    Amount: 8
+  - EnemyKey: 7
+    Amount: 7
     spawnWait: 2.75
   - EnemyKey: 5
-    Amount: 5
+    Amount: 7
     spawnWait: 2.7
-  - EnemyKey: 6
-    Amount: 9
+  - EnemyKey: 7
+    Amount: 5
     spawnWait: 2.65
   - EnemyKey: 8
     Amount: 5
     spawnWait: 2.6
+  - EnemyKey: 7
+    Amount: 5
+    spawnWait: 2.55
   - EnemyKey: 8
     Amount: 6
-    spawnWait: 2.55
-  - EnemyKey: 7
-    Amount: 8
     spawnWait: 2.5
-  - EnemyKey: 5
-    Amount: 6
-    spawnWait: 2.45
-  - EnemyKey: 7
-    Amount: 8
-    spawnWait: 2.4
   - EnemyKey: 6
     Amount: 5
-    spawnWait: 2.35
-  - EnemyKey: 7
-    Amount: 6
-    spawnWait: 2.3
+    spawnWait: 2.45
   - EnemyKey: 5
-    Amount: 7
+    Amount: 8
+    spawnWait: 2.4
+  - EnemyKey: 5
+    Amount: 5
+    spawnWait: 2.35
+  - EnemyKey: 5
+    Amount: 8
+    spawnWait: 2.3
+  - EnemyKey: 6
+    Amount: 6
     spawnWait: 2.25
   - EnemyKey: 5
-    Amount: 6
+    Amount: 7
     spawnWait: 2.2
-  - EnemyKey: 8
+  - EnemyKey: 7
     Amount: 7
     spawnWait: 2.15
   - EnemyKey: 5
-    Amount: 7
+    Amount: 9
     spawnWait: 2.1
-  - EnemyKey: 5
+  - EnemyKey: 7
     Amount: 5
     spawnWait: 2.05
-  - EnemyKey: 6
-    Amount: 8
+  - EnemyKey: 7
+    Amount: 5
     spawnWait: 2
-  - EnemyKey: 6
+  - EnemyKey: 5
     Amount: 5
     spawnWait: 1.9499999
-  - EnemyKey: 6
-    Amount: 5
-    spawnWait: 1.9
   - EnemyKey: 7
     Amount: 9
+    spawnWait: 1.9
+  - EnemyKey: 5
+    Amount: 8
     spawnWait: 1.85
-  - EnemyKey: 7
-    Amount: 7
+  - EnemyKey: 8
+    Amount: 8
     spawnWait: 1.7999992
   poolKeyArray: 05000000060000000700000008000000
-  totalMonster: 167
+  totalMonster: 163
   initialTimeBetweenEnemies: 3
   minEnemySpawn: 5
   maxEnemySpawn: 10

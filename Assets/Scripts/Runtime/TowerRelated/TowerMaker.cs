@@ -20,7 +20,10 @@ namespace Runtime.TowerRelated
 
         public List<string> modifiers;
 
-        private void Start()
+        public float towerMinStatMulti;
+        public float towerMaxStatMulti;
+
+        private void Awake()
         {
             towers = new List<Tower>();
             InitialiseTowerModifiers();
@@ -71,6 +74,8 @@ namespace Runtime.TowerRelated
                 modifier.RandomizeValue(tier);
                 modifiers.Add(modifier.TextToShow);
                 tower.AddModifier(modifier);
+                tower.statIncreaseRatePerFloor = Random.Range(1.1f, 1.5f);
+                tower.baseStatIncrease = Random.Range(towerMinStatMulti, towerMaxStatMulti);
             }
             tower.CalculateRates();
         }
@@ -103,6 +108,7 @@ namespace Runtime.TowerRelated
             TowerModifiers.Add(new TowerModifier(TowerMonsterModifiers.MonsterDamageIncrease, 10, 30).SetText(TempModifierTexts.MonsterDamageIncrease));
             TowerModifiers.Add(new TowerModifier(TowerMonsterModifiers.MonsterRangeIncrease, 10, 30).SetText(TempModifierTexts.MonsterRangeIncrease));
             TowerModifiers.Add(new TowerModifier(TowerMonsterModifiers.MonsterDefenceIncrease, 10, 30).SetText(TempModifierTexts.MonsterDefenceIncrease));
+            TowerModifiers.Add(new TowerModifier(TowerMonsterModifiers.MonsterEvasionIncrease, 10, 30).SetText(TempModifierTexts.MonsterEvasionIncrease));
             TowerModifiers.Add(new TowerModifier(TowerMonsterModifiers.MonsterAttackSpeedIncrease, 10, 30).SetText(TempModifierTexts.MonsterAttackSpeedIncrease));
             TowerModifiers.Add(new TowerModifier(TowerMonsterModifiers.MonsterAlwaysDealCriticalHit, 10, 30).SetText(TempModifierTexts.MonsterAlwaysDealCriticalHit));
             TowerModifiers.Add(new TowerModifier(TowerMonsterModifiers.MonsterDontTakeCriticalHit, 10, 30).SetText(TempModifierTexts.MonsterDontTakeCriticalHit));
@@ -127,6 +133,7 @@ namespace Runtime.TowerRelated
         MonsterDamageIncrease,
         MonsterRangeIncrease,
         MonsterDefenceIncrease,
+        MonsterEvasionIncrease,
         MonsterAttackSpeedIncrease,
         MonsterAlwaysDealCriticalHit,
         MonsterDontTakeCriticalHit,

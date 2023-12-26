@@ -57,14 +57,6 @@ public class GameController : MonoBehaviour
             StopSpawningMonsters();
     }
 
-
-    public void OrbCollected()
-    {
-        
-    }
-    
-    
-
     [Button]
     public void StartSpawningMonsters()
     {

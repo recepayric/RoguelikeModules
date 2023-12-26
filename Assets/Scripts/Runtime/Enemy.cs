@@ -2,6 +2,9 @@ using System;
 using Data.EnemyDataRelated;
 using DG.Tweening;
 using EnemyMoveBehaviours;
+using Runtime.Configs;
+using Runtime.DamageRelated;
+using Runtime.EnemyRelated;
 using Runtime.Enums;
 using Runtime.Managers;
 using Runtime.PlayerRelated;
@@ -11,6 +14,9 @@ using Random = UnityEngine.Random;
 namespace Runtime
 {
     [RequireComponent(typeof(Health))]
+    [RequireComponent(typeof(EnemyMovement))]
+    [RequireComponent(typeof(EnemyStats))]
+    [RequireComponent(typeof(EnemyDamageTaker))]
     public class Enemy : MonoBehaviour, IPoolObject
     {
         [Header("Data")] public EnemyData enemyData;
@@ -42,26 +48,33 @@ namespace Runtime
         public float yBound = 4.5f;
 
         public bool moveAround = true;
-        public bool isImmortal = false;
 
-        [Header("Stats")] public float currentHealth;
-        public float currentMaxHealth;
-        public float currentSpeed;
-        public float currentDamage;
-        public float currentAttackSpeed;
-        public float currentEvasion;
-        public float currentDefence;
-        public float currentAttackRange;
-        public float currentMaxAttackRange;
-        public AttackType AttackType;
+        private EnemyStats _stats;
+        private EnemyMovement _enemyMovement;
+        private EnemyDamageTaker _enemyDamageTaker;
 
+        public Animator animator;
+        public BoxCollider2D boxCollider2D;
+
+        public bool isDead = false;
+        
         public float damageTaken;
+        public float dieTimer;
 
         public Player playerScript;
         public GameObject playerObject;
+        
 
         //Current States
         [Header("Current States")] public bool isAttackingEnemy;
+
+
+        private void Awake()
+        {
+            _stats = GetComponent<EnemyStats>();
+            _enemyMovement = GetComponent<EnemyMovement>();
+            _enemyDamageTaker = GetComponent<EnemyDamageTaker>();
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -75,59 +88,40 @@ namespace Runtime
         void Update()
         {
             UpdateAilments();
+            
+            UpdateDeath();
+        }
+
+        private void UpdateDeath()
+        {
+            if (isDead)
+            {
+                dieTimer -= Time.deltaTime;
+                if (dieTimer <= 0)
+                {
+                    ReturnObject();
+                }
+            }
         }
 
         private void FixedUpdate()
         {
-            MoveToPlayer();
         }
 
-        private void MoveToPlayer()
-        {
-            if (isAttackingEnemy) return;
-
-            if (IsCloseToEnemy())
-            {
-                isAttackingEnemy = true;
-                AttackEnemy();
-                return;
-            }
-
-            var posX = transform.position.x;
-            var posY = transform.position.y;
-            var playerX = playerObject.transform.position.x;
-            var playerY = playerObject.transform.position.y;
-
-            var angle = Mathf.Atan2(playerY - posY, playerX - posX);
-
-            var deltaX = Time.deltaTime * currentSpeed * Mathf.Cos(angle);
-            var deltaY = Time.deltaTime * currentSpeed * Mathf.Sin(angle);
-
-            transform.position += new Vector3(deltaX, deltaY, 0);
-        }
 
         //Perform an animation and attack!
-        private void AttackEnemy()
+        public void AttackEnemy()
         {
-            DOVirtual.DelayedCall(currentAttackSpeed, () =>
+            isAttackingEnemy = true;
+            DOVirtual.DelayedCall(_stats.currentAttackSpeed, () =>
             {
-                if (IsCloseToEnemy())
+                if (_enemyMovement.IsCloseToEnemy())
                 {
-                    playerScript.Hit(currentDamage, AttackType);
+                    playerScript.Hit(_stats.currentDamage, _stats.AttackType);
                 }
 
                 isAttackingEnemy = false;
             });
-        }
-
-        private bool IsCloseToEnemy()
-        {
-            var distance = Vector3.Distance(transform.position, playerObject.transform.position);
-            var distanceToCheck = isAttackingEnemy ? currentMaxAttackRange : currentAttackRange;
-            if (distance <= distanceToCheck)
-                return true;
-            else
-                return false;
         }
 
         private void UpdateAilments()
@@ -262,36 +256,52 @@ namespace Runtime
             damageTaken += damage;
             UIController.instance.AddDamageText(gameObject, damage, isCriticalHit);
             UpdateHealth();
-            if (!isImmortal)
-            {
-                //BasicPool.instance.Return(gameObject);
+            //_enemyDamageTaker.DamageTaken();
+
+            if (_stats.currentHealth <= 0)
                 Die();
-            }
+            else
+                _enemyDamageTaker.DamageTaken();
+            
+            
         }
 
         private void UpdateHealth()
         {
-            currentHealth = currentMaxHealth - damageTaken;
+            _stats.currentHealth = _stats.currentMaxHealth - damageTaken;
 
-            if (currentHealth <= 0)
+            if (_stats.currentHealth <= 0)
             {
-                currentHealth = 0;
+                _stats.currentHealth = 0;
                 Die();
             }
 
-            health.UpdateHealth(currentHealth);
+            health.UpdateHealth(_stats.currentHealth);
         }
 
+        [Header("Immortal")] public bool isImmortal;
+
         private void Die()
+        {
+            if (isImmortal) return;
+            isDead = true;
+            boxCollider2D.enabled = false;
+            animator.SetBool("IsDead", true);
+            animator.SetFloat("DieSpeed", 1f/AnimationConfig.DieAnimationTime);
+            animator.SetTrigger("Die");
+            dieTimer = AnimationConfig.DieAnimationTime*1.25f;
+            
+            //BasicPool.instance.Return(gameObject);
+            //ItemDropManager.instance.DropItemFromEnemy(this);
+        }
+
+        private void ReturnObject()
         {
             BasicPool.instance.Return(gameObject);
             ItemDropManager.instance.DropItemFromEnemy(this);
         }
-
-        private void OnTriggerExit2D(Collider2D other)
-        {
-        }
-
+        
+        
         private void SetStats()
         {
             if (enemyData == null) return;
@@ -300,24 +310,11 @@ namespace Runtime
             playerScript = ScriptDictionaryHolder.Player;
             playerObject = playerScript.gameObject;
 
-            currentDamage = enemyData.baseDamage;
-            currentMaxHealth = enemyData.baseHealth;
-            currentHealth = currentMaxHealth;
-            currentSpeed = enemyData.baseMoveSpeed;
-            currentAttackSpeed = enemyData.baseAttackSpeed;
-            currentAttackRange = enemyData.baseAttackRange;
-            currentMaxAttackRange = enemyData.baseMaxAttackRange;
-            currentEvasion = enemyData.baseEvasion;
-            currentDefence = enemyData.baseDefence;
-            AttackType = enemyData.attackType;
-
-            SetTowerStats();
-
-            health.SetMaxHealth(currentMaxHealth);
-        }
-
-        private void SetTowerStats()
-        {
+            _stats.SetStats();
+            
+            isDead = false;
+            boxCollider2D.enabled = true;
+            animator.SetBool("IsDead", false);
         }
 
         public PoolKeys PoolKeys { get; set; }
@@ -332,5 +329,6 @@ namespace Runtime
             ScriptDictionaryHolder.Enemies.Add(gameObject, this);
             SetStats();
         }
+
     }
 }

@@ -5,14 +5,20 @@ using Runtime.Configs;
 using Runtime.Enums;
 using Runtime.Managers;
 using Runtime.Modifiers;
+using Runtime.ParticleShaderScripts;
+using Runtime.WeaponRelated;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Runtime
 {
+    [RequireComponent(typeof(WeaponLevelSystem))]
+    [RequireComponent(typeof(WeaponUpgradeTree))]
     public class Weapon : MonoBehaviour
     {
+        public WeaponLevelSystem weaponLevelSystem;
+        public WeaponUpgradeTree weaponUpgradeTree;
         public bool isActivated = false;
         public WeaponDatasSo weaponDatsSo;
         public Weapons weaponType;
@@ -42,6 +48,10 @@ namespace Runtime
 
         public static float rotationGlobal;
 
+        public SwirlObject swirlObject;
+
+        public bool isAttacking = false;
+
 
         void Start()
         {
@@ -56,11 +66,38 @@ namespace Runtime
         void Update()
         {
             rotationGlobal += Time.deltaTime * 100f;
-            timer += Time.deltaTime;
+            //timer += Time.deltaTime;
 
             //transform.right = targetEnemy.transform.position - transform.position;
+            if (CanAttack())
+            {
+                if (!isAttacking)
+                {
+                    isAttacking = true;
+                    EventManager.Instance.LiftWand(weaponStats.attackSpeed);
+                    swirlObject.StartSwirling(weaponStats.attackSpeed);
+                }
+                timer += Time.deltaTime;
+                if (timer >= weaponStats.attackSpeed)
+                {
+                    Attack();
+                    timer = 0;
+                }
+            }
+            else
+            {
+                if (isAttacking)
+                {
+                    swirlObject.StopSwirling();
+                    isAttacking = false;
+                    EventManager.Instance.DownWand();
+                }
+                timer = 0;
+            }
 
-            if (timer >= weaponStats.attackSpeed)
+            swirlObject.transform.position = projectilePoint.transform.position;
+
+            /*if (timer >= weaponStats.attackSpeed)
             {
                 if (CanAttack())
                 {
@@ -71,7 +108,12 @@ namespace Runtime
                 {
                     timer = weaponStats.attackSpeed;
                 }
-            }
+            }*/
+        }
+
+        public void LiftUpWand()
+        {
+            
         }
 
         public void UpdateAttackSpeed()

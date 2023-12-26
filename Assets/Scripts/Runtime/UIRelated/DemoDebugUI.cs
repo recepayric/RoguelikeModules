@@ -5,6 +5,7 @@ using Runtime.Enums;
 using Runtime.Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Runtime.UIRelated
 {
@@ -14,6 +15,9 @@ namespace Runtime.UIRelated
 
         public int lastXFrameCalculate;
         private List<float> fpss = new List<float>();
+
+        public Image levelUpProgress;
+        public TextMeshProUGUI levelValues;
 
         private void Start()
         {
@@ -57,6 +61,12 @@ namespace Runtime.UIRelated
             return "" + (int)(total / fpss.Count);
         }
 
+        private void OnUpdateLevelProgress(float perc, float exp, float needed)
+        {
+            levelUpProgress.fillAmount = perc;
+            levelValues.text = exp + "/" + needed;
+        }
+
         private void OnUpdateItemCount()
         {
             textCollectedItem.text = "Resource: " + _currencyDataSo.collectables[CollectableTypes.Orb];
@@ -77,6 +87,7 @@ namespace Runtime.UIRelated
             EventManager.Instance.SetMonsterSpawning += OnSetMonsterSpawning;
             EventManager.Instance.UpdateResCountEvent += OnUpdateItemCount;
             EventManager.EventSetDistanceBetweenEnemy += OnSetClosestMonsterDistance;
+            EventManager.Instance.UpdateLevelProgressEvent += OnUpdateLevelProgress;
         }
 
         private void OnDisable()
@@ -84,6 +95,7 @@ namespace Runtime.UIRelated
             EventManager.Instance.SetMonsterSpawning -= OnSetMonsterSpawning;
             EventManager.Instance.UpdateResCountEvent -= OnUpdateItemCount;
             EventManager.EventSetDistanceBetweenEnemy -= OnSetClosestMonsterDistance;
+            EventManager.Instance.UpdateLevelProgressEvent -= OnUpdateLevelProgress;
         }
     }
 }

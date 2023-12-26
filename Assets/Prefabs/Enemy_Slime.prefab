@@ -99,6 +99,8 @@ GameObject:
   - component: {fileID: 6164134564196076764}
   - component: {fileID: -405972631331414771}
   - component: {fileID: 4079899732508808002}
+  - component: {fileID: 4960739154560490602}
+  - component: {fileID: 3247008842755935640}
   m_Layer: 0
   m_Name: Enemy_Slime
   m_TagString: Enemy
@@ -229,17 +231,10 @@ MonoBehaviour:
   yBound: 9
   moveAround: 0
   isImmortal: 1
-  currentHealth: 0
-  currentMaxhealth: 0
-  currentSpeed: 0
-  currentDamage: 0
-  currentAttackSpeed: 0
-  currentEvasion: 0
-  currentDefence: 0
-  currentAttackRange: 0
-  AttackType: 0
   damageTaken: 0
-  moveSpeed: 0.25
+  playerScript: {fileID: 0}
+  playerObject: {fileID: 0}
+  isAttackingEnemy: 0
 --- !u!58 &6164134564196076764
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -293,6 +288,67 @@ MonoBehaviour:
   currentHealth: 0
   healthPercentage: 0
   healthBar: {fileID: 4155151615690945886}
+--- !u!114 &4960739154560490602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6164134564196076763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ad5cb93d3794ca9b1fd447f776164c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetObject: {fileID: 0}
+  enemy: {fileID: 0}
+  stats: {fileID: 0}
+--- !u!114 &3247008842755935640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6164134564196076763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b25048db895b4edd8de42ccebb430021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 11400000, guid: 2ef8fbb84bcb9f144bca99d68e9dcb48, type: 2}
+  currentHealth: 0
+  currentMaxHealth: 0
+  currentHealthRegen: 0
+  currentSpeed: 0
+  currentDamage: 0
+  currentAttackSpeed: 0
+  currentEvasion: 0
+  currentDefence: 0
+  currentAttackRange: 0
+  currentMaxAttackRange: 0
+  AttackType: 0
+  isImmuneToCriticalHits: 0
+  alwaysDealCriticalHit: 0
+  criticalDamageIncrease: 0
+  isImmuneToMeleeDamage: 0
+  isImmuneToRangedDamage: 0
+  isImmuneToMagicDamage: 0
+  ElementalStatus:
+    immuneToBurn: 0
+    immuneToFreeze: 0
+    immuneToShock: 0
+    hitsBurn: 0
+    hitsFreeze: 0
+    hitsShock: 0
+    burnDamage: 0
+    freezeEffect: 0
+    shockEffect: 0
+  hitsBurn: 0
+  hitsFreeze: 0
+  hitsShock: 0
+  burnDamage: 0
+  freezeEffect: 0
+  shockEffect: 0
 --- !u!1 &6614950558634742190
 GameObject:
   m_ObjectHideFlags: 0

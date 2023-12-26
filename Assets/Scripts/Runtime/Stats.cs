@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Data;
 using Runtime.Enums;
+using Runtime.ItemsRelated;
 using Runtime.StatValue;
 using UnityEngine;
 
@@ -47,6 +48,20 @@ namespace Runtime
 
                 stats[stat] += value;
             }
+        }
+        
+        public void AddItemStats(Item item)
+        {
+            for (int i = 0; i < item.statNames.Count; i++)
+            {
+                IncreaseStat(item.statNames[i], item.statValues[i]);
+            }
+        }
+
+        public void AddLevelUpStat(LevelUpStats levelUpStats)
+        {
+            //AddStat(levelUpStats.stat, levelUpStats.statValue);
+            IncreaseStat(levelUpStats.stat, levelUpStats.statValue);
         }
 
         public void SetStatValues()
@@ -111,19 +126,21 @@ namespace Runtime
             AddStat(AllStats.Magic, 0);
 
             //Base Stats
-            AddStat(AllStats.MagicalAttack, 1);
-            AddStat(AllStats.RangedAttack, 1);
+            AddStat(AllStats.MagicalAttack, 0);
+            AddStat(AllStats.RangedAttack, 0);
             AddStat(AllStats.Damage, 0);
-            AddStat(AllStats.MeleeAttack, 1);
+            AddStat(AllStats.MeleeAttack, 0);
             AddStat(AllStats.Range, 0);
-            AddStat(AllStats.MaxHealth, 10);
-            AddStat(AllStats.CollectRange, 3);
+            AddStat(AllStats.MaxHealth, 0);
+            AddStat(AllStats.CollectRange, 0);
 
             AddStat(AllStats.MoveSpeed, 0);
             AddStat(AllStats.AttackSpeed, 0);
             AddStat(AllStats.PierceNumber, 0);
             AddStat(AllStats.PierceDamage, 0.5f);
             AddStat(AllStats.BounceNumber, 0);
+            
+            AddStat(AllStats.ExpGainMultiplier, 1);
 
             //Secondary Stats
         }

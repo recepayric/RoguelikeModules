@@ -12,6 +12,8 @@ namespace Runtime.UIRelated
         public GameObject floorScreen;
         public GameObject characterSelectScreen;
         public GameObject mapSelectScreen;
+        public GameObject levelUpScreen;
+        public GameObject marketScreen;
 
         private Dictionary<Screens, GameObject> _gameScreens;
 
@@ -23,6 +25,7 @@ namespace Runtime.UIRelated
 
         public void OnOpenScreen(Screens screen, bool destroyPreviousScreen)
         {
+            Debug.Log("Opening a new screen!!!");
             //Destroy Previous Screens
             if (destroyPreviousScreen)
             {
@@ -44,7 +47,6 @@ namespace Runtime.UIRelated
             //todo Get its interface and call "Opened" method.
         }
         
-        
         public void OnCloseScreen(Screens screen)
         {
             //Open new screen
@@ -53,6 +55,7 @@ namespace Runtime.UIRelated
             //todo Get its interface and call "Closed" method.
         }
         
+        
         private void AddScreensIntoDictionary()
         {
             _gameScreens ??= new Dictionary<Screens, GameObject>();
@@ -60,6 +63,8 @@ namespace Runtime.UIRelated
             _gameScreens.Add(Screens.Floor, floorScreen);
             _gameScreens.Add(Screens.CharacterSelect, characterSelectScreen);
             _gameScreens.Add(Screens.MapSelect, mapSelectScreen);
+            _gameScreens.Add(Screens.LevelUp, levelUpScreen);
+            _gameScreens.Add(Screens.Market, marketScreen);
         }
 
         private void AddEvents()
@@ -85,6 +90,8 @@ namespace Runtime.UIRelated
         WeaponUpgrade,
         Floor,
         CharacterSelect,
-        MapSelect
+        MapSelect,
+        LevelUp,
+        Market
     }
 }

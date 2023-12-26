@@ -44,7 +44,8 @@ namespace Runtime.WorldRelated
 
         private void CompleteFloor()
         {
-            EventManager.Instance.FloorEnds();
+            EventManager.Instance.FloorEnds(currentFloor);
+            currentFloor++;
         }
 
         private void OnFloorLoad()
@@ -62,9 +63,9 @@ namespace Runtime.WorldRelated
         {
         }
 
-        private void OnFloorEnds()
+        private void OnFloorEnds(int floorNum)
         {
-            currentFloor++;
+            
         }
 
         public void Destroy()

@@ -49,5 +49,8 @@ public class UIController : MonoBehaviour
         
         if(Input.GetKeyDown(KeyCode.Alpha4))
             EventManager.Instance.OpenScreen(Screens.MapSelect, true);
+        
+        if(Input.GetKeyDown(KeyCode.Alpha5))
+            EventManager.Instance.OpenScreen(Screens.Market, true);
     }
 }

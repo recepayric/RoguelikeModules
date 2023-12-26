@@ -12,6 +12,7 @@ namespace Runtime.Collectables
         public bool isBeingCollected = false;
         private Transform _target;
         private Coroutine _returnCoroutine;
+        private float value = 1;
 
         public void Collect(Transform target)
         {
@@ -42,6 +43,7 @@ namespace Runtime.Collectables
         private void FinishedCollecting()
         {
             CollectableManager.instance.OnCollected(this);
+            EventManager.Instance.OrbCollected(value);
             BasicPool.instance.Return(gameObject);
         }
 

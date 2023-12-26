@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Data;
+using Runtime.Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace Runtime.UIRelated.WeaponUpgrades
 {
-    public class WeaponUpgradeScreenUI : MonoBehaviour
+    public class WeaponUpgradeScreenUI : MonoBehaviour, IOpenable
     {
         public WeaponUpgradeTreeSo weaponUpgradeTree;
         
@@ -20,6 +21,11 @@ namespace Runtime.UIRelated.WeaponUpgrades
         public bool isDetailPanelOpen;
         
         private void Start()
+        {
+            
+        }
+
+        private void Awake()
         {
             
         }
@@ -73,6 +79,32 @@ namespace Runtime.UIRelated.WeaponUpgrades
                 upgradeNodeScripts[i].nodeName = Random.Range(100, 200).ToString();
                 upgradeNodeScripts[i].AddAttribute("•" + Random.Range(100, 200).ToString());
             }
+        }
+
+        private void OnSetWeaponDataForTree(WeaponUpgradeTreeSo weaponTreeData)
+        {
+            weaponUpgradeTree = weaponTreeData;
+            SetNodes();
+        }
+
+        private void AddEvents()
+        {
+            EventManager.Instance.SetWeaponDataForTreeEvent += OnSetWeaponDataForTree;
+        }
+
+        private void RemoveEvents()
+        {
+            EventManager.Instance.SetWeaponDataForTreeEvent -= OnSetWeaponDataForTree;
+        }
+
+        public void OnOpened()
+        {
+            AddEvents();
+        }
+
+        public void OnClosed()
+        {
+            RemoveEvents();
         }
     }
 }

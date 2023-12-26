@@ -8,10 +8,12 @@ namespace Runtime.TowerRelated
     [Serializable]
     public class Tower
     {
+        public float statIncreaseRatePerFloor = 1.1f;
+        public float baseStatIncrease = 1f;
+        
         public int tier;
         public string towerName;
         public List<TowerModifier> TowerModifiers;
-
         private float _dropRateIncrease;
         public float DropRateIncrease
         {

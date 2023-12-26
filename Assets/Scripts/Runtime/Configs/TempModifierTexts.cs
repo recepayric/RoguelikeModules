@@ -7,6 +7,7 @@
         public static string MonsterDamageIncrease = "Monsters have [x]% increase Damage";
         public static string MonsterRangeIncrease = "Monsters have [x]% increase Range";
         public static string MonsterDefenceIncrease = "Monsters have [x]% increase Defence";
+        public static string MonsterEvasionIncrease = "Monsters have [x]% increase Evasion";
         public static string MonsterAttackSpeedIncrease = "Monsters have [x]% increase Attack Speed";
         public static string MonsterAlwaysDealCriticalHit = "Monsters always deal critical strike";
         public static string MonsterDontTakeCriticalHit = "Monsters don't take critical hit";

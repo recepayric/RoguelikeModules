@@ -78,3 +78,6 @@ MonoBehaviour:
   footer: Not many of them surviveD
   specialModifiers: 
   unlockCondition: 
+  baseExpNeeded: 50
+  baseExpNeedIncrease: 1.2
+  baseExpGainMultiplier: 1

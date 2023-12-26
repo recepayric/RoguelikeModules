@@ -1,4 +1,8 @@
 ﻿using System;
+using Data;
+using Data.LevelUp;
+using Runtime.ItemsRelated;
+using Runtime.StatValue;
 using Runtime.UIRelated;
 using UnityEngine;
 using UnityEngine.Events;
@@ -25,23 +29,52 @@ namespace Runtime.Managers
 
         public event UnityAction<int> CreateTowerEvent;
         public void CreateTower(int tier) => CreateTowerEvent?.Invoke(tier);
-        
+
         public event UnityAction<int> PrepareTowerEvent;
         public void PrepareTower(int tier) => PrepareTowerEvent?.Invoke(tier);
 
+        #region Animation Related
+
+        public event UnityAction<float> LiftWandEvent;
+        public void LiftWand(float timeToLift) => LiftWandEvent?.Invoke(timeToLift);
+
+        public event UnityAction DownWandEvent;
+        public void DownWand() => DownWandEvent?.Invoke();
+
+        #endregion
 
         #region Gameplay Ralated
 
         public event UnityAction LoadTowerEvent;
         public void LoadTower() => LoadTowerEvent?.Invoke();
-        
+
+        public event UnityAction WeaponsUpdatedEvent;
+        public void WeaponsUpdated() => WeaponsUpdatedEvent?.Invoke();
 
         #endregion
-        
+
+
+        #region Level Up Related
+
+        public event UnityAction<LevelUpStats> LevelUpStatSelectedEvent;
+        public void LevelUpStatSelected(LevelUpStats levelUpStat) => LevelUpStatSelectedEvent?.Invoke(levelUpStat);
+
+        public event UnityAction<float> OrbCollectedEvent;
+        public void OrbCollected(float value) => OrbCollectedEvent?.Invoke(value);
+
+        #endregion
+
+        #region Item Related
+
+        public event UnityAction<Item> ItemBuyEvent;
+        public void ItemBuy(Item item) => ItemBuyEvent?.Invoke(item);
+
+        #endregion
+
         #region Floor Related
 
-        public event UnityAction FloorEndsEvent;
-        public void FloorEnds() => FloorEndsEvent?.Invoke();
+        public event UnityAction<int> FloorEndsEvent;
+        public void FloorEnds(int floorNum) => FloorEndsEvent?.Invoke(floorNum);
 
         public event UnityAction FloorStartsEvent;
         public void FloorStarts() => FloorStartsEvent?.Invoke();
@@ -52,23 +85,35 @@ namespace Runtime.Managers
         public event UnityAction FloorExitEvent;
         public void FloorExit() => FloorExitEvent?.Invoke();
 
-        #endregion
 
+        #endregion
 
         #region UI Related
 
         public event UnityAction<int> UpdateFloorTimerEvent;
         public void UpdateFloorTimer(int remainingTime) => UpdateFloorTimerEvent?.Invoke(remainingTime);
-        
+
         public event UnityAction<int> UpdateFloorNumberEvent;
         public void UpdateFloorNumber(int floorNumber) => UpdateFloorNumberEvent?.Invoke(floorNumber);
-        
+
         public event UnityAction<Screens, bool> OnOpenScreen;
-        public void OpenScreen(Screens sceneToOpen, bool closePreviousScreens) => OnOpenScreen?.Invoke(sceneToOpen, closePreviousScreens);
-        
+
+        public void OpenScreen(Screens sceneToOpen, bool closePreviousScreens) =>
+            OnOpenScreen?.Invoke(sceneToOpen, closePreviousScreens);
+
         public event UnityAction<Screens> OnCloseScreen;
         public void CloseScreen(Screens sceneToClose) => OnCloseScreen?.Invoke(sceneToClose);
 
+        public event UnityAction<float, float, float> UpdateLevelProgressEvent;
+        public void UpdateLevelProgress(float percentage, float experience, float neededExperience) =>
+            UpdateLevelProgressEvent?.Invoke(percentage, experience, neededExperience);
+        
+        public event UnityAction<int> SetLevelUpAmountEvent;
+        public void SetLevelUpAmount(int levelUpAmount) => SetLevelUpAmountEvent?.Invoke(levelUpAmount);
+
+        public event UnityAction<WeaponUpgradeTreeSo> SetWeaponDataForTreeEvent;
+        public void SetWeaponDataForTree(WeaponUpgradeTreeSo weaponTreeDatasSo) => SetWeaponDataForTreeEvent?.Invoke(weaponTreeDatasSo);
+        
         #endregion
 
         public event UnityAction PlayerDiesEvent;
