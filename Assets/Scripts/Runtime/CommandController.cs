@@ -1,5 +1,6 @@
 ﻿using System;
 using Runtime.Enums;
+using Runtime.Interfaces;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,7 +15,7 @@ namespace Runtime
         }
 
 
-        public void SplitProjectile(Vector3 centerPosition, int splitAmount, PoolKeys projectileKey, GameObject ignoredEnemy)
+        public void SplitProjectile(Vector3 centerPosition, int splitAmount, PoolKeys projectileKey, IDamageable ignoredEnemy)
         {
             for (int i = 0; i < splitAmount; i++)
             {

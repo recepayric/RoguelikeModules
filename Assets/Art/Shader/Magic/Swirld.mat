@@ -39,7 +39,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Float: 0
-    - _SwidlValue: 0
+    - _SwidlValue: 1
     - _Twirl_Strength: 12.51
     - _Val1: 0
     - _Val2: 2.9

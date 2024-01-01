@@ -7,7 +7,7 @@ namespace Runtime.Modifiers.ElementalModifiers
 {
     [Serializable]
     public class AddFreezingOnHit : Modifier
-    { 
+    {
         public AddFreezingOnHit()
         {
             SetUseArea(ModifierUseArea.OnStart);

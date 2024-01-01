@@ -39,7 +39,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Angle: 0
-    - _Dissolve_Amount: 0.25
+    - _Dissolve_Amount: -0.39
     - _Dissolve_Scale: 1
     - _Distortion: 0.05
     - _Distortion_Scale: 14.76

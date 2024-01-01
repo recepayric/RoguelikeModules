@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Data;
 using Runtime.Managers;
+using Runtime.WeaponRelated;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,7 +12,9 @@ namespace Runtime.UIRelated.WeaponUpgrades
 {
     public class WeaponUpgradeScreenUI : MonoBehaviour, IOpenable
     {
-        public WeaponUpgradeTreeSo weaponUpgradeTree;
+        public Weapon weapon;
+        public WeaponUpgradeTreeSo weaponUpgradeTreeSo;
+        public WeaponUpgradeTree weaponUpgradeTree;
         
         public List<GameObject> upgradeNodes;
         public List<UpgradeNodeUI> upgradeNodeScripts;
@@ -19,16 +22,6 @@ namespace Runtime.UIRelated.WeaponUpgrades
         public NodeDetailsPanel sNodeDetailPanel;
         public GameObject nodeDetailPanel;
         public bool isDetailPanelOpen;
-        
-        private void Start()
-        {
-            
-        }
-
-        private void Awake()
-        {
-            
-        }
 
         public void OpenNodeDetail(UpgradeNodeUI node)
         {
@@ -67,11 +60,11 @@ namespace Runtime.UIRelated.WeaponUpgrades
         [Button]
         public void SetNodes()
         {
-            var nodeCount = weaponUpgradeTree.TreeNodes.Count;
-            for (int i = 0; i < weaponUpgradeTree.TreeNodes.Count; i++)
+            var nodeCount = weaponUpgradeTreeSo.TreeNodes.Count;
+            for (int i = 0; i < weaponUpgradeTreeSo.TreeNodes.Count; i++)
             {
-                upgradeNodeScripts[i].nodeName = weaponUpgradeTree.TreeNodes[i].NodeName;
-                upgradeNodeScripts[i].AddAttribute("•" + weaponUpgradeTree.TreeNodes[i].NodeText);
+                upgradeNodeScripts[i].SetUpgradeTreeNode(weaponUpgradeTreeSo.TreeNodes[i]);
+                upgradeNodeScripts[i].SetStatus(weaponUpgradeTree.CheckIfNodeActive(weaponUpgradeTreeSo.TreeNodes[i]));
             }
 
             for (int i = nodeCount; i < upgradeNodeScripts.Count; i++)
@@ -81,20 +74,35 @@ namespace Runtime.UIRelated.WeaponUpgrades
             }
         }
 
+        public void ActivateNode(UpgradeTreeNode nodeToActivate)
+        {
+            weaponUpgradeTree.ActivateNode(nodeToActivate);
+        }
+
         private void OnSetWeaponDataForTree(WeaponUpgradeTreeSo weaponTreeData)
         {
-            weaponUpgradeTree = weaponTreeData;
+            //weaponUpgradeTreeSo = weaponTreeData;
+            //SetNodes();
+        }
+
+        private void OnSetWeaponForTree(Weapon pWeapon)
+        {
+            weapon = pWeapon;
+            weaponUpgradeTreeSo = weapon.weaponUpgradeTree.weaponUpgradeTree;
+            weaponUpgradeTree = weapon.weaponUpgradeTree;
             SetNodes();
         }
 
         private void AddEvents()
         {
             EventManager.Instance.SetWeaponDataForTreeEvent += OnSetWeaponDataForTree;
+            EventManager.Instance.SetWeaponForTreeEvent += OnSetWeaponForTree;
         }
 
         private void RemoveEvents()
         {
             EventManager.Instance.SetWeaponDataForTreeEvent -= OnSetWeaponDataForTree;
+            EventManager.Instance.SetWeaponForTreeEvent -= OnSetWeaponForTree;
         }
 
         public void OnOpened()

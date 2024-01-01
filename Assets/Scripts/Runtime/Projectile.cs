@@ -4,6 +4,7 @@ using System.Linq;
 using DG.Tweening;
 using Runtime.Configs;
 using Runtime.Enums;
+using Runtime.Interfaces;
 using Runtime.Modifiers;
 using Runtime.ProjectileRelated;
 using UnityEngine;
@@ -45,6 +46,9 @@ namespace Runtime
         public bool doesExplode = false;
         public float explosionTimer;
 
+        public TargetType targetType;
+        public IShooter Shooter;
+        public IDamageable Damagable;
 
         //Specs - Homing
         [Header("Homing")] public bool isHomingProjectile = false;
@@ -58,7 +62,7 @@ namespace Runtime
         //Split
         public bool split;
         public int splitAmount;
-        public GameObject ignoredEnemy;
+        public IDamageable ignoredEnemy;
         public PoolKeys splitProjectileKey;
 
         private ProjectileCurve _projectileCurve;
@@ -69,7 +73,7 @@ namespace Runtime
 
         //Damage Related
         [Header("Damages")] public float damage;
-        
+
         //RotatingData
         public bool isRotating;
         public float rotatingDistance;
@@ -109,6 +113,11 @@ namespace Runtime
                 Spin();
         }
 
+        public void SetShooter(IShooter pShooter)
+        {
+            Shooter = pShooter;
+        }
+        
         public void SetMaxDistance(float weaponDistance)
         {
             maxTravel = weaponDistance / GameConfig.RangeToRadius;
@@ -133,6 +142,10 @@ namespace Runtime
             {
                 _projectileCurve = GetComponent<ProjectileCurve>();
                 _projectileCurve.RandomiseCurve();
+            }
+            else
+            {
+                return;
             }
 
             var distance = Vector3.Distance(transform.position, this.targetEnemy.transform.position);
@@ -161,18 +174,6 @@ namespace Runtime
             var timer = 0f;
 
             var deltaStepTime = timeToTurn / steps;
-
-            return;
-            DOVirtual.DelayedCall(deltaStepTime, () =>
-            {
-                targetRight = targetEnemy.transform.position - transform.position;
-                difference = targetRight - initialRight;
-
-                var perc = timer / timeToTurn;
-                transform.right = initialRight + (difference * perc);
-
-                timer += deltaTime;
-            }).SetLoops(steps).SetId(gameObject.GetInstanceID() + "turn");
         }
 
         private void ResetTravelData()
@@ -245,16 +246,16 @@ namespace Runtime
 
         private void UpdateRotatingMove()
         {
-            rotationAngle += Time.deltaTime * projectileSpeed*10;
+            rotationAngle += Time.deltaTime * projectileSpeed * 10;
             if (rotationAngle >= 360f) rotationAngle -= 360f;
-            var targetAngle = rotationAngle + Weapon.rotationGlobal;
+            var targetAngle = rotationAngle + Weapon.RotationGlobal;
 
-            var posX = rotatingDistance*Mathf.Cos(Mathf.Deg2Rad * targetAngle);
-            var posY = rotatingDistance*Mathf.Sin(Mathf.Deg2Rad * targetAngle);
+            var posX = rotatingDistance * Mathf.Cos(Mathf.Deg2Rad * targetAngle);
+            var posY = rotatingDistance * Mathf.Sin(Mathf.Deg2Rad * targetAngle);
 
             var currentPos = pTransform.position;
             var targetPos = ScriptDictionaryHolder.Player.transform.position + new Vector3(posX, posY, 0);
-            
+
             pTransform.right = targetPos - currentPos;
 
             deltaTravel = Time.deltaTime * projectileSpeed * pTransform.right;
@@ -262,15 +263,28 @@ namespace Runtime
             currentPos += deltaTravel;
             pTransform.position = currentPos;
 
+            if (destroyAfterTravelingMax && distanceTraveled >= maxTravel * 2)
+            {
+                //Debug.Log("Travelled: " + distanceTraveled + "    " + maxTravel);
+                //Destroy(gameObject);
+                if (isHomingProjectile)
+                {
+                    SelectRandomEnemy();
+                    isHomingProjectile = true;
+                    isRotating = false;
+                }
+                else
+                {
+                    Destroy(gameObject);
+                }
+            }
+
             rotationTimer -= Time.deltaTime;
 
             if (rotationTimer <= Random.Range(0, -1f))
             {
                 //Debug.Log("Travelled: " + distanceTraveled + "    " + maxTravel);
                 //Destroy(gameObject);
-                SelectRandomEnemy();
-                isHomingProjectile = true;
-                isRotating = false;
             }
         }
 
@@ -294,9 +308,9 @@ namespace Runtime
             DOVirtual.DelayedCall(0.25f, () => { Destroy(gameObject); });
         }
 
-        public void HitTarget(Enemy enemy)
+        public void HitTarget(IDamageable enemy)
         {
-            if (enemy.gameObject == ignoredEnemy)
+            if (enemy == ignoredEnemy)
                 return;
 
             if (isHomingProjectile)
@@ -304,22 +318,27 @@ namespace Runtime
                 DOTween.Kill(gameObject.GetInstanceID() + "turn");
             }
 
-            damage = weapon.weaponStats.damage;
+            //damage = weapon.weaponStats.damage;
+            damage = Shooter?.GetDamage() ?? 0;
             //ResetTravelData();
             var isCrit = Random.Range(0, 1f) <= criticalHitChance;
 
-            enemy.GetHit((int)damage, isCrit);
+            enemy.DealDamage((int)damage, isCrit);
 
             //Apply Ailments!
-            if (weapon.weaponStats.addBurn)
-                enemy.AddBurning(weapon.weaponStats.burnTime, weapon.weaponStats.burnDamage);
+            //todo redo this!!!
+            //
+            // if (weapon.weaponStats.addBurn)
+            //     enemy.AddBurning(weapon.weaponStats.burnTime, weapon.weaponStats.burnDamage);
+            //
+            // if (weapon.weaponStats.addFreeze)
+            //     enemy.AddFreeze(weapon.weaponStats.freezeTime, weapon.weaponStats.freezeEffect);
+            //
+            // if (weapon.weaponStats.addShock)
+            //     enemy.AddShock(weapon.weaponStats.shockTime, weapon.weaponStats.shockEffect);
 
-            if (weapon.weaponStats.addFreeze)
-                enemy.AddFreeze(weapon.weaponStats.freezeTime, weapon.weaponStats.freezeEffect);
-
-            if (weapon.weaponStats.addShock)
-                enemy.AddShock(weapon.weaponStats.shockTime, weapon.weaponStats.shockEffect);
-
+            if (modifiers == null)
+                modifiers = new List<Modifier>();
             foreach (var modifier in modifiers)
             {
                 modifier.ApplyEffect(gameObject, this, isCrit);
@@ -327,8 +346,8 @@ namespace Runtime
 
             if (split)
             {
-                CommandController.instance.SplitProjectile(enemy.transform.position, splitAmount, splitProjectileKey,
-                    enemy.gameObject);
+                CommandController.instance.SplitProjectile(enemy.Transform.position, splitAmount, splitProjectileKey,
+                    enemy);
                 //Destroy(gameObject);
             }
 
@@ -338,7 +357,7 @@ namespace Runtime
                 StopTravelDestroy();
                 ResetTravelData();
                 bounceNum--;
-                var newTarget = GetClosestEnemy(enemy.gameObject);
+                var newTarget = GetClosestEnemy(enemy.Transform.gameObject);
                 if (newTarget == null)
                     Destroy(gameObject);
                 else
@@ -368,7 +387,8 @@ namespace Runtime
 
                 if (collidedEnemy.CompareTag("Enemy") && collidedEnemy.gameObject != currentEnemy)
                 {
-                    return collidedEnemy.gameObject;
+                    if(ScriptDictionaryHolder.Enemies[collidedEnemy.gameObject].IsAvailable())
+                        return collidedEnemy.gameObject;
                 }
             }
 
@@ -376,9 +396,12 @@ namespace Runtime
             return null;
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("Projectile hit enemy!");
+            Debug.Log("Projectile Hit!!");
+            var damageable = other.gameObject.GetComponent<IDamageable>();
+            if(damageable != null)
+                HitTarget(damageable);
         }
 
         public PoolKeys PoolKeys { get; set; }

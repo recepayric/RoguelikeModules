@@ -76,7 +76,7 @@ namespace Runtime.Effects
 
         private void DealDamage(GameObject enemy)
         {
-            enemy.GetComponent<Enemy>().GetHit(1, false);
+            enemy.GetComponent<Enemy>().DealDamage(1, false);
         }
 
         public PoolKeys PoolKeys { get; set; }

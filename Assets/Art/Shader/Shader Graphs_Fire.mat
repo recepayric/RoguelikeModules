@@ -39,13 +39,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _Angle: 0
-    - _Dissolve_Amount: 0.25
+    - _Dissolve_Amount: -1
     - _Dissolve_Scale: 1
     - _Distortion: 0.05
-    - _Distortion_Scale: 14.76
+    - _Distortion_Scale: 20
     - _Scale: 5
     m_Colors:
-    - _Color: {r: 12.376149, g: 1.8143047, b: 0, a: 1}
+    - _Color: {r: 2.9960785, g: 0.47058824, b: 0, a: 1}
     - _Dissolve_Speed: {r: -0.75, g: 0, b: 0, a: 0}
     - _Remap: {r: 0, g: 1, b: 0, a: 0}
     - _Speed: {r: -0.3, g: 0, b: 0, a: 0}

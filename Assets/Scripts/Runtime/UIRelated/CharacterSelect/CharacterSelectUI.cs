@@ -1,6 +1,7 @@
 ﻿using Data;
 using Data.WeaponDataRelated;
 using Runtime.Enums;
+using Runtime.Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -71,6 +72,14 @@ namespace Runtime.UIRelated.CharacterSelect
             }
         }
 
+        public void FinishCharacterSelect()
+        {
+            EventManager.Instance.CharacterSelected(selectedCharacter);
+            EventManager.Instance.WeaponSelected(selectedWeapon);
+            
+            EventManager.Instance.OpenScreen(Screens.MapSelect, true);
+        }
+
 
         #region SetCharacterDetails
 
@@ -96,6 +105,8 @@ namespace Runtime.UIRelated.CharacterSelect
             }
 
             detailsText.text = stats;
+            
+            EventManager.Instance.CharacterSelectChanged(characterDataSo.characterName);
         }
 
         #endregion
@@ -135,10 +146,12 @@ namespace Runtime.UIRelated.CharacterSelect
             //set initial selected character!
             selectedCharacter = characters[0];
             SetDetails(selectedCharacter);
+            EventManager.Instance.SetCharacterCameraStatus(true);
         }
 
         public void OnClosed()
         {
+            EventManager.Instance.SetCharacterCameraStatus(false);
         }
     }
 }

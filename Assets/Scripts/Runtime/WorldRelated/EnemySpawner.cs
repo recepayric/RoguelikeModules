@@ -48,7 +48,6 @@ namespace Runtime.WorldRelated
 
         public void SpawnMonster()
         {
-            Debug.Log("Spawning Enemy!");
             for (int i = 0; i < SpawnDatas[waveSpawned].Amount; i++)
             {
                 var randX = Random.Range(-xBound, xBound);

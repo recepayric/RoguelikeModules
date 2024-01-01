@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using Data;
 using Runtime.Configs;
 using Runtime.Enums;
+using Runtime.Interfaces;
 using Runtime.ItemsRelated;
 using Runtime.Managers;
 using Runtime.Minions;
 using Runtime.Modifiers;
 using Runtime.PlayerRelated;
+using Runtime.SpellsRelated;
 using Runtime.StatValue;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Runtime
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, ISpellCaster, IDamageable
     {
+        public Transform Transform { get; set; }
+        public GameObject SpellPosition;
         public ActiveCharacterSo activeCharacterSo;
         public PlayerLevel playerLevel;
         public Health healthBar;
@@ -32,6 +36,8 @@ namespace Runtime
         public List<GameObject> weaponObjects;
         public List<Weapon> allWeapons;
         public List<LevelUpStats> levelUpStatsList;
+        public List<Spells> spellsToAdd;
+        public List<Spell> spells;
         public Weapon equippedWeapon;
 
         public GameObject weaponPrefab;
@@ -56,11 +62,16 @@ namespace Runtime
         public List<Modifier> modifiersOnGetHit;
         public List<Modifier> modifiersOnHealthChange;
         public List<Modifier> modifiersOnItemBuy;
+        
+        //Spell Gamble
+        public AllStats statFromGamble;
+        public float gambleStatIncrease;
 
 
         // Start is called before the first frame update
         void Start()
         {
+            Transform = transform;
             playerLevel.SetPlayerData(characterDataSo, stats);
             SetSpecialModifiers();
             CalculateBaseStats();
@@ -81,6 +92,9 @@ namespace Runtime
             AddEvents();
             
             SetActiveCharacter();
+
+            AddSpells();
+           
         }
 
         private void SetActiveCharacter()
@@ -124,7 +138,7 @@ namespace Runtime
         }
 
         [Button]
-        public void Hit(float damage, AttackType attackType)
+        public void DealDamage(float damage, bool isCriticalDamage)
         {
             damageTaken += damage;
 
@@ -201,21 +215,6 @@ namespace Runtime
             }
         }
 
-        private void UpdateStatsWithItems()
-        {
-            stats.SetBaseStats();
-
-            for (int i = 0; i < items.Count; i++)
-            {
-                //for (int j = 0; j < items[i].quantity; j++)
-                // {
-                //stats.AddStats(items[i].itemStats);
-                // }
-            }
-            
-            stats.CalculateStats();
-        }
-
         private void CalculateStats()
         {
             stats.SetBaseStats();
@@ -229,8 +228,27 @@ namespace Runtime
             {
                 stats.AddLevelUpStat(levelUpStatsList[i]);
             }
+
+            if (statFromGamble == AllStats.Strength || statFromGamble == AllStats.Dexterity ||
+                statFromGamble == AllStats.Intelligence || statFromGamble == AllStats.Magic)
+            {
+                var currentValue = stats.GetStat(statFromGamble);
+                var increase = currentValue * (gambleStatIncrease / 100f);
+                
+                Debug.Log(gambleStatIncrease + " increased by " + increase);
+                stats.IncreaseStat(statFromGamble, increase);
+                stats.CalculateStats();
+            }
+            else
+            {
+                stats.CalculateStats();
+                var currentValue = stats.GetStat(statFromGamble);
+                var increase = currentValue * (gambleStatIncrease / 100f);
+                Debug.Log(gambleStatIncrease + " increased by " + increase);
+                stats.IncreaseStat(statFromGamble, increase);
+                stats.SetStatValues();
+            }
             
-            stats.CalculateStats();
         }
 
         public void AddItem(Item itemToAdd)
@@ -263,6 +281,9 @@ namespace Runtime
 
             foreach (var enemies in ScriptDictionaryHolder.Enemies)
             {
+                if (!enemies.Value.IsAvailable())
+                    continue;
+                
                 var distance = Vector3.Distance(transform.position, enemies.Key.transform.position);
                 if (distance < closestDistance)
                 {
@@ -396,14 +417,26 @@ namespace Runtime
             }
         }
 
+        private void OnFloorStarts()
+        {
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                weapons[i].OnFloorStart();
+            }
+            
+            CastSpells();
+        }
+
         private void AddEvents()
         {
+            EventManager.Instance.FloorStartsEvent += OnFloorStarts;
             EventManager.Instance.LevelUpStatSelectedEvent += OnLevelUpStatSelected;
             EventManager.Instance.ItemBuyEvent += OnItemBuy;
         }
 
         private void RemoveEvents()
         {
+            EventManager.Instance.FloorStartsEvent -= OnFloorStarts;
             EventManager.Instance.LevelUpStatSelectedEvent -= OnLevelUpStatSelected;
             EventManager.Instance.ItemBuyEvent -= OnItemBuy;
         }
@@ -411,6 +444,75 @@ namespace Runtime
         private void OnDestroy()
         {
             RemoveEvents();
+        }
+
+        public float GetRange()
+        {
+            return stats.GetStat(AllStats.Range);
+        }
+
+        public Vector3 GetSpellPosition()
+        {
+            return SpellPosition.transform.position;
+        }
+
+        public void AddGambleStat(AllStats stat, float increase)
+        {
+            statFromGamble = stat;
+            gambleStatIncrease = increase;
+            CalculateStats();
+        }
+
+        public void AddSpells()
+        {
+            for (int i = 0; i < spellsToAdd.Count; i++)
+            {
+                spells.Add(CreateSpell(spellsToAdd[i]));
+            }
+            
+            spellsToAdd.Clear();
+        }
+
+        private Spell CreateSpell(Spells spellToCreate)
+        {
+            var poolKey = PoolKeys.BurnAura;
+            switch (spellToCreate)
+            {
+                case Spells.RockFall:
+                    break;
+                case Spells.BurnAura:
+                    poolKey = PoolKeys.BurnAura;
+                    break;
+                case Spells.ColdAura:
+                    poolKey = PoolKeys.ColdAura;
+                    break;
+                case Spells.ShockAura:
+                    poolKey = PoolKeys.ShockAura;
+                    break;
+                case Spells.GambleForStat:
+                    poolKey = PoolKeys.GambleForStat;
+                    break;
+            }
+
+            var spell = BasicPool.instance.Get(poolKey);
+            return spell.GetComponent<Spell>();
+        }
+
+        [Button]
+        public void CastSpells()
+        {
+            for (int i = 0; i < spells.Count; i++)
+            {
+                spells[i].Prepare();
+                spells[i].SetOwnerScript(this);
+                spells[i].FollowsOwner = true;
+                spells[i].StartSpell();
+            }
+        }
+
+        public GameObject GetGameObject()
+        {
+            return gameObject;
         }
     }
 }

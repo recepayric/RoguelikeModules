@@ -15,6 +15,7 @@ namespace Runtime.UIRelated.Market
         {
             EventManager.Instance.OpenScreen(Screens.WeaponUpgrade, true);
             EventManager.Instance.SetWeaponDataForTree(weapon.weaponUpgradeTree.weaponUpgradeTree);
+            EventManager.Instance.SetWeaponForTree(weapon);
         }
 
         public bool HasUnusedSkillPoint()

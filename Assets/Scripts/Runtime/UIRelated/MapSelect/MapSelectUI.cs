@@ -83,6 +83,11 @@ namespace Runtime.UIRelated.MapSelect
             mapDetailUI.SetTier(currentTier+1);
             mapDetailUI.UpdateTowerDetails();
         }
+        
+        public void StartTower()
+        {
+            EventManager.Instance.LoadTower();
+        }
 
         public void OnOpened()
         {

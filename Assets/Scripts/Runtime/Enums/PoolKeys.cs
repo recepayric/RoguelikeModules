@@ -15,6 +15,13 @@
         ProjectileMagic,
         ProjectileRock,
         CharacterIconUI,
-        WeaponIconUI
+        WeaponIconUI,
+        BurnAura,
+        ColdAura,
+        ShockAura,
+        GambleForStat,
+        MeteorFallSpell,
+        WindShield,
+        EnemyBuffSpell
     }
 }

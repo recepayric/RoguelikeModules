@@ -16,6 +16,7 @@ namespace Data.EnemyDataRelated
         public float baseDefence;
         public float baseAttackRange;
         public float baseMaxAttackRange;
+        public float baseProjectileNumber;
         public AttackType attackType;
     }
 }

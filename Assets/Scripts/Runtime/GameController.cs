@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Data;
+using Data.WeaponDataRelated;
 using DG.Tweening;
 using Runtime.Enums;
 using Runtime.Managers;
@@ -37,6 +38,9 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private CurrencyDataSo _currencyDataSo;
 
+    public CharacterDataSo selectedCharacter;
+    public WeaponDataSo starterWeapon;
+
     
     void Start()
     {
@@ -47,6 +51,14 @@ public class GameController : MonoBehaviour
         _currencyDataSo = Resources.Load<CurrencyDataSo>("CollectableData");
         
         AddEvents();
+        
+        GameStart();
+    }
+
+    private void GameStart()
+    {
+        EventManager.Instance.GameStart();
+        EventManager.Instance.OpenScreen(Screens.CharacterSelect, true);
     }
     
     void Update()
@@ -100,17 +112,34 @@ public class GameController : MonoBehaviour
 
     private void OnLoadLevel()
     {
+        //Load Player here!!!
+        Debug.Log("Player is being created");
+        Debug.Log("Starter weapon is being given!");
         EventManager.Instance.OpenScreen(Screens.Floor, true);
+    }
+
+    private void OnCharacterSelected(CharacterDataSo characterDataSo)
+    {
+        selectedCharacter = characterDataSo;
+    }
+
+    private void OnWeaponSelected(WeaponDataSo weaponDataSo)
+    {
+        starterWeapon = weaponDataSo;
     }
 
     private void AddEvents()
     {
         EventManager.Instance.LoadTowerEvent += OnLoadLevel;
+        EventManager.Instance.CharacterSelectedEvent += OnCharacterSelected;
+        EventManager.Instance.WeaponSelectedEvent += OnWeaponSelected;
     }
 
     private void RemoveEvents()
     {
         EventManager.Instance.LoadTowerEvent -= OnLoadLevel;
+        EventManager.Instance.CharacterSelectedEvent -= OnCharacterSelected;
+        EventManager.Instance.WeaponSelectedEvent -= OnWeaponSelected;
     }
 
     private void OnDestroy()

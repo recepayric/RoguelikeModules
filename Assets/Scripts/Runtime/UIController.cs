@@ -19,7 +19,7 @@ public class UIController : MonoBehaviour
         instance = this;
     }
 
-    public void AddDamageText(GameObject enemy, int damage, bool isCritical)
+    public void AddDamageText(GameObject enemy, float damage, bool isCritical)
     {
         var text = Instantiate(textObject);
         text.transform.position = enemy.transform.position + Vector3.up * 0.5f;

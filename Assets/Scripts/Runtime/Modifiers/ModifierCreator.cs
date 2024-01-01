@@ -37,49 +37,6 @@ namespace Runtime.Modifiers
                 return null;
             }
             return allModifiers[specialModifiers];
-
-
-            switch (specialModifiers)
-            {
-                case SpecialModifiers.BounceOnCriticalStrike:
-                    BounceOnCrit bounceOnCrit = new BounceOnCrit();
-                    allModifiers.Add(specialModifiers, bounceOnCrit);
-                    return bounceOnCrit;
-
-                case SpecialModifiers.SplitOnHit:
-                    SplitOnHit splitOnHit = new SplitOnHit();
-                    allModifiers.Add(specialModifiers, splitOnHit);
-                    return splitOnHit;
-
-                case SpecialModifiers.RotatingProjectiles:
-                    
-                case SpecialModifiers.HomingProjectiles:
-                    
-                case SpecialModifiers.BurnOnHit:
-                    AddBurningEffect addBurningEffect = new AddBurningEffect();
-                    allModifiers.Add(specialModifiers, addBurningEffect);
-                    return addBurningEffect;
-                
-                case SpecialModifiers.FreezeOnHit:
-                    AddFreezingOnHit addFreezingOnHit = new AddFreezingOnHit();
-                    allModifiers.Add(specialModifiers, addFreezingOnHit);
-                    return addFreezingOnHit;
-                
-                case SpecialModifiers.ShockOnHit:
-                    AddShockOnHit addShockOnHit = new AddShockOnHit();
-                    allModifiers.Add(specialModifiers, addShockOnHit);
-                    return addShockOnHit;
-
-                case SpecialModifiers.LowHealthMoreAttackSpeed:
-                    LowHealthMoreAttackSpeed lowHealthMoreAttackSpeed = new LowHealthMoreAttackSpeed();
-                    allModifiers.Add(specialModifiers, lowHealthMoreAttackSpeed);
-                    return lowHealthMoreAttackSpeed;
-                    
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(specialModifiers), specialModifiers, null);
-            }
-            
-            return null;
         }
     }
 }

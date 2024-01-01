@@ -12,7 +12,7 @@
     
     public enum WeaponTypes
     {
-        Ranged, Melee
+        Ranged, Melee, Magic, Trap
     }
 
     public enum Weapons

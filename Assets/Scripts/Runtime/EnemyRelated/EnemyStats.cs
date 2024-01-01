@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Data.EnemyDataRelated;
 using Runtime.Enums;
 using Runtime.PlayerRelated;
@@ -30,6 +31,9 @@ namespace Runtime.EnemyRelated
         public float currentDefence;
         public float currentAttackRange;
         public float currentMaxAttackRange;
+        public float currentProjectileNumber;
+        public float currentCriticalHitChance;
+        public float currentCriticalHitMultiplier;
         public AttackType AttackType;
 
         [Header("Special Stats")] public bool isImmuneToCriticalHits;
@@ -48,6 +52,30 @@ namespace Runtime.EnemyRelated
         public float burnDamage;
         public float freezeEffect;
         public float shockEffect;
+
+        public Dictionary<AllStats, float> StatsToBuff;
+        
+        
+        //todo move these effects here from Enemy class!!!!!!!
+        //Self Stats
+        //Ailments
+        [Header("Ailment Objects")] public GameObject burnAilmentObject;
+        public GameObject freezeAilmentObject;
+        public GameObject shockAilmentObject;
+
+        [Header("Ailments")] public bool isBurning;
+        public bool isFrozen;
+        public bool isShocked;
+
+        //Ailment Times
+        [Header("Ailment Times")] public float burnTime;
+        public float freezeTime;
+        public float shockTime;
+
+        //Ailment Effects
+        [Header("Ailment Effects")] public float burningDamagePerSecond;
+        public float freezeEffectTaken;
+        public float shockEffectTaken;
 
 
         private void Start()
@@ -71,6 +99,7 @@ namespace Runtime.EnemyRelated
             currentEvasion = enemyData.baseEvasion;
             currentDefence = enemyData.baseDefence;
             AttackType = enemyData.attackType;
+            currentProjectileNumber = enemyData.baseProjectileNumber;
 
             SetFloorStats();
             SetTowerStats(_tower);
@@ -109,6 +138,69 @@ namespace Runtime.EnemyRelated
             ElementalStatus.burnDamage = currentDamage / 3f;
             ElementalStatus.freezeEffect = 30;
             ElementalStatus.shockEffect = 30;
+        }
+
+        public void AddStatBuff(AllStats stat, float amount)
+        {
+            if (StatsToBuff == null)
+                StatsToBuff = new Dictionary<AllStats, float>();
+            
+            if(StatsToBuff.ContainsKey(stat))
+                RemoveBuff(stat);
+            
+            //todo health will have different approach!!!!
+
+            var increase = 0f;
+            var percentage = amount / 100f;
+            
+            if (stat == AllStats.Damage)
+            {
+                increase = currentDamage * percentage;
+                currentDamage += increase;
+            }else if (stat == AllStats.AttackSpeed)
+            {
+                increase = -currentAttackSpeed * percentage;
+                currentAttackSpeed += increase;
+            }else if (stat == AllStats.MaxHealth)
+            {
+                increase = currentMaxHealth * percentage;
+                currentMaxHealth += increase;
+                currentHealth += increase;
+                _health.SetMaxHealth(currentMaxHealth);
+                _health.UpdateHealth(currentHealth);
+            }else if (stat == AllStats.Range)
+            {
+                increase = currentAttackRange * percentage;
+                currentAttackRange += increase;
+            }
+            
+            StatsToBuff.Add(stat, increase);
+        }
+
+        public void RemoveBuff(AllStats stat)
+        {
+            if (!StatsToBuff.ContainsKey(stat)) return;
+            
+            if (stat == AllStats.Damage)
+            {
+                currentDamage -= StatsToBuff[stat];
+            }else if (stat == AllStats.AttackSpeed)
+            {
+                currentAttackSpeed -= StatsToBuff[stat];
+            }else if (stat == AllStats.MaxHealth)
+            {
+                currentMaxHealth -= StatsToBuff[stat];
+                currentHealth -= StatsToBuff[stat];
+                if (currentHealth < 0)
+                    currentHealth = 1;
+                _health.SetMaxHealth(currentMaxHealth);
+                _health.UpdateHealth(currentHealth);
+            }else if (stat == AllStats.Range)
+            {
+                currentAttackRange -= StatsToBuff[stat];
+            }
+
+            StatsToBuff.Remove(stat);
         }
     }
 }

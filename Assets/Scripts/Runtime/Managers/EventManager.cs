@@ -1,6 +1,7 @@
 ﻿using System;
 using Data;
 using Data.LevelUp;
+using Data.WeaponDataRelated;
 using Runtime.ItemsRelated;
 using Runtime.StatValue;
 using Runtime.UIRelated;
@@ -45,11 +46,24 @@ namespace Runtime.Managers
 
         #region Gameplay Ralated
 
+        public event UnityAction GameStartEvent;
+        public void GameStart() => GameStartEvent?.Invoke();
+
         public event UnityAction LoadTowerEvent;
         public void LoadTower() => LoadTowerEvent?.Invoke();
 
         public event UnityAction WeaponsUpdatedEvent;
         public void WeaponsUpdated() => WeaponsUpdatedEvent?.Invoke();
+
+        #endregion
+
+        #region Game Start Related
+
+        public event UnityAction<CharacterDataSo> CharacterSelectedEvent;
+        public void CharacterSelected(CharacterDataSo characterDataSo) => CharacterSelectedEvent?.Invoke(characterDataSo);
+        
+        public event UnityAction<WeaponDataSo> WeaponSelectedEvent;
+        public void WeaponSelected(WeaponDataSo weaponDataSo) => WeaponSelectedEvent?.Invoke(weaponDataSo);
 
         #endregion
 
@@ -113,6 +127,15 @@ namespace Runtime.Managers
 
         public event UnityAction<WeaponUpgradeTreeSo> SetWeaponDataForTreeEvent;
         public void SetWeaponDataForTree(WeaponUpgradeTreeSo weaponTreeDatasSo) => SetWeaponDataForTreeEvent?.Invoke(weaponTreeDatasSo);
+        
+        public event UnityAction<Weapon> SetWeaponForTreeEvent;
+        public void SetWeaponForTree(Weapon weapon) => SetWeaponForTreeEvent?.Invoke(weapon);
+
+        public event UnityAction<string> CharacterSelectChangedEvent;
+        public void CharacterSelectChanged(string characterName) => CharacterSelectChangedEvent?.Invoke(characterName);
+
+        public event UnityAction<bool> SetCharacterCameraStatusEvent;
+        public void SetCharacterCameraStatus(bool status) => SetCharacterCameraStatusEvent?.Invoke(status);
         
         #endregion
 

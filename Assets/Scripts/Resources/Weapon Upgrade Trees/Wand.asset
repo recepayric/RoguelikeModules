@@ -20,101 +20,245 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: TreeNodes
-      Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[Data.UpgradeTreeNode, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 1|Data.UpgradeTreeNode, Assembly-CSharp
-    - Name: ID
-      Entry: 1
-      Data: 1
-    - Name: NodeName
-      Entry: 1
-      Data: Fire!
-    - Name: NodeText
-      Entry: 1
-      Data: Add Fire Element!
-    - Name: WeaponType
-      Entry: 3
-      Data: 0
-    - Name: UpgradeType
-      Entry: 3
-      Data: 2
-    - Name: ElementToAdd
-      Entry: 3
-      Data: 0
-    - Name: Stat
-      Entry: 3
-      Data: 6
-    - Name: IncreaseAmount
-      Entry: 4
-      Data: 10
-    - Name: Modifier
-      Entry: 3
-      Data: 0
-    - Name: PreviousNodeIDs
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 2|Data.UpgradeTreeNode, Assembly-CSharp
-    - Name: ID
-      Entry: 1
-      Data: 2
-    - Name: NodeName
-      Entry: 1
-      Data: Ice!
-    - Name: NodeText
-      Entry: 1
-      Data: Add Ice Element!
-    - Name: WeaponType
-      Entry: 3
-      Data: 0
-    - Name: UpgradeType
-      Entry: 3
-      Data: 2
-    - Name: ElementToAdd
-      Entry: 3
-      Data: 1
-    - Name: Stat
-      Entry: 3
-      Data: 0
-    - Name: IncreaseAmount
-      Entry: 4
-      Data: 0
-    - Name: Modifier
-      Entry: 3
-      Data: 0
-    - Name: PreviousNodeIDs
-      Entry: 7
-      Data: 3|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 1
-      Data: 1
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
+  TreeNodes:
+  - ID: 1
+    NodeName: Range Augment
+    NodeText: Increase Base Attack Range
+    doesAddStyle: 0
+    WeaponType: 2
+    UpgradeType: 0
+    ElementToAdd: 0
+    Stat: 10
+    IncreaseAmount: 10
+    Modifier: 0
+    styleNumber: 0
+    PreviousNodeIDs: []
+  - ID: 2
+    NodeName: Range Augment
+    NodeText: Increase Base Attack Range
+    doesAddStyle: 0
+    WeaponType: 2
+    UpgradeType: 0
+    ElementToAdd: 0
+    Stat: 10
+    IncreaseAmount: 10
+    Modifier: 0
+    styleNumber: 0
+    PreviousNodeIDs: []
+  - ID: 3
+    NodeName: Range Augment
+    NodeText: Increase Base Attack Range
+    doesAddStyle: 0
+    WeaponType: 2
+    UpgradeType: 0
+    ElementToAdd: 0
+    Stat: 10
+    IncreaseAmount: 10
+    Modifier: 0
+    styleNumber: 0
+    PreviousNodeIDs: []
+  - ID: 4
+    NodeName: Ice Wand!
+    NodeText: Add Ice Element to Wand
+    doesAddStyle: 1
+    WeaponType: 2
+    UpgradeType: 1
+    ElementToAdd: 1
+    Stat: 10
+    IncreaseAmount: 10
+    Modifier: 5
+    styleNumber: 0
+    PreviousNodeIDs: []
+  - ID: 5
+    NodeName: Damage Augment
+    NodeText: Increase Base Damage
+    doesAddStyle: 0
+    WeaponType: 2
+    UpgradeType: 0
+    ElementToAdd: 0
+    Stat: 8
+    IncreaseAmount: 2
+    Modifier: 0
+    styleNumber: 0
+    PreviousNodeIDs: []
+  - ID: 6
+    NodeName: Damage Augment
+    NodeText: Increase Base Damage
+    doesAddStyle: 0
+    WeaponType: 2
+    UpgradeType: 0
+    ElementToAdd: 0
+    Stat: 8
+    IncreaseAmount: 2
+    Modifier: 0
+    styleNumber: 0
+    PreviousNodeIDs: []
+  - ID: 7
+    NodeName: Damage Augment
+    NodeText: Increase Base Damage
+    doesAddStyle: 0
+    WeaponType: 2
+    UpgradeType: 0
+    ElementToAdd: 0
+    Stat: 8
+    IncreaseAmount: 2
+    Modifier: 0
+    styleNumber: 0
+    PreviousNodeIDs: []
+  - ID: 8
+    NodeName: Fire Wand!
+    NodeText: Add Fire Element to Wand
+    doesAddStyle: 1
+    WeaponType: 2
+    UpgradeType: 1
+    ElementToAdd: 0
+    Stat: 0
+    IncreaseAmount: 0
+    Modifier: 4
+    styleNumber: 1
+    PreviousNodeIDs: []
+  - ID: 9
+    NodeName: Bounce Augment
+    NodeText: Adds Bounce to Projectiles!
+    doesAddStyle: 0
+    WeaponType: 2
+    UpgradeType: 0
+    ElementToAdd: 0
+    Stat: 16
+    IncreaseAmount: 1
+    Modifier: 0
+    styleNumber: 0
+    PreviousNodeIDs: []
+  - ID: 10
+    NodeName: Bounce Augment
+    NodeText: Adds Bounce to Projectiles!
+    doesAddStyle: 0
+    WeaponType: 2
+    UpgradeType: 0
+    ElementToAdd: 0
+    Stat: 16
+    IncreaseAmount: 1
+    Modifier: 0
+    styleNumber: 0
+    PreviousNodeIDs: []
+  - ID: 11
+    NodeName: Bounce Augment
+    NodeText: Adds Bounce to Projectiles!
+    doesAddStyle: 0
+    WeaponType: 2
+    UpgradeType: 0
+    ElementToAdd: 0
+    Stat: 16
+    IncreaseAmount: 1
+    Modifier: 0
+    styleNumber: 0
+    PreviousNodeIDs: []
+  - ID: 12
+    NodeName: Lightning Wand!
+    NodeText: Add Lightning Element to Wand
+    doesAddStyle: 1
+    WeaponType: 2
+    UpgradeType: 1
+    ElementToAdd: 0
+    Stat: 0
+    IncreaseAmount: 0
+    Modifier: 6
+    styleNumber: 2
+    PreviousNodeIDs: []
+  - ID: 13
+    NodeName: Speed Augment
+    NodeText: Increase Base Attack Speed!
+    doesAddStyle: 0
+    WeaponType: 2
+    UpgradeType: 0
+    ElementToAdd: 0
+    Stat: 14
+    IncreaseAmount: 10
+    Modifier: 0
+    styleNumber: 0
+    PreviousNodeIDs: []
+  - ID: 14
+    NodeName: Speed Augment
+    NodeText: Increase Base Attack Speed!
+    doesAddStyle: 0
+    WeaponType: 2
+    UpgradeType: 0
+    ElementToAdd: 0
+    Stat: 14
+    IncreaseAmount: 10
+    Modifier: 0
+    styleNumber: 0
+    PreviousNodeIDs: []
+  - ID: 15
+    NodeName: Speed Augment
+    NodeText: Increase Base Attack Speed!
+    doesAddStyle: 0
+    WeaponType: 2
+    UpgradeType: 0
+    ElementToAdd: 0
+    Stat: 14
+    IncreaseAmount: 10
+    Modifier: 0
+    styleNumber: 0
+    PreviousNodeIDs: []
+  - ID: 16
+    NodeName: Rotating Wand!
+    NodeText: Projectiles Rotates Around You!
+    doesAddStyle: 1
+    WeaponType: 2
+    UpgradeType: 1
+    ElementToAdd: 0
+    Stat: 0
+    IncreaseAmount: 0
+    Modifier: 2
+    styleNumber: 3
+    PreviousNodeIDs: []
+  - ID: 17
+    NodeName: Projectile Augment
+    NodeText: Increase Projectile Amount
+    doesAddStyle: 0
+    WeaponType: 2
+    UpgradeType: 0
+    ElementToAdd: 0
+    Stat: 11
+    IncreaseAmount: 1
+    Modifier: 0
+    styleNumber: 0
+    PreviousNodeIDs: []
+  - ID: 18
+    NodeName: Projectile Augment
+    NodeText: Increase Projectile Amount
+    doesAddStyle: 0
+    WeaponType: 2
+    UpgradeType: 0
+    ElementToAdd: 0
+    Stat: 11
+    IncreaseAmount: 1
+    Modifier: 0
+    styleNumber: 0
+    PreviousNodeIDs: []
+  - ID: 19
+    NodeName: Projectile Augment
+    NodeText: Increase Projectile Amount
+    doesAddStyle: 0
+    WeaponType: 2
+    UpgradeType: 0
+    ElementToAdd: 0
+    Stat: 11
+    IncreaseAmount: 1
+    Modifier: 0
+    styleNumber: 0
+    PreviousNodeIDs: []
+  - ID: 20
+    NodeName: Homing Projectiles!
+    NodeText: Projectiles follows enemies!
+    doesAddStyle: 1
+    WeaponType: 2
+    UpgradeType: 1
+    ElementToAdd: 0
+    Stat: 0
+    IncreaseAmount: 0
+    Modifier: 3
+    styleNumber: 4
+    PreviousNodeIDs: []

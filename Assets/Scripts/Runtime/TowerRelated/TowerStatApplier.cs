@@ -29,7 +29,10 @@ namespace Runtime.TowerRelated
                     enemyStats.currentEvasion *= (1 + enemyModifier.CurrentEffect / 100f);
                     break;
                 case TowerMonsterModifiers.MonsterAttackSpeedIncrease:
-                    enemyStats.currentAttackSpeed *= (1 + enemyModifier.CurrentEffect / 100f);
+                    var multiplier = (1 + enemyModifier.CurrentEffect / 100f);
+                    if (multiplier == 0)
+                        multiplier = 0.01f;
+                    enemyStats.currentAttackSpeed /= multiplier;
                     break;
                 case TowerMonsterModifiers.MonsterAlwaysDealCriticalHit:
                     enemyStats.alwaysDealCriticalHit = true;

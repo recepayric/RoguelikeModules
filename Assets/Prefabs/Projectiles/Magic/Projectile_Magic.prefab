@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7280217749031058316}
   - component: {fileID: 6508897061207576522}
   - component: {fileID: 3222712674100776097}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Projectile_Magic
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -122,6 +122,7 @@ MonoBehaviour:
   isStickingToEnemy: 0
   doesExplode: 0
   explosionTimer: 0
+  targetType: 0
   isHomingProjectile: 0
   targetEnemy: {fileID: 0}
   timeToMove: 0
@@ -131,15 +132,8 @@ MonoBehaviour:
   homingTurnSpeed: 2
   split: 0
   splitAmount: 0
-  ignoredEnemy: {fileID: 0}
   splitProjectileKey: 1
   damage: 0
-  hasFreezeEffect: 0
-  hasShockEffect: 0
-  freezeTime: 1
-  shockTime: 1
-  freezeDamage: 1
-  shockDamage: 1
   isRotating: 0
   rotatingDistance: 5
   rotationAngle: 0
@@ -296,6 +290,10 @@ PrefabInstance:
     - target: {fileID: 3339615448489560188, guid: 43fea966c4df74e4da417b7db13ff971, type: 3}
       propertyPath: m_Name
       value: Magic
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339615448489560188, guid: 43fea966c4df74e4da417b7db13ff971, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3339615448489560188, guid: 43fea966c4df74e4da417b7db13ff971, type: 3}
       propertyPath: m_IsActive

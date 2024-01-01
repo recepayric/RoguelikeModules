@@ -67,16 +67,23 @@ namespace Runtime.UIRelated
             _gameScreens.Add(Screens.Market, marketScreen);
         }
 
+        private void OnGameStart()
+        {
+            Debug.Log("UI Controller - Game Start!");
+        }
+
         private void AddEvents()
         {
             EventManager.Instance.OnOpenScreen += OnOpenScreen;
             EventManager.Instance.OnCloseScreen += OnCloseScreen;
+            EventManager.Instance.GameStartEvent += OnGameStart;
         }
 
         private void RemoveEvents()
         {
             EventManager.Instance.OnOpenScreen -= OnOpenScreen;
             EventManager.Instance.OnCloseScreen -= OnCloseScreen;
+            EventManager.Instance.GameStartEvent -= OnGameStart;
         }
 
         private void OnDestroy()

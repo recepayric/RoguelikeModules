@@ -21,6 +21,9 @@ namespace Runtime
         public int bounceNum;
         public int pierceNum;
 
+        public bool hasHomingProjectiles;
+        public bool hasRotatingProjectiles;
+
         public List<SpecialModifiers> specialModifiers;
 
         //Elemental Values

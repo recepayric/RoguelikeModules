@@ -16,9 +16,10 @@ namespace Runtime.Modifiers.ProjectileModifiers
         public int tier = 0;
         public Dictionary<GameObject, int> projectiles = new Dictionary<GameObject, int>();
 
-        public override void ApplyEffect(Projectile projectile)
+        public override void ApplyEffect(Weapon weapon)
         {
-            base.ApplyEffect(projectile);
+            base.ApplyEffect(weapon);
+            weapon.weaponStats.hasRotatingProjectiles = true;
         }
     }
 }
