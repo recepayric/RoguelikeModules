@@ -12,12 +12,18 @@ namespace Runtime.DamageRelated
         public MaterialPropertyBlock PropertyBlock;
         public float colorChangeAmount;
         public bool tryAdd;
+        public Texture texture;
 
         public Animator animator;
 
         private void Start()
         {
             PropertyBlock = new MaterialPropertyBlock();
+            PropertyBlock.SetTexture("_MainTex", texture);
+            for (int i = 0; i < renderers.Count; i++)
+            {
+                renderers[i].SetPropertyBlock(PropertyBlock);
+            }
         }
 
         public void DamageTaken()

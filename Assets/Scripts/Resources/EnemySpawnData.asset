@@ -21,87 +21,114 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  floorTime: 30
+  enemyDataObjects:
+  - {fileID: 11400000, guid: d6b97c0025b8b0f499f6e29bda6c352f, type: 2}
+  - {fileID: 11400000, guid: 2ef8fbb84bcb9f144bca99d68e9dcb48, type: 2}
+  - {fileID: 11400000, guid: 10acbfa4807e11a4b9b5938dbdd8420c, type: 2}
+  - {fileID: 11400000, guid: 537b009e62b724e48a939870609a95b8, type: 2}
+  - {fileID: 11400000, guid: a334944b49244284e941f5dc2f213eee, type: 2}
+  - {fileID: 11400000, guid: bb441c7015148054cbb759f4a678bff6, type: 2}
+  - {fileID: 11400000, guid: 0638a59b8d1fae74b8dbcf74bcefbab8, type: 2}
+  - {fileID: 11400000, guid: 159bfeca0c29fb041a6bfcb543df5376, type: 2}
+  - {fileID: 11400000, guid: 2a8277b95a7ee7942bf93757d458fda2, type: 2}
+  enemyDatas:
+  - {fileID: 11400000, guid: d6b97c0025b8b0f499f6e29bda6c352f, type: 2}
+  - {fileID: 11400000, guid: 2ef8fbb84bcb9f144bca99d68e9dcb48, type: 2}
+  - {fileID: 11400000, guid: 10acbfa4807e11a4b9b5938dbdd8420c, type: 2}
+  - {fileID: 11400000, guid: 537b009e62b724e48a939870609a95b8, type: 2}
+  - {fileID: 11400000, guid: a334944b49244284e941f5dc2f213eee, type: 2}
+  - {fileID: 11400000, guid: bb441c7015148054cbb759f4a678bff6, type: 2}
+  - {fileID: 11400000, guid: 0638a59b8d1fae74b8dbcf74bcefbab8, type: 2}
+  - {fileID: 11400000, guid: 159bfeca0c29fb041a6bfcb543df5376, type: 2}
+  - {fileID: 11400000, guid: 2a8277b95a7ee7942bf93757d458fda2, type: 2}
   SpawnDatas:
   - EnemyKey: 6
-    Amount: 7
+    BufferKey: 5
+    hasBuffer: 1
+    Amount: 5
+    BufferAmount: 1
     spawnWait: 3
-  - EnemyKey: 8
-    Amount: 8
-    spawnWait: 2.95
   - EnemyKey: 6
-    Amount: 5
+    BufferKey: 5
+    hasBuffer: 1
+    Amount: 4
+    BufferAmount: 1
     spawnWait: 2.9
-  - EnemyKey: 5
-    Amount: 6
-    spawnWait: 2.85
   - EnemyKey: 8
-    Amount: 7
+    BufferKey: 5
+    hasBuffer: 1
+    Amount: 5
+    BufferAmount: 1
     spawnWait: 2.8
-  - EnemyKey: 7
-    Amount: 7
-    spawnWait: 2.75
-  - EnemyKey: 5
-    Amount: 7
+  - EnemyKey: 6
+    BufferKey: 5
+    hasBuffer: 1
+    Amount: 5
+    BufferAmount: 1
     spawnWait: 2.7
-  - EnemyKey: 7
-    Amount: 5
-    spawnWait: 2.65
-  - EnemyKey: 8
-    Amount: 5
+  - EnemyKey: 6
+    BufferKey: 5
+    hasBuffer: 1
+    Amount: 4
+    BufferAmount: 1
     spawnWait: 2.6
-  - EnemyKey: 7
+  - EnemyKey: 21
+    BufferKey: 5
+    hasBuffer: 1
     Amount: 5
-    spawnWait: 2.55
-  - EnemyKey: 8
-    Amount: 6
+    BufferAmount: 1
     spawnWait: 2.5
-  - EnemyKey: 6
+  - EnemyKey: 22
+    BufferKey: 5
+    hasBuffer: 1
     Amount: 5
-    spawnWait: 2.45
-  - EnemyKey: 5
-    Amount: 8
+    BufferAmount: 1
     spawnWait: 2.4
-  - EnemyKey: 5
-    Amount: 5
-    spawnWait: 2.35
-  - EnemyKey: 5
-    Amount: 8
+  - EnemyKey: 21
+    BufferKey: 5
+    hasBuffer: 1
+    Amount: 4
+    BufferAmount: 1
     spawnWait: 2.3
-  - EnemyKey: 6
-    Amount: 6
-    spawnWait: 2.25
-  - EnemyKey: 5
-    Amount: 7
+  - EnemyKey: 22
+    BufferKey: 5
+    hasBuffer: 1
+    Amount: 5
+    BufferAmount: 1
     spawnWait: 2.2
-  - EnemyKey: 7
-    Amount: 7
-    spawnWait: 2.15
-  - EnemyKey: 5
-    Amount: 9
+  - EnemyKey: 8
+    BufferKey: 5
+    hasBuffer: 1
+    Amount: 4
+    BufferAmount: 1
     spawnWait: 2.1
   - EnemyKey: 7
-    Amount: 5
-    spawnWait: 2.05
-  - EnemyKey: 7
-    Amount: 5
+    BufferKey: 5
+    hasBuffer: 1
+    Amount: 4
+    BufferAmount: 1
     spawnWait: 2
-  - EnemyKey: 5
-    Amount: 5
-    spawnWait: 1.9499999
-  - EnemyKey: 7
-    Amount: 9
+  - EnemyKey: 6
+    BufferKey: 5
+    hasBuffer: 1
+    Amount: 4
+    BufferAmount: 1
     spawnWait: 1.9
-  - EnemyKey: 5
-    Amount: 8
-    spawnWait: 1.85
   - EnemyKey: 8
-    Amount: 8
-    spawnWait: 1.7999992
-  poolKeyArray: 05000000060000000700000008000000
-  totalMonster: 163
+    BufferKey: 5
+    hasBuffer: 1
+    Amount: 5
+    BufferAmount: 1
+    spawnWait: 0.6000004
+  poolKeys: 06000000150000001600000008000000080000000700000006000000
+  bufferKeys: 05000000
+  totalMonster: 59
   initialTimeBetweenEnemies: 3
   minEnemySpawn: 5
-  maxEnemySpawn: 10
-  totalSpawnTime: 60
-  round: 25
-  spawnSpeedPerRound: 0.05
+  maxEnemySpawn: 3
+  totalSpawnTime: 30
+  floor: 0
+  round: 13
+  spawnSpeedPerRound: 0.1
+  BufferSpawnPercentage: 1

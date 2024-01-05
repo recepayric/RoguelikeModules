@@ -30,4 +30,8 @@ MonoBehaviour:
   baseAttackRange: 10
   baseMaxAttackRange: 12
   baseProjectileNumber: 1
+  minFloorToSpawn: 0
+  minSpawnAmount: 1
+  maxSpawnAmount: 6
   attackType: 2
+  poolKey: 8

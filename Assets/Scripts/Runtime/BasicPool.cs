@@ -29,12 +29,11 @@ public class BasicPool : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     public GameObject prefab;
     public PoolKeys key;
-    
+
     [Button]
     public void AddToPool()
     {
@@ -57,11 +56,38 @@ public class BasicPool : MonoBehaviour
         return obj;
     }
 
+    public bool isEditing = false;
+
+    [ShowIf("isEditing")] [OnValueChanged("GetPrefabForKey")]
+    public PoolKeys poolKeyToEdit;
+
+    [ShowIf("isEditing")] public GameObject objectForTheKey;
+
+    public void GetPrefabForKey()
+    {
+        var index = keys.IndexOf(poolKeyToEdit);
+        if (index >= 0)
+            objectForTheKey = prefabs[index];
+        else
+            objectForTheKey = null;
+    }
+
+    [ShowIf("isEditing")]
+    [Button]
+    public void Change()
+    {
+        var index = keys.IndexOf(poolKeyToEdit);
+        if (index >= 0)
+        {
+            prefabs[index] = objectForTheKey;
+        }
+    }
+
     public void Return(GameObject obj)
     {
         poolObjects[_allObjects[obj].PoolKeys].ReturnObject(obj);
     }
-    
+
     private class PoolObjectHolder
     {
         public PoolKeys key;
@@ -84,7 +110,7 @@ public class BasicPool : MonoBehaviour
             objToReturn.SetActive(true);
             PoolObjects[objToReturn].OnGet();
             PoolObjects[objToReturn].PoolKeys = key;
-            
+
             ObjectsInUse.Add(objToReturn, PoolObjects[objToReturn]);
             PoolObjects.Remove(objToReturn);
             return objToReturn;
@@ -92,9 +118,9 @@ public class BasicPool : MonoBehaviour
 
         public void ReturnObject(GameObject gameObject)
         {
-            if(!ObjectsInUse.ContainsKey(gameObject))
+            if (!ObjectsInUse.ContainsKey(gameObject))
                 return;
-            
+
             ObjectsInUse[gameObject].OnReturn();
             gameObject.SetActive(false);
             gameObject.transform.parent = instance.transform;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Data;
 using DG.Tweening;
+using Runtime.Configs;
 using Runtime.Enums;
 using Runtime.Managers;
 using Sirenix.OdinInspector;
@@ -37,12 +38,14 @@ namespace Runtime.WorldRelated
 
         public void Setup()
         {
+            totalWaveTime = enemySpawnDataSo.floorTime;
+            GameConfig.FloorDuration = (int)totalWaveTime;
             SpawnDatas = enemySpawnDataSo.SpawnDatas;
 
             isStarted = false;
             waveSpawned = 0;
             totalWave = SpawnDatas.Count;
-            spawnTime = totalWaveTime/totalWave;
+            spawnTime = totalWaveTime / totalWave;
             //totalWave = (int)(totalWaveTime / spawnTime);
         }
 
@@ -52,14 +55,29 @@ namespace Runtime.WorldRelated
             {
                 var randX = Random.Range(-xBound, xBound);
                 var randY = Random.Range(-yBound, yBound);
-
+                Debug.Log("Type: " + SpawnDatas[waveSpawned].EnemyKey);
                 var enemy = BasicPool.instance.Get(SpawnDatas[waveSpawned].EnemyKey);
+                enemy.transform.position = new Vector2(randX, randY);
+            }
+
+            //spawn buffer here!!
+            for (int i = 0; i < SpawnDatas[waveSpawned].BufferAmount; i++)
+            {
+                var randX = Random.Range(-xBound, xBound);
+                var randY = Random.Range(-yBound, yBound);
+
+                var enemy = BasicPool.instance.Get(SpawnDatas[waveSpawned].BufferKey);
                 enemy.transform.position = new Vector2(randX, randY);
             }
 
             waveSpawned++;
 
-            DOVirtual.DelayedCall(spawnTime, () =>
+            var waitTime = 3f;
+            
+            if(SpawnDatas.Count < waveSpawned)
+                waitTime = SpawnDatas[waveSpawned].spawnWait;
+
+            DOVirtual.DelayedCall(waitTime, () =>
             {
                 if (waveSpawned < totalWave)
                     SpawnMonster();
@@ -79,14 +97,17 @@ namespace Runtime.WorldRelated
 
         public void StartSpawning()
         {
-            if(isStarted)
-                DOTween.Play(SpawnID);
+            if (isStarted)
+            {
+                if (!DOTween.IsTweening(SpawnID))
+                    DOTween.Play(SpawnID);
+            }
             else
             {
                 Setup();
                 SpawnMonster();
             }
-            
+
             EventManager.Instance.SetMonsterSpawn(true);
         }
 

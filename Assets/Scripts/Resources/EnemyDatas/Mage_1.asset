@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d12160d4579d4715a6bd065154a6ac53, type: 3}
-  m_Name: ChargingEnemy
+  m_Name: Mage_1
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,8 +21,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  baseHealth: 1
-  baseDamage: 1
+  baseHealth: 3
+  baseDamage: 2
   baseMoveSpeed: 5
   baseAttackSpeed: 1
   baseEvasion: 0
@@ -33,5 +33,5 @@ MonoBehaviour:
   minFloorToSpawn: 0
   minSpawnAmount: 1
   maxSpawnAmount: 5
-  attackType: 4
-  poolKey: 22
+  attackType: 2
+  poolKey: 8

@@ -26,7 +26,7 @@ namespace Runtime.WorldRelated
 
             //Debug.Log("Floor Initializer loaded!");
         }
-
+        
         private void StartFloor()
         {
             EventManager.Instance.FloorStarts();

@@ -2,6 +2,6 @@
 {
     public enum AttackType
     {
-        Melee, Ranged, Magic, Spell, Charge, AuraUser
+        Melee, Ranged, Magic, Spell, Charge, AuraUser, Bomber
     }
 }

@@ -98,16 +98,18 @@ namespace Runtime
 
             if (_stats.AttackType == AttackType.AuraUser && !isAuraOn)
             {
+                Debug.Log("Casting Spell!!!!");
                 CastSpell();
             }
         }
 
         //Perform an animation and attack!
-        public void AttackEnemy()
+        public void AttackEnemy(bool isFirstAttack)
         {
+            var attackTime = isFirstAttack ? 0.1f : _stats.currentAttackSpeed;
             isAttackingEnemy = true;
             //todo change this to regular timer to get rid of dotween
-            DOVirtual.DelayedCall(_stats.currentAttackSpeed, () =>
+            DOVirtual.DelayedCall(attackTime, () =>
             {
                 if (_enemyMovement.IsCloseToEnemy())
                 {

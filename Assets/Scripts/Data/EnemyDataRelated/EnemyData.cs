@@ -17,6 +17,11 @@ namespace Data.EnemyDataRelated
         public float baseAttackRange;
         public float baseMaxAttackRange;
         public float baseProjectileNumber;
+        public int minFloorToSpawn;
+        public int minSpawnAmount;
+        public int maxSpawnAmount;
         public AttackType attackType;
+
+        public PoolKeys poolKey;
     }
 }

@@ -28,6 +28,10 @@ namespace Runtime.EnemyRelated
         public GameObject windShieldHolder;
 
         public float lastChargeDistance;
+        
+        public bool isFirstAttack = true;
+        private Animator _animator;
+        private static readonly int IsRunning = Animator.StringToHash("isRunning");
 
         private void Start()
         {
@@ -36,6 +40,7 @@ namespace Runtime.EnemyRelated
             enemy = GetComponent<Enemy>();
             stats = GetComponent<EnemyStats>();
             rigidBody = GetComponent<Rigidbody2D>();
+            _animator = GetComponent<Animator>();
         }
 
         private void CheckForPlayerRotation()
@@ -98,10 +103,14 @@ namespace Runtime.EnemyRelated
 
             if (IsCloseToEnemy())
             {
-                enemy.AttackEnemy();
+                enemy.AttackEnemy(isFirstAttack);
+                isFirstAttack = false;
+                _animator.SetBool(IsRunning, false);
                 return;
             }
 
+            _animator.SetBool(IsRunning, true);
+            isFirstAttack = true;
             var posX = transform.position.x;
             var posY = transform.position.y;
             var playerX = targetObject.transform.position.x;
