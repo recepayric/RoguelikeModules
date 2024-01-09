@@ -149,8 +149,7 @@ namespace Runtime.SpellsRelated.Aura
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log(other.name);
-            return;
+            //Debug.Log(other.name);
             if (other.CompareTag("Enemy"))
             {
                 enemiesInRange.Add(other.gameObject);
@@ -160,8 +159,7 @@ namespace Runtime.SpellsRelated.Aura
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            Debug.Log("Left: " + other.name);
-            return;
+            //Debug.Log("Left: " + other.name);
             if (other.CompareTag("Enemy"))
             {
                 enemiesInRange.Remove(other.gameObject);

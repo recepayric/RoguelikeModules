@@ -2,6 +2,7 @@
 using Data;
 using Data.LevelUp;
 using Data.WeaponDataRelated;
+using Runtime.Enums;
 using Runtime.ItemsRelated;
 using Runtime.StatValue;
 using Runtime.UIRelated;
@@ -131,8 +132,14 @@ namespace Runtime.Managers
         public event UnityAction<Weapon> SetWeaponForTreeEvent;
         public void SetWeaponForTree(Weapon weapon) => SetWeaponForTreeEvent?.Invoke(weapon);
 
-        public event UnityAction<string> CharacterSelectChangedEvent;
-        public void CharacterSelectChanged(string characterName) => CharacterSelectChangedEvent?.Invoke(characterName);
+        //public event UnityAction<string> CharacterSelectChangedEvent;
+        //public void CharacterSelectChanged(string characterName) => CharacterSelectChangedEvent?.Invoke(characterName);
+        
+        public event UnityAction<PoolKeys> CharacterSelectChangedEvent;
+        public void CharacterSelectChanged(PoolKeys poolKey) => CharacterSelectChangedEvent?.Invoke(poolKey);
+        
+        public event UnityAction<PoolKeys> WeaponSelectChangedEvent;
+        public void WeaponSelectChanged(PoolKeys poolKey) => WeaponSelectChangedEvent?.Invoke(poolKey);
 
         public event UnityAction<bool> SetCharacterCameraStatusEvent;
         public void SetCharacterCameraStatus(bool status) => SetCharacterCameraStatusEvent?.Invoke(status);

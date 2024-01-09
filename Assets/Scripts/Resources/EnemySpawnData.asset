@@ -43,90 +43,90 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 159bfeca0c29fb041a6bfcb543df5376, type: 2}
   - {fileID: 11400000, guid: 2a8277b95a7ee7942bf93757d458fda2, type: 2}
   SpawnDatas:
-  - EnemyKey: 6
+  - EnemyKey: 7
     BufferKey: 5
     hasBuffer: 1
-    Amount: 5
+    Amount: 9
     BufferAmount: 1
     spawnWait: 3
-  - EnemyKey: 6
+  - EnemyKey: 7
     BufferKey: 5
     hasBuffer: 1
-    Amount: 4
+    Amount: 13
     BufferAmount: 1
     spawnWait: 2.9
-  - EnemyKey: 8
+  - EnemyKey: 22
     BufferKey: 5
     hasBuffer: 1
-    Amount: 5
+    Amount: 10
     BufferAmount: 1
     spawnWait: 2.8
   - EnemyKey: 6
     BufferKey: 5
     hasBuffer: 1
-    Amount: 5
+    Amount: 8
     BufferAmount: 1
     spawnWait: 2.7
   - EnemyKey: 6
     BufferKey: 5
     hasBuffer: 1
-    Amount: 4
+    Amount: 13
     BufferAmount: 1
     spawnWait: 2.6
-  - EnemyKey: 21
+  - EnemyKey: 22
     BufferKey: 5
     hasBuffer: 1
-    Amount: 5
+    Amount: 8
     BufferAmount: 1
     spawnWait: 2.5
-  - EnemyKey: 22
-    BufferKey: 5
-    hasBuffer: 1
-    Amount: 5
-    BufferAmount: 1
-    spawnWait: 2.4
-  - EnemyKey: 21
-    BufferKey: 5
-    hasBuffer: 1
-    Amount: 4
-    BufferAmount: 1
-    spawnWait: 2.3
-  - EnemyKey: 22
-    BufferKey: 5
-    hasBuffer: 1
-    Amount: 5
-    BufferAmount: 1
-    spawnWait: 2.2
-  - EnemyKey: 8
-    BufferKey: 5
-    hasBuffer: 1
-    Amount: 4
-    BufferAmount: 1
-    spawnWait: 2.1
-  - EnemyKey: 7
-    BufferKey: 5
-    hasBuffer: 1
-    Amount: 4
-    BufferAmount: 1
-    spawnWait: 2
   - EnemyKey: 6
     BufferKey: 5
     hasBuffer: 1
-    Amount: 4
+    Amount: 11
     BufferAmount: 1
-    spawnWait: 1.9
+    spawnWait: 2.4
+  - EnemyKey: 22
+    BufferKey: 5
+    hasBuffer: 1
+    Amount: 13
+    BufferAmount: 1
+    spawnWait: 2.3
   - EnemyKey: 8
     BufferKey: 5
     hasBuffer: 1
-    Amount: 5
+    Amount: 9
+    BufferAmount: 1
+    spawnWait: 2.2
+  - EnemyKey: 6
+    BufferKey: 5
+    hasBuffer: 1
+    Amount: 12
+    BufferAmount: 1
+    spawnWait: 2.1
+  - EnemyKey: 22
+    BufferKey: 5
+    hasBuffer: 1
+    Amount: 14
+    BufferAmount: 1
+    spawnWait: 2
+  - EnemyKey: 8
+    BufferKey: 5
+    hasBuffer: 1
+    Amount: 13
+    BufferAmount: 1
+    spawnWait: 1.9
+  - EnemyKey: 22
+    BufferKey: 5
+    hasBuffer: 1
+    Amount: 8
     BufferAmount: 1
     spawnWait: 0.6000004
   poolKeys: 06000000150000001600000008000000080000000700000006000000
   bufferKeys: 05000000
-  totalMonster: 59
+  totalMonster: 141
   initialTimeBetweenEnemies: 3
-  minEnemySpawn: 5
-  maxEnemySpawn: 3
+  minEnemySpawn: 8
+  maxEnemySpawn: 15
   totalSpawnTime: 30
   floor: 0
   round: 13

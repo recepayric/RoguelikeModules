@@ -15601,6 +15601,7 @@ MonoBehaviour:
   weaponUpgradeTree: {fileID: -2118557062214317711}
   isActivated: 0
   weaponDatsSo: {fileID: 11400000, guid: 876c0b1e8be542a4aa7d923120e0275a, type: 2}
+  weaponDataSo: {fileID: 11400000, guid: 9031c0be6a9837446be992083aeef7ec, type: 2}
   weaponType: 0
   characterStats:
     strength: 0
@@ -15642,6 +15643,7 @@ MonoBehaviour:
     freezeEffect: 0
     shockTime: 0
     shockEffect: 0
+  swordSwinger: {fileID: 0}
   attackTime: 0
   projectilePrefab: {fileID: 7280217749031058319, guid: 9c2a0d9fa8fa0ae4096b4658e5f36c84, type: 3}
   projectilePoint: {fileID: 3220777079054858423}

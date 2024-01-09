@@ -9,15 +9,17 @@ namespace Data.WeaponDataRelated
     {
         public string WeaponName;
         public string Description;
-        public WeaponTypes WeaponType;
+        public WeaponType WeaponType;
         public float BaseAttackSpeed;
         public float BaseAttackRange;
+        public float BaseAttackRangeSword;
         public float BaseDamage;
         public int BaseProjectileAmount;
         public int BaseCriticalHitChance;
         public int BaseCriticalHitDamage;
         public int BasePierceNumber;
         public PoolKeys WeaponPoolKey;
+        public PoolKeys DummyWeaponKey;
         public WeaponData WeaponData;
     }
 }

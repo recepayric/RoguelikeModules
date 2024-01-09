@@ -98,7 +98,6 @@ namespace Runtime
 
             if (_stats.AttackType == AttackType.AuraUser && !isAuraOn)
             {
-                Debug.Log("Casting Spell!!!!");
                 CastSpell();
             }
         }
@@ -421,6 +420,11 @@ namespace Runtime
         public float GetDamage()
         {
             return _stats.currentDamage;
+        }
+
+        public float GetCriticalDamageChance()
+        {
+            return _stats.currentCriticalHitChance;
         }
 
         public float GetRange()

@@ -21,5 +21,7 @@ namespace Data
         public float baseExpNeeded;
         public float baseExpNeedIncrease;
         public float baseExpGainMultiplier;
+
+        public PoolKeys mannqueenPoolKey;
     }
 }

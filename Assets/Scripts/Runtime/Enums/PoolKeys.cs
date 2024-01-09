@@ -15,7 +15,7 @@
         EnemyBomber1=21,
         EnemyCharger1=22,
         ProjectileMagic=10,
-        ProjectileRock=11,
+        ProjectileRock=11,  
         CharacterIconUI=12,
         WeaponIconUI=13,
         BurnAura=14,
@@ -26,6 +26,13 @@
         WindShield=19,
         EnemyBuffSpell = 20,
         
+        
+        MannequeenHades = 23,
+        MannequeenDemon = 24,
+        
+        DummySword1 = 25,
+        DummyWand1 = 26,
         //Reserve for enemies!! At least 20!!!
+        //27
     }
 }

@@ -88,6 +88,7 @@ namespace Runtime.EnemyRelated
 
         private void FixedUpdate()
         {
+            //return;
             if (isCharging)
             {
                 Charge();

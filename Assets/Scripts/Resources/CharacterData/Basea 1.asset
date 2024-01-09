@@ -77,3 +77,7 @@ MonoBehaviour:
   footer: Nighmare of the enemies
   specialModifiers: 
   unlockCondition: 
+  baseExpNeeded: 0
+  baseExpNeedIncrease: 0
+  baseExpGainMultiplier: 0
+  mannqueenPoolKey: 23

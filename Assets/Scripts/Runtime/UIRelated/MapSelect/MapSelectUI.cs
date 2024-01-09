@@ -4,86 +4,132 @@ using DG.Tweening;
 using Runtime.Configs;
 using Runtime.Managers;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace Runtime.UIRelated.MapSelect
 {
     public class MapSelectUI : MonoBehaviour, IOpenable
     {
         public MapDetailUI mapDetailUI;
-        private const string MapMoveID = "MapMove";
-        private const string MapScaleUpID = "MapScaleUp";
-        private const string MapScaleDownID = "MapScaleDown";
+        private const string PickerMoveID = "PickerMove";
         public int currentTier;
-        public int previousSelectedTier;
-        public List<RectTransform> mapImages;
+        public Image towerImage;
+        public List<Sprite> tutorialTowerImages;
+        public List<Sprite> tieredTowerImages;
+        public List<Sprite> bossTowerImages;
+        public List<RectTransform> tutorialMaps;
+        public List<RectTransform> bossMaps;
+        public RectTransform tieredMap;
+
+        public int selectedTutorialMap;
+        public int selectedBossMap;
+        public RectTransform pickerImage;
+        public TextMeshProUGUI mapTierText;
+
+        public PickTypes pickedMapType;
 
         private void Start()
         {
             currentTier = 0;
-            ArrangeMaps();
-            
+
             //EventManager.Instance.PrepareTower(currentTier+1);
-            mapDetailUI.SetTier(currentTier+1);
+            mapDetailUI.SetTier(currentTier + 1);
             mapDetailUI.UpdateTowerDetails();
         }
 
-        public float widthOfImage = 200f;
-        public float gap = 30f;
-        public float moveTime;
-        public float scaleTime;
-
-        [Button]
-        public void ArrangeMaps()
+        private void ChangeTowerImage()
         {
-            for (int i = 0; i < mapImages.Count; i++)
-            {
-                mapImages[i].anchoredPosition = new Vector2(i * (widthOfImage + gap), 0);
-            }
+            var image = tieredTowerImages[0];
+            
+            if (pickedMapType == PickTypes.Tiered)
+                image = tieredTowerImages[currentTier];
+            else if (pickedMapType == PickTypes.Boss)
+                image = bossTowerImages[selectedBossMap];
+            else if (pickedMapType == PickTypes.Tutorial)
+                image = tutorialTowerImages[selectedTutorialMap];
 
-            ChangeMapOrder();
+            var imageX = image.bounds.size.x;
+            var imageY = image.bounds.size.y;
+            var ratio = imageY / imageX;
+            
+            Debug.Log("W: " + imageX + " Y: " + imageY);
+            Debug.Log("Ratio: " + ratio);
+            towerImage.sprite = image;
+
+            var currentX = towerImage.rectTransform.sizeDelta.x;
+            var targetY = currentX * ratio;
+            towerImage.rectTransform.sizeDelta = new Vector2(currentX, targetY);
+        }
+        
+        public void SelectTutorialMap(int tier)
+        {
+            pickedMapType = PickTypes.Tutorial;
+            selectedTutorialMap = tier;
+
+            CheckPickerMove();
+            pickerImage.DOAnchorPosX(tutorialMaps[tier].anchoredPosition.x, UIConfig.PickerMoveTime)
+                .SetId(PickerMoveID);
+            
+            ChangeTowerImage();
         }
 
-        public void ChangeMapOrder()
+        public void SelectTieredMaps()
         {
-            DOTween.Kill(MapMoveID);
-            //DOTween.Complete(MapScaleID);
-
-            for (int i = 0; i < mapImages.Count; i++)
-            {
-                var index = i - currentTier;
-                var targetPos = new Vector2(index * (widthOfImage + gap), 0);
-                mapImages[i].DOAnchorPos(targetPos, moveTime).SetId(MapMoveID);
-            }
-
-            DOTween.Complete(MapScaleDownID);
-            DOTween.Kill(MapScaleUpID);
-
-            DOVirtual.DelayedCall(moveTime, () =>
-            {
-                mapImages[currentTier].transform.DOScale(Vector3.one * UIConfig.SelectedMapScaleUpValue, scaleTime)
-                    .SetId(MapScaleUpID);
-                mapImages[previousSelectedTier].transform.DOScale(Vector3.one, scaleTime).SetId(MapScaleDownID);
-
-                ChangeMapTier();
-            });
+            pickedMapType = PickTypes.Tiered;
+            CheckPickerMove();
+            pickerImage.DOAnchorPosX(tieredMap.anchoredPosition.x, UIConfig.PickerMoveTime).SetId(PickerMoveID);
+            ChangeTowerImage();
         }
 
-        public void SelectMap(int index)
+        public void SelectBossMap(int tier)
         {
-            if (index == currentTier) return;
-            previousSelectedTier = currentTier;
-            currentTier = index;
-            ChangeMapOrder();
+            pickedMapType = PickTypes.Boss;
+            selectedBossMap = tier;
+
+            CheckPickerMove();
+            pickerImage.DOAnchorPosX(bossMaps[tier].anchoredPosition.x, UIConfig.PickerMoveTime).SetId(PickerMoveID);
+            ChangeTowerImage();
+        }
+
+        public void IncreaseTier()
+        {
+            if (pickedMapType != PickTypes.Tiered) return;
+
+            if (currentTier < 15)
+                currentTier++;
+            UpdateTierText();
+            ChangeMapTier();
+        }
+
+        public void DecreaseTier()
+        {
+            if (currentTier > 0)
+                currentTier--;
+            UpdateTierText();
+            ChangeMapTier();
+        }
+
+        private void UpdateTierText()
+        {
+            mapTierText.text = (currentTier + 1).ToString();
         }
 
         private void ChangeMapTier()
         {
-            mapDetailUI.SetTier(currentTier+1);
+            ChangeTowerImage();
+            mapDetailUI.SetTier(currentTier + 1);
             mapDetailUI.UpdateTowerDetails();
         }
-        
+
+        private void CheckPickerMove()
+        {
+            if (DOTween.IsTweening(PickerMoveID))
+                DOTween.Kill(PickerMoveID);
+        }
+
         public void StartTower()
         {
             EventManager.Instance.LoadTower();
@@ -91,11 +137,18 @@ namespace Runtime.UIRelated.MapSelect
 
         public void OnOpened()
         {
-            ArrangeMaps();
+            UpdateTierText();
         }
 
         public void OnClosed()
         {
         }
+    }
+
+    public enum PickTypes
+    {
+        Tutorial,
+        Tiered,
+        Boss
     }
 }

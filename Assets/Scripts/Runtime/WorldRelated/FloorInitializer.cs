@@ -16,7 +16,7 @@ namespace Runtime.WorldRelated
 
         public void Initialise()
         {
-//            Debug.Log("Loading Floor Initializer...");
+            //Debug.Log("Loading Floor Initializer...");
             currentFloor = 0;
 
             EventManager.Instance.FloorLoadEvent += OnFloorLoad;

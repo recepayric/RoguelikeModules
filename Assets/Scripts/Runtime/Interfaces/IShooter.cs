@@ -3,5 +3,6 @@
     public interface IShooter
     {
         float GetDamage();
+        float GetCriticalDamageChance();
     }
 }

@@ -106,7 +106,7 @@ namespace Runtime.UIRelated.CharacterSelect
 
             detailsText.text = stats;
             
-            EventManager.Instance.CharacterSelectChanged(characterDataSo.characterName);
+            EventManager.Instance.CharacterSelectChanged(characterDataSo.mannqueenPoolKey);
         }
 
         #endregion
@@ -132,6 +132,8 @@ namespace Runtime.UIRelated.CharacterSelect
             var critChance = "crit: " + weaponData.BaseAttackRange + "%\n";
             stats = attackDamage + attackSpeed + attackRange + critChance;
             weaponDetailsText.text = stats;
+            
+            EventManager.Instance.WeaponSelectChanged(weaponData.DummyWeaponKey);
         }
 
         #endregion

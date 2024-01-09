@@ -25,6 +25,7 @@ namespace Runtime
         public Health healthBar;
         public CharacterDataSo characterDataSo;
         public PlayerTargetFollower playerTargetFollower;
+        public PlayerSwordSwinger PlayerSwordSwinger;
         public LineRenderer LineRenderer;
         public GameObject WeaponPoint;
 
@@ -357,6 +358,7 @@ namespace Runtime
                 weapon.transform.localPosition = Vector3.zero;
                 weapon.transform.localScale = Vector3.one;
                 weapon.transform.localRotation = Quaternion.identity;
+                weaponScript.SetSwordSwinger(PlayerSwordSwinger);
                 equippedWeapon = weaponScript;
             }
             else

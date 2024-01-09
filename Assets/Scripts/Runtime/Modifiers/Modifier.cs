@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Runtime.Enums;
+using Runtime.ProjectileRelated;
 using UnityEngine;
 
 namespace Runtime.Modifiers
@@ -38,6 +39,11 @@ namespace Runtime.Modifiers
         public virtual void ApplyEffect(GameObject projectile, Projectile projectileScript, bool isCrit)
         {
             //RegisterUser(projectile);
+        }
+
+        public virtual void ApplyEffect(GameObject slashObject, Slash slash, bool isCrit)
+        {
+            
         }
 
         public virtual void RegisterUser(GameObject gameObject)

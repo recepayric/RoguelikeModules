@@ -55,7 +55,7 @@ namespace Runtime.WorldRelated
             {
                 var randX = Random.Range(-xBound, xBound);
                 var randY = Random.Range(-yBound, yBound);
-                Debug.Log("Type: " + SpawnDatas[waveSpawned].EnemyKey);
+                //Debug.Log("Type: " + SpawnDatas[waveSpawned].EnemyKey);
                 var enemy = BasicPool.instance.Get(SpawnDatas[waveSpawned].EnemyKey);
                 enemy.transform.position = new Vector2(randX, randY);
             }
@@ -73,9 +73,12 @@ namespace Runtime.WorldRelated
             waveSpawned++;
 
             var waitTime = 3f;
-            
-            if(SpawnDatas.Count < waveSpawned)
+
+            if(waveSpawned < SpawnDatas.Count)
                 waitTime = SpawnDatas[waveSpawned].spawnWait;
+            
+            Debug.Log("Spawning a group of monsters!!! " + waitTime);
+
 
             DOVirtual.DelayedCall(waitTime, () =>
             {

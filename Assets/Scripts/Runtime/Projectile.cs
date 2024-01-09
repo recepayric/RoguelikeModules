@@ -398,7 +398,6 @@ namespace Runtime
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("Projectile Hit!!");
             var damageable = other.gameObject.GetComponent<IDamageable>();
             if(damageable != null)
                 HitTarget(damageable);
