@@ -4,7 +4,7 @@ namespace Runtime.Configs
 {
     public class GameConfig
     {
-        public static Screens FirstScreenToOpen = Screens.MapSelect;
+        public static Screens FirstScreenToOpen = Screens.CharacterSelect;
         public static float RangeToRadius = 20;
         public static float MinRangeForExplosions = 5;
 
