@@ -20,12 +20,10 @@ namespace Runtime.Managers
             Instance = this;
             //Debug.Log("Event Manager is loaded!");
         }
-
-
+        
         public event UnityAction<bool> SetMonsterSpawning;
         public void SetMonsterSpawn(bool status) => SetMonsterSpawning?.Invoke(status);
-
-
+        
         public event UnityAction UpdateResCountEvent;
         public void UpdateResCount() => UpdateResCountEvent?.Invoke();
 
@@ -55,7 +53,13 @@ namespace Runtime.Managers
 
         public event UnityAction WeaponsUpdatedEvent;
         public void WeaponsUpdated() => WeaponsUpdatedEvent?.Invoke();
-
+        
+        public event UnityAction<bool> GameEndEvent;
+        public void GameEnd(bool isWon) => GameEndEvent?.Invoke(isWon);
+        
+        public event UnityAction RestartGameEvent;
+        public void RestartGame() => RestartGameEvent?.Invoke();
+        
         #endregion
 
         #region Game Start Related

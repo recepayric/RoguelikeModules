@@ -89,7 +89,7 @@ namespace Runtime.SpellsRelated
             CheckEnemies();
             for (int i = 0; i < enemiesInRange.Count; i++)
             {
-                ScriptDictionaryHolder.Enemies[enemiesInRange[i]].AddShock(1, 10);
+                DictionaryHolder.Enemies[enemiesInRange[i]].AddShock(1, 10);
             }
         }
 
@@ -97,7 +97,7 @@ namespace Runtime.SpellsRelated
         {
             for (int i = 0; i < enemiesInRange.Count; i++)
             {
-                if (!ScriptDictionaryHolder.Enemies[enemiesInRange[i]].IsAvailable())
+                if (!DictionaryHolder.Enemies[enemiesInRange[i]].IsAvailable())
                 {
                     enemiesInRange.Remove(enemiesInRange[i]);
                     i--;

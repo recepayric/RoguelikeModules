@@ -28,10 +28,11 @@ MonoBehaviour:
   baseEvasion: 0
   baseDefence: 0
   baseAttackRange: 3
-  baseMaxAttackRange: 4
+  baseMaxAttackRange: 5
   baseProjectileNumber: 0
   minFloorToSpawn: 0
   minSpawnAmount: 1
   maxSpawnAmount: 5
   attackType: 6
+  explosionKey: 0
   poolKey: 21

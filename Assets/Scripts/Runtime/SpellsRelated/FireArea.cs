@@ -90,8 +90,8 @@ namespace Runtime.SpellsRelated
             CheckEnemies();
             for (int i = 0; i < enemiesInRange.Count; i++)
             {
-                //ScriptDictionaryHolder.Enemies[enemiesInRange[i]].AddBurning(1, CalculateDamage());
-                ScriptDictionaryHolder.Enemies[enemiesInRange[i]].DealDamage(DamageToGive, false);
+                DictionaryHolder.Enemies[enemiesInRange[i]].AddBurning(1, CalculateDamage());
+                //DictionaryHolder.Enemies[enemiesInRange[i]].DealDamage(DamageToGive, false);
             }
         }
 
@@ -107,7 +107,7 @@ namespace Runtime.SpellsRelated
         {
             for (int i = 0; i < enemiesInRange.Count; i++)
             {
-                if (!ScriptDictionaryHolder.Enemies[enemiesInRange[i]].IsAvailable())
+                if (!DictionaryHolder.Enemies[enemiesInRange[i]].IsAvailable())
                 {
                     enemiesInRange.Remove(enemiesInRange[i]);
                     i--;

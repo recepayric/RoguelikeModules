@@ -24,7 +24,7 @@ namespace Runtime.UIRelated.Market
             for (int i = 0; i < activeCharacterSo.playerWeapons.Count; i++)
             {
                 weaponSlots[i].gameObject.SetActive(true);
-                weaponSlots[i]._weaponDatasSo = activeCharacterSo.playerWeapons[i].weaponDatsSo;
+                weaponSlots[i]._weaponDatasSo = activeCharacterSo.playerWeapons[i].weaponDataSo;
                 weaponSlots[i].weapon = activeCharacterSo.playerWeapons[i];
             }
         }

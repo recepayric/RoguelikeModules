@@ -14,6 +14,7 @@ namespace Runtime.UIRelated
         public GameObject mapSelectScreen;
         public GameObject levelUpScreen;
         public GameObject marketScreen;
+        public GameObject gameEndScreen;
 
         private Dictionary<Screens, GameObject> _gameScreens;
 
@@ -65,6 +66,7 @@ namespace Runtime.UIRelated
             _gameScreens.Add(Screens.MapSelect, mapSelectScreen);
             _gameScreens.Add(Screens.LevelUp, levelUpScreen);
             _gameScreens.Add(Screens.Market, marketScreen);
+            _gameScreens.Add(Screens.GameEnd, gameEndScreen);
         }
 
         private void OnGameStart()
@@ -99,6 +101,7 @@ namespace Runtime.UIRelated
         CharacterSelect,
         MapSelect,
         LevelUp,
-        Market
+        Market,
+        GameEnd
     }
 }

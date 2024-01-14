@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Runtime.Enums;
 using Runtime.Managers;
 using UnityEngine;
@@ -13,13 +14,29 @@ namespace Runtime.Collectables
         private Transform _target;
         private Coroutine _returnCoroutine;
         private float value = 1;
+        private float speedMult = 1;
 
         public void Collect(Transform target)
         {
             if (isBeingCollected) return;
             _target = target;
             isBeingCollected = true;
-            _returnCoroutine = StartCoroutine(ReturnMoveLoop());
+            //_returnCoroutine = StartCoroutine(ReturnMoveLoop());
+        }
+
+        private void Update()
+        {
+            if (!isBeingCollected) return;
+            
+            transform.position = Vector3.Lerp(transform.position, _target.position, Time.deltaTime * moveSpeed*speedMult);
+            var distance = Vector3.Distance(transform.position, _target.position);
+
+            if (distance < 0.5f)
+            {
+                FinishedCollecting();
+            }
+
+            speedMult += Time.deltaTime * 3f;
         }
 
         private IEnumerator ReturnMoveLoop()
@@ -52,12 +69,13 @@ namespace Runtime.Collectables
         public void OnReturn()
         {
             isBeingCollected = false;
-            ScriptDictionaryHolder.Collectables.Remove(gameObject);
+            speedMult = 1f;
+            DictionaryHolder.Collectables.Remove(gameObject);
         }
 
         public void OnGet()
         {
-            ScriptDictionaryHolder.Collectables.Add(gameObject, this);
+            DictionaryHolder.Collectables.Add(gameObject, this);
         }
     }
 }

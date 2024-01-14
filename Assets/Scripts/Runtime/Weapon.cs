@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Data;
 using Data.WeaponDataRelated;
 using Runtime.Configs;
 using Runtime.Enums;
@@ -12,40 +10,32 @@ using Runtime.ParticleShaderScripts;
 using Runtime.PlayerRelated;
 using Runtime.ProjectileRelated;
 using Runtime.WeaponRelated;
-using Unity.VisualScripting;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Runtime
 {
     [RequireComponent(typeof(WeaponLevelSystem))]
     [RequireComponent(typeof(WeaponUpgradeTree))]
-    public class Weapon : MonoBehaviour, IShooter
+    public class Weapon : MonoBehaviour, IShooter, IPoolObject
     {
         public WeaponLevelSystem weaponLevelSystem;
         public WeaponUpgradeTree weaponUpgradeTree;
-        public bool isActivated = false;
-        public WeaponDatasSo weaponDatsSo;
+
+        //public WeaponDatasSo weaponDatsSo;
         public WeaponDataSo weaponDataSo;
-        public Weapons weaponType;
-        public Stats characterStats;
         public WeaponStats weaponStats;
-
         public PlayerSwordSwinger swordSwinger;
-
+        public IWeaponCarrier WeaponCarrier;
         private float _timer;
         private float distanceToEnemy;
-        public float attackTime;
 
+        //todo change to poolkey
         public GameObject projectilePrefab;
         public GameObject projectilePoint;
+        public PoolKeys slashKey;
 
-        public CircleCollider2D circleCollider2D;
-        public Collider2D colliderHit;
-
-        public List<GameObject> enemiesInRange;
-        public bool hasEnemyInRange;
         public GameObject targetEnemy;
+        public GameObject rotatingWeaponParent;
 
         public Dictionary<AllStats, float> statsFromTree;
         public List<SpecialModifiers> specialModifiersFromTree;
@@ -55,6 +45,7 @@ namespace Runtime
         public List<Modifier> modifiersOnGetHit;
         public List<Modifier> modifiersOnHealthChange;
         public List<Modifier> modifiersOnItemBuy;
+        public List<GameObject> rotatingSwords;
 
         public static float RotationGlobal;
 
@@ -65,11 +56,10 @@ namespace Runtime
         public List<GameObject> styles;
         public int styleCount;
 
-
         private void Start()
         {
-            circleCollider2D = GetComponent<CircleCollider2D>();
-            SetStats();
+            //todo move these to get from pool!!
+            weaponStats.SetStats();
             //SetSpecialModifiers();
             SetSpecialModifiers(specialModifiersList);
             SetSpecialModifiers(weaponStats.specialModifiers);
@@ -79,10 +69,13 @@ namespace Runtime
 
         private void Update()
         {
-            RotationGlobal += Time.deltaTime * 100f;
-            //timer += Time.deltaTime;
-
-            //transform.right = targetEnemy.transform.position - transform.position;
+            if (rotatingWeaponParent != null)
+            {
+                RotationGlobal += Time.deltaTime * (360f/weaponStats.attackSpeed);
+                rotatingWeaponParent.transform.rotation = Quaternion.Euler(0, 0, RotationGlobal);
+                rotatingWeaponParent.transform.position = WeaponCarrier.GetRotationgWeaponParent().position;
+            }
+            
             if (CanAttack())
             {
                 if (!isAttacking)
@@ -93,7 +86,7 @@ namespace Runtime
                 _timer += Time.deltaTime;
                 if (_timer >= weaponStats.attackSpeed)
                 {
-                    Attack();
+                    CreateProjectile();
                     _timer = 0;
                 }
             }
@@ -107,7 +100,7 @@ namespace Runtime
                 _timer = 0;
             }
 
-            if(swirlObject != null)
+            if (swirlObject != null)
                 swirlObject.transform.position = projectilePoint.transform.position;
         }
 
@@ -117,7 +110,7 @@ namespace Runtime
             if (weaponDataSo.WeaponType == WeaponType.Wand)
                 WandAttack();
         }
-        
+
         private void HandleStopAttack()
         {
             isAttacking = false;
@@ -127,6 +120,7 @@ namespace Runtime
 
         private void SwordAttack()
         {
+            if (weaponStats.isRotatinSword) return;
             swordSwinger.Swing(weaponStats.attackSpeed);
         }
 
@@ -143,10 +137,34 @@ namespace Runtime
             EventManager.Instance.DownWand();
         }
 
-        public void OnFloorStart()
+        private void ActivateRotatingWeapons()
         {
-            SetStats();
-            ActivateModifiers();
+            if (!weaponStats.isRotatinSword) return;
+
+            if (rotatingWeaponParent == null)
+                rotatingWeaponParent = new GameObject();
+
+            rotatingWeaponParent.transform.rotation = Quaternion.identity;
+            
+            var amountOfRotatingWeapons = weaponStats.projectileAmount;
+
+            var angleBetween = 360f / amountOfRotatingWeapons;
+            var rad = Mathf.Deg2Rad * angleBetween;
+
+            for (int i = 0; i < amountOfRotatingWeapons; i++)
+            {
+                var projectile = BasicPool.instance.Get(weaponStats.rotatingWeaponKey);
+                projectile.transform.SetParent(rotatingWeaponParent.transform);
+
+                var distanceX = weaponStats.rotationDistanceFromPlayer * Mathf.Cos(rad * i);
+                var distanceY = weaponStats.rotationDistanceFromPlayer * Mathf.Sin(rad * i);
+
+                projectile.transform.localPosition = new Vector3(distanceX, distanceY, 0);
+                projectile.transform.rotation = Quaternion.Euler(0, 0, angleBetween*i+90);
+
+                var script = DictionaryHolder.RotatingMeleeWeapons[projectile];
+                script.SetShooter(this);
+            }
         }
 
         public void AddStatFromTree(AllStats stat, float value)
@@ -159,7 +177,7 @@ namespace Runtime
             else
                 statsFromTree.Add(stat, value);
 
-            SetStats();
+            weaponStats.SetStats();
         }
 
         public void AddModifierFromTree(SpecialModifiers specialModifier)
@@ -168,29 +186,18 @@ namespace Runtime
             AddSpecialModifier(specialModifier);
         }
 
-        public void AddStyle(int number)
-        {
-            Debug.Log("Don't forget to change your weapon's style!!!");
-            styleCount++;
-            UpdateStyle();
-        }
-
-        public void SetSwordSwinger(PlayerSwordSwinger pSwordSwinger)
-        {
-            swordSwinger = pSwordSwinger;
-            swordSwinger.SetWeapon(this);
-            swordSwinger.SetSlashPosition(projectilePoint);
-            if(weaponDataSo.WeaponType == WeaponType.Sword)
-                swordSwinger.ActivateEnemyFollow();
-            else
-                swordSwinger.DeActivateEnemyFollow();
-        }
-
         public void SetSlash(Slash slash)
         {
             slash.slashSpeedMultiplier = 1f / weaponStats.attackSpeed;
             slash.SetRange(weaponStats.range);
             slash.SetShooter(this);
+        }
+
+        public void AddStyle(int number)
+        {
+            Debug.Log("Don't forget to change your weapon's style!!!");
+            styleCount++;
+            UpdateStyle();
         }
 
         private void UpdateStyle()
@@ -204,25 +211,13 @@ namespace Runtime
             }
         }
 
-
-        public void UpdateAttackSpeed()
+        private void ActivateModifiers()
         {
-            var attackSpeedBuff = ScriptDictionaryHolder.Player.stats.GetStat(AllStats.AttackSpeed);
-            var currentSpeed = weaponDatsSo.WeaponData[weaponType].BaseAttackSpeed;
-            var multiplierFromTree = (1 + GetStat(AllStats.AttackSpeed) / 100f);
-            if (multiplierFromTree == 0)
-                multiplierFromTree = 0.01f;
-            currentSpeed = currentSpeed / multiplierFromTree;
-
-            var multiplier = (1 + attackSpeedBuff / 100f);
-            if (multiplier == 0)
-                multiplier = 0.01f;
-            weaponStats.attackSpeed = currentSpeed / multiplier;
-        }
-
-        private bool CanAttack()
-        {
-            return targetEnemy != null && distanceToEnemy <= weaponStats.range / GameConfig.RangeToRadius;
+            for (var i = 0; i < modifiersOnStart.Count; i++)
+            {
+                
+                modifiersOnStart[i].ApplyEffect(this);
+            }
         }
 
         private void SetSpecialModifiers(List<SpecialModifiers> pSpecialModifiersList)
@@ -270,126 +265,23 @@ namespace Runtime
             }
         }
 
-        private void ActivateModifiers()
+
+        private void CreateProjectile()
         {
-            for (var i = 0; i < modifiersOnStart.Count; i++)
-            {
-                modifiersOnStart[i].ApplyEffect(this);
-            }
-        }
-
-        private void SetStats()
-        {
-            if (statsFromTree == null)
-                statsFromTree = new Dictionary<AllStats, float>();
-            //extra damages
-            var extraDamage = 0f;
-
-            if (weaponType == Weapons.Gun)
-                extraDamage = ScriptDictionaryHolder.Player.stats.GetStat(AllStats.RangedAttack);
-
-            if (weaponType == Weapons.Sword)
-                extraDamage = ScriptDictionaryHolder.Player.stats.GetStat(AllStats.MeleeAttack);
-
-            var damageIncreasePercentage = ScriptDictionaryHolder.Player.stats.GetStat(AllStats.Damage) / 100f;
-
-            weaponStats.specialModifiers = weaponDatsSo.specialModifiersList;
-
-            //From Upgrade Tree!!!
-            var rangeIncreaseFromTree = GetStat(AllStats.Range);
-            var damageIncreaseFromTree = GetStat(AllStats.Damage);
-            var attackSpeedIncreaseFromTree = GetStat(AllStats.AttackSpeed);
-            var damagePoint = GetStat(AllStats.MagicalAttack);
-            damagePoint += GetStat(AllStats.RangedAttack);
-            damagePoint += GetStat(AllStats.MeleeAttack);
-
-
-            var projectileFromTree = GetStat(AllStats.ProjectileNumber);
-            var bounceFromTree = GetStat(AllStats.BounceNumber);
-
-            //var data = weaponDatsSo.WeaponData[weaponType];
-            var data = weaponDataSo;
-            weaponStats.damage = data.BaseDamage + extraDamage + damagePoint;
-            weaponStats.damage += weaponStats.damage * damageIncreasePercentage;
-            weaponStats.damage += weaponStats.damage * damageIncreaseFromTree;
-
-            weaponStats.range = data.BaseAttackRange + rangeIncreaseFromTree;
-
-            weaponStats.attackSpeed = data.BaseAttackSpeed;
-            var multiplier = (1 + attackSpeedIncreaseFromTree / 100f);
-            if (multiplier == 0)
-                multiplier = 0.01f;
-            weaponStats.attackSpeed = weaponStats.attackSpeed / multiplier;
-
-            weaponStats.projectileAmount = data.BaseProjectileAmount + (int)projectileFromTree;
-            weaponStats.bounceNum = (int)bounceFromTree;
-
-            weaponStats.criticalHitChance = data.BaseCriticalHitChance;
-            weaponStats.criticalHitDamage = data.BaseCriticalHitDamage;
-
-            weaponStats.pierceNum = (int)(data.BasePierceNumber +
-                                          ScriptDictionaryHolder.Player.stats.GetStat(AllStats.PierceNumber));
-
-            if (circleCollider2D != null)
-                circleCollider2D.radius = (weaponStats.range / GameConfig.RangeToRadius);
-        }
-
-        private float GetStat(AllStats stat)
-        {
-            if (statsFromTree == null)
-                statsFromTree = new Dictionary<AllStats, float>();
-            if (statsFromTree.ContainsKey(stat))
-                return statsFromTree[stat];
-
-            return 0;
-        }
-
-        public void SetEnemy(GameObject enemy)
-        {
-            if (enemy == null || !ScriptDictionaryHolder.Enemies[enemy].IsAvailable())
-            {
-                targetEnemy = null;
-                swordSwinger.SetTarget(null);
-                return;
-            }
-
-            targetEnemy = enemy;
-            swordSwinger.SetTarget(targetEnemy);
-        }
-
-        public void SetEnemy(GameObject enemy, float distance)
-        {
-            if (enemy == null || !ScriptDictionaryHolder.Enemies[enemy].IsAvailable())
-            {
-                swordSwinger.SetTarget(null);
-                targetEnemy = null;
-                return;
-            }
-
-            targetEnemy = enemy;
-
-            distanceToEnemy = distance;
-            EventManager.Instance.SetDistanceBetweenEnemy(distance * GameConfig.RangeToRadius);
-            swordSwinger.SetTarget(targetEnemy);
-        }
-
-        private void Attack()
-        {
-            //CheckForEnemy();
-
-            if (targetEnemy == null || !ScriptDictionaryHolder.Enemies[targetEnemy].IsAvailable())
+            if (targetEnemy == null || !targetEnemy.activeSelf || !DictionaryHolder.Enemies[targetEnemy].IsAvailable())
                 return;
 
-            //transform.right = targetEnemy.transform.position - transform.position;
             if (weaponDataSo.WeaponType == WeaponType.Sword)
             {
                 SwordAttack();
                 return;
             }
+
+            //todo when multiple projectiles, send them with angle
             for (int i = 0; i < weaponStats.projectileAmount; i++)
             {
-                if(weaponDataSo.WeaponType == WeaponType.Sword) break;
-                
+                if (weaponDataSo.WeaponType == WeaponType.Sword) break;
+
                 //todo change this to pool and dictionary.
                 var projectile = Instantiate(projectilePrefab);
                 projectile.transform.position = projectilePoint.transform.position;
@@ -409,41 +301,61 @@ namespace Runtime
                 sc.SetShooter(this);
             }
         }
-        
 
-        private void CheckForEnemy()
+        public void SetSwordSwinger(PlayerSwordSwinger pSwordSwinger)
         {
-            for (int i = enemiesInRange.Count - 1; i >= 0; i--)
+            swordSwinger = pSwordSwinger;
+            swordSwinger.SetWeapon(this);
+            swordSwinger.SetSlashPosition(projectilePoint);
+            if (weaponDataSo.WeaponType == WeaponType.Sword)
+                swordSwinger.ActivateEnemyFollow();
+            else
+                swordSwinger.DeActivateEnemyFollow();
+        }
+
+        public void SetEnemy(GameObject enemy)
+        {
+            if (enemy == null || !DictionaryHolder.Enemies[enemy].IsAvailable())
             {
-                if (!enemiesInRange[i].activeSelf)
-                {
-                    enemiesInRange.Remove(enemiesInRange[i]);
-                }
+                targetEnemy = null;
+                swordSwinger.SetTarget(null);
+                return;
             }
 
-            hasEnemyInRange = enemiesInRange.Count > 0;
-
-            targetEnemy = hasEnemyInRange ? enemiesInRange[0] : null;
+            targetEnemy = enemy;
+            swordSwinger.SetTarget(targetEnemy);
         }
 
-        private void DealDamage(GameObject enemy)
+        public void SetEnemy(GameObject enemy, float distance)
         {
-            var damage = 1;
-            var isCriticalHit = Random.Range(0, 1f) <= 0.5f;
-            ScriptDictionaryHolder.Enemies[enemy].DealDamage(damage, isCriticalHit);
+            if (enemy == null || !DictionaryHolder.Enemies[enemy].IsAvailable())
+            {
+                swordSwinger.SetTarget(null);
+                targetEnemy = null;
+                return;
+            }
+
+            targetEnemy = enemy;
+
+            distanceToEnemy = distance;
+            EventManager.Instance.SetDistanceBetweenEnemy(distance * GameConfig.RangeToRadius);
+            swordSwinger.SetTarget(targetEnemy);
         }
 
-        public void Activate()
+        public void OnFloorStart()
         {
-            isActivated = true;
-            colliderHit.enabled = true;
+            weaponStats._weaponDataSo = weaponDataSo;
+            weaponStats.statsFromTree = statsFromTree;
+            weaponStats.SetStats();
+            ActivateModifiers();
+            ActivateRotatingWeapons();
         }
 
-        public void DeActivate()
+        private bool CanAttack()
         {
-            isActivated = false;
-            colliderHit.enabled = false;
+            return targetEnemy != null && distanceToEnemy <= weaponStats.range / GameConfig.RangeToRadius;
         }
+
 
         public float GetDamage()
         {
@@ -453,6 +365,16 @@ namespace Runtime
         public float GetCriticalDamageChance()
         {
             return weaponStats.criticalHitChance;
+        }
+
+        public PoolKeys PoolKeys { get; set; }
+
+        public void OnReturn()
+        {
+        }
+
+        public void OnGet()
+        {
         }
     }
 }

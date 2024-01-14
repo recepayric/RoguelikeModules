@@ -65,9 +65,11 @@ MonoBehaviour:
   WeaponType: 0
   BaseAttackSpeed: 0.3
   BaseAttackRange: 400
+  BaseAttackRangeSword: 0
   BaseDamage: 1
   BaseProjectileAmount: 1
   BaseCriticalHitChance: 50
   BaseCriticalHitDamage: 2
   BasePierceNumber: 0
-  WeaponPoolKey: 0
+  WeaponPoolKey: 31
+  DummyWeaponKey: 0

@@ -45,7 +45,7 @@ Material:
     - _Distortion_Scale: 14.76
     - _Scale: 5
     m_Colors:
-    - _Color: {r: 11.313708, g: 0, b: 0, a: 1}
+    - _Color: {r: 1.0159658, g: 0, b: 0.032150056, a: 1}
     - _Dissolve_Speed: {r: -0.75, g: 0, b: 0, a: 0}
     - _Remap: {r: 0, g: 1, b: 0, a: 0}
     - _Speed: {r: 0, g: -0.3, b: 0, a: 0}

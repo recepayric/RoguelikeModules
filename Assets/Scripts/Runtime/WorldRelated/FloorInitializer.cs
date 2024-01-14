@@ -2,6 +2,7 @@
 using DG.Tweening;
 using Runtime.Configs;
 using Runtime.Managers;
+using Runtime.UIRelated;
 using UnityEngine;
 
 namespace Runtime.WorldRelated
@@ -11,15 +12,16 @@ namespace Runtime.WorldRelated
     {
         private const string FloorTimerID = "floor_timer";
 
-        [SerializeField] private int currentFloor;
+        [SerializeField] public int currentFloor;
         [SerializeField] private int currentTimeOnFloor;
+        public bool isPlayerDead = false;
 
         public void Initialise()
         {
             //Debug.Log("Loading Floor Initializer...");
             currentFloor = 0;
 
-            EventManager.Instance.FloorLoadEvent += OnFloorLoad;
+            //EventManager.Instance.FloorLoadEvent += OnFloorLoad;
             EventManager.Instance.PlayerDiesEvent += OnPlayerDies;
             EventManager.Instance.FloorExitEvent += OnFloorExit;
             EventManager.Instance.FloorEndsEvent += OnFloorEnds;
@@ -48,7 +50,7 @@ namespace Runtime.WorldRelated
             currentFloor++;
         }
 
-        private void OnFloorLoad()
+        public void OnFloorLoad()
         {
             Debug.Log("Loading Floor");
             currentTimeOnFloor = 0;
@@ -57,20 +59,29 @@ namespace Runtime.WorldRelated
 
         private void OnPlayerDies()
         {
+            isPlayerDead = true;
+            EventManager.Instance.FloorEnds(currentFloor);
+            EventManager.Instance.GameEnd(false);
         }
 
         private void OnFloorExit()
         {
+            EventManager.Instance.FloorEnds(currentFloor);
         }
 
         private void OnFloorEnds(int floorNum)
+        {
+           
+        }
+
+        private void CheckForGameEnd(int round)
         {
             
         }
 
         public void Destroy()
         {
-            EventManager.Instance.FloorLoadEvent -= OnFloorLoad;
+            //EventManager.Instance.FloorLoadEvent -= OnFloorLoad;
             EventManager.Instance.PlayerDiesEvent -= OnPlayerDies;
             EventManager.Instance.FloorExitEvent -= OnFloorExit;
             EventManager.Instance.FloorEndsEvent -= OnFloorEnds;

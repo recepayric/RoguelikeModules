@@ -188,7 +188,7 @@ namespace Runtime.PlayerRelated
         private void CreateSlash()
         {
             //Todo change to pool!!!
-            var slashObject = Instantiate(slash.gameObject);
+            var slashObject = BasicPool.instance.Get(weapon.slashKey);
             //slashObject.transform.SetParent(slashParent.transform);
             var slashSc = slashObject.GetComponent<Slash>();
             slashSc.StartCreating(swingTime);

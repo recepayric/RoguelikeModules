@@ -16,17 +16,17 @@ using UnityEngine;
 
 namespace Runtime
 {
-    public class Player : MonoBehaviour, ISpellCaster, IDamageable
+    public class Player : MonoBehaviour, ISpellCaster, IDamageable, IPoolObject, IWeaponCarrier
     {
         public Transform Transform { get; set; }
         public GameObject SpellPosition;
+        public GameObject RotatingWeaponParent;
         public ActiveCharacterSo activeCharacterSo;
         public PlayerLevel playerLevel;
         public Health healthBar;
         public CharacterDataSo characterDataSo;
         public PlayerTargetFollower playerTargetFollower;
         public PlayerSwordSwinger PlayerSwordSwinger;
-        public LineRenderer LineRenderer;
         public GameObject WeaponPoint;
 
         public Stats stats;
@@ -67,37 +67,68 @@ namespace Runtime
         //Spell Gamble
         public AllStats statFromGamble;
         public float gambleStatIncrease;
+        
+        //Status
+        private bool isDead = false;
 
 
         // Start is called before the first frame update
         void Start()
         {
+            
+        }
+
+        private void Initialise()
+        {
+            ResetModifiers();
+            ResetWeapon();
+            ResetEverything();
             Transform = transform;
             playerLevel.SetPlayerData(characterDataSo, stats);
             SetSpecialModifiers();
             CalculateBaseStats();
             ApplySpecialModifiers();
-
-            var circleCollider = GetComponent<CircleCollider2D>();
-            circleCollider.radius = baseRange + (stats.range / GameConfig.RangeToRadius);
-
             finalRange = baseRange * GameConfig.RangeToRadius + stats.range;
-
-            ScriptDictionaryHolder.Player = this;
-
-            //stats.SetStats();
-            //UpdateStatsWithItems();
-            
+            DictionaryHolder.Player = this;
             healthBar.SetMaxHealth(stats.GetStat(AllStats.MaxHealth));
-            
-            AddEvents();
-            
             SetActiveCharacter();
-
+            SetStarterSpells();
             AddSpells();
-           
         }
 
+        private void ResetModifiers()
+        {
+            modifiersOnStart.Clear();
+            modifiersOnGetHit.Clear();
+            modifiersOnHealthChange.Clear();
+            modifiersOnItemBuy.Clear();
+        }
+
+        private void ResetWeapon()
+        {
+            //todo send weapon to the pool after adding weapon to poolable!!!
+        }
+
+        private void ResetEverything()
+        {
+            //todo send them to the pools!!!!
+            items.Clear();
+            spellsToAdd.Clear();
+            spells.Clear();
+            levelUpStatsList.Clear();
+        }
+
+        public void SetStarterWeapon(PoolKeys poolKeyWeapon)
+        {
+            var weapon = BasicPool.instance.Get(poolKeyWeapon);
+            AddWeapon(weapon);
+        }
+        
+        private void SetStarterSpells()
+        {
+            spellsToAdd.AddRange(characterDataSo.starterSpells);
+        }
+        
         private void SetActiveCharacter()
         {
             activeCharacterSo = Resources.Load<ActiveCharacterSo>("CharacterData/ActiveCharacterData");
@@ -109,9 +140,6 @@ namespace Runtime
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.E))
-                AddWeapon();
-
             CheckForCollectables();
             CheckEnemies();
             UpdateHealth();
@@ -127,9 +155,24 @@ namespace Runtime
             maxHealth = stats.GetStat(AllStats.MaxHealth);
         }
 
+        private void ResetHealth()
+        {
+            damageTaken = 0;
+            currentHealth = maxHealth;
+            healthBar.UpdateHealth(currentHealth);
+        }
+
         private void UpdateHealth()
         {
             currentHealth = maxHealth - damageTaken;
+
+            if (currentHealth <= 0 && !isDead)
+            {
+                currentHealth = 0;
+                EventManager.Instance.PlayerDies();
+                isDead = true;
+            }
+            
             healthBar.UpdateHealth(currentHealth);
 
             for (int i = 0; i < modifiersOnHealthChange.Count; i++)
@@ -147,6 +190,11 @@ namespace Runtime
             {
                 modifiersOnGetHit[i].ApplyEffect(this);
             }
+        }
+
+        public void AddElementalAilment(ElementModifiers element, float time, float effect, int spreadAmount)
+        {
+            
         }
 
         private void SetSpecialModifiers()
@@ -194,7 +242,7 @@ namespace Runtime
         {
             for (int i = 0; i < weapons.Count; i++)
             {
-                weapons[i].UpdateAttackSpeed();
+                weapons[i].weaponStats.UpdateAttackSpeed();
             }
         }
 
@@ -208,8 +256,9 @@ namespace Runtime
 
         private void CheckForCollectables()
         {
-            foreach (var collectable in ScriptDictionaryHolder.Collectables)
+            foreach (var collectable in DictionaryHolder.Collectables)
             {
+                //todo change to magnitude!!
                 var dist = Vector3.Distance(transform.position, collectable.Key.transform.position);
                 if (dist <= 2+stats.collectRange)
                     collectable.Value.Collect(transform);
@@ -280,7 +329,7 @@ namespace Runtime
             GameObject closestEnemy = null;
             float closestDistance = 10000;
 
-            foreach (var enemies in ScriptDictionaryHolder.Enemies)
+            foreach (var enemies in DictionaryHolder.Enemies)
             {
                 if (!enemies.Value.IsAvailable())
                     continue;
@@ -296,19 +345,12 @@ namespace Runtime
             if (closestEnemy != null)
             {
                 this.closestEnemy = closestEnemy;
-                LineRenderer.startColor = Color.red;
-                LineRenderer.endColor = Color.red;
-                LineRenderer.SetPosition(0, transform.position);
-                LineRenderer.SetPosition(1, closestEnemy.transform.position);
-
                 playerTargetFollower.SetTarget(closestEnemy);
                 playerTargetFollower.SetTargeting(true);
                 SetWeaponEnemy(closestEnemy, closestDistance);
             }
             else
             {
-                LineRenderer.SetPosition(0, transform.position);
-                LineRenderer.SetPosition(1, transform.position);
                 SetWeaponEnemy(closestEnemy, closestDistance);
                 playerTargetFollower.SetTarget(null);
                 playerTargetFollower.SetTargeting(false);
@@ -320,34 +362,15 @@ namespace Runtime
             if (equippedWeapon != null)
                 equippedWeapon.SetEnemy(enemy, distance);
         }
-
-        public void CheckIfCanAttack()
-        {
-        }
-
-        public void SendMinionsToEnemy()
-        {
-        }
-
-        public Transform explosionPoint;
-
+        
         [Button]
-        public void GetExplosion()
+        public void AddWeapon(GameObject weapon)
         {
-            var obj = BasicPool.instance.Get(PoolKeys.Explosion1);
-            obj.transform.position = explosionPoint.position;
-
-            ScriptDictionaryHolder.Explosions[obj].explosionRange = 1;
-            ScriptDictionaryHolder.Explosions[obj].Explode();
-        }
-
-        [Button]
-        public void AddWeapon()
-        {
-            var weapon = Instantiate(weaponPrefab, transform, true);
+            //var weapon = Instantiate(weaponPrefab, transform, true);
+            //weapon.transform.SetParent(transform);
             var weaponScript = weapon.GetComponent<Weapon>();
 
-            weaponScript.characterStats = stats;
+            //weaponScript.characterStats = stats;
 
             weaponObjects.Add(weapon);
             weapons.Add(weaponScript);
@@ -359,12 +382,13 @@ namespace Runtime
                 weapon.transform.localScale = Vector3.one;
                 weapon.transform.localRotation = Quaternion.identity;
                 weaponScript.SetSwordSwinger(PlayerSwordSwinger);
+                weaponScript.WeaponCarrier = this;
                 equippedWeapon = weaponScript;
             }
             else
             {
                 var minion = BasicPool.instance.Get(PoolKeys.Minion1);
-                var minionScript = ScriptDictionaryHolder.Minions[minion];
+                var minionScript = DictionaryHolder.Minions[minion];
                 minionScript.EquipWeapon(weaponScript);
                 minionScript.SetEnemyList(enemiesInRadius);
                 minions.Add(minionScript);
@@ -402,25 +426,12 @@ namespace Runtime
             }
         }
 
-
-        private void OnTriggerEnter2D(Collider2D col)
-        {
-            if (col.CompareTag("Enemy"))
-            {
-                enemiesInRadius.Add(col.gameObject);
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (other.CompareTag("Enemy"))
-            {
-                enemiesInRadius.Remove(other.gameObject);
-            }
-        }
-
         private void OnFloorStarts()
         {
+            CalculateStats();
+            AddSpells();
+            ResetHealth();
+            isDead = false;
             for (int i = 0; i < weapons.Count; i++)
             {
                 weapons[i].OnFloorStart();
@@ -441,11 +452,6 @@ namespace Runtime
             EventManager.Instance.FloorStartsEvent -= OnFloorStarts;
             EventManager.Instance.LevelUpStatSelectedEvent -= OnLevelUpStatSelected;
             EventManager.Instance.ItemBuyEvent -= OnItemBuy;
-        }
-
-        private void OnDestroy()
-        {
-            RemoveEvents();
         }
 
         public float GetRange()
@@ -515,6 +521,26 @@ namespace Runtime
         public GameObject GetGameObject()
         {
             return gameObject;
+        }
+
+        public PoolKeys PoolKeys { get; set; }
+        public void OnReturn()
+        {
+            RemoveEvents();
+            DictionaryHolder.Damageables.Remove(gameObject);
+
+        }
+
+        public void OnGet()
+        {
+            AddEvents();
+            Initialise();
+            DictionaryHolder.Damageables.Add(gameObject, this);
+        }
+
+        public Transform GetRotationgWeaponParent()
+        {
+            return RotatingWeaponParent.transform;
         }
     }
 }

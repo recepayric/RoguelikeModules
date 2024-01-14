@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22ca9504dbd540a6ac16fd39776622c8, type: 3}
-  m_Name: Basea
+  m_Name: Fire
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -72,13 +72,17 @@ MonoBehaviour:
       Entry: 8
       Data: 
   level: 0
-  characterName: Demon
+  characterName: Fire Sister
   description: A very balanced and easy to play character! Very few bad things can
     be said about this little fella!
   footer: Not many of them surviveD
   specialModifiers: 
+  characterUniqueModifiers: 
+  starterSpells: 02000000
   unlockCondition: 
-  baseExpNeeded: 50
+  baseExpNeeded: 5
   baseExpNeedIncrease: 1.2
   baseExpGainMultiplier: 1
+  ExplanationText: Burns enemies around it!
+  playerPoolKey: 28
   mannqueenPoolKey: 24

@@ -107,21 +107,27 @@ namespace Runtime.SpellsRelated.Aura
             if (gameObject == OwnerScript.GetGameObject())
                 return;
 
-            ScriptDictionaryHolder.Enemies[gameObject]._stats.AddStatBuff(statToBuff, statIncreasePercentage);
+            DictionaryHolder.Enemies[gameObject]._stats.AddStatBuff(statToBuff, statIncreasePercentage);
         }
 
         public void RemoveBuff(GameObject gameObject)
         {
             if (gameObject == OwnerScript.GetGameObject())
                 return;
-            ScriptDictionaryHolder.Enemies[gameObject]._stats.RemoveBuff(statToBuff);
+
+            if (gameObject == null)
+                return;
+            if (!gameObject.activeSelf)
+                return;
+            
+            DictionaryHolder.Enemies[gameObject]._stats.RemoveBuff(statToBuff);
         }
 
         public void RemoveAllBuffs()
         {
             for (int i = 0; i < enemiesInRange.Count; i++)
             {
-                ScriptDictionaryHolder.Enemies[enemiesInRange[i]]._stats.RemoveBuff(statToBuff);
+                DictionaryHolder.Enemies[enemiesInRange[i]]._stats.RemoveBuff(statToBuff);
             }
         }
 
@@ -129,7 +135,7 @@ namespace Runtime.SpellsRelated.Aura
         {
             for (int i = 0; i < enemiesInRange.Count; i++)
             {
-                if (!ScriptDictionaryHolder.Enemies[enemiesInRange[i]].IsAvailable())
+                if (!DictionaryHolder.Enemies[enemiesInRange[i]].IsAvailable())
                 {
                     enemiesInRange.Remove(enemiesInRange[i]);
                     i--;
@@ -152,6 +158,7 @@ namespace Runtime.SpellsRelated.Aura
             //Debug.Log(other.name);
             if (other.CompareTag("Enemy"))
             {
+                if (!DictionaryHolder.Enemies[other.gameObject].IsAvailable()) return;
                 enemiesInRange.Add(other.gameObject);
                 ApplyBuff(other.gameObject);
             }

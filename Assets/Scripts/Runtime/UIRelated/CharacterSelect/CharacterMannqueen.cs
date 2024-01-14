@@ -1,36 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using Runtime.Enums;
 using Runtime.Managers;
 using UnityEngine;
 
-public class CharacterMannqueen : MonoBehaviour, IPoolObject
+namespace Runtime.UIRelated.CharacterSelect
 {
-    private GameObject selecterWeapon;
-    public GameObject weaponHolder;
+    public class CharacterMannqueen : MonoBehaviour, IPoolObject
+    {
+        private GameObject selecterWeapon;
+        public GameObject weaponHolder;
     
-    public void OnWeaponSelectChanged(PoolKeys poolKeys)
-    {
-        if(selecterWeapon != null)
-            BasicPool.instance.Return(selecterWeapon);
+        public void OnWeaponSelectChanged(PoolKeys poolKeys)
+        {
+            if(selecterWeapon != null)
+                BasicPool.instance.Return(selecterWeapon);
+        
+            var weapon = BasicPool.instance.Get(poolKeys);
+            weapon.transform.SetParent(weaponHolder.transform);
 
+            weapon.transform.localPosition = Vector3.zero;
+            weapon.transform.localRotation = Quaternion.identity;
+            selecterWeapon = weapon;
+        }
 
-        var weapon = BasicPool.instance.Get(poolKeys);
-        weapon.transform.SetParent(weaponHolder.transform);
+        public PoolKeys PoolKeys { get; set; }
 
-        weapon.transform.localPosition = Vector3.zero;
-        weapon.transform.localRotation = Quaternion.identity;
-    }
+        public void OnReturn()
+        {
+            EventManager.Instance.WeaponSelectChangedEvent -= OnWeaponSelectChanged;
+        }
 
-    public PoolKeys PoolKeys { get; set; }
-
-    public void OnReturn()
-    {
-        EventManager.Instance.WeaponSelectChangedEvent -= OnWeaponSelectChanged;
-    }
-
-    public void OnGet()
-    {
-        EventManager.Instance.WeaponSelectChangedEvent += OnWeaponSelectChanged;
+        public void OnGet()
+        {
+            EventManager.Instance.WeaponSelectChangedEvent += OnWeaponSelectChanged;
+        }
     }
 }

@@ -67,9 +67,11 @@ MonoBehaviour:
   BaseAttackRange: 400
   BaseAttackRangeSword: 100
   BaseDamage: 1
-  BaseProjectileAmount: 1
+  BaseProjectileAmount: 2
   BaseCriticalHitChance: 50
   BaseCriticalHitDamage: 2
   BasePierceNumber: 0
-  WeaponPoolKey: 0
+  rotationDistanceFromPlayer: 4
+  WeaponPoolKey: 35
   DummyWeaponKey: 25
+  RotatingWeaponKey: 37

@@ -23,9 +23,13 @@ namespace Runtime.PlayerRelated
         public float experienceMultiplier;
         public float experienceNeededIncrease;
 
-        private void Start()
+        private void Awake()
         {
             AddEvents();
+        }
+
+        private void Start()
+        {
         }
 
         public void SetPlayerData(CharacterDataSo characterDataSo, Stats stats)
@@ -92,13 +96,19 @@ namespace Runtime.PlayerRelated
             startLevel = level;
         }
 
-        private void OnFloorEnds(int floorNum)
+        public int CalculateLevelUp()
         {
             levelDifference = level - startLevel;
-            Debug.Log("Opening level up scene");
-            EventManager.Instance.OpenScreen(Screens.LevelUp, true);
-            Debug.Log("Setting level up amount!");
-            EventManager.Instance.SetLevelUpAmount(levelDifference);
+
+            return levelDifference;
+        }
+
+        private void OnFloorEnds(int floorNum)
+        {
+            //Debug.Log("Opening level up scene");
+            //EventManager.Instance.OpenScreen(Screens.LevelUp, true);
+            //Debug.Log("Setting level up amount!");
+            //EventManager.Instance.SetLevelUpAmount(levelDifference);
         }
 
         private void AddEvents()

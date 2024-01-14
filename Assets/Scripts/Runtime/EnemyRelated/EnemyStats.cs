@@ -54,8 +54,8 @@ namespace Runtime.EnemyRelated
         public float shockEffect;
 
         public Dictionary<AllStats, float> StatsToBuff;
-        
-        
+        public PoolKeys explosionKey;
+
         //todo move these effects here from Enemy class!!!!!!!
         //Self Stats
         //Ailments
@@ -76,6 +76,8 @@ namespace Runtime.EnemyRelated
         [Header("Ailment Effects")] public float burningDamagePerSecond;
         public float freezeEffectTaken;
         public float shockEffectTaken;
+        
+        
 
 
         private void Start()
@@ -87,7 +89,7 @@ namespace Runtime.EnemyRelated
             if (ElementalStatus == null) ElementalStatus = new ElementalAilmentStatus();
             if (enemyData == null) return;
             _health = GetComponent<Health>();
-            _tower = ScriptDictionaryHolder.CurrentTower;
+            _tower = DictionaryHolder.CurrentTower;
 
             currentDamage = enemyData.baseDamage;
             currentMaxHealth = enemyData.baseHealth;
@@ -100,6 +102,7 @@ namespace Runtime.EnemyRelated
             currentDefence = enemyData.baseDefence;
             AttackType = enemyData.attackType;
             currentProjectileNumber = enemyData.baseProjectileNumber;
+            explosionKey = enemyData.explosionKey;
 
             SetFloorStats();
             SetTowerStats(_tower);
@@ -179,6 +182,7 @@ namespace Runtime.EnemyRelated
 
         public void RemoveBuff(AllStats stat)
         {
+            if (StatsToBuff == null) return;
             if (!StatsToBuff.ContainsKey(stat)) return;
             
             if (stat == AllStats.Damage)

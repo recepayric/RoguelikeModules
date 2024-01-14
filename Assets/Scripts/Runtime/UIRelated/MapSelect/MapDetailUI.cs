@@ -17,7 +17,7 @@ namespace Runtime.UIRelated.MapSelect
         public void UpdateTowerDetails()
         {
             EventManager.Instance.PrepareTower(currentTier);
-            var tower = ScriptDictionaryHolder.CurrentTower;
+            var tower = DictionaryHolder.CurrentTower;
             towerNameText.text = tower.towerName;
 
             towerModifiers.text = "";

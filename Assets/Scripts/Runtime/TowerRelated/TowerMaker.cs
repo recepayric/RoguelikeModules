@@ -41,7 +41,7 @@ namespace Runtime.TowerRelated
 
         private void OnPrepareTower(int tierToPrepare)
         {
-            ScriptDictionaryHolder.CurrentTower = towers[tierToPrepare - 1];
+            DictionaryHolder.CurrentTower = towers[tierToPrepare - 1];
         }
 
         private void OnCreateTower(int tierToCreate)

@@ -16,10 +16,11 @@ namespace Runtime.Modifiers.ElementalModifiers
         public override void ApplyEffect(Weapon weapon)
         {
             base.ApplyEffect(weapon);
+            Debug.Log("Adding Burn on Hit!!");
             
             //player magic damage
-            var playerBurnDamage = ScriptDictionaryHolder.Player.stats.GetStat(AllStats.BurnDamage);
-            var playerBurnDamageIncrease = ScriptDictionaryHolder.Player.stats.GetStat(AllStats.BurnDamagePercentage);
+            var playerBurnDamage = DictionaryHolder.Player.stats.GetStat(AllStats.BurnDamage);
+            var playerBurnDamageIncrease = DictionaryHolder.Player.stats.GetStat(AllStats.BurnDamagePercentage);
             var burnDamage = 1 + playerBurnDamage;
             burnDamage *= (1 + playerBurnDamageIncrease);
             

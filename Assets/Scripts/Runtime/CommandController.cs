@@ -23,7 +23,7 @@ namespace Runtime
                 projectile.transform.position = centerPosition;
                 projectile.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
                 //projectile.transform.rotation = Quaternion.Euler(0, 0, 0);
-                var sc = ScriptDictionaryHolder.Projectiles[projectile];
+                var sc = DictionaryHolder.Projectiles[projectile];
                 sc.ignoredEnemy = ignoredEnemy;
                 //sc.bounceNum = 1;
                 //sc.pierceNum = 1;

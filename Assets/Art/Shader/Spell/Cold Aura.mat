@@ -39,7 +39,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _RotationSpeed: 0.5
-    - _TwirldStrength: 1
+    - _TwirldStrength: 25
     m_Colors:
     - _NoiseColor: {r: 0, g: 0.93155813, b: 1, a: 0}
   m_BuildTextureStacks: []

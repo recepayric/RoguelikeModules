@@ -18,7 +18,7 @@ namespace Runtime.Modifiers.ElementalModifiers
         {
             base.ApplyEffect(weapon);
             //player magic damage
-            var playerShockEffect = ScriptDictionaryHolder.Player.stats.GetStat(AllStats.ShockEffect);;
+            var playerShockEffect = DictionaryHolder.Player.stats.GetStat(AllStats.ShockEffect);;
             var freezeEffect = 10 + playerShockEffect;
             
             //todo increaes burn time here!!!

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data.WeaponDataRelated;
 using Runtime.Enums;
 using Runtime.Modifiers;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Runtime
 {
@@ -20,24 +22,119 @@ namespace Runtime
 
         public int bounceNum;
         public int pierceNum;
+        public int rotationDistanceFromPlayer;
 
         public bool hasHomingProjectiles;
         public bool hasRotatingProjectiles;
+        public bool isRotatinSword;
+
+        public PoolKeys rotatingWeaponKey;
 
         public List<SpecialModifiers> specialModifiers;
+        public Dictionary<AllStats, float> statsFromTree = new Dictionary<AllStats, float>();
+        public WeaponDataSo _weaponDataSo;
 
         //Elemental Values
-        [HideInInspector] public bool addBurn;
-        [HideInInspector] public bool addFreeze;
-        [HideInInspector] public bool addShock;
+        [ShowInInspector] public bool addBurn;
+        [ShowInInspector] public bool addFreeze;
+        [ShowInInspector] public bool addShock;
 
-        [HideInInspector] public float burnTime;
-        [HideInInspector] public float burnDamage;
+        [ShowInInspector] public float burnTime;
+        [ShowInInspector] public float burnDamage;
 
-        [HideInInspector] public float freezeTime;
-        [HideInInspector] public float freezeEffect;
+        [ShowInInspector] public float freezeTime;
+        [ShowInInspector] public float freezeEffect;
 
-        [HideInInspector] public float shockTime;
-        [HideInInspector] public float shockEffect;
+        [ShowInInspector] public float shockTime;
+        [ShowInInspector] public float shockEffect;
+        
+        [ShowInInspector] public int burnSpreadAmount;
+        [ShowInInspector] public int burnSpreadMultiplier = 1;
+
+        public void UpdateAttackSpeed()
+        {
+            var attackSpeedBuff = DictionaryHolder.Player.stats.GetStat(AllStats.AttackSpeed);
+            var currentSpeed = _weaponDataSo.BaseAttackSpeed;
+            var multiplierFromTree = (1 + GetStat(AllStats.AttackSpeed) / 100f);
+            if (multiplierFromTree == 0)
+                multiplierFromTree = 0.01f;
+            currentSpeed = currentSpeed / multiplierFromTree;
+
+            var multiplier = (1 + attackSpeedBuff / 100f);
+            if (multiplier == 0)
+                multiplier = 0.01f;
+            attackSpeed = currentSpeed / multiplier;
+        }
+
+        public void SetStats()
+        {
+            if (statsFromTree == null)
+                statsFromTree = new Dictionary<AllStats, float>();
+
+            var data = _weaponDataSo;
+            Debug.Log(data);
+            Debug.Log(_weaponDataSo);
+            rotatingWeaponKey = data.RotatingWeaponKey;
+            rotationDistanceFromPlayer = data.rotationDistanceFromPlayer;
+            //extra damages
+            var extraDamage = 0f;
+
+            if (data.WeaponType == WeaponType.Wand)
+                extraDamage = DictionaryHolder.Player.stats.GetStat(AllStats.RangedAttack);
+            else if (data.WeaponType == WeaponType.Sword)
+                extraDamage = DictionaryHolder.Player.stats.GetStat(AllStats.MeleeAttack);
+
+            var damageIncreasePercentage = DictionaryHolder.Player.stats.GetStat(AllStats.Damage) / 100f;
+
+            specialModifiers = data.specialModifiersList;
+
+            //From Upgrade Tree!!!
+            var rangeIncreaseFromTree = GetStat(AllStats.Range);
+            var damageIncreaseFromTree = GetStat(AllStats.Damage);
+            var attackSpeedIncreaseFromTree = GetStat(AllStats.AttackSpeed);
+            var damagePoint = GetStat(AllStats.MagicalAttack);
+            damagePoint += GetStat(AllStats.RangedAttack);
+            damagePoint += GetStat(AllStats.MeleeAttack);
+
+
+            var projectileFromTree = GetStat(AllStats.ProjectileNumber);
+            var bounceFromTree = GetStat(AllStats.BounceNumber);
+
+            //var data = weaponDatsSo.WeaponData[weaponType];
+            damage = data.BaseDamage + extraDamage + damagePoint;
+            damage += damage * damageIncreasePercentage;
+            damage += damage * damageIncreaseFromTree;
+
+            range = data.BaseAttackRange + rangeIncreaseFromTree;
+
+            attackSpeed = data.BaseAttackSpeed;
+            var multiplier = (1 + attackSpeedIncreaseFromTree / 100f);
+            if (multiplier == 0)
+                multiplier = 0.01f;
+            attackSpeed = attackSpeed / multiplier;
+
+            projectileAmount = data.BaseProjectileAmount + (int)projectileFromTree;
+            bounceNum = (int)bounceFromTree;
+
+            criticalHitChance = data.BaseCriticalHitChance;
+            criticalHitDamage = data.BaseCriticalHitDamage;
+
+            pierceNum = (int)(data.BasePierceNumber +
+                              DictionaryHolder.Player.stats.GetStat(AllStats.PierceNumber));
+            
+            //Stat From Tree Part Mainly!!!
+            burnSpreadAmount = (int)(DictionaryHolder.Player.stats.GetStat(AllStats.BurnSpreadAmount) + GetStat(AllStats.BurnSpreadAmount));
+            burnSpreadAmount *= burnSpreadMultiplier;
+        }
+
+        private float GetStat(AllStats stat)
+        {
+            if (statsFromTree == null)
+                statsFromTree = new Dictionary<AllStats, float>();
+            if (statsFromTree.ContainsKey(stat))
+                return statsFromTree[stat];
+
+            return 0;
+        }
     }
 }

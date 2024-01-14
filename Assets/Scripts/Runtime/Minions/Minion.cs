@@ -94,16 +94,10 @@ namespace Runtime.Minions
 
         public void ActivateWeapon()
         {
-            //Debug.Log("Weapon is activated");
-            //weapon.isActivated = true;
-            weapon.Activate();
         }
 
         public void DeactivateWeapon()
         {
-            //Debug.Log("Weapon is deactivated");
-            //weapon.isActivated = false;
-            weapon.DeActivate();
         }
 
         private void StartAttackLoop()
@@ -226,7 +220,7 @@ namespace Runtime.Minions
 
         public void OnGet()
         {
-            ScriptDictionaryHolder.Minions.Add(gameObject, this);
+            DictionaryHolder.Minions.Add(gameObject, this);
         }
     }
 }

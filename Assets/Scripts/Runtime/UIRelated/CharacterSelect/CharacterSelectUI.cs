@@ -10,24 +10,24 @@ namespace Runtime.UIRelated.CharacterSelect
 {
     public class CharacterSelectUI : MonoBehaviour, IOpenable
     {
-        private Object[] _charactersObj;
-        private Object[] _weaponObj;
+        public Object[] _charactersObj;
+        public Object[] _weaponObj;
         public CharacterDataSo[] characters;
         public WeaponDataSo[] weapons;
         public CharacterDataSo selectedCharacter;
         public WeaponDataSo selectedWeapon;
         public GameObject charactersContainer;
         public GameObject weaponContainer;
+        public bool isCreated = false;
 
         private void Start()
         {
-            OnOpened();
+            //OnOpened();
         }
 
         private void LoadAllCharacters()
         {
             _charactersObj = Resources.LoadAll("CharacterData", typeof(CharacterDataSo));
-
             characters = new CharacterDataSo[_charactersObj.Length];
             for (int i = 0; i < _charactersObj.Length; i++)
             {
@@ -48,11 +48,12 @@ namespace Runtime.UIRelated.CharacterSelect
 
         private void CreateCharacterIcons()
         {
+            if (isCreated) return;
             for (int i = 0; i < characters.Length; i++)
             {
                 var icon = BasicPool.instance.Get(PoolKeys.CharacterIconUI);
                 icon.transform.SetParent(charactersContainer.transform);
-
+        
                 var script = icon.GetComponent<CharacterFrameUI>();
                 script.SetCharacterDetails(characters[i]);
                 script.SetCharacterSelectUI(this);
@@ -61,6 +62,7 @@ namespace Runtime.UIRelated.CharacterSelect
 
         private void CreateWeaponIcons()
         {
+            if (isCreated) return;
             for (int i = 0; i < weapons.Length; i++)
             {
                 var icon = BasicPool.instance.Get(PoolKeys.WeaponIconUI);
@@ -140,15 +142,23 @@ namespace Runtime.UIRelated.CharacterSelect
 
         public void OnOpened()
         {
+            
             LoadAllCharacters();
             LoadAllWeapons();
             CreateCharacterIcons();
             CreateWeaponIcons();
 
+            if (selectedCharacter == null)
+            {
+                selectedCharacter = characters[0];
+                selectedWeapon = weapons[0];
+            }
             //set initial selected character!
-            selectedCharacter = characters[0];
             SetDetails(selectedCharacter);
+            SetWeaponDetails(selectedWeapon);
             EventManager.Instance.SetCharacterCameraStatus(true);
+
+            isCreated = true;
         }
 
         public void OnClosed()

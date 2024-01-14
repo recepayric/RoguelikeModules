@@ -16,7 +16,7 @@ namespace Runtime.UIRelated.RawCameraRelated
 
         public GameObject characterPosition;
 
-        private void Start()
+        private void Awake()
         {
             AddEvents();
         }

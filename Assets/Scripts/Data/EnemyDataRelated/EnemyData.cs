@@ -22,6 +22,8 @@ namespace Data.EnemyDataRelated
         public int maxSpawnAmount;
         public AttackType attackType;
 
+        [ShowIf("attackType", AttackType.Bomber)]
+        public PoolKeys explosionKey;
         public PoolKeys poolKey;
     }
 }

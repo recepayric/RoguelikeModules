@@ -35,7 +35,7 @@ namespace Runtime.EnemyRelated
 
         private void Start()
         {
-            targetObject = ScriptDictionaryHolder.Player.gameObject;
+            targetObject = DictionaryHolder.Player.gameObject;
             //todo change these todos based on performance check!
             enemy = GetComponent<Enemy>();
             stats = GetComponent<EnemyStats>();

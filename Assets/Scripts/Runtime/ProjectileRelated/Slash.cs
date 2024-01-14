@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using Runtime.Configs;
+using Runtime.Enums;
 using Runtime.Interfaces;
 using Runtime.Modifiers;
 using Sirenix.OdinInspector;
@@ -10,10 +11,10 @@ using Random = UnityEngine.Random;
 
 namespace Runtime.ProjectileRelated
 {
-    public class Slash : MonoBehaviour
+    public class Slash : MonoBehaviour, IPoolObject
     {
         public Renderer renderer;
-        public MaterialPropertyBlock PropertyBlock;
+        private MaterialPropertyBlock _propertyBlock;
         public GameObject target;
         public GameObject objectToFollow;
 
@@ -42,7 +43,7 @@ namespace Runtime.ProjectileRelated
 
         private void Start()
         {
-            PropertyBlock = new MaterialPropertyBlock();
+            _propertyBlock = new MaterialPropertyBlock();
         }
 
         private void Update()
@@ -99,8 +100,8 @@ namespace Runtime.ProjectileRelated
             {
                 //Debug.Log("Travelled: " + distanceTraveled + "    " + maxTravel);
                 //Destroy(gameObject);
-                PropertyBlock.SetFloat(FillAmount, 0);
-                renderer.SetPropertyBlock(PropertyBlock);
+                _propertyBlock.SetFloat(FillAmount, 0);
+                renderer.SetPropertyBlock(_propertyBlock);
                 Destroy(gameObject);
             }
         }
@@ -141,12 +142,12 @@ namespace Runtime.ProjectileRelated
                 transform.right = target.transform.position - transform.position;
 
             if (target.transform.position.x > transform.position.x)
-                PropertyBlock.SetInteger(IsReverse, 1);
+                _propertyBlock.SetInteger(IsReverse, 1);
             else
-                PropertyBlock.SetInteger(IsReverse, 0);
+                _propertyBlock.SetInteger(IsReverse, 0);
             
-            PropertyBlock.SetFloat(FillAmount, createAmount);
-            renderer.SetPropertyBlock(PropertyBlock);
+            _propertyBlock.SetFloat(FillAmount, createAmount);
+            renderer.SetPropertyBlock(_propertyBlock);
         }
 
         public void SetPosition(Vector3 position)
@@ -171,6 +172,15 @@ namespace Runtime.ProjectileRelated
             createTime = pCreateTime;
             createAmount = 0;
             isCreating = true;
+        }
+
+        public PoolKeys PoolKeys { get; set; }
+        public void OnReturn()
+        {
+        }
+
+        public void OnGet()
+        {
         }
     }
 }

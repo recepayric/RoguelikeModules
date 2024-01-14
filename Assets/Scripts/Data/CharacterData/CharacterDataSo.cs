@@ -15,6 +15,8 @@ namespace Data
         public string footer;
         public Dictionary<AllStats, float> BaseStats;
         public List<SpecialModifiers> specialModifiers;
+        public List<SpecialModifiers> characterUniqueModifiers;
+        public List<Spells> starterSpells;
 
         public string unlockCondition;
 
@@ -22,6 +24,9 @@ namespace Data
         public float baseExpNeedIncrease;
         public float baseExpGainMultiplier;
 
+        public string ExplanationText;
+
+        public PoolKeys playerPoolKey;
         public PoolKeys mannqueenPoolKey;
     }
 }

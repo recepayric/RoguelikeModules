@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using Data;
+using Data.WeaponDataRelated;
 using Runtime.Enums;
 using Runtime.ItemsRelated;
+using Runtime.Managers;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -25,6 +27,11 @@ namespace Runtime.UIRelated.Market
         public TextMeshProUGUI itemStats;
         public TextMeshProUGUI itemFooter;
 
+        public void NextFloor()
+        {
+            EventManager.Instance.LoadTower();
+        }
+
         public void BuyItem(Item item)
         {
             SetPlayerScript();
@@ -44,7 +51,6 @@ namespace Runtime.UIRelated.Market
             {
                 var randItem = itemSo.itemData[Random.Range(0, totalItemCount)];
                 itemSlots[i].SetItem(randItem);
-                Debug.Log("Item set done!");
             }
         }
 
@@ -80,7 +86,7 @@ namespace Runtime.UIRelated.Market
             itemDetails.SetActive(false);
         }
         
-        public void SetWeaponDetails(WeaponDatasSo weaponDatasSo)
+        public void SetWeaponDetails(WeaponDataSo weaponDatasSo)
         {
             if (weaponDatasSo == null)
             {
@@ -94,12 +100,15 @@ namespace Runtime.UIRelated.Market
 
         public void SetPlayerScript()
         {
-            playerScript = ScriptDictionaryHolder.Player;
+            if (DictionaryHolder.Player == null) return;
+            playerScript = DictionaryHolder.Player;
             playerStats = playerScript.stats;
         }
 
         public void SetStats()
         {
+            if (playerScript == null) return;
+            
             statsText.text = "";
             for (int i = 0; i < statsToShow.Count; i++)
             {

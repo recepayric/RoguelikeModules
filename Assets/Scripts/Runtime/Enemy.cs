@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Data.EnemyDataRelated;
 using DG.Tweening;
 using EnemyMoveBehaviours;
@@ -75,8 +76,7 @@ namespace Runtime
 
         //Current States
         [Header("Current States")] public bool isAttackingEnemy;
-
-
+        
         private void Awake()
         {
             Transform = transform;
@@ -133,14 +133,29 @@ namespace Runtime
             }else if (_stats.AttackType == AttackType.Spell || _stats.AttackType == AttackType.AuraUser)
             {
                 CastSpell();
+            }else if (_stats.AttackType == AttackType.Bomber)
+            {
+                Explode();
             }
+        }
+
+        [Button]
+        public void Explode()
+        {
+            var explosion = BasicPool.instance.Get(_stats.explosionKey);
+            explosion.transform.position = transform.position;
+            DictionaryHolder.Explosions[explosion].explosionDamage = _stats.currentDamage;
+            DictionaryHolder.Explosions[explosion].SetRange(_stats.currentMaxAttackRange);
+            DictionaryHolder.Explosions[explosion].Explode();
+            
+            //Destroy(gameObject);
+            BasicPool.instance.Return(gameObject);
         }
 
         public void FireProjectile()
         {
             for (int i = 0; i < _stats.currentProjectileNumber; i++)
             {
-                Debug.Log("Firing Projectile!");
                 //todo change this to pool and dictionary.
                 var projectile = Instantiate(projectilePrefab);
                 projectile.transform.position = projectilePoint.transform.position;
@@ -306,6 +321,76 @@ namespace Runtime
                 _enemyDamageTaker.DamageTaken();
         }
 
+        //todo move these things into another class!!
+        public List<GameObject> enemiesToSpreadAilment;
+        public void AddElementalAilment(ElementModifiers element, float time, float effect, int spreadAmount)
+        {
+            if (element == ElementModifiers.Fire)
+            {
+                AddBurning(time, effect);
+            }else if (element == ElementModifiers.Ice)
+            {
+                AddFreeze(time, effect);
+            }else if (element == ElementModifiers.Lightning)
+            {
+                AddShock(time, effect);
+            }
+
+
+            if (enemiesToSpreadAilment == null)
+                enemiesToSpreadAilment = new List<GameObject>();
+            
+            enemiesToSpreadAilment.Clear();
+            
+            for (int i = 0; i < spreadAmount; i++)
+            {
+                var closeEnemy = GetClosestEnemy(enemiesToSpreadAilment);
+                Debug.Log("Checking for closest enemies!!!:: " + closeEnemy);
+                if(closeEnemy == gameObject)
+                    break;
+                
+                Debug.Log("Fire is spreading!!!!!!");
+                enemiesToSpreadAilment.Add(closeEnemy);
+                DictionaryHolder.Damageables[closeEnemy].AddElementalAilment(element, time, effect, 0);
+            }
+        }
+
+        private GameObject GetClosestEnemy(List<GameObject> ignoreList)
+        {
+            //todo do this in one loop!!!
+            var closestEnemy = gameObject;
+            var closestDistance = 99999f;
+            bool isInIgnoreList = false;
+            foreach (var enemy in DictionaryHolder.Enemies)
+            {
+                //Check for this enemy
+                if (enemy.Key == gameObject)
+                    continue;
+                
+                //Check for ignore list
+                for (int i = 0; i < ignoreList.Count; i++)
+                {
+                    if (enemy.Key == ignoreList[i])
+                    {
+                        isInIgnoreList = true;
+                        break;
+                    }
+                }
+                
+                if(isInIgnoreList)
+                    continue;
+
+                var distance = Vector3.Distance(gameObject.transform.position, enemy.Key.transform.position);
+                if (distance <= GameConfig.FireSpreadDistance && distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestEnemy = enemy.Key;
+                }
+            }
+
+            return closestEnemy;
+        }
+
         private void UpdateHealth()
         {
             _stats.currentHealth = _stats.currentMaxHealth - damageTaken;
@@ -343,7 +428,7 @@ namespace Runtime
             //if (enemyData == null) return;
             if (health == null) health = GetComponent<Health>();
 
-            playerScript = ScriptDictionaryHolder.Player;
+            playerScript = DictionaryHolder.Player;
             playerObject = playerScript.gameObject;
 
             _stats.SetStats();
@@ -375,7 +460,7 @@ namespace Runtime
             //todo spell register itself to dicitonary here
             var spellScript = spell.GetComponent<Spell>();
 
-            var player = ScriptDictionaryHolder.Player;
+            var player = DictionaryHolder.Player;
             spellScript.SetOwner(Owners.Enemy);
 
             var pos = player.transform.position;
@@ -396,12 +481,14 @@ namespace Runtime
         public void OnReturn()
         {
             FinishAllAilments();
-            ScriptDictionaryHolder.Enemies.Remove(gameObject);
+            DictionaryHolder.Enemies.Remove(gameObject);
+            DictionaryHolder.Damageables.Remove(gameObject);
         }
 
         public void OnGet()
         {
-            ScriptDictionaryHolder.Enemies.Add(gameObject, this);
+            DictionaryHolder.Enemies.Add(gameObject, this);
+            DictionaryHolder.Damageables.Add(gameObject, this);
             SetStats();
         }
 

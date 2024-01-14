@@ -905,8 +905,8 @@ MonoBehaviour:
   Icon: {fileID: 2800000, guid: 3af7666693284e04eacc2fcd7c0f6c43, type: 3}
   Name: Baldr
   Surname: 
-  Age: 33
-  CharacterAlignment: 5
+  Age: 49
+  CharacterAlignment: 2
   Skills:
     Stats:
       stats:

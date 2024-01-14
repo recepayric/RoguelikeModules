@@ -19,7 +19,6 @@ namespace Runtime.WorldRelated
         public float xBound = 17;
         public float yBound = 9f;
 
-
         public int floorNumber;
 
         [Header("Spawn Time/Amount")] public float totalWaveTime = 60f;
@@ -29,23 +28,25 @@ namespace Runtime.WorldRelated
 
         public List<SpawnData> SpawnDatas;
 
-        private bool isStarted = false;
+        public bool isStarted = false;
 
         public void Initialise()
         {
-            EventManager.Instance.FloorStartsEvent += StartSpawning;
+            //EventManager.Instance.FloorStartsEvent += StartSpawning;
+            EventManager.Instance.FloorEndsEvent += OnFloorEnds;
         }
 
         public void Setup()
         {
-            totalWaveTime = enemySpawnDataSo.floorTime;
+            totalWaveTime = enemySpawnDataSo.floorTimes[floorNumber];
             GameConfig.FloorDuration = (int)totalWaveTime;
-            SpawnDatas = enemySpawnDataSo.SpawnDatas;
+            SpawnDatas = enemySpawnDataSo.SpawnDatas[floorNumber];
 
             isStarted = false;
             waveSpawned = 0;
             totalWave = SpawnDatas.Count;
             spawnTime = totalWaveTime / totalWave;
+            Debug.Log("Spawner Set Up!!");
             //totalWave = (int)(totalWaveTime / spawnTime);
         }
 
@@ -58,6 +59,7 @@ namespace Runtime.WorldRelated
                 //Debug.Log("Type: " + SpawnDatas[waveSpawned].EnemyKey);
                 var enemy = BasicPool.instance.Get(SpawnDatas[waveSpawned].EnemyKey);
                 enemy.transform.position = new Vector2(randX, randY);
+                enemy.name = "Enemy " + Random.Range(0, 100000);
             }
 
             //spawn buffer here!!
@@ -68,6 +70,7 @@ namespace Runtime.WorldRelated
 
                 var enemy = BasicPool.instance.Get(SpawnDatas[waveSpawned].BufferKey);
                 enemy.transform.position = new Vector2(randX, randY);
+                enemy.name = "Enemy " + Random.Range(0, 100000);
             }
 
             waveSpawned++;
@@ -77,9 +80,6 @@ namespace Runtime.WorldRelated
             if(waveSpawned < SpawnDatas.Count)
                 waitTime = SpawnDatas[waveSpawned].spawnWait;
             
-            Debug.Log("Spawning a group of monsters!!! " + waitTime);
-
-
             DOVirtual.DelayedCall(waitTime, () =>
             {
                 if (waveSpawned < totalWave)
@@ -87,8 +87,6 @@ namespace Runtime.WorldRelated
                 else
                     isStarted = false;
             }).SetId(SpawnID);
-
-            isStarted = true;
         }
 
 
@@ -98,8 +96,9 @@ namespace Runtime.WorldRelated
             EventManager.Instance.SetMonsterSpawn(false);
         }
 
-        public void StartSpawning()
+        public void StartSpawning(int floorNum)
         {
+            floorNumber = floorNum;
             if (isStarted)
             {
                 if (!DOTween.IsTweening(SpawnID))
@@ -108,16 +107,26 @@ namespace Runtime.WorldRelated
             else
             {
                 Setup();
+                isStarted = true;
                 SpawnMonster();
             }
 
             EventManager.Instance.SetMonsterSpawn(true);
         }
 
+        private void OnFloorEnds(int num)
+        {
+            if (DOTween.IsTweening(SpawnID))
+                DOTween.Kill(SpawnID);
+
+            isStarted = false;
+        }
+
 
         public void Destroy()
         {
-            EventManager.Instance.FloorStartsEvent -= StartSpawning;
+            //EventManager.Instance.FloorStartsEvent -= StartSpawning;
+            EventManager.Instance.FloorEndsEvent -= OnFloorEnds;
         }
     }
 }

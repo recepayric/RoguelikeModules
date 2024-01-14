@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Runtime.Enums;
 using Runtime.ProjectileRelated;
+using Runtime.WeaponRelated;
 using UnityEngine;
 
 namespace Runtime.Modifiers
@@ -10,7 +11,7 @@ namespace Runtime.Modifiers
     public class Modifier
     {
         public ModifierUseArea useArea;
-        private Dictionary<GameObject, int> amountOfModifier;
+        public Dictionary<GameObject, int> amountOfModifier;
 
         public void SetUseArea(ModifierUseArea modifierUseArea)
         {
@@ -42,6 +43,11 @@ namespace Runtime.Modifiers
         }
 
         public virtual void ApplyEffect(GameObject slashObject, Slash slash, bool isCrit)
+        {
+            
+        }
+        
+        public virtual void ApplyEffect(GameObject swordObject, RotatingMeleeWeapons sword, bool isCrit)
         {
             
         }

@@ -89,7 +89,7 @@ public class DemoItemUI : MonoBehaviour
         itemPanels[index].SetActive(false);
 
         itemsOnScreen[index].quantity++;
-        ScriptDictionaryHolder.Player.AddItem(itemsOnScreen[index]);
+        DictionaryHolder.Player.AddItem(itemsOnScreen[index]);
     }
 
 

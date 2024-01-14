@@ -1,6 +1,8 @@
 using System;
 using DG.Tweening;
+using Runtime.Configs;
 using Runtime.Enums;
+using Runtime.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -14,10 +16,13 @@ namespace Runtime.Effects
         public float explosionDamage;
         public float criticalHitChance;
         public float criticalHitDamage;
+        public LayerMask layerMask;
 
         public bool ExplodeContinuous = false;
         public float explosionTime;
         private float explosionTimer;
+
+        public ParticleSystem ParticleSystem;
 
         // Start is called before the first frame update
         void Start()
@@ -52,45 +57,54 @@ namespace Runtime.Effects
             explosionRange = size;
         }
 
+        public void SetRange(float range)
+        {
+            var rangeConv = range;
+            Debug.Log("range: " + range);
+
+            explosionRange = rangeConv*2;
+        }
+        
         [Button]
         public void Explode()
         {
-            Debug.Log("Position: " + transform.position);
-            transform.localScale = Vector3.one * explosionRange * 2;
+            ParticleSystem.Play();
+            transform.localScale = Vector3.one * explosionRange;
 
             var numTargetsInRange =
-                Physics2D.OverlapCircleNonAlloc(transform.position, explosionRange, collider2Ds); //layermask to filter the varius useless colliders
-            Debug.Log("explosion affected: " + numTargetsInRange);
+                Physics2D.OverlapCircleNonAlloc(transform.position, explosionRange/2, collider2Ds, layerMask); //layermask to filter the varius useless colliders
+            //Debug.Log("explosion affected: " + numTargetsInRange);
 
 
             for (int i = 0; i < numTargetsInRange; i++)
             {
                 if (collider2Ds[i] == null) break;
-
-                if (collider2Ds[i].CompareTag("Enemy"))
+                var damageable = DictionaryHolder.Damageables[collider2Ds[i].gameObject];
+                if (damageable != null)
                 {
-                    DealDamage(collider2Ds[i].gameObject);
+                    DealDamage(damageable);
                 }
             }
         }
 
-        private void DealDamage(GameObject enemy)
+        private void DealDamage(IDamageable damageable)
         {
-            enemy.GetComponent<Enemy>().DealDamage(1, false);
+            Debug.Log("Dealing damage to: " + damageable);
+            damageable.DealDamage(explosionDamage, false);
         }
 
         public PoolKeys PoolKeys { get; set; }
 
         public void OnGet()
         {
-            ScriptDictionaryHolder.Explosions.Add(gameObject, this);
+            DictionaryHolder.Explosions.Add(gameObject, this);
             SetStats();
             DOVirtual.DelayedCall(1, () => BasicPool.instance.Return(gameObject));
         }
 
         public void OnReturn()
         {
-            ScriptDictionaryHolder.Explosions.Remove(gameObject);
+            DictionaryHolder.Explosions.Remove(gameObject);
         }
     }
 }

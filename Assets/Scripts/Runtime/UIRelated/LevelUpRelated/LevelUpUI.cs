@@ -87,7 +87,6 @@ namespace Runtime.UIRelated.LevelUpRelated
 
         private void OnSetLevelUpAmount(int levelNumber)
         {
-            Debug.Log("Set Level Up Amount: " + levelNumber);
             levelUpAmount = levelNumber;
             SetScreen();
         }

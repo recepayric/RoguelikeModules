@@ -54,7 +54,8 @@
         ChanceToShock,
         Thorn,
         
-        ExpGainMultiplier
+        ExpGainMultiplier,
+        BurnSpreadAmount
     }
 
     public enum SpecialModifiers

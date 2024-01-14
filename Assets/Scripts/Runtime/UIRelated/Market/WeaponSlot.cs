@@ -1,4 +1,5 @@
 ﻿using Data;
+using Data.WeaponDataRelated;
 using Runtime.Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,7 +9,7 @@ namespace Runtime.UIRelated.Market
     public class WeaponSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         public Weapon weapon;
-        public WeaponDatasSo _weaponDatasSo;
+        public WeaponDataSo _weaponDatasSo;
         public MarketUI marketUI;
         
         public void OpenWeaponSkillTree()

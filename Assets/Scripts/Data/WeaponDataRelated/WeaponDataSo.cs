@@ -1,4 +1,5 @@
-﻿using Runtime.Enums;
+﻿using System.Collections.Generic;
+using Runtime.Enums;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -18,8 +19,11 @@ namespace Data.WeaponDataRelated
         public int BaseCriticalHitChance;
         public int BaseCriticalHitDamage;
         public int BasePierceNumber;
+        public int rotationDistanceFromPlayer;
+        public List<SpecialModifiers> specialModifiersList;
         public PoolKeys WeaponPoolKey;
         public PoolKeys DummyWeaponKey;
+        public PoolKeys RotatingWeaponKey;
         public WeaponData WeaponData;
     }
 }

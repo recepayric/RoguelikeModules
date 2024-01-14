@@ -91,8 +91,8 @@ namespace Runtime.SpellsRelated
         {
             var explosion = BasicPool.instance.Get(PoolKeys.Explosion1);
             explosion.transform.position = rockObject.transform.position;
-            ScriptDictionaryHolder.Explosions[explosion].SetSize(5);
-            ScriptDictionaryHolder.Explosions[explosion].Explode();
+            DictionaryHolder.Explosions[explosion].SetSize(5);
+            DictionaryHolder.Explosions[explosion].Explode();
         }
 
         private void CreateRocks()
@@ -104,7 +104,7 @@ namespace Runtime.SpellsRelated
                 projectile.transform.position += new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
                 projectile.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
                 //projectile.transform.rotation = Quaternion.Euler(0, 0, 0);
-                var sc = ScriptDictionaryHolder.Projectiles[projectile];
+                var sc = DictionaryHolder.Projectiles[projectile];
                 sc.SetMaxDistance(400f);
                 sc.SetModifiers(modifiers);
             }

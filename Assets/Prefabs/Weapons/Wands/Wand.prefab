@@ -9734,7 +9734,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919715885374278766}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -15170,7 +15170,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4466652527552664451}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -15599,28 +15599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponLevelSystem: {fileID: 4512411336291033651}
   weaponUpgradeTree: {fileID: -2118557062214317711}
-  isActivated: 0
-  weaponDatsSo: {fileID: 11400000, guid: 876c0b1e8be542a4aa7d923120e0275a, type: 2}
   weaponDataSo: {fileID: 11400000, guid: 9031c0be6a9837446be992083aeef7ec, type: 2}
-  weaponType: 0
-  characterStats:
-    strength: 0
-    dexterity: 0
-    intelligence: 0
-    magic: 0
-    maxHealth: 0
-    meleeAttack: 0
-    rangedAttack: 0
-    magicalAttack: 0
-    range: 0
-    damage: 0
-    projectileAmount: 0
-    collectRange: 0
-    moveSpeed: 0
-    attackSpeed: 0
-    pierceNum: 0
-    pierceDamage: 0
-    bounceNum: 0
   weaponStats:
     weaponType: 0
     attackSpeed: 0
@@ -15644,13 +15623,9 @@ MonoBehaviour:
     shockTime: 0
     shockEffect: 0
   swordSwinger: {fileID: 0}
-  attackTime: 0
   projectilePrefab: {fileID: 7280217749031058319, guid: 9c2a0d9fa8fa0ae4096b4658e5f36c84, type: 3}
   projectilePoint: {fileID: 3220777079054858423}
-  circleCollider2D: {fileID: 0}
-  colliderHit: {fileID: 0}
-  enemiesInRange: []
-  hasEnemyInRange: 0
+  slashKey: 0
   targetEnemy: {fileID: 0}
   specialModifiersFromTree: 
   specialModifiersList: 

@@ -117,7 +117,7 @@ namespace Runtime
         {
             Shooter = pShooter;
         }
-        
+
         public void SetMaxDistance(float weaponDistance)
         {
             maxTravel = weaponDistance / GameConfig.RangeToRadius;
@@ -254,7 +254,7 @@ namespace Runtime
             var posY = rotatingDistance * Mathf.Sin(Mathf.Deg2Rad * targetAngle);
 
             var currentPos = pTransform.position;
-            var targetPos = ScriptDictionaryHolder.Player.transform.position + new Vector3(posX, posY, 0);
+            var targetPos = DictionaryHolder.Player.transform.position + new Vector3(posX, posY, 0);
 
             pTransform.right = targetPos - currentPos;
 
@@ -290,7 +290,7 @@ namespace Runtime
 
         private void SelectRandomEnemy()
         {
-            var enemies = ScriptDictionaryHolder.Enemies.Keys.ToList();
+            var enemies = DictionaryHolder.Enemies.Keys.ToList();
             var rnd = Random.Range(0, enemies.Count);
 
             targetEnemy = enemies[rnd];
@@ -328,14 +328,17 @@ namespace Runtime
             //Apply Ailments!
             //todo redo this!!!
             //
-            // if (weapon.weaponStats.addBurn)
-            //     enemy.AddBurning(weapon.weaponStats.burnTime, weapon.weaponStats.burnDamage);
-            //
-            // if (weapon.weaponStats.addFreeze)
-            //     enemy.AddFreeze(weapon.weaponStats.freezeTime, weapon.weaponStats.freezeEffect);
-            //
-            // if (weapon.weaponStats.addShock)
-            //     enemy.AddShock(weapon.weaponStats.shockTime, weapon.weaponStats.shockEffect);
+            if (weapon != null && weapon.weaponStats.addBurn)
+                enemy.AddElementalAilment(ElementModifiers.Fire, weapon.weaponStats.burnTime,
+                    weapon.weaponStats.burnDamage, weapon.weaponStats.burnSpreadAmount);
+
+            if (weapon != null && weapon.weaponStats.addFreeze)
+                enemy.AddElementalAilment(ElementModifiers.Ice, weapon.weaponStats.freezeTime,
+                    weapon.weaponStats.freezeEffect);
+
+            if (weapon != null && weapon.weaponStats.addShock)
+                enemy.AddElementalAilment(ElementModifiers.Lightning, weapon.weaponStats.shockTime,
+                    weapon.weaponStats.shockEffect);
 
             if (modifiers == null)
                 modifiers = new List<Modifier>();
@@ -387,7 +390,7 @@ namespace Runtime
 
                 if (collidedEnemy.CompareTag("Enemy") && collidedEnemy.gameObject != currentEnemy)
                 {
-                    if(ScriptDictionaryHolder.Enemies[collidedEnemy.gameObject].IsAvailable())
+                    if (DictionaryHolder.Enemies[collidedEnemy.gameObject].IsAvailable())
                         return collidedEnemy.gameObject;
                 }
             }
@@ -399,7 +402,7 @@ namespace Runtime
         private void OnTriggerEnter2D(Collider2D other)
         {
             var damageable = other.gameObject.GetComponent<IDamageable>();
-            if(damageable != null)
+            if (damageable != null)
                 HitTarget(damageable);
         }
 
@@ -407,13 +410,13 @@ namespace Runtime
 
         public void OnReturn()
         {
-            ScriptDictionaryHolder.Projectiles.Remove(gameObject);
+            DictionaryHolder.Projectiles.Remove(gameObject);
         }
 
         public void OnGet()
         {
             distanceTraveled = 0;
-            ScriptDictionaryHolder.Projectiles.Add(gameObject, this);
+            DictionaryHolder.Projectiles.Add(gameObject, this);
         }
     }
 }

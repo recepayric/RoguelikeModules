@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b9fabecbff849bb81e33418b26552e5, type: 3}
-  m_Name: FireWand
+  m_Name: Fire Wand
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -61,13 +61,18 @@ MonoBehaviour:
       Entry: 8
       Data: 
   WeaponName: Fire Wand
-  Description: Fire wand for everyone to use!
+  Description: Wands that burns enemies!
   WeaponType: 0
   BaseAttackSpeed: 1
-  BaseAttackRange: 300
-  BaseDamage: 3
+  BaseAttackRange: 400
+  BaseAttackRangeSword: 0
+  BaseDamage: 1
   BaseProjectileAmount: 1
   BaseCriticalHitChance: 50
   BaseCriticalHitDamage: 2
   BasePierceNumber: 0
-  WeaponPoolKey: 0
+  rotationDistanceFromPlayer: 0
+  specialModifiersList: 04000000
+  WeaponPoolKey: 32
+  DummyWeaponKey: 0
+  RotatingWeaponKey: 0
