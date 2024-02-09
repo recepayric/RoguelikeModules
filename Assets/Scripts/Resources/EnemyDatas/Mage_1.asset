@@ -21,8 +21,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  baseHealth: 2
-  baseDamage: 2
+  CanBeSpawnedNormally: 1
+  baseHealth: 1
+  baseDamage: 4
   baseMoveSpeed: 5
   baseAttackSpeed: 1
   baseEvasion: 0
@@ -30,7 +31,7 @@ MonoBehaviour:
   baseAttackRange: 10
   baseMaxAttackRange: 12
   baseProjectileNumber: 1
-  minFloorToSpawn: 0
+  minFloorToSpawn: 2
   minSpawnAmount: 1
   maxSpawnAmount: 5
   attackType: 2

@@ -62,14 +62,20 @@ MonoBehaviour:
       Data: 
   WeaponName: Wand
   Description: Basic wand for everyone to use!
+  isStarterWeapon: 1
   WeaponType: 0
-  BaseAttackSpeed: 0.3
+  BaseAttackSpeed: 1
   BaseAttackRange: 400
   BaseAttackRangeSword: 0
-  BaseDamage: 1
+  BaseDamage: 3
   BaseProjectileAmount: 1
   BaseCriticalHitChance: 50
   BaseCriticalHitDamage: 2
   BasePierceNumber: 0
+  BaseBounceNumber: 0
+  rotationDistanceFromPlayer: 0
+  specialModifiersList: 
   WeaponPoolKey: 31
-  DummyWeaponKey: 0
+  DummyWeaponKey: 26
+  RotatingWeaponKey: 0
+  waaponSprite: {fileID: 21300000, guid: addaf49bbacb11842ae4887226167c92, type: 3}

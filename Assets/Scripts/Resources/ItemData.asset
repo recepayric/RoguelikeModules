@@ -95,8 +95,491 @@ MonoBehaviour:
     - -2
     rarity: 0
     quantity: 0
+  itemData2:
+  - itemIcon: {fileID: 21300000, guid: 26f6a552569d8a84b81bd3810501978f, type: 3}
+    name: Hell's Necklace
+    description: 
+    statNames: 03000000
+    statValues:
+    - 12
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: ea5801801ed0ac442987826c397af7fe, type: 3}
+    name: Boots of Fire
+    description: 
+    statNames: 0f0000000f000000
+    statValues:
+    - 1
+    - 5
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 705a18e5a0b42694b9971050ff9c57bc, type: 3}
+    name: Amulet of Ice
+    description: 
+    statNames: 0b0000000b000000
+    statValues:
+    - 0
+    - -7
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: d45be8df706a2fb4fb17a621d41314e2, type: 3}
+    name: Heaven's Necklace
+    description: 
+    statNames: 0300000004000000
+    statValues:
+    - 7
+    - 4
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 43c7d31c357976343888997b60ea9e1a, type: 3}
+    name: Tome of Blacksmith
+    description: 
+    statNames: 0300000001000000
+    statValues:
+    - -12
+    - 10
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 43c7d31c357976343888997b60ea9e1a, type: 3}
+    name: Pure Amulet
+    description: 
+    statNames: 0a00000003000000
+    statValues:
+    - -14
+    - -7
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: ea5801801ed0ac442987826c397af7fe, type: 3}
+    name: Necklace of Blacksmith
+    description: 
+    statNames: 0f0000000f000000
+    statValues:
+    - 1
+    - 1
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: d4611cd971e4fa343bf065e947145ad4, type: 3}
+    name: Contamined Book
+    description: 
+    statNames: 02000000
+    statValues:
+    - -8
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 705a18e5a0b42694b9971050ff9c57bc, type: 3}
+    name: Hell's Amulet
+    description: 
+    statNames: 04000000030000000a000000
+    statValues:
+    - -8
+    - 14
+    - -15
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: ea5801801ed0ac442987826c397af7fe, type: 3}
+    name: Necklace of Lightning
+    description: 
+    statNames: 05000000020000000a000000
+    statValues:
+    - -3
+    - -12
+    - -4
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 36287326900210841aa04a1a330aaeab, type: 3}
+    name: Boots of Cat
+    description: 
+    statNames: 03000000
+    statValues:
+    - 8
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 43c7d31c357976343888997b60ea9e1a, type: 3}
+    name: Gloves of Lightning
+    description: 
+    statNames: 0f000000
+    statValues:
+    - -6
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 63317383c1882e849ad0b227a8a40281, type: 3}
+    name: Contamined Amulet
+    description: 
+    statNames: 0a000000
+    statValues:
+    - -6
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 2c0e918a66b6e984192c38e2547e889e, type: 3}
+    name: Evil Ring
+    description: 
+    statNames: 0500000002000000
+    statValues:
+    - -11
+    - 1
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 63317383c1882e849ad0b227a8a40281, type: 3}
+    name: Hell's Amulet
+    description: 
+    statNames: 03000000050000000b000000
+    statValues:
+    - -10
+    - -4
+    - 14
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: d4611cd971e4fa343bf065e947145ad4, type: 3}
+    name: Book of Lightning
+    description: 
+    statNames: 02000000040000000b000000
+    statValues:
+    - -2
+    - -6
+    - -15
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: ea5801801ed0ac442987826c397af7fe, type: 3}
+    name: Hell's Tome
+    description: 
+    statNames: 030000000a00000001000000
+    statValues:
+    - 5
+    - -15
+    - 11
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 81699487beaa1e34caa4dab3431ecea6, type: 3}
+    name: Contamined Gloves
+    description: 
+    statNames: 030000000f000000
+    statValues:
+    - -2
+    - -8
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 705a18e5a0b42694b9971050ff9c57bc, type: 3}
+    name: Ring of Dog
+    description: 
+    statNames: 0b000000
+    statValues:
+    - -6
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 43c7d31c357976343888997b60ea9e1a, type: 3}
+    name: Ring of Cat
+    description: 
+    statNames: 0400000003000000
+    statValues:
+    - -3
+    - 9
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 705a18e5a0b42694b9971050ff9c57bc, type: 3}
+    name: Warlod's Tome
+    description: 
+    statNames: 0500000003000000
+    statValues:
+    - 8
+    - -8
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: b951ebd684b857a4596b63b5eb28328e, type: 3}
+    name: Pure Tome
+    description: 
+    statNames: 050000000200000004000000
+    statValues:
+    - -2
+    - 4
+    - -5
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 36287326900210841aa04a1a330aaeab, type: 3}
+    name: Book of Dog
+    description: 
+    statNames: 05000000
+    statValues:
+    - 11
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 26f6a552569d8a84b81bd3810501978f, type: 3}
+    name: Tome of Ice
+    description: 
+    statNames: 020000000f00000001000000
+    statValues:
+    - 10
+    - -14
+    - 8
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 63317383c1882e849ad0b227a8a40281, type: 3}
+    name: Hell's Tome
+    description: 
+    statNames: 0f0000000a000000
+    statValues:
+    - 7
+    - 14
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 43c7d31c357976343888997b60ea9e1a, type: 3}
+    name: Devilish Ring
+    description: 
+    statNames: 0b000000050000000f000000
+    statValues:
+    - 4
+    - 2
+    - 14
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 81699487beaa1e34caa4dab3431ecea6, type: 3}
+    name: Tome of Cat
+    description: 
+    statNames: 03000000
+    statValues:
+    - 7
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 43c7d31c357976343888997b60ea9e1a, type: 3}
+    name: Evil Boots
+    description: 
+    statNames: 010000000400000002000000
+    statValues:
+    - -6
+    - -14
+    - -13
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: ea5801801ed0ac442987826c397af7fe, type: 3}
+    name: Helmet of Fire
+    description: 
+    statNames: 02000000
+    statValues:
+    - 2
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: b951ebd684b857a4596b63b5eb28328e, type: 3}
+    name: Contamined Helmet
+    description: 
+    statNames: 0400000001000000
+    statValues:
+    - 7
+    - -10
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: a5f21448c1434fe4797e06b9ab4a53f4, type: 3}
+    name: Ring of Blacksmith
+    description: 
+    statNames: 0a000000
+    statValues:
+    - -14
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 26f6a552569d8a84b81bd3810501978f, type: 3}
+    name: Necklace of Fire
+    description: 
+    statNames: 0b0000000a000000
+    statValues:
+    - 1
+    - -3
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 705a18e5a0b42694b9971050ff9c57bc, type: 3}
+    name: Devilish Amulet
+    description: 
+    statNames: 03000000
+    statValues:
+    - -1
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: d45be8df706a2fb4fb17a621d41314e2, type: 3}
+    name: Contamined Amulet
+    description: 
+    statNames: 01000000
+    statValues:
+    - 7
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 26f6a552569d8a84b81bd3810501978f, type: 3}
+    name: Book of Trial
+    description: 
+    statNames: 0f00000002000000
+    statValues:
+    - 9
+    - 8
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 26f6a552569d8a84b81bd3810501978f, type: 3}
+    name: Boots of Trial
+    description: 
+    statNames: 04000000050000000a000000
+    statValues:
+    - 0
+    - 13
+    - -13
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 26f6a552569d8a84b81bd3810501978f, type: 3}
+    name: Ring of Trial
+    description: 
+    statNames: 020000000a000000
+    statValues:
+    - 6
+    - -9
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: d45be8df706a2fb4fb17a621d41314e2, type: 3}
+    name: Hell's Helmet
+    description: 
+    statNames: 01000000
+    statValues:
+    - 1
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 63317383c1882e849ad0b227a8a40281, type: 3}
+    name: Ring of Lightning
+    description: 
+    statNames: 05000000
+    statValues:
+    - -1
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: d4611cd971e4fa343bf065e947145ad4, type: 3}
+    name: Hell's Amulet
+    description: 
+    statNames: 0f000000
+    statValues:
+    - 6
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: d45be8df706a2fb4fb17a621d41314e2, type: 3}
+    name: Heaven's Tome
+    description: 
+    statNames: 03000000
+    statValues:
+    - -6
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: a5f21448c1434fe4797e06b9ab4a53f4, type: 3}
+    name: Boots of Ice
+    description: 
+    statNames: 0400000001000000
+    statValues:
+    - -15
+    - -8
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: b951ebd684b857a4596b63b5eb28328e, type: 3}
+    name: Evil Gloves
+    description: 
+    statNames: 040000000b000000
+    statValues:
+    - 3
+    - -5
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: b951ebd684b857a4596b63b5eb28328e, type: 3}
+    name: Boots of Fire
+    description: 
+    statNames: 0b000000
+    statValues:
+    - -15
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 2c0e918a66b6e984192c38e2547e889e, type: 3}
+    name: Necklace of Trial
+    description: 
+    statNames: 030000000b0000000f000000
+    statValues:
+    - -8
+    - 5
+    - 8
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 81699487beaa1e34caa4dab3431ecea6, type: 3}
+    name: Evil Necklace
+    description: 
+    statNames: 05000000
+    statValues:
+    - 0
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 2c0e918a66b6e984192c38e2547e889e, type: 3}
+    name: Hell's Necklace
+    description: 
+    statNames: 050000000b000000
+    statValues:
+    - 4
+    - 9
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: b951ebd684b857a4596b63b5eb28328e, type: 3}
+    name: Pure Tome
+    description: 
+    statNames: 0f000000
+    statValues:
+    - 11
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 2c0e918a66b6e984192c38e2547e889e, type: 3}
+    name: Ring of Dog
+    description: 
+    statNames: 0a0000000200000003000000
+    statValues:
+    - -3
+    - 11
+    - -4
+    rarity: 0
+    quantity: 0
+  - itemIcon: {fileID: 21300000, guid: 2c0e918a66b6e984192c38e2547e889e, type: 3}
+    name: Gloves of Blacksmith
+    description: 
+    statNames: 01000000
+    statValues:
+    - -7
+    rarity: 0
+    quantity: 0
   Rarity: 0
   texture: {fileID: 0}
   name: 
   description: An eerie skull that whispers dark secrets, granting necromantic powers
     while sapping the user's life force.
+  addAmount: 50
+  statsToAddRandom: 01000000020000000300000004000000050000000a0000000b0000000f000000
+  suffixes:
+  - of Fire
+  - of Ice
+  - of Lightning
+  - of Blacksmith
+  - of Trial
+  - of Cat
+  - of Dog
+  prefixes:
+  - Warlod's
+  - Heaven's
+  - Devilish
+  - Evil
+  - Pure
+  - Contamined
+  - Hell's
+  names:
+  - Necklace
+  - Boots
+  - Book
+  - Tome
+  - Gloves
+  - Amulet
+  - Ring
+  - Helmet
+  texturesToAdd:
+  - {fileID: 21300000, guid: d4611cd971e4fa343bf065e947145ad4, type: 3}
+  - {fileID: 21300000, guid: 2c0e918a66b6e984192c38e2547e889e, type: 3}
+  - {fileID: 21300000, guid: 63317383c1882e849ad0b227a8a40281, type: 3}
+  - {fileID: 21300000, guid: 26f6a552569d8a84b81bd3810501978f, type: 3}
+  - {fileID: 21300000, guid: 81699487beaa1e34caa4dab3431ecea6, type: 3}
+  - {fileID: 21300000, guid: d45be8df706a2fb4fb17a621d41314e2, type: 3}
+  - {fileID: 21300000, guid: b951ebd684b857a4596b63b5eb28328e, type: 3}
+  - {fileID: 21300000, guid: 43c7d31c357976343888997b60ea9e1a, type: 3}
+  - {fileID: 21300000, guid: 705a18e5a0b42694b9971050ff9c57bc, type: 3}
+  - {fileID: 21300000, guid: ea5801801ed0ac442987826c397af7fe, type: 3}
+  - {fileID: 21300000, guid: 36287326900210841aa04a1a330aaeab, type: 3}
+  - {fileID: 21300000, guid: a5f21448c1434fe4797e06b9ab4a53f4, type: 3}

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using Data.EnemyDataRelated;
 using DG.Tweening;
 using EnemyMoveBehaviours;
+using Runtime.AilmentsRelated;
 using Runtime.Configs;
 using Runtime.DamageRelated;
+using Runtime.Effects;
 using Runtime.EnemyRelated;
 using Runtime.Enums;
 using Runtime.Interfaces;
 using Runtime.Managers;
+using Runtime.Modifiers;
 using Runtime.PlayerRelated;
 using Runtime.SpellsRelated;
 using Sirenix.OdinInspector;
@@ -21,7 +24,7 @@ namespace Runtime
     [RequireComponent(typeof(EnemyMovement))]
     [RequireComponent(typeof(EnemyStats))]
     [RequireComponent(typeof(EnemyDamageTaker))]
-    public class Enemy : MonoBehaviour, IPoolObject, IDamageable, IShooter, ISpellCaster
+    public class Enemy : MonoBehaviour, IPoolObject, IDamageable, IShooter, ISpellCaster, ICursable
     {
         //[Header("Data")] public EnemyData enemyData;
         public Transform Transform { get; set; }
@@ -32,27 +35,12 @@ namespace Runtime
         public GameObject projectilePrefab;
         public GameObject projectilePoint;
 
-        //Todo move these to stats!!
         //Ailments
         [Header("Ailment Objects")] public GameObject burnAilmentObject;
         public GameObject freezeAilmentObject;
         public GameObject shockAilmentObject;
-
-        [Header("Ailments")] public bool isBurning;
-        public bool isFrozen;
-        public bool isShocked;
-
-        //Ailment Times
-        [Header("Ailment Times")] public float burnTime;
-        public float freezeTime;
-        public float shockTime;
-
-        //Ailment Effects
-        [Header("Ailment Effects")] public float burningDamagePerSecond;
-        public float freezeEffect;
-        public float shockEffect;
-
-        public float burningTimer;
+        
+        public Ailments ailments;
 
         public EnemyStats _stats;
         private EnemyMovement _enemyMovement;
@@ -74,26 +62,102 @@ namespace Runtime
         private Spell spellScript;
         public bool isAuraOn = false;
 
+        public PoolKeys minionPoolKey;
+        
+        public List<SpecialModifiers> specialModifiersList;
+        //public List<Modifier> modifiers;
+        public List<Modifier> modifiersOnStart;
+        public List<Modifier> modifiersOnGetHit;
+        public List<Modifier> modifiersOnHealthChange;
+        public List<Modifier> modifiersOnItemBuy;
+
         //Current States
         [Header("Current States")] public bool isAttackingEnemy;
         
         private void Awake()
         {
+            SetUpAilments();
             Transform = transform;
             _stats = GetComponent<EnemyStats>();
             _enemyMovement = GetComponent<EnemyMovement>();
             _enemyDamageTaker = GetComponent<EnemyDamageTaker>();
+            
+            _enemyMovement.Ailments = ailments;
         }
 
-        // Start is called before the first frame update
-        void Start()
+        private void SetUpAilments()
         {
+            ailments = new Ailments
+            {
+                damageable = this,
+                gameObject = gameObject,
+                burnAilmentObject = burnAilmentObject,
+                freezeAilmentObject = freezeAilmentObject,
+                shockAilmentObject = shockAilmentObject
+            };
+            ailments.Initialise();
+        }
+        
+        private void SetSpecialModifiers()
+        {
+            for (int i = 0; i < specialModifiersList.Count; i++)
+            {
+                var modifier = ModifierCreator.GetModifier(specialModifiersList[i]);
+                modifier.RegisterUser(gameObject);
+                Debug.Log("Adding special modifiers to the enemy! " + modifier.useArea);
+                switch (modifier.useArea)
+                {
+                    case ModifierUseArea.OnStart:
+                        if (!modifiersOnStart.Contains(modifier))
+                            modifiersOnStart.Add(modifier);
+                        break;
+                    
+                    case ModifierUseArea.OnHit:
+                        break;
+                    
+                    case ModifierUseArea.OnGetHit:
+                        Debug.Log("On Get Hit Modifier!");
+                        if (!modifiersOnGetHit.Contains(modifier))
+                            modifiersOnGetHit.Add(modifier);
+                        break;
+                    
+                    case ModifierUseArea.OnBuyItem:
+                        if (!modifiersOnItemBuy.Contains(modifier))
+                            modifiersOnItemBuy.Add(modifier);
+                        break;
+                    
+                    case ModifierUseArea.OnUpdate:
+                        break;
+                    
+                    case ModifierUseArea.OnHealthChange:
+                        if (!modifiersOnHealthChange.Contains(modifier))
+                            modifiersOnHealthChange.Add(modifier);
+                        break;
+                    
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                //modifiers.Add();
+            }
+        }
+
+        private void RemoveSpecialModifiers()
+        {
+            modifiersOnStart.Clear();
+            modifiersOnGetHit.Clear();
+            modifiersOnHealthChange.Clear();
+            modifiersOnItemBuy.Clear();
+            for (int i = 0; i < specialModifiersList.Count; i++)
+            {
+                var modifier = ModifierCreator.GetModifier(specialModifiersList[i]);
+                modifier.RemoveRegisteredUser(gameObject);
+            }
         }
 
         // Update is called once per frame
         void Update()
         {
-            UpdateAilments();
+            ailments.UpdateAilments();
             UpdateDeath();
 
             if (_stats.AttackType == AttackType.AuraUser && !isAuraOn)
@@ -105,6 +169,7 @@ namespace Runtime
         //Perform an animation and attack!
         public void AttackEnemy(bool isFirstAttack)
         {
+            if (ailments.isStunned) return;
             var attackTime = isFirstAttack ? 0.1f : _stats.currentAttackSpeed;
             isAttackingEnemy = true;
             //todo change this to regular timer to get rid of dotween
@@ -121,6 +186,9 @@ namespace Runtime
 
         public void HandleAttack()
         {
+            if(_isDead)
+                return;
+            
             if (_stats.AttackType == AttackType.Melee)
                 playerScript.DealDamage(_stats.currentDamage, false);
             else if (_stats.AttackType == AttackType.Magic)
@@ -136,6 +204,28 @@ namespace Runtime
             }else if (_stats.AttackType == AttackType.Bomber)
             {
                 Explode();
+            }else if (_stats.AttackType == AttackType.Hive)
+            {
+                SpawnMinions();
+            }
+        }
+
+        private void SpawnMinions()
+        {
+            var projNumber = _stats.currentProjectileNumber;
+            var minRadious = 1f;
+            var maxRadious = 3f;
+            Debug.Log("Spawning Minions! " + projNumber);
+            for (int i = 0; i < projNumber; i++)
+            {
+                var angle = Random.Range(0, 360);
+                var radious = Random.Range(minRadious, maxRadious);
+                var rad = Mathf.Deg2Rad * angle;
+                var x = radious * Mathf.Cos(rad);
+                var y = radious * Mathf.Sin(rad);
+
+                var minion = BasicPool.instance.Get(minionPoolKey);
+                minion.transform.position = transform.position + new Vector3(x, y, 0);
             }
         }
 
@@ -171,11 +261,12 @@ namespace Runtime
             }
         }
 
+        public GameObject spellObject;
         private void CastSpell()
         {
             if (spellToCast == Spells.None) return;
 
-            if (spellScript != null)
+            if (spellScript != null && spellScript.gameObject.activeSelf)
             {
                 spellScript.StartSpell();
                 return;
@@ -190,113 +281,8 @@ namespace Runtime
             spellScript.FollowsOwner = true;
             spellScript.SetOwnerScript(this);
             spellScript.StartSpell();
-            
             isAuraOn = true;
         }
-
-        private void FinishAllAilments()
-        {
-            FinishBurn();
-            FinishFreeze();
-            FinishShock();
-        }
-
-        private void UpdateAilments()
-        {
-            if (burnTime > 0)
-            {
-                burningTimer += Time.deltaTime;
-                if (burningTimer >= 1)
-                {
-                    burningTimer -= 1;
-                    DealDamage((int)burningDamagePerSecond, false);
-                }
-
-                burnTime -= Time.deltaTime;
-                if (burnTime <= 0)
-                {
-                    isBurning = false;
-                    FinishBurn();
-                }
-            }
-
-
-            if (freezeTime > 0)
-            {
-                freezeTime -= Time.deltaTime;
-                if (freezeTime <= 0)
-                {
-                    isFrozen = false;
-                    FinishFreeze();
-                }
-            }
-
-
-            if (shockTime > 0)
-            {
-                shockTime -= Time.deltaTime;
-                if (shockTime <= 0)
-                {
-                    isShocked = false;
-                    FinishShock();
-                }
-            }
-        }
-
-        #region Burn
-
-        public void AddBurning(float burnTimeToAdd, float burningDamage)
-        {
-            burningDamagePerSecond = burningDamage;
-            burnTime = burnTimeToAdd;
-            burnAilmentObject.SetActive(true);
-        }
-
-        private void FinishBurn()
-        {
-            burnTime = 0;
-            burningTimer = 0;
-            burningDamagePerSecond = 0;
-            burnAilmentObject.SetActive(false);
-        }
-
-        #endregion
-
-        #region Freeze
-
-        public void AddFreeze(float freezeTimeToAdd, float freezeEffect)
-        {
-            freezeTime = freezeTimeToAdd;
-            this.freezeEffect = freezeEffect;
-            freezeAilmentObject.SetActive(true);
-        }
-
-        private void FinishFreeze()
-        {
-            freezeTime = 0;
-            freezeEffect = 0;
-            freezeAilmentObject.SetActive(false);
-        }
-
-        #endregion
-
-        #region Shock
-
-        public void AddShock(float shockTimeToAdd, float shockEffect)
-        {
-            shockTime = shockTimeToAdd;
-            this.shockEffect = shockEffect;
-            shockAilmentObject.SetActive(true);
-        }
-
-        private void FinishShock()
-        {
-            shockTime = 0;
-            shockEffect = 0;
-            shockAilmentObject.SetActive(false);
-        }
-
-        #endregion
 
         private void OnTriggerEnter2D(Collider2D col)
         {
@@ -306,7 +292,6 @@ namespace Runtime
                 //col.GetComponent<Projectile>().HitTarget(this);
             }
         }
-
 
         public void DealDamage(float damage, bool isCriticalHit)
         {
@@ -318,77 +303,19 @@ namespace Runtime
             if (_stats.currentHealth <= 0)
                 Die();
             else
+            {
                 _enemyDamageTaker.DamageTaken();
+
+                for (int i = 0; i < modifiersOnGetHit.Count; i++)
+                {
+                    modifiersOnGetHit[i].ApplyEffect(this);
+                }
+            }
         }
 
-        //todo move these things into another class!!
-        public List<GameObject> enemiesToSpreadAilment;
         public void AddElementalAilment(ElementModifiers element, float time, float effect, int spreadAmount)
         {
-            if (element == ElementModifiers.Fire)
-            {
-                AddBurning(time, effect);
-            }else if (element == ElementModifiers.Ice)
-            {
-                AddFreeze(time, effect);
-            }else if (element == ElementModifiers.Lightning)
-            {
-                AddShock(time, effect);
-            }
-
-
-            if (enemiesToSpreadAilment == null)
-                enemiesToSpreadAilment = new List<GameObject>();
-            
-            enemiesToSpreadAilment.Clear();
-            
-            for (int i = 0; i < spreadAmount; i++)
-            {
-                var closeEnemy = GetClosestEnemy(enemiesToSpreadAilment);
-                Debug.Log("Checking for closest enemies!!!:: " + closeEnemy);
-                if(closeEnemy == gameObject)
-                    break;
-                
-                Debug.Log("Fire is spreading!!!!!!");
-                enemiesToSpreadAilment.Add(closeEnemy);
-                DictionaryHolder.Damageables[closeEnemy].AddElementalAilment(element, time, effect, 0);
-            }
-        }
-
-        private GameObject GetClosestEnemy(List<GameObject> ignoreList)
-        {
-            //todo do this in one loop!!!
-            var closestEnemy = gameObject;
-            var closestDistance = 99999f;
-            bool isInIgnoreList = false;
-            foreach (var enemy in DictionaryHolder.Enemies)
-            {
-                //Check for this enemy
-                if (enemy.Key == gameObject)
-                    continue;
-                
-                //Check for ignore list
-                for (int i = 0; i < ignoreList.Count; i++)
-                {
-                    if (enemy.Key == ignoreList[i])
-                    {
-                        isInIgnoreList = true;
-                        break;
-                    }
-                }
-                
-                if(isInIgnoreList)
-                    continue;
-
-                var distance = Vector3.Distance(gameObject.transform.position, enemy.Key.transform.position);
-                if (distance <= GameConfig.FireSpreadDistance && distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestEnemy = enemy.Key;
-                }
-            }
-
-            return closestEnemy;
+            ailments.AddElementalAilment(element, time, effect, spreadAmount);
         }
 
         private void UpdateHealth()
@@ -415,6 +342,15 @@ namespace Runtime
             animator.SetFloat("DieSpeed", 1f / AnimationConfig.DieAnimationTime);
             animator.SetTrigger("Die");
             dieTimer = AnimationConfig.DieAnimationTime * 1.25f;
+
+            if (spellScript != null)
+            {
+                spellScript.DeActivate();
+                isAuraOn = false;
+            }
+            
+            if(_stats.AttackType == AttackType.Hive)
+                SpawnMinions();
         }
 
         private void ReturnObject()
@@ -480,7 +416,8 @@ namespace Runtime
 
         public void OnReturn()
         {
-            FinishAllAilments();
+            ailments.FinishAllAilments();
+            RemoveSpecialModifiers();
             DictionaryHolder.Enemies.Remove(gameObject);
             DictionaryHolder.Damageables.Remove(gameObject);
         }
@@ -489,6 +426,8 @@ namespace Runtime
         {
             DictionaryHolder.Enemies.Add(gameObject, this);
             DictionaryHolder.Damageables.Add(gameObject, this);
+            damageTaken = 0;
+            SetSpecialModifiers();
             SetStats();
         }
 
@@ -531,6 +470,16 @@ namespace Runtime
         public GameObject GetGameObject()
         {
             return gameObject;
+        }
+
+        public void AddCurse(AllStats stat, float amount)
+        {
+            
+        }
+
+        public void RemoveCurse(AllStats stat, float amount)
+        {
+            
         }
     }
 }

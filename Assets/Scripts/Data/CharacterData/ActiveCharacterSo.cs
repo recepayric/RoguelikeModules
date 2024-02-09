@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Runtime;
 using Runtime.Enums;
+using Runtime.ItemsRelated;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -14,6 +15,6 @@ namespace Data
         public Player playerScript;
 
         public List<Weapon> playerWeapons;
-        
+        public List<Item> playerItems;
     }
 }

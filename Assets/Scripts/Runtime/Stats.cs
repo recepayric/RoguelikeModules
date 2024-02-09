@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Data;
+using Runtime.Configs;
 using Runtime.Enums;
 using Runtime.ItemsRelated;
 using Runtime.StatValue;
@@ -13,6 +14,7 @@ namespace Runtime
     {
         private CharacterDataSo _baseStats;
 
+        private bool initialised = false;
         public Dictionary<AllStats, float> stats;
         [Header("Base Stats")]
         public float strength;
@@ -105,13 +107,48 @@ namespace Runtime
 
         public void SetBaseStats()
         {
-            SetStats();
+            //SetStats();
+            if (initialised)
+                ResetStats();
+            else
+                SetStats();
             foreach (var stat in _baseStats.BaseStats)
             {
-                AddStat(stat.Key, stat.Value);
+                //AddStat(stat.Key, stat.Value);
+                IncreaseStat(stat.Key, stat.Value);
             }
         }
 
+        public void ResetStats()
+        {
+            if (stats == null)
+                stats = new Dictionary<AllStats, float>();
+            else
+                stats.Clear();
+            AddStat(AllStats.Strength, 0);
+            AddStat(AllStats.Dexterity, 0);
+            AddStat(AllStats.Intelligence, 0);
+            AddStat(AllStats.Magic, 0);
+
+            //Base Stats
+            AddStat(AllStats.MagicalAttack, 0);
+            AddStat(AllStats.RangedAttack, 0);
+            AddStat(AllStats.Damage, 0);
+            AddStat(AllStats.MeleeAttack, 0);
+            AddStat(AllStats.Range, 0);
+            AddStat(AllStats.MaxHealth, 10);
+            AddStat(AllStats.CollectRange, 0);
+
+            AddStat(AllStats.MoveSpeed, 0);
+            AddStat(AllStats.AttackSpeed, 0);
+            AddStat(AllStats.PierceNumber, 0);
+            AddStat(AllStats.PierceDamage, 0.5f);
+            AddStat(AllStats.BounceNumber, 0);
+            
+            AddStat(AllStats.ExpGainMultiplier, 1);
+            AddStat(AllStats.HealthMultiplier, 1);
+        }
+        
         public void SetStats()
         {
             if (stats == null)
@@ -131,7 +168,7 @@ namespace Runtime
             AddStat(AllStats.Damage, 0);
             AddStat(AllStats.MeleeAttack, 0);
             AddStat(AllStats.Range, 0);
-            AddStat(AllStats.MaxHealth, 0);
+            AddStat(AllStats.MaxHealth, 10);
             AddStat(AllStats.CollectRange, 0);
 
             AddStat(AllStats.MoveSpeed, 0);
@@ -141,19 +178,37 @@ namespace Runtime
             AddStat(AllStats.BounceNumber, 0);
             
             AddStat(AllStats.ExpGainMultiplier, 1);
-
+            AddStat(AllStats.HealthMultiplier, 1);
             //Secondary Stats
+            initialised = true;
+        }
+
+        public void UpdateStatsWithMultipliers()
+        {
+            var baseHealth = StatConfigs.BaseHealthStat;
+            var currentMaxHealth = GetStat(AllStats.MaxHealth);
+            var lifeToReduce = currentMaxHealth - baseHealth;
+            var newLifeExtra = GetStat(AllStats.HealthMultiplier) * lifeToReduce;
+            var newLife = baseHealth + newLifeExtra;
+            SetStat(AllStats.MaxHealth, newLife);
+            
+            //Debug.Log("Starter Health: " + currentMaxHealth);
+            //Debug.Log("New Health: " + newLife);
         }
 
         private void AddStat(AllStats stat, float value)
         {
-            if (value != 0)
+            if (stats.ContainsKey(stat))
+            {
+                SetStat(stat, value);
+            }
+            else if (value != 0)
             {
                 stats.Add(stat, value);
             }
         }
 
-        private void SetStat(AllStats stat, float value)
+        public void SetStat(AllStats stat, float value)
         {
             if (stats.ContainsKey(stat))
                 stats[stat] = value;

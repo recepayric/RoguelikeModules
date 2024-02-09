@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Runtime.Enums;
+using Runtime.Modifiers.AilmentModifiers;
 using Runtime.Modifiers.CharacterModifiers;
-using Runtime.Modifiers.ElementalModifiers;
+using Runtime.Modifiers.OnGetDamageModifiers;
 using Runtime.Modifiers.ProjectileModifiers;
 using UnityEngine;
 
@@ -16,7 +17,6 @@ namespace Runtime.Modifiers
         {
             if (allModifiers == null) allModifiers = new Dictionary<SpecialModifiers, Modifier>();
             
-            
             allModifiers.Add(SpecialModifiers.BounceOnCriticalStrike, new BounceOnCrit());
             allModifiers.Add(SpecialModifiers.SplitOnHit, new SplitOnHit());
             allModifiers.Add(SpecialModifiers.RotatingProjectiles, new RotatingProjectiles());
@@ -25,6 +25,13 @@ namespace Runtime.Modifiers
             allModifiers.Add(SpecialModifiers.FreezeOnHit, new AddFreezingOnHit());
             allModifiers.Add(SpecialModifiers.ShockOnHit, new AddShockOnHit());
             allModifiers.Add(SpecialModifiers.LowHealthMoreAttackSpeed, new LowHealthMoreAttackSpeed());
+            allModifiers.Add(SpecialModifiers.BleedOnHit, new BleedOnHit());
+            allModifiers.Add(SpecialModifiers.StunChanceOnHit, new StunChanceOnHit());
+            allModifiers.Add(SpecialModifiers.CurseRandomOnGetHit, new RandomCurseOnGetDamage());
+            allModifiers.Add(SpecialModifiers.DealNoBurn, new DealNoBurn());
+            allModifiers.Add(SpecialModifiers.DealNoFreeze, new DealNoFreeze());
+            allModifiers.Add(SpecialModifiers.DealNoShock, new DealNoShock());
+            allModifiers.Add(SpecialModifiers.HealthModifierReduction, new HealthModifierReduction());
         }
 
         public static Modifier GetModifier(SpecialModifiers specialModifiers)

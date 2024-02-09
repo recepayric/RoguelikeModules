@@ -38,6 +38,10 @@ namespace Runtime
         [ShowInInspector] public bool addBurn;
         [ShowInInspector] public bool addFreeze;
         [ShowInInspector] public bool addShock;
+        [ShowInInspector] public bool addBleed;
+        [ShowInInspector] public bool addStun;
+        
+        [ShowInInspector] public float stunChance;
 
         [ShowInInspector] public float burnTime;
         [ShowInInspector] public float burnDamage;
@@ -47,6 +51,12 @@ namespace Runtime
 
         [ShowInInspector] public float shockTime;
         [ShowInInspector] public float shockEffect;
+        
+        [ShowInInspector] public float bleedTime;
+        [ShowInInspector] public float bleedDamage;
+
+        [ShowInInspector] public float stunTime;
+        [ShowInInspector] public float stunEffect;
         
         [ShowInInspector] public int burnSpreadAmount;
         [ShowInInspector] public int burnSpreadMultiplier = 1;
@@ -80,6 +90,8 @@ namespace Runtime
             var extraDamage = 0f;
 
             if (data.WeaponType == WeaponType.Wand)
+                extraDamage = DictionaryHolder.Player.stats.GetStat(AllStats.MagicalAttack);
+            else if (data.WeaponType == WeaponType.Bow)
                 extraDamage = DictionaryHolder.Player.stats.GetStat(AllStats.RangedAttack);
             else if (data.WeaponType == WeaponType.Sword)
                 extraDamage = DictionaryHolder.Player.stats.GetStat(AllStats.MeleeAttack);
@@ -96,6 +108,8 @@ namespace Runtime
             damagePoint += GetStat(AllStats.RangedAttack);
             damagePoint += GetStat(AllStats.MeleeAttack);
 
+            Debug.Log("Extra Damage: " + extraDamage);
+            Debug.Log("Damage Point: " + damagePoint);
 
             var projectileFromTree = GetStat(AllStats.ProjectileNumber);
             var bounceFromTree = GetStat(AllStats.BounceNumber);

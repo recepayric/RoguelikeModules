@@ -5,6 +5,7 @@ using Data.WeaponDataRelated;
 using Runtime.Enums;
 using Runtime.ItemsRelated;
 using Runtime.StatValue;
+using Runtime.TowerRelated;
 using Runtime.UIRelated;
 using UnityEngine;
 using UnityEngine.Events;
@@ -33,6 +34,9 @@ namespace Runtime.Managers
         public event UnityAction<int> PrepareTowerEvent;
         public void PrepareTower(int tier) => PrepareTowerEvent?.Invoke(tier);
 
+        public event UnityAction<Tower> UpdateTowerEvent;
+        public void UpdateTower(Tower tower) => UpdateTowerEvent?.Invoke(tower);
+
         #region Animation Related
 
         public event UnityAction<float> LiftWandEvent;
@@ -59,6 +63,11 @@ namespace Runtime.Managers
         
         public event UnityAction RestartGameEvent;
         public void RestartGame() => RestartGameEvent?.Invoke();
+
+        public event UnityAction<GameObject, AllStats, float, float> AddCurseEvent;
+
+        public void AddCurse(GameObject gameObject, AllStats stat, float amount, float time) =>
+            AddCurseEvent?.Invoke(gameObject, stat, amount, time);
         
         #endregion
 
@@ -71,8 +80,7 @@ namespace Runtime.Managers
         public void WeaponSelected(WeaponDataSo weaponDataSo) => WeaponSelectedEvent?.Invoke(weaponDataSo);
 
         #endregion
-
-
+        
         #region Level Up Related
 
         public event UnityAction<LevelUpStats> LevelUpStatSelectedEvent;

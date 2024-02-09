@@ -1,5 +1,6 @@
 ﻿using System;
 using Data.EnemyDataRelated;
+using Runtime.AilmentsRelated;
 using Runtime.DamageRelated;
 using Runtime.Enums;
 using Unity.VisualScripting;
@@ -15,6 +16,7 @@ namespace Runtime.EnemyRelated
     /// </summary>
     public class EnemyMovement : MonoBehaviour
     {
+        public Ailments Ailments;
         public Rigidbody2D rigidBody;
         public GameObject targetObject;
         public Enemy enemy;
@@ -56,16 +58,19 @@ namespace Runtime.EnemyRelated
             windShield.transform.localPosition = Vector3.zero;
             isCharging = true;
             lastChargeDistance = 9999999;
+            rigidBody.mass = 300;
         }
 
         private void FinishCharging()
         {
             BasicPool.instance.Return(windShield);
             isCharging = false;
+            rigidBody.mass = 1;
         }
 
         private void TurnToPlayer()
         {
+            if (Ailments.isStunned) return;
             if (isCharging) return;
 
             if (targetObject.transform.position.x <= transform.position.x)
@@ -88,13 +93,15 @@ namespace Runtime.EnemyRelated
 
         private void FixedUpdate()
         {
+
             //return;
             if (isCharging)
             {
                 Charge();
                 return;
             }
-            
+            if (Ailments.isStunned) return;
+
             CheckForPlayerRotation();
             //Check player rotation
             //return;
@@ -131,6 +138,12 @@ namespace Runtime.EnemyRelated
         
         private void Charge()
         {
+            if (Ailments.isStunned)
+            {
+                FinishCharging();
+                return;
+            }
+
             var posX = transform.position.x;
             var posY = transform.position.y;
             var playerX = chargePosition.x;

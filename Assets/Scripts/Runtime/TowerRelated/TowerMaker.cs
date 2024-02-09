@@ -17,11 +17,13 @@ namespace Runtime.TowerRelated
         public ItemRarity rarity;
 
         public List<Tower> towers;
+        public List<Tower> tutorialTowers;
 
         public List<string> modifiers;
 
         public float towerMinStatMulti;
         public float towerMaxStatMulti;
+        
 
         private void Awake()
         {
@@ -41,13 +43,25 @@ namespace Runtime.TowerRelated
 
         private void OnPrepareTower(int tierToPrepare)
         {
-            DictionaryHolder.CurrentTower = towers[tierToPrepare - 1];
+            if (tierToPrepare < 0)
+            {
+                var tier = tierToPrepare - MapConfig.TutorialMapOffset;
+                Debug.Log("Tier for tutorial tower: " + tier);
+                DictionaryHolder.CurrentTower = tutorialTowers[tier];
+                EventManager.Instance.UpdateTower(tutorialTowers[tier]);
+            }
+            else
+            {
+                DictionaryHolder.CurrentTower = towers[tierToPrepare];
+                EventManager.Instance.UpdateTower(towers[tierToPrepare]);
+            }
+            
         }
 
         private void OnCreateTower(int tierToCreate)
         {
             tier = tierToCreate;
-            CreateTower(towers[tier-1]);
+            CreateTower(towers[tier]);
         }
 
         [Button]
@@ -64,8 +78,17 @@ namespace Runtime.TowerRelated
             modifiers.Clear();
             
             tower.ClearTower();
+            
+            var modifierCount = 0;
+            
+            if (tower.tier >= 0)
+                modifierCount = MapConfig.ModifiersPerTier[tower.tier];
+            else
+            {
+                modifierCount = tower.tier + 3;
+            }
 
-            for (int i = 0; i < MapConfig.ModifiersPerTier[tower.tier-1]; i++)
+            for (int i = 0; i < modifierCount; i++)
             {
                 var total = TowerModifiers2.Count;
                 var index = Random.Range(0, total);
@@ -79,13 +102,33 @@ namespace Runtime.TowerRelated
             }
             tower.CalculateRates();
         }
+
+        [Button]
+        private void Clear()
+        {
+            TowerModifiers.Clear();
+            TowerModifiers2.Clear();
+        }
+        
+        [Button]
+        private void CreateTurorialTowers()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                Tower tower = new Tower();
+                tower.SetTier(-3+i);
+                tower.SetName("Tutorial Tower");
+                CreateTower(tower);
+                tutorialTowers.Add(tower);
+            }
+        }
         
         private void InitialiseBaseTowers()
         {
             for (int i = 0; i < 16; i++)
             {
                 Tower tower = new Tower();
-                tower.SetTier(i+1);
+                tower.SetTier(i);
                 tower.SetName("Base Tower");
                 CreateTower(tower);
                 towers.Add(tower);

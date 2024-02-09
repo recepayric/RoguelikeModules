@@ -90,8 +90,7 @@ namespace Runtime.SpellsRelated
             CheckEnemies();
             for (int i = 0; i < enemiesInRange.Count; i++)
             {
-                DictionaryHolder.Enemies[enemiesInRange[i]].AddBurning(1, CalculateDamage());
-                //DictionaryHolder.Enemies[enemiesInRange[i]].DealDamage(DamageToGive, false);
+                DictionaryHolder.Damageables[enemiesInRange[i]].AddElementalAilment(ElementModifiers.Fire, 1, CalculateDamage());
             }
         }
 

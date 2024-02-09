@@ -191,6 +191,7 @@ namespace Runtime
             slash.slashSpeedMultiplier = 1f / weaponStats.attackSpeed;
             slash.SetRange(weaponStats.range);
             slash.SetShooter(this);
+            slash.weapon = this;
         }
 
         public void AddStyle(int number)
@@ -344,8 +345,8 @@ namespace Runtime
 
         public void OnFloorStart()
         {
-            weaponStats._weaponDataSo = weaponDataSo;
-            weaponStats.statsFromTree = statsFromTree;
+            // weaponStats._weaponDataSo = weaponDataSo;
+            // weaponStats.statsFromTree = statsFromTree;
             weaponStats.SetStats();
             ActivateModifiers();
             ActivateRotatingWeapons();
@@ -375,6 +376,11 @@ namespace Runtime
 
         public void OnGet()
         {
+            weaponStats._weaponDataSo = weaponDataSo;
+            weaponStats.statsFromTree = statsFromTree;
+            weaponStats.SetStats();
+            //ActivateModifiers();
+            //ActivateRotatingWeapons();
         }
     }
 }

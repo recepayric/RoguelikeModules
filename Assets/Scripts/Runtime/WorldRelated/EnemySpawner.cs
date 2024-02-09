@@ -5,6 +5,7 @@ using DG.Tweening;
 using Runtime.Configs;
 using Runtime.Enums;
 using Runtime.Managers;
+using Runtime.TowerRelated;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -15,6 +16,10 @@ namespace Runtime.WorldRelated
     public class EnemySpawner
     {
         private const string SpawnID = "monster_spawner";
+        public Tower selectedTower;
+        public EnemySpawnDataSo tutorialTower1DataSo;
+        public EnemySpawnDataSo tutorialTower2DataSo;
+        public EnemySpawnDataSo tutorialTower3DataSo;
         public EnemySpawnDataSo enemySpawnDataSo;
         public float xBound = 17;
         public float yBound = 9f;
@@ -34,14 +39,30 @@ namespace Runtime.WorldRelated
         {
             //EventManager.Instance.FloorStartsEvent += StartSpawning;
             EventManager.Instance.FloorEndsEvent += OnFloorEnds;
+            EventManager.Instance.UpdateTowerEvent += OnUpdateTower;
         }
 
+        private EnemySpawnDataSo UpdateSpawnData()
+        {
+            var data = enemySpawnDataSo;
+            if (selectedTower.tier == -3)
+                data = tutorialTower1DataSo;
+            else if (selectedTower.tier == -3)
+                data = tutorialTower1DataSo;
+            else if (selectedTower.tier == -3)
+                data = tutorialTower1DataSo;
+
+            return data;
+        }
+        
         public void Setup()
         {
-            totalWaveTime = enemySpawnDataSo.floorTimes[floorNumber];
-            GameConfig.FloorDuration = (int)totalWaveTime;
-            SpawnDatas = enemySpawnDataSo.SpawnDatas[floorNumber];
+            var data = UpdateSpawnData();
+            totalWaveTime = data.floorTimes[floorNumber];
+            SpawnDatas = data.SpawnDatas[floorNumber];
 
+           
+            GameConfig.FloorDuration = (int)totalWaveTime;
             isStarted = false;
             waveSpawned = 0;
             totalWave = SpawnDatas.Count;
@@ -123,10 +144,16 @@ namespace Runtime.WorldRelated
         }
 
 
+        private void OnUpdateTower(Tower tower)
+        {
+            selectedTower = tower;
+        }
+
         public void Destroy()
         {
             //EventManager.Instance.FloorStartsEvent -= StartSpawning;
             EventManager.Instance.FloorEndsEvent -= OnFloorEnds;
+            EventManager.Instance.UpdateTowerEvent -= OnUpdateTower;
         }
     }
 }

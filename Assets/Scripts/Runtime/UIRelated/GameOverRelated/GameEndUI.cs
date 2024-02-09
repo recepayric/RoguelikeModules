@@ -8,6 +8,24 @@ namespace Runtime.UIRelated.GameOverRelated
         public GameObject VictoryText;
         public GameObject DefeatText;
 
+        public GameEndStats gameEndStats;
+        public GameEndWeaponsUI gameEndWeaponsuI;
+
+        public void ShowStats()
+        {
+            gameEndStats.ShowStats();
+        }
+
+        public void ShowWeapons()
+        {
+            gameEndWeaponsuI.SetWeapons();
+        }
+        
+        public void ShowItems()
+        {
+            gameEndWeaponsuI.SetWeapons();
+        }
+
         public void RestartButton()
         {
             EventManager.Instance.RestartGame();
@@ -46,6 +64,8 @@ namespace Runtime.UIRelated.GameOverRelated
         public void OnOpened()
         {
             AddEvents();
+            ShowStats();
+            ShowWeapons();
         }
 
         public void OnClosed()

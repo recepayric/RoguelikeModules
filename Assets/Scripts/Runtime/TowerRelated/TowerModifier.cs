@@ -3,6 +3,7 @@ using Random = UnityEngine.Random;
 
 namespace Runtime.TowerRelated
 {
+    [Serializable]
     public class TowerModifier
     {
         public TowerMonsterModifiers TowerMonsterModifiers;

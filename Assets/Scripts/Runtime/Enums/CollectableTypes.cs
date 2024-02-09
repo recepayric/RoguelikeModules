@@ -5,6 +5,6 @@
         Orb,
         Food,
         Chest,
-        MapFragment,
+        TowerFragment,
     }
 }

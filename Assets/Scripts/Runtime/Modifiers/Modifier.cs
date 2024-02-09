@@ -21,6 +21,10 @@ namespace Runtime.Modifiers
         public virtual void ApplyEffect()
         {
         }
+        
+        public virtual void ApplyEffect(Enemy enemy)
+        {
+        }
 
         public virtual void ApplyEffect(Player player)
         {
@@ -63,7 +67,7 @@ namespace Runtime.Modifiers
             amountOfModifier[gameObject]++;
         }
 
-        public void RemoveRegisteredUser(GameObject gameObject)
+        public virtual void RemoveRegisteredUser(GameObject gameObject)
         {
             if (amountOfModifier.ContainsKey(gameObject))
                 amountOfModifier.Remove(gameObject);

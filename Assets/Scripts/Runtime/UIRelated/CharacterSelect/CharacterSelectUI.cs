@@ -53,6 +53,8 @@ namespace Runtime.UIRelated.CharacterSelect
             {
                 var icon = BasicPool.instance.Get(PoolKeys.CharacterIconUI);
                 icon.transform.SetParent(charactersContainer.transform);
+                icon.transform.localScale = Vector3.one;
+                icon.transform.localPosition = Vector3.zero;
         
                 var script = icon.GetComponent<CharacterFrameUI>();
                 script.SetCharacterDetails(characters[i]);
@@ -67,7 +69,8 @@ namespace Runtime.UIRelated.CharacterSelect
             {
                 var icon = BasicPool.instance.Get(PoolKeys.WeaponIconUI);
                 icon.transform.SetParent(weaponContainer.transform);
-
+                icon.transform.localScale = Vector3.one;
+                icon.transform.localPosition = Vector3.zero;
                 var script = icon.GetComponent<WeaponFrameUI>();
                 script.SetWeaponObject(weapons[i]);
                 script.SetCharacterSelectUI(this);

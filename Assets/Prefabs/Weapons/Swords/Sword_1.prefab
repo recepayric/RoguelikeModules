@@ -9869,7 +9869,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 30
   m_Sprite: {fileID: 21300000, guid: 0d13b0a610fc0bc42b12aabec13534a0, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.1710136, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -10803,12 +10803,21 @@ MonoBehaviour:
     addBurn: 0
     addFreeze: 0
     addShock: 0
+    addBleed: 0
+    addStun: 0
+    stunChance: 0
     burnTime: 0
     burnDamage: 0
     freezeTime: 0
     freezeEffect: 0
     shockTime: 0
     shockEffect: 0
+    bleedTime: 0
+    bleedDamage: 0
+    stunTime: 0
+    stunEffect: 0
+    burnSpreadAmount: 0
+    burnSpreadMultiplier: 1
   swordSwinger: {fileID: 0}
   projectilePrefab: {fileID: 7280217749031058319, guid: 9c2a0d9fa8fa0ae4096b4658e5f36c84, type: 3}
   projectilePoint: {fileID: 3220777079054858423}

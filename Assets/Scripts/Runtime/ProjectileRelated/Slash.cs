@@ -25,12 +25,13 @@ namespace Runtime.ProjectileRelated
         public float slashSpeedMultiplier;
         private static readonly int FillAmount = Shader.PropertyToID("_FillAmount");
         private static readonly int IsReverse = Shader.PropertyToID("_IsReverse");
-        
+
         private Vector3 deltaTravel;
         public float slashSpeed;
         public float slashDir;
         public float distanceTraveled;
         public float maxTravel;
+        public Weapon weapon;
 
         #region Damage Related Variables
 
@@ -65,16 +66,31 @@ namespace Runtime.ProjectileRelated
 
             //Apply Ailments!
             //todo redo this!!!
-            //
-            // if (weapon.weaponStats.addBurn)
-            //     enemy.AddBurning(weapon.weaponStats.burnTime, weapon.weaponStats.burnDamage);
-            //
-            // if (weapon.weaponStats.addFreeze)
-            //     enemy.AddFreeze(weapon.weaponStats.freezeTime, weapon.weaponStats.freezeEffect);
-            //
-            // if (weapon.weaponStats.addShock)
-            //     enemy.AddShock(weapon.weaponStats.shockTime, weapon.weaponStats.shockEffect);
+            //todo move this to seperate class for all entities that can damage!!!
+            if (weapon != null && weapon.weaponStats.addBurn)
+                enemy.AddElementalAilment(ElementModifiers.Fire, weapon.weaponStats.burnTime,
+                    weapon.weaponStats.burnDamage, weapon.weaponStats.burnSpreadAmount);
 
+            if (weapon != null && weapon.weaponStats.addFreeze)
+                enemy.AddElementalAilment(ElementModifiers.Ice, weapon.weaponStats.freezeTime,
+                    weapon.weaponStats.freezeEffect);
+
+            if (weapon != null && weapon.weaponStats.addShock)
+                enemy.AddElementalAilment(ElementModifiers.Lightning, weapon.weaponStats.shockTime,
+                    weapon.weaponStats.shockEffect);
+
+            if (weapon != null && weapon.weaponStats.addBleed)
+                enemy.AddElementalAilment(ElementModifiers.Bleed, weapon.weaponStats.bleedTime,
+                    weapon.weaponStats.bleedDamage);
+
+            if (weapon != null && weapon.weaponStats.addStun)
+            {
+                var doesStun = Random.Range(0, 100f) <= weapon.weaponStats.stunChance;
+                if (doesStun)
+                    enemy.AddElementalAilment(ElementModifiers.Stun, weapon.weaponStats.stunTime,
+                        1f);
+            }
+            
             if (_modifiers != null)
             {
                 foreach (var modifier in _modifiers)
@@ -86,13 +102,13 @@ namespace Runtime.ProjectileRelated
 
         public void SetRange(float range)
         {
-            maxTravel = range/GameConfig.RangeToRadius;
+            maxTravel = range / GameConfig.RangeToRadius;
         }
-        
+
         private void Move()
         {
             if (!isMoving) return;
-            deltaTravel = Time.deltaTime * (slashSpeed*slashSpeedMultiplier*slashDir) * transform.right;
+            deltaTravel = Time.deltaTime * (slashSpeed * slashSpeedMultiplier * slashDir) * transform.right;
             distanceTraveled += Vector2.Distance(transform.position, transform.position + deltaTravel);
             transform.position += deltaTravel;
 
@@ -109,7 +125,7 @@ namespace Runtime.ProjectileRelated
         private void OnTriggerEnter2D(Collider2D other)
         {
             var damageable = other.gameObject.GetComponent<IDamageable>();
-            if(damageable != null)
+            if (damageable != null)
                 HitTarget(damageable);
         }
 
@@ -126,7 +142,7 @@ namespace Runtime.ProjectileRelated
         private void Create()
         {
             if (!isCreating) return;
-            
+
             createAmount += Time.deltaTime / createTime;
             if (createAmount > 1)
             {
@@ -138,14 +154,16 @@ namespace Runtime.ProjectileRelated
             }
 
             transform.position = objectToFollow.transform.position;
-            if(target != null)
-                transform.right = target.transform.position - transform.position;
-
-            if (target.transform.position.x > transform.position.x)
-                _propertyBlock.SetInteger(IsReverse, 1);
-            else
-                _propertyBlock.SetInteger(IsReverse, 0);
+            var isReverse = 0;
             
+            if (target != null)
+            {
+                isReverse = target.transform.position.x > transform.position.x ? 1 : 0;
+                transform.right = target.transform.position - transform.position;
+            }
+            
+            _propertyBlock.SetInteger(IsReverse, isReverse);
+
             _propertyBlock.SetFloat(FillAmount, createAmount);
             renderer.SetPropertyBlock(_propertyBlock);
         }
@@ -160,7 +178,7 @@ namespace Runtime.ProjectileRelated
         {
             this.target = target;
         }
-        
+
         [Button]
         public void SetAngle(GameObject target)
         {
@@ -175,6 +193,7 @@ namespace Runtime.ProjectileRelated
         }
 
         public PoolKeys PoolKeys { get; set; }
+
         public void OnReturn()
         {
         }

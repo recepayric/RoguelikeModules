@@ -17,6 +17,5 @@ namespace Runtime.ItemsRelated
         public List<float> statValues;
         public ItemRarity rarity;
         public int quantity;
-
     }
 }

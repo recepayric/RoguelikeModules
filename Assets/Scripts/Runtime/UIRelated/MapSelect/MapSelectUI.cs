@@ -16,6 +16,7 @@ namespace Runtime.UIRelated.MapSelect
         public MapDetailUI mapDetailUI;
         private const string PickerMoveID = "PickerMove";
         public int currentTier;
+        public int selectedTier;
         public Image towerImage;
         public List<Sprite> tutorialTowerImages;
         public List<Sprite> tieredTowerImages;
@@ -34,7 +35,7 @@ namespace Runtime.UIRelated.MapSelect
         private void Start()
         {
             currentTier = 0;
-
+            selectedTier = 0;
             //EventManager.Instance.PrepareTower(currentTier+1);
             mapDetailUI.SetTier(currentTier + 1);
             mapDetailUI.UpdateTowerDetails();
@@ -55,8 +56,6 @@ namespace Runtime.UIRelated.MapSelect
             var imageY = image.bounds.size.y;
             var ratio = imageY / imageX;
             
-            Debug.Log("W: " + imageX + " Y: " + imageY);
-            Debug.Log("Ratio: " + ratio);
             towerImage.sprite = image;
 
             var currentX = towerImage.rectTransform.sizeDelta.x;
@@ -68,12 +67,14 @@ namespace Runtime.UIRelated.MapSelect
         {
             pickedMapType = PickTypes.Tutorial;
             selectedTutorialMap = tier;
+            selectedTier = selectedTutorialMap + MapConfig.TutorialMapOffset;
 
             CheckPickerMove();
             pickerImage.DOAnchorPosX(tutorialMaps[tier].anchoredPosition.x, UIConfig.PickerMoveTime)
                 .SetId(PickerMoveID);
             
             ChangeTowerImage();
+            ChangeMapTier();
         }
 
         public void SelectTieredMaps()
@@ -82,6 +83,7 @@ namespace Runtime.UIRelated.MapSelect
             CheckPickerMove();
             pickerImage.DOAnchorPosX(tieredMap.anchoredPosition.x, UIConfig.PickerMoveTime).SetId(PickerMoveID);
             ChangeTowerImage();
+            ChangeMapTier();
         }
 
         public void SelectBossMap(int tier)
@@ -92,6 +94,8 @@ namespace Runtime.UIRelated.MapSelect
             CheckPickerMove();
             pickerImage.DOAnchorPosX(bossMaps[tier].anchoredPosition.x, UIConfig.PickerMoveTime).SetId(PickerMoveID);
             ChangeTowerImage();
+            ChangeMapTier();
+
         }
 
         public void IncreaseTier()
@@ -100,6 +104,8 @@ namespace Runtime.UIRelated.MapSelect
 
             if (currentTier < 15)
                 currentTier++;
+
+            selectedTier = currentTier;
             UpdateTierText();
             ChangeMapTier();
         }
@@ -108,6 +114,8 @@ namespace Runtime.UIRelated.MapSelect
         {
             if (currentTier > 0)
                 currentTier--;
+
+            selectedTier = currentTier;
             UpdateTierText();
             ChangeMapTier();
         }
@@ -120,8 +128,8 @@ namespace Runtime.UIRelated.MapSelect
         private void ChangeMapTier()
         {
             ChangeTowerImage();
-            mapDetailUI.SetTier(currentTier + 1);
-            mapDetailUI.UpdateTowerDetails();
+            mapDetailUI.SetTier(selectedTier);
+            //mapDetailUI.UpdateTowerDetails();
         }
 
         private void CheckPickerMove()

@@ -1,4 +1,5 @@
 ﻿using System;
+using Data.WeaponDataRelated;
 using DG.Tweening;
 using Runtime.Configs;
 using Runtime.ItemsRelated;
@@ -11,6 +12,7 @@ namespace Runtime.UIRelated.Market
 {
     public class MarketItemSlots : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
+        public bool isItem = false;
         public MarketUI marketUI;
         public GameObject backgroundImage;
         public Image itemIcon;
@@ -36,6 +38,8 @@ namespace Runtime.UIRelated.Market
 
         public void SetItem(Item pItem)
         {
+            canBeBought = false;
+            isItem = true;
             DOTween.Kill(ScaleId);
 
             itemIcon.gameObject.transform
@@ -43,6 +47,21 @@ namespace Runtime.UIRelated.Market
                 .SetId(ScaleId).OnComplete(() =>
                 {
                     item = pItem;
+                    SetIcon();
+                });
+        }
+
+        public void SetItem(WeaponDataSo weaponDataSo)
+        {
+            canBeBought = false;
+            isItem = false;
+            DOTween.Kill(ScaleId);
+
+            itemIcon.gameObject.transform
+                .DOScale(new Vector3(0, 0, 0), AnimationConfig.MarketResetItemAnimationTime / 2)
+                .SetId(ScaleId).OnComplete(() =>
+                {
+                    //item = pItem;
                     SetIcon();
                 });
         }
@@ -58,9 +77,9 @@ namespace Runtime.UIRelated.Market
         public void BuyItem()
         {
             if (!canBeBought) return;
+            EventManager.Instance.ItemBuy(item);
             marketUI.BuyItem(item);
             RemoveItem();
-            EventManager.Instance.ItemBuy(item);
         }
 
         private void RemoveItem()

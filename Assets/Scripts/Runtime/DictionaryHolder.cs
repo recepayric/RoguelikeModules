@@ -19,6 +19,7 @@ namespace Runtime
         public static Dictionary<GameObject, Collectable> Collectables = new Dictionary<GameObject, Collectable>();
         public static Dictionary<GameObject, IDamageable> Damageables = new Dictionary<GameObject, IDamageable>();
         public static Dictionary<GameObject, RotatingMeleeWeapons> RotatingMeleeWeapons = new Dictionary<GameObject, RotatingMeleeWeapons>();
+        public static Dictionary<GameObject, ICursable> Cursable = new Dictionary<GameObject, ICursable>();
 
 
         public static Tower CurrentTower;

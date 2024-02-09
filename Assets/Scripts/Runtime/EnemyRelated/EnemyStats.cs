@@ -78,8 +78,6 @@ namespace Runtime.EnemyRelated
         public float shockEffectTaken;
         
         
-
-
         private void Start()
         {
         }

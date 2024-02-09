@@ -7,5 +7,7 @@
 
         public static readonly float ModifyToDropRateMultiplier = 0.25f;
         public static readonly float ModifyToExperienceRateMultiplier = 0.5f;
+
+        public static readonly int TutorialMapOffset = -3;
     }
 }

@@ -16,7 +16,7 @@ using UnityEngine;
 
 namespace Runtime
 {
-    public class Player : MonoBehaviour, ISpellCaster, IDamageable, IPoolObject, IWeaponCarrier
+    public class Player : MonoBehaviour, ISpellCaster, IDamageable, IPoolObject, IWeaponCarrier, ICursable
     {
         public Transform Transform { get; set; }
         public GameObject SpellPosition;
@@ -63,6 +63,9 @@ namespace Runtime
         public List<Modifier> modifiersOnGetHit;
         public List<Modifier> modifiersOnHealthChange;
         public List<Modifier> modifiersOnItemBuy;
+
+        public Dictionary<AllStats, float> statsFromModifiers = new Dictionary<AllStats, float>();
+        public Dictionary<AllStats, float> statsFromCurses = new Dictionary<AllStats, float>();
         
         //Spell Gamble
         public AllStats statFromGamble;
@@ -80,6 +83,8 @@ namespace Runtime
 
         private void Initialise()
         {
+            statsFromModifiers = new Dictionary<AllStats, float>();
+            statsFromCurses = new Dictionary<AllStats, float>();
             ResetModifiers();
             ResetWeapon();
             ResetEverything();
@@ -135,6 +140,7 @@ namespace Runtime
             activeCharacterSo.playerObject = gameObject;
             activeCharacterSo.playerScript = this;
             activeCharacterSo.playerWeapons = weapons;
+            activeCharacterSo.playerItems = items;
         }
 
         // Update is called once per frame
@@ -145,7 +151,7 @@ namespace Runtime
             UpdateHealth();
         }
 
-        private void CalculateBaseStats()
+        public void CalculateBaseStats()
         {
             stats.SetBaseStat(characterDataSo);
             stats.SetBaseStats();
@@ -159,7 +165,8 @@ namespace Runtime
         {
             damageTaken = 0;
             currentHealth = maxHealth;
-            healthBar.UpdateHealth(currentHealth);
+            //healthBar.UpdateHealth(currentHealth);
+            UpdateHealth();
         }
 
         private void UpdateHealth()
@@ -265,7 +272,21 @@ namespace Runtime
             }
         }
 
-        private void CalculateStats()
+        public void AddStatFromModifier(AllStats stat, float value)
+        {
+            if (statsFromModifiers == null)
+                statsFromModifiers = new Dictionary<AllStats, float>();
+
+            if (statsFromModifiers.ContainsKey(stat))
+                statsFromModifiers[stat] += value;
+            else
+                statsFromModifiers.Add(stat, value);
+            
+            
+            CalculateStats();
+        }
+        
+        public void CalculateStats()
         {
             stats.SetBaseStats();
 
@@ -279,13 +300,22 @@ namespace Runtime
                 stats.AddLevelUpStat(levelUpStatsList[i]);
             }
 
+            foreach (var stat in statsFromModifiers)
+            {
+                stats.IncreaseStat(stat.Key, stat.Value);
+            }
+            
+            foreach (var stat in statsFromCurses)
+            {
+                stats.IncreaseStat(stat.Key, stat.Value);
+            }
+
             if (statFromGamble == AllStats.Strength || statFromGamble == AllStats.Dexterity ||
                 statFromGamble == AllStats.Intelligence || statFromGamble == AllStats.Magic)
             {
                 var currentValue = stats.GetStat(statFromGamble);
                 var increase = currentValue * (gambleStatIncrease / 100f);
                 
-                Debug.Log(gambleStatIncrease + " increased by " + increase);
                 stats.IncreaseStat(statFromGamble, increase);
                 stats.CalculateStats();
             }
@@ -294,11 +324,11 @@ namespace Runtime
                 stats.CalculateStats();
                 var currentValue = stats.GetStat(statFromGamble);
                 var increase = currentValue * (gambleStatIncrease / 100f);
-                Debug.Log(gambleStatIncrease + " increased by " + increase);
                 stats.IncreaseStat(statFromGamble, increase);
-                stats.SetStatValues();
             }
-            
+            stats.UpdateStatsWithMultipliers();
+            stats.SetStatValues();
+            healthBar.UpdateMaxHealth(stats.GetStat(AllStats.MaxHealth));
         }
 
         public void AddItem(Item itemToAdd)
@@ -440,6 +470,13 @@ namespace Runtime
             CastSpells();
         }
 
+        public void ResetStatsForMarket()
+        {
+            ResetHealth();
+            statsFromCurses.Clear();
+            CalculateStats();
+        }
+
         private void AddEvents()
         {
             EventManager.Instance.FloorStartsEvent += OnFloorStarts;
@@ -528,6 +565,7 @@ namespace Runtime
         {
             RemoveEvents();
             DictionaryHolder.Damageables.Remove(gameObject);
+            DictionaryHolder.Cursable.Remove(gameObject);
 
         }
 
@@ -536,11 +574,29 @@ namespace Runtime
             AddEvents();
             Initialise();
             DictionaryHolder.Damageables.Add(gameObject, this);
+            DictionaryHolder.Cursable.Add(gameObject, this);
         }
 
         public Transform GetRotationgWeaponParent()
         {
             return RotatingWeaponParent.transform;
+        }
+
+        public void AddCurse(AllStats stat, float amount)
+        {
+            Debug.Log("Adding curse!");
+            statsFromCurses.Add(stat, amount);
+            
+            CalculateStats();
+            UpdateWeaponStats();
+        }
+
+        public void RemoveCurse(AllStats stat, float amount)
+        {
+            if(statsFromCurses.ContainsKey(stat))
+                statsFromCurses.Remove(stat);
+            CalculateStats();
+            UpdateWeaponStats();
         }
     }
 }

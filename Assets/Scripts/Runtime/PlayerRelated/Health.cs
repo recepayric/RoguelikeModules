@@ -17,6 +17,12 @@ namespace Runtime.PlayerRelated
             currentHealth = maxHealth;
         }
 
+        public void UpdateMaxHealth(float _maxHealth)
+        {
+            maxHealth = _maxHealth;
+            if (currentHealth > maxHealth)
+                currentHealth = maxHealth;
+        }
         public void UpdateHealth(float _currentHealth)
         {
             currentHealth = _currentHealth;

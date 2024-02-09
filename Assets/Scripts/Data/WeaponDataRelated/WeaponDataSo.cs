@@ -10,6 +10,7 @@ namespace Data.WeaponDataRelated
     {
         public string WeaponName;
         public string Description;
+        public bool isStarterWeapon;
         public WeaponType WeaponType;
         public float BaseAttackSpeed;
         public float BaseAttackRange;
@@ -19,12 +20,14 @@ namespace Data.WeaponDataRelated
         public int BaseCriticalHitChance;
         public int BaseCriticalHitDamage;
         public int BasePierceNumber;
+        public int BaseBounceNumber;
         public int rotationDistanceFromPlayer;
         public List<SpecialModifiers> specialModifiersList;
         public PoolKeys WeaponPoolKey;
         public PoolKeys DummyWeaponKey;
         public PoolKeys RotatingWeaponKey;
         public WeaponData WeaponData;
+        public Sprite waaponSprite;
     }
 }
 

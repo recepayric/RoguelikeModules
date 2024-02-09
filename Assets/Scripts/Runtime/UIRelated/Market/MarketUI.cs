@@ -45,11 +45,11 @@ namespace Runtime.UIRelated.Market
 
         public void GetRandomItems()
         {
-            var totalItemCount = itemSo.itemData.Count;
+            var totalItemCount = itemSo.itemData2.Count;
 
             for (int i = 0; i < itemSlots.Count; i++)
             {
-                var randItem = itemSo.itemData[Random.Range(0, totalItemCount)];
+                var randItem = itemSo.itemData2[Random.Range(0, totalItemCount)];
                 itemSlots[i].SetItem(randItem);
             }
         }

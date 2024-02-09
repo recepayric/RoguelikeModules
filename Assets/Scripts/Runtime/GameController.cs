@@ -120,6 +120,7 @@ public class GameController : MonoBehaviour
     private void OnFloorEnd(int floorNumber)
     {
         var playerLevelDiff = player.playerLevel.CalculateLevelUp();
+        player.ResetStatsForMarket();
         KillAllEnemies();
 
         //todo check if player is in endless mode!!!

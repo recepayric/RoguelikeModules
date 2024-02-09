@@ -1,0 +1,28 @@
+﻿using System;
+using Runtime.Enums;
+
+namespace Runtime.Modifiers.AilmentModifiers
+{
+    [Serializable]
+    public class AddFreezingOnHit : Modifier
+    {
+        public AddFreezingOnHit()
+        {
+            SetUseArea(ModifierUseArea.OnStart);
+        }
+        public override void ApplyEffect(Weapon weapon)
+        {
+            base.ApplyEffect(weapon);
+            
+            //player magic damage
+            var playerFreezeEffect = DictionaryHolder.Player.stats.GetStat(AllStats.FreezingEffect);;
+            var freezeEffect = 10 + playerFreezeEffect;
+            
+            //todo increaes burn time here!!!
+            
+            weapon.weaponStats.addFreeze = true;
+            weapon.weaponStats.freezeTime = 1;
+            weapon.weaponStats.freezeEffect = freezeEffect;
+        }
+    }
+}

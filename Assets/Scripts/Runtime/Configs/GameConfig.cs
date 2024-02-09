@@ -1,4 +1,5 @@
-﻿using Runtime.UIRelated;
+﻿using Runtime.Enums;
+using Runtime.UIRelated;
 
 namespace Runtime.Configs
 {
@@ -13,5 +14,10 @@ namespace Runtime.Configs
         public static int FloorDuration = 60;
 
         public static float FireSpreadDistance = 5f;
+
+        public static AllStats[] randomCurses = new[]
+        {
+            AllStats.AttackSpeed, AllStats.MoveSpeed, AllStats.Damage
+        };
     }
 }

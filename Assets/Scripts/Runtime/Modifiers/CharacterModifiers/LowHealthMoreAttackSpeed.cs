@@ -25,16 +25,25 @@ namespace Runtime.Modifiers.CharacterModifiers
                 value = addedAttackSpeeds[player.gameObject];
             else
                 addedAttackSpeeds.Add(player.gameObject, 0f);
+
             
+
+            //Debug.Log("");
             //todo maybe multiplative???
-            player.stats.IncreaseStat(AllStats.AttackSpeed, -value);
+            //player.stats.IncreaseStat(AllStats.AttackSpeed, -value);
 
             var missingHealth = (player.damageTaken / player.maxHealth) * 100f;
-            value = missingHealth;
+            var newValue = missingHealth;
 
-            addedAttackSpeeds[player.gameObject] = missingHealth;
-            player.stats.IncreaseStat(AllStats.AttackSpeed, value);
-            player.stats.SetStatValues();
+            if(value == newValue)
+                return;
+            
+            player.AddStatFromModifier(AllStats.AttackSpeed, -value);
+            addedAttackSpeeds[player.gameObject] = newValue;
+            //player.stats.IncreaseStat(AllStats.AttackSpeed, value);
+            //player.stats.SetStatValues();
+            player.AddStatFromModifier(AllStats.AttackSpeed, newValue);
+            
             player.UpdateWeaponStats();
         }
     }

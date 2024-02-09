@@ -89,7 +89,7 @@ namespace Runtime.SpellsRelated
             CheckEnemies();
             for (int i = 0; i < enemiesInRange.Count; i++)
             {
-                DictionaryHolder.Enemies[enemiesInRange[i]].AddFreeze(1, 10);
+                DictionaryHolder.Damageables[enemiesInRange[i]].AddElementalAilment(ElementModifiers.Ice, 1, 10);
             }
         }
 

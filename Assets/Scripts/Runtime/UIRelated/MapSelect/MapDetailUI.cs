@@ -1,4 +1,6 @@
-﻿using Runtime.Managers;
+﻿using System;
+using Runtime.Managers;
+using Runtime.TowerRelated;
 using TMPro;
 using UnityEngine;
 
@@ -6,6 +8,7 @@ namespace Runtime.UIRelated.MapSelect
 {
     public class MapDetailUI : MonoBehaviour
     {
+        public Tower selectedTower;
         public int currentTier;
         public TextMeshProUGUI towerNameText;
         public TextMeshProUGUI towerModifiers;
@@ -16,8 +19,7 @@ namespace Runtime.UIRelated.MapSelect
 
         public void UpdateTowerDetails()
         {
-            EventManager.Instance.PrepareTower(currentTier);
-            var tower = DictionaryHolder.CurrentTower;
+            var tower = selectedTower;
             towerNameText.text = tower.towerName;
 
             towerModifiers.text = "";
@@ -27,7 +29,7 @@ namespace Runtime.UIRelated.MapSelect
                 towerModifiers.text += "<color=\"red\">" + tower.TowerModifiers[i].TextToShow + "\n";
             }
 
-            towerTierText.text = "Tier: <color=\"green\">" + tower.tier;
+            towerTierText.text = "Tier: <color=\"green\">" + (tower.tier+1);
             towerRarityText.text = "Rarity: <color=\"yellow\">Rare" ;
             towerDropRateText.text = "Drop Rate: <color=\"green\">" + tower.DropRateIncrease + "%";
             towerExperienceRateText.text = "Experience Increase: <color=\"green\">" + tower.ExperienceRateIncrease + "%";
@@ -36,18 +38,36 @@ namespace Runtime.UIRelated.MapSelect
         public void SetTier(int pTier)
         {
             currentTier = pTier;
+            EventManager.Instance.PrepareTower(currentTier);
         }
 
         public void RerollMap()
         {
             EventManager.Instance.CreateTower(currentTier);
             EventManager.Instance.PrepareTower(currentTier);
-            UpdateTowerDetails();
+            //UpdateTowerDetails();
         }
 
         public void StartTower()
         {
             EventManager.Instance.LoadTower();
+        }
+
+        public void OnUpdateTower(Tower tower)
+        {
+            selectedTower = tower;
+            UpdateTowerDetails();
+        }
+        
+        private void Awake()
+        {
+            Debug.Log("Registered!!!!!");
+            EventManager.Instance.UpdateTowerEvent += OnUpdateTower;
+        }
+
+        private void OnDestroy()
+        {
+            EventManager.Instance.UpdateTowerEvent -= OnUpdateTower;
         }
     }
 }

@@ -19,7 +19,8 @@ namespace Data
         public int floorNumber;
         public float floorTime;
         public Object[] enemyDataObjects;
-        public EnemyData[] enemyDatas;
+        //public EnemyData[] enemyDatas;
+        public List<EnemyData> enemyDatas;
         public List<List<SpawnData>> SpawnDatas;
         public List<float> floorTimes;
 
@@ -45,10 +46,12 @@ namespace Data
         public void GetAllResources()
         {
             enemyDataObjects = Resources.LoadAll("EnemyDatas", typeof(EnemyData));
-            enemyDatas = new EnemyData[enemyDataObjects.Length];
+            enemyDatas = new List<EnemyData>();
             for (int i = 0; i < enemyDataObjects.Length; i++)
             {
-                enemyDatas[i] = (EnemyData)enemyDataObjects[i];
+                var data = (EnemyData)enemyDataObjects[i];
+                if (data.CanBeSpawnedNormally)
+                    enemyDatas.Add(data);
             }
         }
 
@@ -56,8 +59,10 @@ namespace Data
         private void SetPoolKeys()
         {
             poolKeys.Clear();
-            for (int i = 0; i < enemyDatas.Length; i++)
+            for (int i = 0; i < enemyDatas.Count; i++)
             {
+                if(enemyDatas[i] == null)
+                    continue;
                 //ignore aura users here!!
                 if (enemyDatas[i].attackType == AttackType.AuraUser) continue;
 
@@ -99,7 +104,7 @@ namespace Data
 
         private void GetSpawnAmount(out int minAmount, out int maxAmount, PoolKeys poolKey)
         {
-            for (int i = 0; i < enemyDatas.Length; i++)
+            for (int i = 0; i < enemyDatas.Count; i++)
             {
                 if (enemyDatas[i].poolKey == poolKey)
                 {

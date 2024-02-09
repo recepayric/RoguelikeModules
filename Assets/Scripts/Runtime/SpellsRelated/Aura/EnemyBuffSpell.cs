@@ -10,6 +10,7 @@ namespace Runtime.SpellsRelated.Aura
 {
     public class EnemyBuffSpell : Spell
     {
+        public string spellScaleID;
         public Player playerScript;
         public List<GameObject> enemiesInRange;
         public Vector3 baseScale;
@@ -26,6 +27,7 @@ namespace Runtime.SpellsRelated.Aura
 
         public override void Cast()
         {
+            
         }
 
         private void SetRandomStat()
@@ -47,16 +49,21 @@ namespace Runtime.SpellsRelated.Aura
         public override void DeActivate()
         {
             base.DeActivate();
+            DOTween.Kill(spellScaleID);
             RemoveAllBuffs();
-            transform.DOScale(Vector3.zero, deactivateTime);
+            transform.DOScale(Vector3.zero, deactivateTime).OnComplete(() =>
+            {
+                BasicPool.instance.Return(gameObject);
+            }).SetId(spellScaleID);
 
             isActive = false;
         }
 
         public override void Prepare()
         {
+            DOTween.Kill(spellScaleID);
             UpdateSize();
-            transform.DOScale(targetScale, activateTime);
+            transform.DOScale(targetScale, activateTime).SetId(spellScaleID);
 
             isActive = true;
         }
@@ -64,6 +71,8 @@ namespace Runtime.SpellsRelated.Aura
         public override void StartSpell()
         {
             base.StartSpell();
+            spellScaleID = gameObject.GetInstanceID() + "SpellScale";
+            
             //Todo based on type
             Activate();
         }
@@ -127,6 +136,8 @@ namespace Runtime.SpellsRelated.Aura
         {
             for (int i = 0; i < enemiesInRange.Count; i++)
             {
+                if(!DictionaryHolder.Enemies.ContainsKey(enemiesInRange[i]))
+                    continue;
                 DictionaryHolder.Enemies[enemiesInRange[i]]._stats.RemoveBuff(statToBuff);
             }
         }
@@ -135,6 +146,12 @@ namespace Runtime.SpellsRelated.Aura
         {
             for (int i = 0; i < enemiesInRange.Count; i++)
             {
+                if (!DictionaryHolder.Enemies.ContainsKey(enemiesInRange[i]))
+                {
+                    enemiesInRange.Remove(enemiesInRange[i]);
+                    i--;
+                    continue;
+                }
                 if (!DictionaryHolder.Enemies[enemiesInRange[i]].IsAvailable())
                 {
                     enemiesInRange.Remove(enemiesInRange[i]);
@@ -155,6 +172,8 @@ namespace Runtime.SpellsRelated.Aura
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if(!isActive)
+                return;
             //Debug.Log(other.name);
             if (other.CompareTag("Enemy"))
             {
@@ -166,6 +185,8 @@ namespace Runtime.SpellsRelated.Aura
 
         private void OnTriggerExit2D(Collider2D other)
         {
+            if(!isActive)
+                return;
             //Debug.Log("Left: " + other.name);
             if (other.CompareTag("Enemy"))
             {

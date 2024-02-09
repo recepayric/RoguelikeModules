@@ -62,6 +62,7 @@ MonoBehaviour:
       Data: 
   WeaponName: Sword!
   Description: Basic sword for everyone to use!
+  isStarterWeapon: 1
   WeaponType: 1
   BaseAttackSpeed: 1
   BaseAttackRange: 400
@@ -71,7 +72,10 @@ MonoBehaviour:
   BaseCriticalHitChance: 50
   BaseCriticalHitDamage: 2
   BasePierceNumber: 0
+  BaseBounceNumber: 0
   rotationDistanceFromPlayer: 4
+  specialModifiersList: 
   WeaponPoolKey: 35
   DummyWeaponKey: 25
   RotatingWeaponKey: 37
+  waaponSprite: {fileID: 21300000, guid: 9745897e31595de429f7ef9ea22b0a4b, type: 3}
