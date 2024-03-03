@@ -75,7 +75,9 @@ MonoBehaviour:
   BaseBounceNumber: 0
   rotationDistanceFromPlayer: 4
   specialModifiersList: 08000000
+  spells: 
   WeaponPoolKey: 50
   DummyWeaponKey: 38
   RotatingWeaponKey: 37
   waaponSprite: {fileID: 21300000, guid: 857f1836d5978624d96ea316f884853d, type: 3}
+  attackSound: 1

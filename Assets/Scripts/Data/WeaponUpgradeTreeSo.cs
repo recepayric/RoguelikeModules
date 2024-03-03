@@ -10,11 +10,26 @@ namespace Data
     public class WeaponUpgradeTreeSo : SerializedScriptableObject
     {
         public List<UpgradeTreeNode> TreeNodes;
+        public List<UpgradeTreeNode> SkillSlotNodes;
+
+        public void Reset()
+        {
+            for (int i = 0; i < TreeNodes.Count; i++)
+            {
+                TreeNodes[i].isBought = false;
+            }
+            
+            for (int i = 0; i < SkillSlotNodes.Count; i++)
+            {
+                SkillSlotNodes[i].isBought = false;
+            }
+        }
     }
 
     [Serializable]
     public class UpgradeTreeNode
     {
+        public bool isBought = false;
         public string ID;
         public string NodeName;
         public string NodeText;

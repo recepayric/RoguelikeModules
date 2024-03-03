@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data;
 using DG.Tweening;
 using Runtime.Configs;
 using Runtime.Enums;
 using Runtime.Interfaces;
+using Runtime.Managers;
 using Runtime.Modifiers;
 using Runtime.ProjectileRelated;
 using UnityEngine;
@@ -16,6 +18,8 @@ namespace Runtime
     public class Projectile : MonoBehaviour, IPoolObject
     {
         public Weapon weapon;
+        public Sounds hitSound;
+        public Sounds pierceSound;
         [Header("Properties")] public bool doesSpin;
         public float spinSpeed;
         public Vector3 spinAxis;
@@ -42,13 +46,17 @@ namespace Runtime
 
         private List<Modifier> modifiers;
 
+        public bool isActive = false;
         public bool isStickingToEnemy = false;
         public bool doesExplode = false;
-        public float explosionTimer;
+        public float explosionDamageMultiplier;
+        public PoolKeys explosionPoolKey;
 
         public TargetType targetType;
         public IShooter Shooter;
         public IDamageable Damagable;
+
+        private int _piercedEnemyCount = 0;
 
         //Specs - Homing
         [Header("Homing")] public bool isHomingProjectile = false;
@@ -102,6 +110,9 @@ namespace Runtime
 
         private void Update()
         {
+            if (!isActive) return;
+
+
             if (isRotating)
                 UpdateRotatingMove();
             else if (isHomingProjectile)
@@ -111,6 +122,12 @@ namespace Runtime
 
             if (doesSpin)
                 Spin();
+        }
+
+        public void SetExplodingProjectile(float explodingDamageMultiplier)
+        {
+            doesExplode = true;
+            explosionDamageMultiplier = explodingDamageMultiplier;
         }
 
         public void SetShooter(IShooter pShooter)
@@ -308,22 +325,51 @@ namespace Runtime
             DOVirtual.DelayedCall(0.25f, () => { Destroy(gameObject); });
         }
 
+        public void Explode()
+        {
+            if (!doesExplode) return;
+            Debug.Log("Expliding!!!!");
+            var explosion = BasicPool.instance.Get(explosionPoolKey);
+            explosion.transform.position = transform.position;
+
+            var expSc = DictionaryHolder.Explosions[explosion];
+            expSc.SetSize(10);
+            expSc.SetDamage(damage * explosionDamageMultiplier);
+            expSc.Explode();
+        }
+
         public void HitTarget(IDamageable enemy)
         {
+            if (!isActive) return;
+
             if (enemy == ignoredEnemy)
                 return;
 
+
             if (isHomingProjectile)
             {
+                Explode();
                 DOTween.Kill(gameObject.GetInstanceID() + "turn");
             }
 
             //damage = weapon.weaponStats.damage;
             damage = Shooter?.GetDamage() ?? 0;
+            var damageReduction = 0f;
+            
+            if (weapon != null)
+                damageReduction = damage * (weapon.weaponStats.damageReductionOnPierce * _piercedEnemyCount) / 100f;
+
+            damage -= damageReduction;
+            damage = damage < 1 ? 1 : damage;
+            EventManager.Instance.PlaySoundOnce(hitSound, 1);
+
             //ResetTravelData();
             var isCrit = Random.Range(0, 1f) <= criticalHitChance;
+            enemy.DealDamage((int)damage, isCrit, 1);
 
-            enemy.DealDamage((int)damage, isCrit);
+
+            _piercedEnemyCount++;
+
 
             //Apply Ailments!
             //todo redo this!!!
@@ -354,7 +400,12 @@ namespace Runtime
                 //Destroy(gameObject);
             }
 
-            if (bounceNum > 0)
+            if (doesExplode)
+            {
+                Explode();
+                StartDestroying();
+            }
+            else if (bounceNum > 0)
             {
                 //isHomingProjectile = false;
                 StopTravelDestroy();

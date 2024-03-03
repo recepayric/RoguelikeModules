@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Runtime.Managers;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace Runtime.UIRelated
         public GameObject levelUpScreen;
         public GameObject marketScreen;
         public GameObject gameEndScreen;
+        public GameObject runeScreen;
 
         private Dictionary<Screens, GameObject> _gameScreens;
 
@@ -43,16 +45,23 @@ namespace Runtime.UIRelated
             //Open new screen
             _gameScreens[screen].SetActive(true);
             var scOpenable = _gameScreens[screen].GetComponent<IOpenable>();
-            if(scOpenable != null)
-                scOpenable.OnOpened();
+            if (scOpenable != null)
+            {
+                
+                    scOpenable.OnOpened();
+                
+            }
             //todo Get its interface and call "Opened" method.
         }
         
         public void OnCloseScreen(Screens screen)
         {
             //Open new screen
-            _gameScreens[screen].SetActive(false);
+            var scOpenable = _gameScreens[screen].GetComponent<IOpenable>();
+            if(scOpenable != null)
+                scOpenable.OnClosed();
             
+            _gameScreens[screen].SetActive(false);
             //todo Get its interface and call "Closed" method.
         }
         
@@ -67,6 +76,7 @@ namespace Runtime.UIRelated
             _gameScreens.Add(Screens.LevelUp, levelUpScreen);
             _gameScreens.Add(Screens.Market, marketScreen);
             _gameScreens.Add(Screens.GameEnd, gameEndScreen);
+            _gameScreens.Add(Screens.Rune, runeScreen);
         }
 
         private void OnGameStart()
@@ -102,6 +112,7 @@ namespace Runtime.UIRelated
         MapSelect,
         LevelUp,
         Market,
-        GameEnd
+        GameEnd,
+        Rune
     }
 }

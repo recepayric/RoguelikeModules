@@ -3,11 +3,11 @@
 
     public enum ItemRarity
     {
-        Normal,
-        Magic,
-        Rare,
-        Epic,
-        Unique
+        Normal = 0,
+        Magic = 1,
+        Rare = 2,
+        Epic = 3,
+        Unique = 4
     }
     
     public enum WeaponTypes

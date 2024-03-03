@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data;
 using Data.WeaponDataRelated;
 using Runtime.Enums;
 using Runtime.Modifiers;
+using Runtime.SpellsRelated;
+using Runtime.SpellsRelated.Cast;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -13,6 +16,15 @@ namespace Runtime
     public class WeaponStats
     {
         public WeaponTypes weaponType;
+        
+        public int attackNumber;
+        public float explosionDamageMultiplier;
+        public bool explodingProjectile;
+
+        public bool hasSphereProjectile;
+        public float damageReductionOnPierce;
+        
+        
         public float attackSpeed;
         public float damage;
         public float range;
@@ -28,11 +40,15 @@ namespace Runtime
         public bool hasRotatingProjectiles;
         public bool isRotatinSword;
 
+        public List<Spells> spellNames;
+        public List<SpellV2> spells;
+
         public PoolKeys rotatingWeaponKey;
 
         public List<SpecialModifiers> specialModifiers;
         public Dictionary<AllStats, float> statsFromTree = new Dictionary<AllStats, float>();
         public WeaponDataSo _weaponDataSo;
+        public Sounds attackSound;
 
         //Elemental Values
         [ShowInInspector] public bool addBurn;
@@ -60,6 +76,20 @@ namespace Runtime
         
         [ShowInInspector] public int burnSpreadAmount;
         [ShowInInspector] public int burnSpreadMultiplier = 1;
+
+        public void CreateSpells()
+        {
+            for (int i = 0; i < spellNames.Count; i++)
+            {
+                switch (spellNames[i])
+                {
+                    case Spells.ExplosionRune:
+                        var spell = new CarveRune();
+                        spells.Add(spell);
+                        break;
+                }
+            }
+        }
 
         public void UpdateAttackSpeed()
         {
@@ -100,6 +130,10 @@ namespace Runtime
 
             specialModifiers = data.specialModifiersList;
 
+            spellNames = data.spells;
+
+            attackSound = data.attackSound;
+
             //From Upgrade Tree!!!
             var rangeIncreaseFromTree = GetStat(AllStats.Range);
             var damageIncreaseFromTree = GetStat(AllStats.Damage);
@@ -108,8 +142,6 @@ namespace Runtime
             damagePoint += GetStat(AllStats.RangedAttack);
             damagePoint += GetStat(AllStats.MeleeAttack);
 
-            Debug.Log("Extra Damage: " + extraDamage);
-            Debug.Log("Damage Point: " + damagePoint);
 
             var projectileFromTree = GetStat(AllStats.ProjectileNumber);
             var bounceFromTree = GetStat(AllStats.BounceNumber);

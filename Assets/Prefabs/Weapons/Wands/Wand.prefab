@@ -15602,6 +15602,11 @@ MonoBehaviour:
   weaponDataSo: {fileID: 11400000, guid: 9031c0be6a9837446be992083aeef7ec, type: 2}
   weaponStats:
     weaponType: 0
+    attackNumber: 0
+    explosionDamageMultiplier: 0
+    explodingProjectile: 0
+    hasSphereProjectile: 0
+    damageReductionOnPierce: 0
     attackSpeed: 0
     damage: 0
     range: 0
@@ -15610,23 +15615,43 @@ MonoBehaviour:
     criticalHitDamage: 0
     bounceNum: 0
     pierceNum: 0
+    rotationDistanceFromPlayer: 0
     hasHomingProjectiles: 0
     hasRotatingProjectiles: 0
+    isRotatinSword: 0
+    spellNames: 
+    spells: []
+    rotatingWeaponKey: 0
     specialModifiers: 
+    _weaponDataSo: {fileID: 0}
+    attackSound: 0
     addBurn: 0
     addFreeze: 0
     addShock: 0
+    addBleed: 0
+    addStun: 0
+    stunChance: 0
     burnTime: 0
     burnDamage: 0
     freezeTime: 0
     freezeEffect: 0
     shockTime: 0
     shockEffect: 0
+    bleedTime: 0
+    bleedDamage: 0
+    stunTime: 0
+    stunEffect: 0
+    burnSpreadAmount: 0
+    burnSpreadMultiplier: 1
   swordSwinger: {fileID: 0}
+  AttackHelper: {fileID: 0}
   projectilePrefab: {fileID: 7280217749031058319, guid: 9c2a0d9fa8fa0ae4096b4658e5f36c84, type: 3}
+  explodingProjectile: {fileID: 7280217749031058319, guid: ff27a00fd90caef4da5215d9864c248c, type: 3}
+  sphereProjectile: {fileID: 7280217749031058319, guid: 3eeccaf19a11d1d45a50ee4ffb9fb5ea, type: 3}
   projectilePoint: {fileID: 3220777079054858423}
   slashKey: 0
   targetEnemy: {fileID: 0}
+  rotatingWeaponParent: {fileID: 0}
   specialModifiersFromTree: 
   specialModifiersList: 
   modifiers: []
@@ -15634,6 +15659,8 @@ MonoBehaviour:
   modifiersOnGetHit: []
   modifiersOnHealthChange: []
   modifiersOnItemBuy: []
+  modifiersOnBeforeHit: []
+  rotatingSwords: []
   swirlObject: {fileID: 3115470710417006726}
   isAttacking: 0
   styles:
@@ -15644,6 +15671,7 @@ MonoBehaviour:
   - {fileID: 7373108936657687854}
   - {fileID: 3416209828981481157}
   styleCount: 0
+  spells: []
 --- !u!58 &4719116300278557733
 CircleCollider2D:
   m_ObjectHideFlags: 0

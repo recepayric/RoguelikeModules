@@ -1,18 +1,22 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using Runtime.Enums;
+using Runtime.PlayerRelated;
 using UnityEngine;
 
 namespace Runtime.Minions
 {
     public class Minion : MonoBehaviour, IPoolObject
     {
+        public PlayerSwordSwinger SwordSwinger;
+        public AttackHelper AttackHelper;
         public Transform playerTransform;
         public Transform weaponParent;
         public Vector3 positionRelatedToPlayer;
         public Vector3 targetPosition;
 
         public GameObject targetEnemy;
+        public GameObject closestEnemy;
         public float closestEnemyDistance;
         public bool isMelee = true;
         public bool isCloseToTarget = false;
@@ -31,20 +35,46 @@ namespace Runtime.Minions
 
         public bool isHitAnimationEnded = false;
         
-        // Start is called before the first frame update
-        void Start()
-        {
-        }
-
-        // Update is called once per frame
         void Update()
         {
             CheckForTarget();
+            CheckEnemies();
             CheckDirection();
             CheckForDistance();
 
             if (!isCloseToTarget)
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * walkSpeed);
+        }
+        
+        private void CheckEnemies()
+        {
+            GameObject closestEnemy = null;
+            float closestDistance = 10000;
+
+            foreach (var enemies in DictionaryHolder.Enemies)
+            {
+                if (!enemies.Value.IsAvailable())
+                    continue;
+                
+                var distance = Vector3.Distance(transform.position, enemies.Key.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestEnemy = enemies.Key;
+                }
+            }
+
+            if (closestEnemy != null)
+                this.closestEnemy = closestEnemy;
+            
+            SetWeaponEnemy(closestEnemy, closestDistance);
+            
+        }
+
+        public void SetWeaponEnemy(GameObject enemy, float distance)
+        {
+            if (weapon != null)
+                weapon.SetEnemy(enemy, distance);
         }
 
         public void EquipWeapon(Weapon weaponToEquip)
@@ -53,6 +83,8 @@ namespace Runtime.Minions
             weapon.transform.SetParent(weaponParent);
             weapon.transform.localPosition = Vector3.zero;
             weapon.transform.localRotation = Quaternion.Euler(Vector3.zero);
+            weapon.SetSwordSwinger(SwordSwinger);
+            weapon.AttackHelper = AttackHelper;
         }
 
         public void SetDefaultPosition(Vector3 positionRelatedToPlayer, Transform playerTransform)
@@ -68,6 +100,8 @@ namespace Runtime.Minions
 
         private void CheckForTarget()
         {
+            targetPosition = playerTransform.position + positionRelatedToPlayer;
+            return;
             GetClosestEnemy();
             
             if(!isHitAnimationEnded)
@@ -76,7 +110,6 @@ namespace Runtime.Minions
             if (!isMelee || targetEnemy == null)
             {
                 walkSpeed = walkSpeedToFollow;
-                targetPosition = playerTransform.position + positionRelatedToPlayer;
             }
             else
             {
@@ -211,11 +244,18 @@ namespace Runtime.Minions
             }
         }
 
+        private void ResetMinion()
+        {
+            BasicPool.instance.Return(weapon.gameObject);
+        }
 
         public PoolKeys PoolKeys { get; set; }
 
         public void OnReturn()
         {
+            ResetMinion();
+            DictionaryHolder.Minions.Remove(gameObject);
+
         }
 
         public void OnGet()

@@ -8,5 +8,6 @@
         OnBuyItem,
         OnUpdate,
         OnHealthChange,
+        OnBeforeHit,
     }
 }

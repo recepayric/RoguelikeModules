@@ -1,0 +1,1574 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79b6b270d14f4d33b5f8afa560e006e8, type: 3}
+  m_Name: WeaponSkillData
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: weaponSkills
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Runtime.Enums.SpecialModifiers,
+        Assembly-CSharp],[Data.WeaponSkillData, Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Runtime.Enums.SpecialModifiers,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 9
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 15
+    - Name: $v
+      Entry: 7
+      Data: 2|Data.WeaponSkillData, Assembly-CSharp
+    - Name: tier
+      Entry: 3
+      Data: 1
+    - Name: modifierName
+      Entry: 3
+      Data: 15
+    - Name: effectPerTier
+      Entry: 7
+      Data: 3|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: secondEffectPerTier
+      Entry: 7
+      Data: 4|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: thirdEffectPerTier
+      Entry: 7
+      Data: 5|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillPerTier
+      Entry: 7
+      Data: 6|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillsUsedPerTier
+      Entry: 7
+      Data: 7|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: skillIcon
+      Entry: 6
+      Data: 
+    - Name: skillNumber
+      Entry: 3
+      Data: 1
+    - Name: isEquipped
+      Entry: 5
+      Data: false
+    - Name: weaponAndTiers
+      Entry: 7
+      Data: 8|System.Collections.Generic.Dictionary`2[[UnityEngine.GameObject, UnityEngine.CoreModule],[System.Int32,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 9|System.Collections.Generic.ObjectEqualityComparer`1[[UnityEngine.GameObject,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: slotData
+      Entry: 7
+      Data: 10|System.Collections.Generic.List`1[[Data.SkillSlotData, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 16
+    - Name: $v
+      Entry: 7
+      Data: 11|Data.WeaponSkillData, Assembly-CSharp
+    - Name: tier
+      Entry: 3
+      Data: 1
+    - Name: modifierName
+      Entry: 3
+      Data: 16
+    - Name: effectPerTier
+      Entry: 7
+      Data: 12|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: secondEffectPerTier
+      Entry: 7
+      Data: 13|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: thirdEffectPerTier
+      Entry: 7
+      Data: 14|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillPerTier
+      Entry: 7
+      Data: 15|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillsUsedPerTier
+      Entry: 7
+      Data: 16|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: skillIcon
+      Entry: 6
+      Data: 
+    - Name: skillNumber
+      Entry: 3
+      Data: 2
+    - Name: isEquipped
+      Entry: 5
+      Data: false
+    - Name: weaponAndTiers
+      Entry: 7
+      Data: 17|System.Collections.Generic.Dictionary`2[[UnityEngine.GameObject, UnityEngine.CoreModule],[System.Int32,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 9
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: slotData
+      Entry: 7
+      Data: 18|System.Collections.Generic.List`1[[Data.SkillSlotData, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 17
+    - Name: $v
+      Entry: 7
+      Data: 19|Data.WeaponSkillData, Assembly-CSharp
+    - Name: tier
+      Entry: 3
+      Data: 0
+    - Name: modifierName
+      Entry: 3
+      Data: 17
+    - Name: effectPerTier
+      Entry: 7
+      Data: 20|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 5
+    - Name: 
+      Entry: 4
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 3
+    - Name: 
+      Entry: 4
+      Data: 2
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: secondEffectPerTier
+      Entry: 7
+      Data: 21|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 3
+    - Name: 
+      Entry: 4
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 5
+    - Name: 
+      Entry: 4
+      Data: 6
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: thirdEffectPerTier
+      Entry: 7
+      Data: 22|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillPerTier
+      Entry: 7
+      Data: 23|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillsUsedPerTier
+      Entry: 7
+      Data: 24|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: skillIcon
+      Entry: 6
+      Data: 
+    - Name: skillNumber
+      Entry: 3
+      Data: 1
+    - Name: isEquipped
+      Entry: 5
+      Data: false
+    - Name: weaponAndTiers
+      Entry: 6
+      Data: 
+    - Name: slotData
+      Entry: 7
+      Data: 25|System.Collections.Generic.List`1[[Data.SkillSlotData, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 18
+    - Name: $v
+      Entry: 7
+      Data: 26|Data.WeaponSkillData, Assembly-CSharp
+    - Name: tier
+      Entry: 3
+      Data: 0
+    - Name: modifierName
+      Entry: 3
+      Data: 18
+    - Name: effectPerTier
+      Entry: 7
+      Data: 27|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: secondEffectPerTier
+      Entry: 7
+      Data: 28|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: thirdEffectPerTier
+      Entry: 7
+      Data: 29|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillPerTier
+      Entry: 7
+      Data: 30|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillsUsedPerTier
+      Entry: 7
+      Data: 31|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: skillIcon
+      Entry: 6
+      Data: 
+    - Name: skillNumber
+      Entry: 3
+      Data: 1
+    - Name: isEquipped
+      Entry: 5
+      Data: false
+    - Name: weaponAndTiers
+      Entry: 6
+      Data: 
+    - Name: slotData
+      Entry: 7
+      Data: 32|System.Collections.Generic.List`1[[Data.SkillSlotData, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 19
+    - Name: $v
+      Entry: 7
+      Data: 33|Data.WeaponSkillData, Assembly-CSharp
+    - Name: tier
+      Entry: 3
+      Data: 0
+    - Name: modifierName
+      Entry: 3
+      Data: 19
+    - Name: effectPerTier
+      Entry: 7
+      Data: 34|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: secondEffectPerTier
+      Entry: 7
+      Data: 35|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: thirdEffectPerTier
+      Entry: 7
+      Data: 36|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillPerTier
+      Entry: 7
+      Data: 37|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillsUsedPerTier
+      Entry: 7
+      Data: 38|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: skillIcon
+      Entry: 6
+      Data: 
+    - Name: skillNumber
+      Entry: 3
+      Data: 2
+    - Name: isEquipped
+      Entry: 5
+      Data: false
+    - Name: weaponAndTiers
+      Entry: 6
+      Data: 
+    - Name: slotData
+      Entry: 7
+      Data: 39|System.Collections.Generic.List`1[[Data.SkillSlotData, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 20
+    - Name: $v
+      Entry: 7
+      Data: 40|Data.WeaponSkillData, Assembly-CSharp
+    - Name: tier
+      Entry: 3
+      Data: 0
+    - Name: modifierName
+      Entry: 3
+      Data: 20
+    - Name: effectPerTier
+      Entry: 7
+      Data: 41|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: secondEffectPerTier
+      Entry: 7
+      Data: 42|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: thirdEffectPerTier
+      Entry: 7
+      Data: 43|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillPerTier
+      Entry: 7
+      Data: 44|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillsUsedPerTier
+      Entry: 7
+      Data: 45|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: skillIcon
+      Entry: 6
+      Data: 
+    - Name: skillNumber
+      Entry: 3
+      Data: 3
+    - Name: isEquipped
+      Entry: 5
+      Data: false
+    - Name: weaponAndTiers
+      Entry: 6
+      Data: 
+    - Name: slotData
+      Entry: 7
+      Data: 46|System.Collections.Generic.List`1[[Data.SkillSlotData, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 21
+    - Name: $v
+      Entry: 7
+      Data: 47|Data.WeaponSkillData, Assembly-CSharp
+    - Name: tier
+      Entry: 3
+      Data: 0
+    - Name: modifierName
+      Entry: 3
+      Data: 21
+    - Name: effectPerTier
+      Entry: 7
+      Data: 48|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: secondEffectPerTier
+      Entry: 7
+      Data: 49|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: thirdEffectPerTier
+      Entry: 7
+      Data: 50|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillPerTier
+      Entry: 7
+      Data: 51|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillsUsedPerTier
+      Entry: 7
+      Data: 52|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: skillIcon
+      Entry: 6
+      Data: 
+    - Name: skillNumber
+      Entry: 3
+      Data: 4
+    - Name: isEquipped
+      Entry: 5
+      Data: false
+    - Name: weaponAndTiers
+      Entry: 6
+      Data: 
+    - Name: slotData
+      Entry: 7
+      Data: 53|System.Collections.Generic.List`1[[Data.SkillSlotData, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 22
+    - Name: $v
+      Entry: 7
+      Data: 54|Data.WeaponSkillData, Assembly-CSharp
+    - Name: tier
+      Entry: 3
+      Data: 0
+    - Name: modifierName
+      Entry: 3
+      Data: 22
+    - Name: effectPerTier
+      Entry: 7
+      Data: 55|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 30
+    - Name: 
+      Entry: 4
+      Data: 20
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: secondEffectPerTier
+      Entry: 7
+      Data: 56|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: thirdEffectPerTier
+      Entry: 7
+      Data: 57|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillPerTier
+      Entry: 7
+      Data: 58|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillsUsedPerTier
+      Entry: 7
+      Data: 59|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: skillIcon
+      Entry: 6
+      Data: 
+    - Name: skillNumber
+      Entry: 3
+      Data: 5
+    - Name: isEquipped
+      Entry: 5
+      Data: false
+    - Name: weaponAndTiers
+      Entry: 6
+      Data: 
+    - Name: slotData
+      Entry: 7
+      Data: 60|System.Collections.Generic.List`1[[Data.SkillSlotData, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 23
+    - Name: $v
+      Entry: 7
+      Data: 61|Data.WeaponSkillData, Assembly-CSharp
+    - Name: tier
+      Entry: 3
+      Data: 0
+    - Name: modifierName
+      Entry: 3
+      Data: 23
+    - Name: effectPerTier
+      Entry: 7
+      Data: 62|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: secondEffectPerTier
+      Entry: 7
+      Data: 63|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: thirdEffectPerTier
+      Entry: 7
+      Data: 64|System.Single[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillPerTier
+      Entry: 7
+      Data: 65|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: numberOfSkillsUsedPerTier
+      Entry: 7
+      Data: 66|System.Int32[], mscorlib
+    - Name: 
+      Entry: 14
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: skillIcon
+      Entry: 6
+      Data: 
+    - Name: skillNumber
+      Entry: 3
+      Data: 1
+    - Name: isEquipped
+      Entry: 5
+      Data: false
+    - Name: weaponAndTiers
+      Entry: 6
+      Data: 
+    - Name: slotData
+      Entry: 7
+      Data: 67|System.Collections.Generic.List`1[[Data.SkillSlotData, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  maxTier: 4

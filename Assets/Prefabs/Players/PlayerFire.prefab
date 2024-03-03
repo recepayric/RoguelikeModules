@@ -824,7 +824,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3524483032965283680
 Transform:
   m_ObjectHideFlags: 0
@@ -1107,6 +1107,7 @@ GameObject:
   - component: {fileID: 3524483033354897915}
   - component: {fileID: 3524483033354897916}
   - component: {fileID: 3524483033354897918}
+  - component: {fileID: -4799252040103499485}
   m_Layer: 9
   m_Name: PlayerFire
   m_TagString: Untagged
@@ -1214,6 +1215,7 @@ MonoBehaviour:
   characterDataSo: {fileID: 11400000, guid: 4f730d291d970f949b69a70859f4fca4, type: 2}
   playerTargetFollower: {fileID: 3524483033354897912}
   PlayerSwordSwinger: {fileID: 3524483033354897918}
+  AttackHelper: {fileID: -4799252040103499485}
   WeaponPoint: {fileID: 5959841205214327077}
   stats:
     strength: 0
@@ -1417,6 +1419,27 @@ MonoBehaviour:
   weapon: {fileID: 0}
   ikManager2D: {fileID: 3524483033354897915}
   swingUpTime: 0
+--- !u!114 &-4799252040103499485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3524483033354897906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad78d759770e4accb81627608f3ea6c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 0
+  isAttacking: 0
+  attackSpeed: 0
+  attackAnimationTime: 0
+  drawDistanceMax: 2
+  drawDistance: 0
+  projectileToShoot: {fileID: 0}
+  projectilePoint: {fileID: 0}
+  targetEnemy: {fileID: 0}
 --- !u!1 &3524483033847352896
 GameObject:
   m_ObjectHideFlags: 0

@@ -7757,7 +7757,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 159bfeca0c29fb041a6bfcb543df5376, type: 2}
   - {fileID: 11400000, guid: 2a8277b95a7ee7942bf93757d458fda2, type: 2}
   floorTimes:
-  - 30
+  - 5
   - 35
   - 40
   - 45

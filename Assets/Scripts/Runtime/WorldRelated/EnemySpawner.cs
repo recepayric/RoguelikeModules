@@ -7,6 +7,7 @@ using Runtime.Enums;
 using Runtime.Managers;
 using Runtime.TowerRelated;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -58,6 +59,7 @@ namespace Runtime.WorldRelated
         public void Setup()
         {
             var data = UpdateSpawnData();
+            Debug.Log(floorNumber);
             totalWaveTime = data.floorTimes[floorNumber];
             SpawnDatas = data.SpawnDatas[floorNumber];
 
@@ -73,6 +75,18 @@ namespace Runtime.WorldRelated
 
         public void SpawnMonster()
         {
+            
+            if (SpawnDatas[waveSpawned].hasBoss)
+            {
+                var randX = Random.Range(-xBound, xBound);
+                var randY = Random.Range(-yBound, yBound);
+
+                var enemy = BasicPool.instance.Get(SpawnDatas[waveSpawned].BossKey);
+                enemy.transform.position = new Vector2(randX, randY);
+                enemy.name = "Boss " + Random.Range(0, 100000);
+                return;
+            }
+            
             for (int i = 0; i < SpawnDatas[waveSpawned].Amount; i++)
             {
                 var randX = Random.Range(-xBound, xBound);
@@ -91,8 +105,11 @@ namespace Runtime.WorldRelated
 
                 var enemy = BasicPool.instance.Get(SpawnDatas[waveSpawned].BufferKey);
                 enemy.transform.position = new Vector2(randX, randY);
-                enemy.name = "Enemy " + Random.Range(0, 100000);
+                enemy.name = "Buffer " + Random.Range(0, 100000);
             }
+            
+            //Spawn Boss Here
+           
 
             waveSpawned++;
 
@@ -119,6 +136,7 @@ namespace Runtime.WorldRelated
 
         public void StartSpawning(int floorNum)
         {
+            Debug.Log("Spawning! " + floorNum);
             floorNumber = floorNum;
             if (isStarted)
             {

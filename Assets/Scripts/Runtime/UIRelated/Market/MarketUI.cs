@@ -13,6 +13,9 @@ namespace Runtime.UIRelated.Market
 {
     public class MarketUI : MonoBehaviour, IOpenable
     {
+        public Object[] _weaponObj;
+        public WeaponDataSo[] weapons;
+
         public WeaponDeskManager weaponDeskManager;
         public ItemDataSo itemSo;
         public TextMeshProUGUI statsText;
@@ -27,12 +30,31 @@ namespace Runtime.UIRelated.Market
         public TextMeshProUGUI itemStats;
         public TextMeshProUGUI itemFooter;
 
+        public float weaponChance = 0;
+
+        private void LoadAllWeapons()
+        {
+            _weaponObj = Resources.LoadAll("WeaponDatas", typeof(WeaponDataSo));
+
+            weapons = new WeaponDataSo[_weaponObj.Length];
+            for (int i = 0; i < _weaponObj.Length; i++)
+            {
+                weapons[i] = (WeaponDataSo)_weaponObj[i];
+            }
+        }
+
         public void NextFloor()
         {
             EventManager.Instance.LoadTower();
         }
 
         public void BuyItem(Item item)
+        {
+            SetPlayerScript();
+            SetStats();
+        }
+        
+        public void BuyWeapon()
         {
             SetPlayerScript();
             SetStats();
@@ -49,8 +71,18 @@ namespace Runtime.UIRelated.Market
 
             for (int i = 0; i < itemSlots.Count; i++)
             {
-                var randItem = itemSo.itemData2[Random.Range(0, totalItemCount)];
-                itemSlots[i].SetItem(randItem);
+                var isWeapon = Random.Range(0, 1f) <= weaponChance;
+
+                if (isWeapon)
+                {
+                    var randItem = weapons[Random.Range(0, weapons.Length)];
+                    itemSlots[i].SetItem(randItem);
+                }
+                else
+                {
+                    var randItem = itemSo.itemData2[Random.Range(0, totalItemCount)];
+                    itemSlots[i].SetItem(randItem);
+                }
             }
         }
 
@@ -63,10 +95,8 @@ namespace Runtime.UIRelated.Market
                 return;
             }
 
-
             itemHeader.text = item.name;
             itemFooter.text = item.description;
-
 
             itemStats.text = "";
             for (int i = 0; i < item.statNames.Count; i++)
@@ -80,12 +110,12 @@ namespace Runtime.UIRelated.Market
                 itemStats.text += statText + " " + item.statNames[i] + "\n";
             }
         }
-        
+
         public void StopShowingItemDetails()
         {
             itemDetails.SetActive(false);
         }
-        
+
         public void SetWeaponDetails(WeaponDataSo weaponDatasSo)
         {
             if (weaponDatasSo == null)
@@ -93,7 +123,7 @@ namespace Runtime.UIRelated.Market
                 itemDetails.SetActive(false);
                 return;
             }
-            
+
             itemDetails.SetActive(true);
         }
 
@@ -108,7 +138,7 @@ namespace Runtime.UIRelated.Market
         public void SetStats()
         {
             if (playerScript == null) return;
-            
+
             statsText.text = "";
             for (int i = 0; i < statsToShow.Count; i++)
             {
@@ -134,11 +164,12 @@ namespace Runtime.UIRelated.Market
 
         public void OnOpened()
         {
+            LoadAllWeapons();
             SetPlayerScript();
             SetStats();
             GetRandomItems();
             SetWeapons();
-            
+
             weaponDeskManager.AddEvents();
         }
 

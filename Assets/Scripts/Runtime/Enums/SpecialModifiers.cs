@@ -22,5 +22,18 @@
         DealNoShock,
         DealNoFreeze,
         HealthModifierReduction,
+        
+        //Weapon Skills
+        BounceOnHitSkill,
+        RotatingProjectilesSkill,
+        ProjectileExplodeOnXAttackSkill,
+        BurningDamageSkill,
+        FreezingDamageSkill,
+        ShockingDamageSkill,
+        HomingProjectilesSkill,
+        SphereProjectileSkill,
+        MeteorSpawnSkill,
+        SpawnMiniProjectilesOnTheWaySkill,
+        
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Data;
 using DG.Tweening;
 using Runtime.Enums;
+using Runtime.Managers;
 using Runtime.UIRelated.WeaponUpgrades;
 using TMPro;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace Runtime.UIRelated.CharacterSelect
 
         public void SelectCharacter()
         {
+            EventManager.Instance.PlaySoundOnce(Sounds.ButtonClickMenu, 1);
             _characterSelectUI.SetDetails(_characterDataSo);
         }
 
@@ -38,6 +40,7 @@ namespace Runtime.UIRelated.CharacterSelect
         public void OnPointerEnter(PointerEventData eventData)
         {
             Highlight();
+            EventManager.Instance.PlaySoundOnce(Sounds.ButtonHoverMenu, 1);
         }
 
         public void OnPointerExit(PointerEventData eventData)

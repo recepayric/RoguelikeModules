@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 0}
+  hitSound: 2
+  pierceSound: 2
   doesSpin: 0
   spinSpeed: 0
   spinAxis: {x: 0, y: 0, z: 0}
@@ -119,9 +121,11 @@ MonoBehaviour:
   collider2Ds:
   - {fileID: 0}
   - {fileID: 0}
+  isActive: 0
   isStickingToEnemy: 0
   doesExplode: 0
-  explosionTimer: 0
+  explosionDamageMultiplier: 0
+  explosionPoolKey: 66
   targetType: 0
   isHomingProjectile: 0
   targetEnemy: {fileID: 0}

@@ -1,5 +1,6 @@
 ﻿using Data;
 using Data.WeaponDataRelated;
+using DG.Tweening;
 using Runtime.Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,7 +12,7 @@ namespace Runtime.UIRelated.Market
         public Weapon weapon;
         public WeaponDataSo _weaponDatasSo;
         public MarketUI marketUI;
-        
+
         public void OpenWeaponSkillTree()
         {
             EventManager.Instance.OpenScreen(Screens.WeaponUpgrade, true);
@@ -23,7 +24,7 @@ namespace Runtime.UIRelated.Market
         {
             return false;
         }
-        
+
         public void OnPointerEnter(PointerEventData eventData)
         {
             marketUI.SetWeaponDetails(_weaponDatasSo);

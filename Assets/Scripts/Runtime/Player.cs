@@ -27,6 +27,7 @@ namespace Runtime
         public CharacterDataSo characterDataSo;
         public PlayerTargetFollower playerTargetFollower;
         public PlayerSwordSwinger PlayerSwordSwinger;
+        public AttackHelper AttackHelper;
         public GameObject WeaponPoint;
 
         public Stats stats;
@@ -99,6 +100,7 @@ namespace Runtime
             SetActiveCharacter();
             SetStarterSpells();
             AddSpells();
+            
         }
 
         private void ResetModifiers()
@@ -126,6 +128,12 @@ namespace Runtime
         public void SetStarterWeapon(PoolKeys poolKeyWeapon)
         {
             var weapon = BasicPool.instance.Get(poolKeyWeapon);
+            AddWeapon(weapon);
+        }
+
+        public void BuyWeapon(PoolKeys weaponPoolKey)
+        {
+            var weapon = BasicPool.instance.Get(weaponPoolKey);
             AddWeapon(weapon);
         }
         
@@ -189,7 +197,7 @@ namespace Runtime
         }
 
         [Button]
-        public void DealDamage(float damage, bool isCriticalDamage)
+        public void DealDamage(float damage, bool isCriticalDamage, float knockbackAmount = 0)
         {
             damageTaken += damage;
 
@@ -236,6 +244,48 @@ namespace Runtime
                     case ModifierUseArea.OnHealthChange:
                         if (!modifiersOnHealthChange.Contains(modifier))
                             modifiersOnHealthChange.Add(modifier);
+                        break;
+                    
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                //modifiers.Add();
+            }
+        }
+        
+        private void RemoveSpecialModifiers()
+        {
+            for (int i = 0; i < specialModifiersList.Count; i++)
+            {
+                var modifier = ModifierCreator.GetModifier(specialModifiersList[i]);
+                modifier.RegisterUser(gameObject);
+                modifier.RemoveEffect(this);
+                switch (modifier.useArea)
+                {
+                    case ModifierUseArea.OnStart:
+                        if (modifiersOnStart.Contains(modifier))
+                            modifiersOnStart.Remove(modifier);
+                        break;
+                    
+                    case ModifierUseArea.OnHit:
+                        break;
+                    
+                    case ModifierUseArea.OnGetHit:
+                        if (modifiersOnGetHit.Contains(modifier))
+                            modifiersOnGetHit.Remove(modifier);
+                        break;
+                    
+                    case ModifierUseArea.OnBuyItem:
+                        if (modifiersOnItemBuy.Contains(modifier))
+                            modifiersOnItemBuy.Remove(modifier);
+                        break;
+                    
+                    case ModifierUseArea.OnUpdate:
+                        break;
+                    
+                    case ModifierUseArea.OnHealthChange:
+                        if (modifiersOnHealthChange.Contains(modifier))
+                            modifiersOnHealthChange.Remove(modifier);
                         break;
                     
                     default:
@@ -345,6 +395,11 @@ namespace Runtime
             CalculateStats();
         }
 
+        private void OnWeaponBuy(PoolKeys poolKeys)
+        {
+            BuyWeapon(poolKeys);
+        }
+
         public void OnLevelUpStatSelected(LevelUpStats levelUpStat)
         {
             if(!levelUpStatsList.Contains(levelUpStat))
@@ -412,6 +467,7 @@ namespace Runtime
                 weapon.transform.localScale = Vector3.one;
                 weapon.transform.localRotation = Quaternion.identity;
                 weaponScript.SetSwordSwinger(PlayerSwordSwinger);
+                weaponScript.AttackHelper = AttackHelper;
                 weaponScript.WeaponCarrier = this;
                 equippedWeapon = weaponScript;
             }
@@ -445,8 +501,10 @@ namespace Runtime
         [Button]
         public void OrganiseWeapons()
         {
-            float angleBetween = 360f / weapons.Count;
-            for (int i = 0; i < weapons.Count; i++)
+            if (weapons.Count == 1) return;
+            
+            float angleBetween = 360f / (weapons.Count-1);
+            for (int i = 0; i < weapons.Count-1; i++)
             {
                 var angle = angleBetween * i * Mathf.Deg2Rad;
                 var posX = weaponRadius * Mathf.Cos(angle);
@@ -458,16 +516,27 @@ namespace Runtime
 
         private void OnFloorStarts()
         {
+            Debug.Log("Floor Started!!!");
             CalculateStats();
             AddSpells();
             ResetHealth();
             isDead = false;
             for (int i = 0; i < weapons.Count; i++)
             {
+                Debug.Log("Weapon Updating!");
                 weapons[i].OnFloorStart();
             }
             
             CastSpells();
+        }
+
+        private void OnFloorEnds(int floorNum)
+        {
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                Debug.Log("Weapon Updating!");
+                weapons[i].OnFloorEnds();
+            }
         }
 
         public void ResetStatsForMarket()
@@ -480,15 +549,19 @@ namespace Runtime
         private void AddEvents()
         {
             EventManager.Instance.FloorStartsEvent += OnFloorStarts;
+            EventManager.Instance.FloorEndsEvent += OnFloorEnds;
             EventManager.Instance.LevelUpStatSelectedEvent += OnLevelUpStatSelected;
             EventManager.Instance.ItemBuyEvent += OnItemBuy;
+            EventManager.Instance.WeaponBuyEvent += OnWeaponBuy;
         }
 
         private void RemoveEvents()
         {
             EventManager.Instance.FloorStartsEvent -= OnFloorStarts;
+            EventManager.Instance.FloorEndsEvent -= OnFloorEnds;
             EventManager.Instance.LevelUpStatSelectedEvent -= OnLevelUpStatSelected;
             EventManager.Instance.ItemBuyEvent -= OnItemBuy;
+            EventManager.Instance.WeaponBuyEvent -= OnWeaponBuy;
         }
 
         public float GetRange()
@@ -560,13 +633,35 @@ namespace Runtime
             return gameObject;
         }
 
+        private void ClearPlayer()
+        {
+            for (int i = 0; i < minions.Count; i++)
+            {
+                BasicPool.instance.Return(minions[i].gameObject);
+            }
+            BasicPool.instance.Return(equippedWeapon.gameObject);
+            
+            RemoveSpecialModifiers();
+            weapons.Clear();
+            weaponObjects.Clear();
+            minions.Clear();
+            items.Clear();
+
+            for (int i = 0; i < spells.Count; i++)
+            {
+                spells[i].StopSpell();
+            }
+            spells.Clear();
+            AttackHelper.Reset();
+        }
+
         public PoolKeys PoolKeys { get; set; }
         public void OnReturn()
         {
             RemoveEvents();
             DictionaryHolder.Damageables.Remove(gameObject);
             DictionaryHolder.Cursable.Remove(gameObject);
-
+            ClearPlayer();
         }
 
         public void OnGet()

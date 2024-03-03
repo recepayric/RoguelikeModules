@@ -11,7 +11,8 @@ public class UIController : MonoBehaviour
 {
     public static UIController instance;
 
-
+    public GameObject collectableCollectPlace;
+    
     public GameObject textObject;
 
     private void Awake()
@@ -52,5 +53,8 @@ public class UIController : MonoBehaviour
         
         if(Input.GetKeyDown(KeyCode.Alpha5))
             EventManager.Instance.OpenScreen(Screens.Market, true);
+        
+        if(Input.GetKeyDown(KeyCode.Alpha6))
+            EventManager.Instance.OpenScreen(Screens.Rune, true);
     }
 }

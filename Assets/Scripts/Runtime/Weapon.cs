@@ -9,6 +9,7 @@ using Runtime.Modifiers;
 using Runtime.ParticleShaderScripts;
 using Runtime.PlayerRelated;
 using Runtime.ProjectileRelated;
+using Runtime.SpellsRelated;
 using Runtime.WeaponRelated;
 using UnityEngine;
 
@@ -25,12 +26,15 @@ namespace Runtime
         public WeaponDataSo weaponDataSo;
         public WeaponStats weaponStats;
         public PlayerSwordSwinger swordSwinger;
+        public AttackHelper AttackHelper;
         public IWeaponCarrier WeaponCarrier;
         private float _timer;
         private float distanceToEnemy;
 
         //todo change to poolkey
         public GameObject projectilePrefab;
+        public GameObject explodingProjectile;
+        public GameObject sphereProjectile;
         public GameObject projectilePoint;
         public PoolKeys slashKey;
 
@@ -45,6 +49,7 @@ namespace Runtime
         public List<Modifier> modifiersOnGetHit;
         public List<Modifier> modifiersOnHealthChange;
         public List<Modifier> modifiersOnItemBuy;
+        public List<Modifier> modifiersOnBeforeHit;
         public List<GameObject> rotatingSwords;
 
         public static float RotationGlobal;
@@ -56,26 +61,33 @@ namespace Runtime
         public List<GameObject> styles;
         public int styleCount;
 
+        public List<SpellV2> spells;
+
         private void Start()
         {
-            //todo move these to get from pool!!
-            weaponStats.SetStats();
-            //SetSpecialModifiers();
-            SetSpecialModifiers(specialModifiersList);
-            SetSpecialModifiers(weaponStats.specialModifiers);
-            ActivateModifiers();
-            UpdateStyle();
+            
+            // //todo move these to get from pool!!
+            // weaponStats.SetStats();
+            // //weaponStats.CreateSpells();
+            // //spells = weaponStats.spells;
+            // //SetSpecialModifiers();
+            // SetSpecialModifiers(specialModifiersList);
+            // SetSpecialModifiers(weaponStats.specialModifiers);
+            // ActivateModifiers();
+            // UpdateStyle();
         }
 
         private void Update()
         {
+            UpdateSpells();
+
             if (rotatingWeaponParent != null)
             {
-                RotationGlobal += Time.deltaTime * (360f/weaponStats.attackSpeed);
+                RotationGlobal += Time.deltaTime * (360f / weaponStats.attackSpeed);
                 rotatingWeaponParent.transform.rotation = Quaternion.Euler(0, 0, RotationGlobal);
                 rotatingWeaponParent.transform.position = WeaponCarrier.GetRotationgWeaponParent().position;
             }
-            
+
             if (CanAttack())
             {
                 if (!isAttacking)
@@ -104,6 +116,14 @@ namespace Runtime
                 swirlObject.transform.position = projectilePoint.transform.position;
         }
 
+        private void UpdateSpells()
+        {
+            for (int i = 0; i < spells.Count; i++)
+            {
+                spells[i].Update();
+            }
+        }
+
         private void HandleAttack()
         {
             isAttacking = true;
@@ -122,6 +142,13 @@ namespace Runtime
         {
             if (weaponStats.isRotatinSword) return;
             swordSwinger.Swing(weaponStats.attackSpeed);
+        }
+
+        private void BowAttack()
+        {
+            AttackHelper.weaponType = WeaponType.Bow;
+            AttackHelper.attackSpeed = weaponStats.attackSpeed;
+            //AttackHelper.StartAttack();
         }
 
         private void WandAttack()
@@ -145,7 +172,7 @@ namespace Runtime
                 rotatingWeaponParent = new GameObject();
 
             rotatingWeaponParent.transform.rotation = Quaternion.identity;
-            
+
             var amountOfRotatingWeapons = weaponStats.projectileAmount;
 
             var angleBetween = 360f / amountOfRotatingWeapons;
@@ -160,7 +187,7 @@ namespace Runtime
                 var distanceY = weaponStats.rotationDistanceFromPlayer * Mathf.Sin(rad * i);
 
                 projectile.transform.localPosition = new Vector3(distanceX, distanceY, 0);
-                projectile.transform.rotation = Quaternion.Euler(0, 0, angleBetween*i+90);
+                projectile.transform.rotation = Quaternion.Euler(0, 0, angleBetween * i + 90);
 
                 var script = DictionaryHolder.RotatingMeleeWeapons[projectile];
                 script.SetShooter(this);
@@ -184,6 +211,12 @@ namespace Runtime
         {
             specialModifiersFromTree.Add(specialModifier);
             AddSpecialModifier(specialModifier);
+        }
+
+        public void RemoveModifierFromTree(SpecialModifiers specialModifier)
+        {
+            specialModifiersFromTree.Remove(specialModifier);
+            RemoveSpecialModifier(specialModifier);
         }
 
         public void SetSlash(Slash slash)
@@ -216,7 +249,6 @@ namespace Runtime
         {
             for (var i = 0; i < modifiersOnStart.Count; i++)
             {
-                
                 modifiersOnStart[i].ApplyEffect(this);
             }
         }
@@ -241,6 +273,7 @@ namespace Runtime
                     break;
 
                 case ModifierUseArea.OnHit:
+
                     break;
 
                 case ModifierUseArea.OnGetHit:
@@ -260,7 +293,53 @@ namespace Runtime
                     if (!modifiersOnHealthChange.Contains(modifier))
                         modifiersOnHealthChange.Add(modifier);
                     break;
+                case ModifierUseArea.OnBeforeHit:
+                    if (!modifiersOnBeforeHit.Contains(modifier))
+                        modifiersOnBeforeHit.Add(modifier);
+                    break;
 
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void RemoveSpecialModifier(SpecialModifiers specialModifier)
+        {
+            var modifier = ModifierCreator.GetModifier(specialModifier);
+            modifier.RemoveRegisteredUser(gameObject);
+            modifier.RemoveEffect(this);
+            switch (modifier.useArea)
+            {
+                case ModifierUseArea.OnStart:
+                    if (modifiersOnStart.Contains(modifier))
+                        modifiersOnStart.Remove(modifier);
+                    break;
+                
+                case ModifierUseArea.OnHit:
+                    break;
+
+                case ModifierUseArea.OnGetHit:
+                    if (modifiersOnGetHit.Contains(modifier))
+                        modifiersOnGetHit.Remove(modifier);
+                    break;
+
+                case ModifierUseArea.OnBuyItem:
+                    if (modifiersOnItemBuy.Contains(modifier))
+                        modifiersOnItemBuy.Remove(modifier);
+                    break;
+
+                case ModifierUseArea.OnUpdate:
+                    break;
+
+                case ModifierUseArea.OnHealthChange:
+                    if (modifiersOnHealthChange.Contains(modifier))
+                        modifiersOnHealthChange.Remove(modifier);
+                    break;
+                
+                case ModifierUseArea.OnBeforeHit:
+                    if (modifiersOnBeforeHit.Contains(modifier))
+                        modifiersOnBeforeHit.Remove(modifier);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -269,37 +348,127 @@ namespace Runtime
 
         private void CreateProjectile()
         {
+            
+
             if (targetEnemy == null || !targetEnemy.activeSelf || !DictionaryHolder.Enemies[targetEnemy].IsAvailable())
                 return;
+            
+            weaponStats.attackNumber++;
+            
+            EventManager.Instance.PlaySoundOnce(weaponStats.attackSound, 1);
 
             if (weaponDataSo.WeaponType == WeaponType.Sword)
             {
                 SwordAttack();
                 return;
             }
+            
+            for (int i = 0; i < modifiersOnBeforeHit.Count; i++)
+            {
+                modifiersOnBeforeHit[i].ApplyEffect(this);
+            }
 
             //todo when multiple projectiles, send them with angle
+            //1 - duz
+            //2- acisal
+            //3 - duz + acisal
+            var totalAngle = Mathf.PI * 2;
+            var projectileAmount = weaponStats.projectileAmount;
+            var angleBetweenProjectiles = 10f;
+            var middlePoint = angleBetweenProjectiles * projectileAmount;
+            var halfMiddle = middlePoint / 2;
+            var startingAngle = -halfMiddle;
+            
             for (int i = 0; i < weaponStats.projectileAmount; i++)
             {
                 if (weaponDataSo.WeaponType == WeaponType.Sword) break;
+                
+                var angleToAdd = startingAngle + i * angleBetweenProjectiles;
+                
+                if (weaponDataSo.WeaponType == WeaponType.Wand)
+                    CreateMagicProjectile(angleToAdd);
+                else if (weaponDataSo.WeaponType == WeaponType.Bow)
+                    CreateBowProjectile(angleToAdd);
+            }
 
-                //todo change this to pool and dictionary.
-                var projectile = Instantiate(projectilePrefab);
-                projectile.transform.position = projectilePoint.transform.position;
-                projectile.transform.right = targetEnemy.transform.position - projectile.transform.position;
+            if (weaponDataSo.WeaponType == WeaponType.Bow)
+            {
+                BowAttack();
+            }
+        }
 
-                var sc = projectile.GetComponent<Projectile>();
 
-                sc.bounceNum = weaponStats.bounceNum;
-                sc.pierceNum = weaponStats.pierceNum;
-                sc.criticalHitChance = weaponStats.criticalHitChance / 100f;
-                sc.criticalHitDamage = weaponStats.criticalHitDamage;
-                sc.weapon = this;
-                sc.SetModifiers(modifiers);
-                sc.SetMaxDistance(weaponStats.range);
-                sc.SetHomingProjectile(weaponStats.hasHomingProjectiles, targetEnemy);
-                sc.isRotating = weaponStats.hasRotatingProjectiles;
-                sc.SetShooter(this);
+        private void CreateMagicProjectile(float angleToRotate)
+        {
+            //todo change this to pool and dictionary
+            GameObject projectile = null;
+
+            if(weaponStats.hasSphereProjectile)
+                projectile = Instantiate(sphereProjectile);
+            else if (weaponStats.explodingProjectile)
+                projectile = Instantiate(explodingProjectile);
+            else
+                projectile = Instantiate(projectilePrefab);
+
+            projectile.transform.position = projectilePoint.transform.position;
+            projectile.transform.right = targetEnemy.transform.position - projectile.transform.position;
+            projectile.transform.Rotate(new Vector3(0, 0, 1), angleToRotate);
+
+            var sc = projectile.GetComponent<Projectile>();
+
+            sc.bounceNum = weaponStats.hasSphereProjectile ? 0 : weaponStats.bounceNum;
+            sc.pierceNum = weaponStats.hasSphereProjectile ? 999 : weaponStats.pierceNum;
+            sc.criticalHitChance = weaponStats.criticalHitChance / 100f;
+            sc.criticalHitDamage = weaponStats.criticalHitDamage;
+            sc.weapon = this;
+            sc.SetModifiers(modifiers);
+            sc.SetMaxDistance(weaponStats.range);
+            sc.SetHomingProjectile(weaponStats.hasHomingProjectiles, targetEnemy);
+            sc.isRotating = weaponStats.hasRotatingProjectiles;
+            sc.SetShooter(this);
+            sc.isActive = true;
+
+            if (weaponStats.explodingProjectile)
+            {
+                sc.SetExplodingProjectile(weaponStats.explosionDamageMultiplier);
+            }
+        }
+
+        private void CreateBowProjectile(float angleToRotate)
+        {
+            //todo change this to pool and dictionary.
+            GameObject projectile = null;
+
+            if(weaponStats.hasSphereProjectile)
+                projectile = Instantiate(sphereProjectile);
+            else if (weaponStats.explodingProjectile)
+                projectile = Instantiate(explodingProjectile);
+            else
+                projectile = Instantiate(projectilePrefab);
+            
+            projectile.transform.position = projectilePoint.transform.position;
+            projectile.transform.right = targetEnemy.transform.position - projectile.transform.position;
+            projectile.transform.Rotate(new Vector3(0, 0, 1), angleToRotate);
+
+            var sc = projectile.GetComponent<Projectile>();
+
+            sc.bounceNum = weaponStats.hasSphereProjectile ? 0 : weaponStats.bounceNum;
+            sc.pierceNum = weaponStats.hasSphereProjectile ? 999 : weaponStats.pierceNum;
+            sc.criticalHitChance = weaponStats.criticalHitChance / 100f;
+            sc.criticalHitDamage = weaponStats.criticalHitDamage;
+            sc.weapon = this;
+            sc.SetModifiers(modifiers);
+            sc.SetMaxDistance(weaponStats.range);
+            sc.SetHomingProjectile(weaponStats.hasHomingProjectiles, targetEnemy);
+            sc.isRotating = weaponStats.hasRotatingProjectiles;
+            sc.SetShooter(this);
+
+            sc.isActive = true;
+            //AttackHelper.SetBowArrowAnimation(sc, projectilePoint, targetEnemy);
+            
+            if (weaponStats.explodingProjectile)
+            {
+                sc.SetExplodingProjectile(weaponStats.explosionDamageMultiplier);
             }
         }
 
@@ -345,11 +514,27 @@ namespace Runtime
 
         public void OnFloorStart()
         {
+            Debug.Log("Activating!! weapon!!");
             // weaponStats._weaponDataSo = weaponDataSo;
             // weaponStats.statsFromTree = statsFromTree;
             weaponStats.SetStats();
             ActivateModifiers();
             ActivateRotatingWeapons();
+
+            for (int i = 0; i < spells.Count; i++)
+            {
+                Debug.Log("Activating Spell!");
+                spells[i].ActiavateSpell();
+            }
+        }
+
+        public void OnFloorEnds()
+        {
+            for (int i = 0; i < spells.Count; i++)
+            {
+                Debug.Log("Deactivating Spell");
+                spells[i].Deactivate();
+            }
         }
 
         private bool CanAttack()
@@ -368,17 +553,54 @@ namespace Runtime
             return weaponStats.criticalHitChance;
         }
 
+        private void RemoveModifiers(List<SpecialModifiers> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                RemoveSpecialModifier(list[i]);
+            }
+        }
+
+        private void ResetWeapon()
+        {
+            RemoveModifiers(specialModifiersList);
+            RemoveModifiers(weaponStats.specialModifiers);
+            spells.Clear();
+            if(statsFromTree != null)
+                statsFromTree.Clear();
+            weaponUpgradeTree.ResetTree();
+        }
+
+        private void InitialiseWeapon()
+        {
+            //todo move these to get from pool!!
+            //weaponStats.SetStats();
+            //weaponStats.CreateSpells();
+            //spells = weaponStats.spells;
+            //SetSpecialModifiers();
+            SetSpecialModifiers(specialModifiersList);
+            SetSpecialModifiers(weaponStats.specialModifiers);
+            ActivateModifiers();
+            UpdateStyle();
+            weaponUpgradeTree.ResetTree();
+        }
+
         public PoolKeys PoolKeys { get; set; }
 
         public void OnReturn()
         {
+            ResetWeapon();
         }
 
         public void OnGet()
         {
+            InitialiseWeapon();
             weaponStats._weaponDataSo = weaponDataSo;
             weaponStats.statsFromTree = statsFromTree;
             weaponStats.SetStats();
+            weaponStats.CreateSpells();
+            spells = weaponStats.spells;
+
             //ActivateModifiers();
             //ActivateRotatingWeapons();
         }

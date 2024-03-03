@@ -14,12 +14,21 @@ namespace Runtime.UIRelated.WeaponUpgrades
         public string nodeName;
 
         public bool isBought = false;
+        public bool canBeBought = false;
         public Button btnBuy;
 
         public void SetStatus(bool status)
         {
             isBought = status;
             btnBuy.interactable = !isBought;
+        }
+
+        public void SetAvailable(bool status)
+        {
+            if (isBought) return;
+            
+            canBeBought = status;
+            btnBuy.interactable = status;
         }
 
         public void SetUpgradeTreeNode(UpgradeTreeNode pUpgradeTreeNode)
@@ -33,17 +42,18 @@ namespace Runtime.UIRelated.WeaponUpgrades
         public void AddAttribute(string attribute)
         {
             attributes.Add(attribute);
-           
         }
 
         public void BuyNode()
         {
             if (isBought) return;
-            
             Debug.Log("Node bought!");
-            isBought = true;
+            upgradeTreeNode.isBought = true;
+            isBought = upgradeTreeNode.isBought;
+            //isBought = true;
             btnBuy.interactable = false;
             weaponUpgradeScreenUI.ActivateNode(upgradeTreeNode);
+            weaponUpgradeScreenUI.UpdateStatus();
         }
         
         public void OnPointerEnter(PointerEventData eventData)

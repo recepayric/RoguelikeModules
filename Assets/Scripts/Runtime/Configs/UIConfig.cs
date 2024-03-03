@@ -6,5 +6,9 @@
         public static float SelectedMapScaleUpValue = 1.15f;
         public static float PickerMoveTime = 0.5f;
         public static float LevelUpCardTurnTime = 0.5f;
+        
+        //Rune Screen
+        public static float RuneScaleUpAmount = 1.25f;
+        public static float RuneScaleUpTime = 0.1f;
     }
 }

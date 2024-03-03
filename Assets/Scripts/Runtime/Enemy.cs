@@ -26,8 +26,10 @@ namespace Runtime
     [RequireComponent(typeof(EnemyDamageTaker))]
     public class Enemy : MonoBehaviour, IPoolObject, IDamageable, IShooter, ISpellCaster, ICursable
     {
+        
         //[Header("Data")] public EnemyData enemyData;
         public Transform Transform { get; set; }
+        public EnemyBossBehaviour bossBehaviour;
 
         public GameObject spellPosition;
 
@@ -39,7 +41,7 @@ namespace Runtime
         [Header("Ailment Objects")] public GameObject burnAilmentObject;
         public GameObject freezeAilmentObject;
         public GameObject shockAilmentObject;
-        
+
         public Ailments ailments;
 
         public EnemyStats _stats;
@@ -61,10 +63,12 @@ namespace Runtime
         public bool isCastingSpell;
         private Spell spellScript;
         public bool isAuraOn = false;
+        public List<SpellV2> spells;
 
         public PoolKeys minionPoolKey;
-        
+
         public List<SpecialModifiers> specialModifiersList;
+
         //public List<Modifier> modifiers;
         public List<Modifier> modifiersOnStart;
         public List<Modifier> modifiersOnGetHit;
@@ -73,7 +77,7 @@ namespace Runtime
 
         //Current States
         [Header("Current States")] public bool isAttackingEnemy;
-        
+
         private void Awake()
         {
             SetUpAilments();
@@ -81,7 +85,7 @@ namespace Runtime
             _stats = GetComponent<EnemyStats>();
             _enemyMovement = GetComponent<EnemyMovement>();
             _enemyDamageTaker = GetComponent<EnemyDamageTaker>();
-            
+
             _enemyMovement.Ailments = ailments;
         }
 
@@ -97,7 +101,7 @@ namespace Runtime
             };
             ailments.Initialise();
         }
-        
+
         private void SetSpecialModifiers()
         {
             for (int i = 0; i < specialModifiersList.Count; i++)
@@ -111,29 +115,29 @@ namespace Runtime
                         if (!modifiersOnStart.Contains(modifier))
                             modifiersOnStart.Add(modifier);
                         break;
-                    
+
                     case ModifierUseArea.OnHit:
                         break;
-                    
+
                     case ModifierUseArea.OnGetHit:
                         Debug.Log("On Get Hit Modifier!");
                         if (!modifiersOnGetHit.Contains(modifier))
                             modifiersOnGetHit.Add(modifier);
                         break;
-                    
+
                     case ModifierUseArea.OnBuyItem:
                         if (!modifiersOnItemBuy.Contains(modifier))
                             modifiersOnItemBuy.Add(modifier);
                         break;
-                    
+
                     case ModifierUseArea.OnUpdate:
                         break;
-                    
+
                     case ModifierUseArea.OnHealthChange:
                         if (!modifiersOnHealthChange.Contains(modifier))
                             modifiersOnHealthChange.Add(modifier);
                         break;
-                    
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -175,6 +179,8 @@ namespace Runtime
             //todo change this to regular timer to get rid of dotween
             DOVirtual.DelayedCall(attackTime, () =>
             {
+                if (!gameObject.activeSelf) return;
+                
                 if (_enemyMovement.IsCloseToEnemy())
                 {
                     HandleAttack();
@@ -186,9 +192,9 @@ namespace Runtime
 
         public void HandleAttack()
         {
-            if(_isDead)
+            if (_isDead)
                 return;
-            
+
             if (_stats.AttackType == AttackType.Melee)
                 playerScript.DealDamage(_stats.currentDamage, false);
             else if (_stats.AttackType == AttackType.Magic)
@@ -198,13 +204,16 @@ namespace Runtime
             else if (_stats.AttackType == AttackType.Charge)
             {
                 _enemyMovement.StartCharging(playerObject.transform.position);
-            }else if (_stats.AttackType == AttackType.Spell || _stats.AttackType == AttackType.AuraUser)
+            }
+            else if (_stats.AttackType == AttackType.Spell || _stats.AttackType == AttackType.AuraUser)
             {
                 CastSpell();
-            }else if (_stats.AttackType == AttackType.Bomber)
+            }
+            else if (_stats.AttackType == AttackType.Bomber)
             {
                 Explode();
-            }else if (_stats.AttackType == AttackType.Hive)
+            }
+            else if (_stats.AttackType == AttackType.Hive)
             {
                 SpawnMinions();
             }
@@ -237,7 +246,7 @@ namespace Runtime
             DictionaryHolder.Explosions[explosion].explosionDamage = _stats.currentDamage;
             DictionaryHolder.Explosions[explosion].SetRange(_stats.currentMaxAttackRange);
             DictionaryHolder.Explosions[explosion].Explode();
-            
+
             //Destroy(gameObject);
             BasicPool.instance.Return(gameObject);
         }
@@ -258,10 +267,12 @@ namespace Runtime
                 //sc.SetModifiers(modifiers);
                 sc.SetMaxDistance(_stats.currentAttackRange * GameConfig.RangeToRadius * 2);
                 sc.SetShooter(this);
+                sc.isActive = true;
             }
         }
 
         public GameObject spellObject;
+
         private void CastSpell()
         {
             if (spellToCast == Spells.None) return;
@@ -271,10 +282,10 @@ namespace Runtime
                 spellScript.StartSpell();
                 return;
             }
-            
+
             PoolKeys key = (PoolKeys)Enum.Parse(typeof(PoolKeys), spellToCast.ToString());
             var spell = BasicPool.instance.Get(key);
-            
+
             //todo spell register itself to dicitonary here
             spellScript = spell.GetComponent<Spell>();
             spellScript.SetOwner(Owners.Enemy);
@@ -293,12 +304,15 @@ namespace Runtime
             }
         }
 
-        public void DealDamage(float damage, bool isCriticalHit)
+        public void DealDamage(float damage, bool isCriticalHit, float knockbackAmount = 0)
         {
             damageTaken += damage;
             UIController.instance.AddDamageText(gameObject, damage, isCriticalHit);
             UpdateHealth();
             //_enemyDamageTaker.DamageTaken();
+
+            if (knockbackAmount > 0 )
+                _enemyMovement.AddKnockback(1);
 
             if (_stats.currentHealth <= 0)
                 Die();
@@ -348,8 +362,8 @@ namespace Runtime
                 spellScript.DeActivate();
                 isAuraOn = false;
             }
-            
-            if(_stats.AttackType == AttackType.Hive)
+
+            if (_stats.AttackType == AttackType.Hive)
                 SpawnMinions();
         }
 
@@ -409,7 +423,7 @@ namespace Runtime
 
         public bool IsAvailable()
         {
-            return !_isDead;
+            return !_isDead && gameObject.activeSelf;
         }
 
         public PoolKeys PoolKeys { get; set; }
@@ -420,6 +434,21 @@ namespace Runtime
             RemoveSpecialModifiers();
             DictionaryHolder.Enemies.Remove(gameObject);
             DictionaryHolder.Damageables.Remove(gameObject);
+            isAttackingEnemy = false;
+            _isDead = false;
+            
+            if (_stats.AttackType == AttackType.Boss)
+            {
+                bossBehaviour.Stop();
+            }
+        }
+
+        private void Initialise()
+        {
+            if (_stats.AttackType == AttackType.Boss)
+            {
+                bossBehaviour.SetUp(this);
+            }
         }
 
         public void OnGet()
@@ -429,6 +458,7 @@ namespace Runtime
             damageTaken = 0;
             SetSpecialModifiers();
             SetStats();
+            Initialise();
         }
 
         private void UpdateDeath()
@@ -474,12 +504,10 @@ namespace Runtime
 
         public void AddCurse(AllStats stat, float amount)
         {
-            
         }
 
         public void RemoveCurse(AllStats stat, float amount)
         {
-            
         }
     }
 }

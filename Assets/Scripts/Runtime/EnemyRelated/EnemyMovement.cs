@@ -35,6 +35,13 @@ namespace Runtime.EnemyRelated
         private Animator _animator;
         private static readonly int IsRunning = Animator.StringToHash("isRunning");
 
+        public bool isKnockbacked = false;
+        public float knockbackAmount = -1f;
+        public float targetKnockbackAmount;
+        public float knockbackTime = 0.25f;
+
+        public float speedAfterFreeze;
+
         private void Start()
         {
             targetObject = DictionaryHolder.Player.gameObject;
@@ -43,6 +50,25 @@ namespace Runtime.EnemyRelated
             stats = GetComponent<EnemyStats>();
             rigidBody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
+        }
+
+        public void AddKnockback(float knockbackAmount)
+        {
+            if (isCharging) return;
+            isKnockbacked = true;
+            this.knockbackAmount = knockbackAmount;
+            targetKnockbackAmount = -knockbackAmount;
+        }
+
+        private void UpdateKnockback()
+        {
+            if (!isKnockbacked) return;
+            knockbackAmount -= Time.deltaTime / knockbackTime;
+            if (knockbackAmount <= -1f)
+            {
+                knockbackAmount = -1f;
+                isKnockbacked = false;
+            }
         }
 
         private void CheckForPlayerRotation()
@@ -94,7 +120,11 @@ namespace Runtime.EnemyRelated
         private void FixedUpdate()
         {
 
+            speedAfterFreeze = stats.currentSpeed - stats.currentSpeed * (Ailments.freezeEffect/100f);
             //return;
+            
+            UpdateKnockback();
+            
             if (isCharging)
             {
                 Charge();
@@ -128,11 +158,15 @@ namespace Runtime.EnemyRelated
 
             var speedMult = isCharging ? 2 : 1;
 
-            var deltaX = Time.deltaTime * stats.currentSpeed * speedMult * Mathf.Cos(angle);
-            var deltaY = Time.deltaTime * stats.currentSpeed * speedMult * Mathf.Sin(angle);
+            var deltaX = Time.deltaTime * speedAfterFreeze * speedMult * Mathf.Cos(angle);
+            var deltaY = Time.deltaTime * speedAfterFreeze * speedMult * Mathf.Sin(angle);
+
+            var MoveAmount = new Vector3(deltaX, deltaY, 0);
+            var knockbackSpeed = isKnockbacked ?  -knockbackAmount : 1;
+            MoveAmount *= knockbackSpeed;
 
             //transform.position += new Vector3(deltaX, deltaY, 0);
-            rigidBody.MovePosition(transform.position + new Vector3(deltaX, deltaY, 0));
+            rigidBody.MovePosition(transform.position + MoveAmount);
         }
 
         
@@ -153,8 +187,8 @@ namespace Runtime.EnemyRelated
 
             var speedMult = isCharging ? 2 : 1;
 
-            var deltaX = Time.deltaTime * stats.currentSpeed * speedMult * Mathf.Cos(angle);
-            var deltaY = Time.deltaTime * stats.currentSpeed * speedMult * Mathf.Sin(angle);
+            var deltaX = Time.deltaTime * speedAfterFreeze * speedMult * Mathf.Cos(angle);
+            var deltaY = Time.deltaTime * speedAfterFreeze * speedMult * Mathf.Sin(angle);
 
             transform.position += new Vector3(deltaX, deltaY, 0);
 

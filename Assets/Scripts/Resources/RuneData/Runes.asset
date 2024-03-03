@@ -1,0 +1,1645 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cafe8bccf0841b9b9f9c9703406623a, type: 3}
+  m_Name: Runes
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: runeSlots
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Runtime.UIRelated.RuneRelated.BodyParts,
+        Assembly-CSharp],[System.Collections.Generic.List`1[[Data.RuneSlotData, Assembly-CSharp]],
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Runtime.UIRelated.RuneRelated.BodyParts,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 6
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[Data.RuneSlotData, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 3|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 0
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 4|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 1
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 2
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: 6|System.Collections.Generic.List`1[[Data.RuneSlotData, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 7|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 0
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 8|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 1
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 2
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: 10|System.Collections.Generic.List`1[[Data.RuneSlotData, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 11|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 0
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 12|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 1
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 13|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 2
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: 14|System.Collections.Generic.List`1[[Data.RuneSlotData, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 15|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 0
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 16|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 1
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 17|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 2
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: 18|System.Collections.Generic.List`1[[Data.RuneSlotData, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 19|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 0
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 20|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 1
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 21|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 2
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: 22|System.Collections.Generic.List`1[[Data.RuneSlotData, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 23|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 0
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 24|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 1
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 25|Data.RuneSlotData, Assembly-CSharp
+    - Name: levelRequirement
+      Entry: 3
+      Data: 2
+    - Name: equippedRune
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: statNumberForRarity
+      Entry: 7
+      Data: 26|System.Collections.Generic.Dictionary`2[[Runtime.Enums.ItemRarity,
+        Assembly-CSharp],[System.Int32, mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 27|System.Collections.Generic.EnumEqualityComparer`1[[Runtime.Enums.ItemRarity,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 3
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 3
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: bodyPartsAndAvailableStats
+      Entry: 7
+      Data: 28|System.Collections.Generic.Dictionary`2[[Runtime.UIRelated.RuneRelated.BodyPartsGenral,
+        Assembly-CSharp],[System.Collections.Generic.List`1[[Runtime.Enums.AllStats,
+        Assembly-CSharp]], mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 29|System.Collections.Generic.EnumEqualityComparer`1[[Runtime.UIRelated.RuneRelated.BodyPartsGenral,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 30|System.Collections.Generic.List`1[[Runtime.Enums.AllStats, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 7
+    - Name: 
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 3
+      Data: 8
+    - Name: 
+      Entry: 3
+      Data: 11
+    - Name: 
+      Entry: 3
+      Data: 13
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 7
+    - Name: 
+      Entry: 3
+      Data: 10
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: 31|System.Collections.Generic.List`1[[Runtime.Enums.AllStats, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 14
+    - Name: 
+      Entry: 3
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 10
+    - Name: 
+      Entry: 3
+      Data: 13
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: 32|System.Collections.Generic.List`1[[Runtime.Enums.AllStats, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 5
+    - Name: 
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 3
+      Data: 7
+    - Name: 
+      Entry: 3
+      Data: 10
+    - Name: 
+      Entry: 3
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 35
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: 33|System.Collections.Generic.List`1[[Runtime.Enums.AllStats, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 3
+      Data: 5
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 10
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  _statTierDetails: {fileID: 11400000, guid: c0e2626659cbc0440903441d42d0a6ba, type: 2}
+  itemLevelStatIncrease: 0
+  runes:
+  - rune_id: 3673503
+    rune_level: 5
+    runeRarity: 0
+    BodyPart: 0
+    stats:
+    - tierNumber: 0
+      stat: 13
+      minValue: 5
+      maxValue: 10
+      currentValue: 9
+    itemIcon: {fileID: 1488977155, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 3918342
+    rune_level: 15
+    runeRarity: 4
+    BodyPart: 0
+    stats:
+    - tierNumber: 2
+      stat: 1
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    - tierNumber: 2
+      stat: 2
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    - tierNumber: 0
+      stat: 7
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 2
+      stat: 13
+      minValue: 16
+      maxValue: 20
+      currentValue: 16
+    - tierNumber: 0
+      stat: 8
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    itemIcon: {fileID: 1085471257, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 8785906
+    rune_level: 14
+    runeRarity: 0
+    BodyPart: 1
+    stats:
+    - tierNumber: 2
+      stat: 4
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    itemIcon: {fileID: -940112520, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 6075611
+    rune_level: 7
+    runeRarity: 4
+    BodyPart: 2
+    stats:
+    - tierNumber: 2
+      stat: 3
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    - tierNumber: 1
+      stat: 7
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    - tierNumber: 2
+      stat: 10
+      minValue: 16
+      maxValue: 20
+      currentValue: 17
+    - tierNumber: 0
+      stat: 4
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 0
+      stat: 35
+      minValue: 5
+      maxValue: 10
+      currentValue: 7
+    itemIcon: {fileID: 1085471257, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 9359314
+    rune_level: 5
+    runeRarity: 1
+    BodyPart: 0
+    stats:
+    - tierNumber: 1
+      stat: 10
+      minValue: 11
+      maxValue: 15
+      currentValue: 13
+    - tierNumber: 0
+      stat: 1
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    itemIcon: {fileID: 1675601176, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 5720766
+    rune_level: 13
+    runeRarity: 3
+    BodyPart: 3
+    stats:
+    - tierNumber: 2
+      stat: 10
+      minValue: 16
+      maxValue: 20
+      currentValue: 18
+    - tierNumber: 1
+      stat: 1
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    - tierNumber: 1
+      stat: 5
+      minValue: 11
+      maxValue: 15
+      currentValue: 11
+    itemIcon: {fileID: -102801008, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 5036940
+    rune_level: 11
+    runeRarity: 1
+    BodyPart: 1
+    stats:
+    - tierNumber: 2
+      stat: 4
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    - tierNumber: 1
+      stat: 14
+      minValue: 11
+      maxValue: 15
+      currentValue: 12
+    itemIcon: {fileID: -940112520, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 4807337
+    rune_level: 7
+    runeRarity: 3
+    BodyPart: 0
+    stats:
+    - tierNumber: 0
+      stat: 7
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 1
+      stat: 1
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    - tierNumber: 2
+      stat: 8
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    - tierNumber: 0
+      stat: 11
+      minValue: 5
+      maxValue: 10
+      currentValue: 9
+    itemIcon: {fileID: -1289065449, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 5166445
+    rune_level: 4
+    runeRarity: 3
+    BodyPart: 0
+    stats:
+    - tierNumber: 1
+      stat: 13
+      minValue: 11
+      maxValue: 15
+      currentValue: 13
+    - tierNumber: 1
+      stat: 10
+      minValue: 11
+      maxValue: 15
+      currentValue: 12
+    - tierNumber: 0
+      stat: 7
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 1
+      stat: 1
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    itemIcon: {fileID: -1289065449, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 5659028
+    rune_level: 12
+    runeRarity: 4
+    BodyPart: 1
+    stats:
+    - tierNumber: 0
+      stat: 13
+      minValue: 5
+      maxValue: 10
+      currentValue: 8
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 6
+    - tierNumber: 1
+      stat: 14
+      minValue: 11
+      maxValue: 15
+      currentValue: 12
+    - tierNumber: 0
+      stat: 4
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    itemIcon: {fileID: -102801008, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 9503477
+    rune_level: 13
+    runeRarity: 4
+    BodyPart: 1
+    stats:
+    - tierNumber: 1
+      stat: 10
+      minValue: 11
+      maxValue: 15
+      currentValue: 11
+    - tierNumber: 2
+      stat: 14
+      minValue: 16
+      maxValue: 20
+      currentValue: 18
+    - tierNumber: 1
+      stat: 13
+      minValue: 11
+      maxValue: 15
+      currentValue: 14
+    - tierNumber: 1
+      stat: 4
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    itemIcon: {fileID: 1488977155, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 6619638
+    rune_level: 4
+    runeRarity: 1
+    BodyPart: 1
+    stats:
+    - tierNumber: 0
+      stat: 4
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 0
+      stat: 13
+      minValue: 5
+      maxValue: 10
+      currentValue: 7
+    itemIcon: {fileID: 1488977155, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 5833974
+    rune_level: 10
+    runeRarity: 3
+    BodyPart: 0
+    stats:
+    - tierNumber: 2
+      stat: 7
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    - tierNumber: 2
+      stat: 1
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    - tierNumber: 2
+      stat: 2
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    - tierNumber: 1
+      stat: 10
+      minValue: 11
+      maxValue: 15
+      currentValue: 11
+    itemIcon: {fileID: -986200641, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 7882849
+    rune_level: 14
+    runeRarity: 3
+    BodyPart: 1
+    stats:
+    - tierNumber: 2
+      stat: 13
+      minValue: 16
+      maxValue: 20
+      currentValue: 18
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 8
+    - tierNumber: 0
+      stat: 4
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 0
+      stat: 14
+      minValue: 5
+      maxValue: 10
+      currentValue: 7
+    itemIcon: {fileID: 1085471257, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 6419625
+    rune_level: 12
+    runeRarity: 1
+    BodyPart: 3
+    stats:
+    - tierNumber: 0
+      stat: 1
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 1
+      stat: 5
+      minValue: 11
+      maxValue: 15
+      currentValue: 13
+    itemIcon: {fileID: 1385291017, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 1462850
+    rune_level: 9
+    runeRarity: 3
+    BodyPart: 0
+    stats:
+    - tierNumber: 1
+      stat: 10
+      minValue: 11
+      maxValue: 15
+      currentValue: 12
+    - tierNumber: 0
+      stat: 1
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 2
+      stat: 2
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    - tierNumber: 0
+      stat: 13
+      minValue: 5
+      maxValue: 10
+      currentValue: 8
+    itemIcon: {fileID: 1488977155, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 7345072
+    rune_level: 5
+    runeRarity: 0
+    BodyPart: 1
+    stats:
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 6
+    itemIcon: {fileID: 1675601176, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 6037153
+    rune_level: 15
+    runeRarity: 1
+    BodyPart: 2
+    stats:
+    - tierNumber: 2
+      stat: 10
+      minValue: 16
+      maxValue: 20
+      currentValue: 17
+    - tierNumber: 2
+      stat: 7
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    itemIcon: {fileID: -1289065449, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 4382560
+    rune_level: 6
+    runeRarity: 1
+    BodyPart: 3
+    stats:
+    - tierNumber: 0
+      stat: 5
+      minValue: 5
+      maxValue: 10
+      currentValue: 5
+    - tierNumber: 1
+      stat: 10
+      minValue: 11
+      maxValue: 15
+      currentValue: 13
+    itemIcon: {fileID: -90107008, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 4622075
+    rune_level: 2
+    runeRarity: 2
+    BodyPart: 0
+    stats:
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 7
+    - tierNumber: 0
+      stat: 8
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 0
+      stat: 2
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    itemIcon: {fileID: -1289065449, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 8630942
+    rune_level: 15
+    runeRarity: 4
+    BodyPart: 1
+    stats:
+    - tierNumber: 1
+      stat: 13
+      minValue: 11
+      maxValue: 15
+      currentValue: 12
+    - tierNumber: 0
+      stat: 4
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 2
+      stat: 14
+      minValue: 16
+      maxValue: 20
+      currentValue: 18
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 7
+    itemIcon: {fileID: 1675601176, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 5059733
+    rune_level: 10
+    runeRarity: 1
+    BodyPart: 1
+    stats:
+    - tierNumber: 2
+      stat: 4
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    - tierNumber: 0
+      stat: 13
+      minValue: 5
+      maxValue: 10
+      currentValue: 5
+    itemIcon: {fileID: 817775490, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 4053151
+    rune_level: 8
+    runeRarity: 1
+    BodyPart: 3
+    stats:
+    - tierNumber: 0
+      stat: 1
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 1
+      stat: 10
+      minValue: 11
+      maxValue: 15
+      currentValue: 13
+    itemIcon: {fileID: 1675601176, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 5439888
+    rune_level: 2
+    runeRarity: 2
+    BodyPart: 0
+    stats:
+    - tierNumber: 0
+      stat: 2
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 0
+      stat: 7
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 0
+      stat: 1
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    itemIcon: {fileID: 1085471257, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 8853003
+    rune_level: 3
+    runeRarity: 4
+    BodyPart: 0
+    stats:
+    - tierNumber: 0
+      stat: 13
+      minValue: 5
+      maxValue: 10
+      currentValue: 9
+    - tierNumber: 0
+      stat: 2
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 0
+      stat: 8
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 9
+    - tierNumber: 0
+      stat: 1
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    itemIcon: {fileID: -986200641, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 20255
+    rune_level: 15
+    runeRarity: 3
+    BodyPart: 2
+    stats:
+    - tierNumber: 2
+      stat: 7
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    - tierNumber: 1
+      stat: 4
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    - tierNumber: 1
+      stat: 35
+      minValue: 11
+      maxValue: 15
+      currentValue: 13
+    - tierNumber: 0
+      stat: 3
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    itemIcon: {fileID: 1085471257, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 1214079
+    rune_level: 10
+    runeRarity: 3
+    BodyPart: 0
+    stats:
+    - tierNumber: 2
+      stat: 13
+      minValue: 16
+      maxValue: 20
+      currentValue: 19
+    - tierNumber: 0
+      stat: 7
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 1
+      stat: 10
+      minValue: 11
+      maxValue: 15
+      currentValue: 14
+    - tierNumber: 1
+      stat: 1
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    itemIcon: {fileID: 835302026, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 1707518
+    rune_level: 3
+    runeRarity: 4
+    BodyPart: 3
+    stats:
+    - tierNumber: 0
+      stat: 1
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 7
+    - tierNumber: 0
+      stat: 5
+      minValue: 5
+      maxValue: 10
+      currentValue: 9
+    itemIcon: {fileID: 817775490, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 1799416
+    rune_level: 4
+    runeRarity: 2
+    BodyPart: 1
+    stats:
+    - tierNumber: 0
+      stat: 4
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 5
+    - tierNumber: 1
+      stat: 13
+      minValue: 11
+      maxValue: 15
+      currentValue: 11
+    itemIcon: {fileID: -986200641, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 110520
+    rune_level: 15
+    runeRarity: 4
+    BodyPart: 3
+    stats:
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 7
+    - tierNumber: 2
+      stat: 1
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    - tierNumber: 0
+      stat: 5
+      minValue: 5
+      maxValue: 10
+      currentValue: 5
+    itemIcon: {fileID: -1289065449, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 5751752
+    rune_level: 7
+    runeRarity: 4
+    BodyPart: 2
+    stats:
+    - tierNumber: 0
+      stat: 7
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 0
+      stat: 35
+      minValue: 5
+      maxValue: 10
+      currentValue: 8
+    - tierNumber: 1
+      stat: 4
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 5
+    - tierNumber: 1
+      stat: 3
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    itemIcon: {fileID: -90107008, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 1214149
+    rune_level: 15
+    runeRarity: 4
+    BodyPart: 3
+    stats:
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 8
+    - tierNumber: 1
+      stat: 1
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    - tierNumber: 2
+      stat: 5
+      minValue: 16
+      maxValue: 20
+      currentValue: 18
+    itemIcon: {fileID: 1675601176, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 7678049
+    rune_level: 7
+    runeRarity: 2
+    BodyPart: 0
+    stats:
+    - tierNumber: 1
+      stat: 13
+      minValue: 11
+      maxValue: 15
+      currentValue: 12
+    - tierNumber: 1
+      stat: 8
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    - tierNumber: 1
+      stat: 11
+      minValue: 11
+      maxValue: 15
+      currentValue: 14
+    itemIcon: {fileID: -90107008, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 9202932
+    rune_level: 2
+    runeRarity: 3
+    BodyPart: 3
+    stats:
+    - tierNumber: 0
+      stat: 1
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 6
+    - tierNumber: 0
+      stat: 5
+      minValue: 5
+      maxValue: 10
+      currentValue: 5
+    itemIcon: {fileID: 1085471257, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 2979066
+    rune_level: 4
+    runeRarity: 1
+    BodyPart: 1
+    stats:
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 5
+    - tierNumber: 1
+      stat: 4
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    itemIcon: {fileID: -102801008, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 553849
+    rune_level: 7
+    runeRarity: 3
+    BodyPart: 1
+    stats:
+    - tierNumber: 1
+      stat: 10
+      minValue: 11
+      maxValue: 15
+      currentValue: 14
+    - tierNumber: 0
+      stat: 13
+      minValue: 5
+      maxValue: 10
+      currentValue: 9
+    - tierNumber: 1
+      stat: 4
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    - tierNumber: 0
+      stat: 14
+      minValue: 5
+      maxValue: 10
+      currentValue: 7
+    itemIcon: {fileID: -1289065449, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 1653481
+    rune_level: 4
+    runeRarity: 4
+    BodyPart: 2
+    stats:
+    - tierNumber: 1
+      stat: 35
+      minValue: 11
+      maxValue: 15
+      currentValue: 12
+    - tierNumber: 1
+      stat: 7
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    - tierNumber: 1
+      stat: 4
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    - tierNumber: 1
+      stat: 3
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 9
+    itemIcon: {fileID: 1835226401, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 7449529
+    rune_level: 3
+    runeRarity: 2
+    BodyPart: 0
+    stats:
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 5
+    - tierNumber: 0
+      stat: 8
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 0
+      stat: 13
+      minValue: 5
+      maxValue: 10
+      currentValue: 5
+    itemIcon: {fileID: 835302026, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 8967199
+    rune_level: 10
+    runeRarity: 3
+    BodyPart: 3
+    stats:
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 6
+    - tierNumber: 1
+      stat: 5
+      minValue: 11
+      maxValue: 15
+      currentValue: 14
+    - tierNumber: 1
+      stat: 1
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    itemIcon: {fileID: 1085471257, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 5973170
+    rune_level: 4
+    runeRarity: 4
+    BodyPart: 1
+    stats:
+    - tierNumber: 0
+      stat: 14
+      minValue: 5
+      maxValue: 10
+      currentValue: 9
+    - tierNumber: 0
+      stat: 13
+      minValue: 5
+      maxValue: 10
+      currentValue: 6
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 6
+    - tierNumber: 0
+      stat: 4
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    itemIcon: {fileID: -1289065449, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 456940
+    rune_level: 9
+    runeRarity: 4
+    BodyPart: 2
+    stats:
+    - tierNumber: 2
+      stat: 3
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 8
+    - tierNumber: 0
+      stat: 7
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 0
+      stat: 35
+      minValue: 5
+      maxValue: 10
+      currentValue: 7
+    - tierNumber: 1
+      stat: 4
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    itemIcon: {fileID: 1385291017, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 6101307
+    rune_level: 9
+    runeRarity: 0
+    BodyPart: 3
+    stats:
+    - tierNumber: 2
+      stat: 1
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    itemIcon: {fileID: 817775490, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 6562623
+    rune_level: 7
+    runeRarity: 1
+    BodyPart: 3
+    stats:
+    - tierNumber: 1
+      stat: 1
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 6
+    itemIcon: {fileID: -986200641, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 7519061
+    rune_level: 13
+    runeRarity: 3
+    BodyPart: 2
+    stats:
+    - tierNumber: 2
+      stat: 10
+      minValue: 16
+      maxValue: 20
+      currentValue: 19
+    - tierNumber: 2
+      stat: 7
+      minValue: 5
+      maxValue: 6
+      currentValue: 5
+    - tierNumber: 1
+      stat: 3
+      minValue: 3
+      maxValue: 4
+      currentValue: 3
+    - tierNumber: 1
+      stat: 35
+      minValue: 11
+      maxValue: 15
+      currentValue: 11
+    itemIcon: {fileID: 1835226401, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - rune_id: 4512975
+    rune_level: 5
+    runeRarity: 3
+    BodyPart: 1
+    stats:
+    - tierNumber: 0
+      stat: 10
+      minValue: 5
+      maxValue: 10
+      currentValue: 8
+    - tierNumber: 0
+      stat: 4
+      minValue: 1
+      maxValue: 2
+      currentValue: 1
+    - tierNumber: 1
+      stat: 13
+      minValue: 11
+      maxValue: 15
+      currentValue: 13
+    - tierNumber: 1
+      stat: 14
+      minValue: 11
+      maxValue: 15
+      currentValue: 14
+    itemIcon: {fileID: -1289065449, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  runeNumberToCreate: 1

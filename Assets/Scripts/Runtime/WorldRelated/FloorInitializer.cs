@@ -15,11 +15,19 @@ namespace Runtime.WorldRelated
         [SerializeField] public int currentFloor;
         [SerializeField] private int currentTimeOnFloor;
         public bool isPlayerDead = false;
+        public int starterFloor = 19;
 
+        public void Reset()
+        {
+            currentFloor = starterFloor;
+            isPlayerDead = false;
+            DOTween.Kill(FloorTimerID);
+        }
+        
         public void Initialise()
         {
             //Debug.Log("Loading Floor Initializer...");
-            currentFloor = 0;
+            currentFloor = starterFloor;
 
             //EventManager.Instance.FloorLoadEvent += OnFloorLoad;
             EventManager.Instance.PlayerDiesEvent += OnPlayerDies;
@@ -46,8 +54,8 @@ namespace Runtime.WorldRelated
 
         private void CompleteFloor()
         {
-            EventManager.Instance.FloorEnds(currentFloor);
             currentFloor++;
+            EventManager.Instance.FloorEnds(currentFloor);
         }
 
         public void OnFloorLoad()

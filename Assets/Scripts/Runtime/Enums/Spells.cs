@@ -10,5 +10,20 @@
         GambleForStat,
         MeteorFallSpell,
         EnemyBuffSpell,
+        ExplosionRune,
+    }
+
+    public enum BossSpells
+    {
+        SpiralExplosions,
+        ExplosionUnderPlayer,
+        RandomExplosionsAroundPlayer,
+    }
+
+    public enum BossAttackPatterns
+    {
+        SingleProjectile,
+        MultipleProjectile,
+        CircleProjectile,
     }
 }

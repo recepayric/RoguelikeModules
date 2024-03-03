@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
 
     #endregion
 
+    public WeaponSkillDataSo weaponSkillDataSo;
     public EnemySpawner enemySpawner;
     public FloorInitializer floorInitializer;
     private Player player;
@@ -54,7 +55,7 @@ public class GameController : MonoBehaviour
     {
         floorInitializer.Initialise();
         enemySpawner.Initialise();
-
+        weaponSkillDataSo.Reset();
         //SetSpawnEnemyTimer();
         _currencyDataSo = Resources.Load<CurrencyDataSo>("CollectableData");
 
@@ -79,6 +80,7 @@ public class GameController : MonoBehaviour
     [Button]
     public void StartSpawningMonsters()
     {
+        Debug.Log("Floor Num: " + floorInitializer.currentFloor);
         enemySpawner.StartSpawning(floorInitializer.currentFloor);
     }
 
@@ -122,14 +124,18 @@ public class GameController : MonoBehaviour
         var playerLevelDiff = player.playerLevel.CalculateLevelUp();
         player.ResetStatsForMarket();
         KillAllEnemies();
+        CollectAllCollectables();
 
         //todo check if player is in endless mode!!!
         if (floorInitializer.isPlayerDead)
         {
+            ReturnPlayer();
             EventManager.Instance.OpenScreen(Screens.GameEnd, true);
         }
-        else if (floorNumber >= 20)
+        else if (floorNumber >= 19)
         {
+            ReturnPlayer();
+            EventManager.Instance.OpenScreen(Screens.GameEnd, true);
             EventManager.Instance.GameEnd(true);
         }
         else if (playerLevelDiff > 0)
@@ -141,6 +147,15 @@ public class GameController : MonoBehaviour
         {
             EventManager.Instance.OpenScreen(Screens.Market, true);
         }
+    }
+
+    private void ReturnPlayer()
+    {
+        isNewPlayer = false;
+        isPlayerCreated = false;
+        Debug.Log("Return player!");
+        BasicPool.instance.Return(this.player.gameObject);
+        floorInitializer.Reset();
     }
 
     private void CreatePlayer()
@@ -180,6 +195,23 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < enemies.Count; i++)
         {
             BasicPool.instance.Return(enemies[i]);
+        }
+    }
+
+    private void CollectAllCollectables()
+    {
+        var collectables = DictionaryHolder.Collectables.Keys.ToList();
+        var pos = Camera.main.ScreenToWorldPoint(UIController.instance.collectableCollectPlace.transform.position);
+
+        for (int i = 0; i < collectables.Count; i++)
+        {
+            int a = i;
+            collectables[i].transform.DOMove(pos, 1).OnComplete(() =>
+            {
+                
+                GameObject obj = collectables[a];
+                BasicPool.instance.Return(obj);
+            });
         }
     }
 

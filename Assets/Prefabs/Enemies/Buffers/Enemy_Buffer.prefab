@@ -394,6 +394,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad5cb93d3794ca9b1fd447f776164c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Ailments:
+    gameObject: {fileID: 0}
+    enemiesToSpreadAilment: []
+    burnAilmentObject: {fileID: 0}
+    freezeAilmentObject: {fileID: 0}
+    shockAilmentObject: {fileID: 0}
+    bleedingAilmentObject: {fileID: 0}
+    burnTime: 0
+    freezeTime: 0
+    shockTime: 0
+    isBurning: 0
+    isFrozen: 0
+    isShocked: 0
+    isBleeding: 0
+    isStunned: 0
+    freezeEffect: 0
+    shockEffect: 0
+    burnAilment:
+      AilmentType: 0
+      stackStatForAilment: 0
+      isActive: 0
+      canBeStakced: 0
+      finishedAilments: 
+      ailmentRemainingTimes: []
+      ailmentEffects: []
+    freezeAilment:
+      AilmentType: 0
+      stackStatForAilment: 0
+      isActive: 0
+      canBeStakced: 0
+      finishedAilments: 
+      ailmentRemainingTimes: []
+      ailmentEffects: []
+    shockAilment:
+      AilmentType: 0
+      stackStatForAilment: 0
+      isActive: 0
+      canBeStakced: 0
+      finishedAilments: 
+      ailmentRemainingTimes: []
+      ailmentEffects: []
+    bleedAilment:
+      AilmentType: 0
+      stackStatForAilment: 0
+      isActive: 0
+      canBeStakced: 0
+      finishedAilments: 
+      ailmentRemainingTimes: []
+      ailmentEffects: []
+    stunAilment:
+      AilmentType: 0
+      stackStatForAilment: 0
+      isActive: 0
+      canBeStakced: 0
+      finishedAilments: 
+      ailmentRemainingTimes: []
+      ailmentEffects: []
   rigidBody: {fileID: 0}
   targetObject: {fileID: 0}
   enemy: {fileID: 0}
@@ -405,6 +462,10 @@ MonoBehaviour:
   windShieldHolder: {fileID: 4215226779093141571}
   lastChargeDistance: 0
   isFirstAttack: 1
+  isKnockbacked: 0
+  knockbackAmount: -1
+  targetKnockbackAmount: 0
+  knockbackTime: 0.25
 --- !u!114 &1039887513155052045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,6 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a33a9519307652409fe60de496ea09c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossBehaviour: {fileID: 0}
   spellPosition: {fileID: 8763998565809325601}
   health: {fileID: 1039887513155052035}
   projectilePrefab: {fileID: 7280217749031058319, guid: 907aaad318c7ab1499ee402e5ec89e61, type: 3}
@@ -486,16 +548,63 @@ MonoBehaviour:
   burnAilmentObject: {fileID: 1039887513723824074}
   freezeAilmentObject: {fileID: 1039887513184890686}
   shockAilmentObject: {fileID: 1039887513170884923}
-  isBurning: 0
-  isFrozen: 0
-  isShocked: 0
-  burnTime: 0
-  freezeTime: 0
-  shockTime: 0
-  burningDamagePerSecond: 0
-  freezeEffect: 0
-  shockEffect: 0
-  burningTimer: 0
+  ailments:
+    gameObject: {fileID: 0}
+    enemiesToSpreadAilment: []
+    burnAilmentObject: {fileID: 0}
+    freezeAilmentObject: {fileID: 0}
+    shockAilmentObject: {fileID: 0}
+    bleedingAilmentObject: {fileID: 0}
+    burnTime: 0
+    freezeTime: 0
+    shockTime: 0
+    isBurning: 0
+    isFrozen: 0
+    isShocked: 0
+    isBleeding: 0
+    isStunned: 0
+    freezeEffect: 0
+    shockEffect: 0
+    burnAilment:
+      AilmentType: 0
+      stackStatForAilment: 0
+      isActive: 0
+      canBeStakced: 0
+      finishedAilments: 
+      ailmentRemainingTimes: []
+      ailmentEffects: []
+    freezeAilment:
+      AilmentType: 0
+      stackStatForAilment: 0
+      isActive: 0
+      canBeStakced: 0
+      finishedAilments: 
+      ailmentRemainingTimes: []
+      ailmentEffects: []
+    shockAilment:
+      AilmentType: 0
+      stackStatForAilment: 0
+      isActive: 0
+      canBeStakced: 0
+      finishedAilments: 
+      ailmentRemainingTimes: []
+      ailmentEffects: []
+    bleedAilment:
+      AilmentType: 0
+      stackStatForAilment: 0
+      isActive: 0
+      canBeStakced: 0
+      finishedAilments: 
+      ailmentRemainingTimes: []
+      ailmentEffects: []
+    stunAilment:
+      AilmentType: 0
+      stackStatForAilment: 0
+      isActive: 0
+      canBeStakced: 0
+      finishedAilments: 
+      ailmentRemainingTimes: []
+      ailmentEffects: []
   _stats: {fileID: 0}
   animator: {fileID: 1039887513155052046}
   boxCollider2D: {fileID: 1039887513155052033}
@@ -506,7 +615,15 @@ MonoBehaviour:
   spellToCast: 7
   isCastingSpell: 0
   isAuraOn: 0
+  spells: []
+  minionPoolKey: 0
+  specialModifiersList: 
+  modifiersOnStart: []
+  modifiersOnGetHit: []
+  modifiersOnHealthChange: []
+  modifiersOnItemBuy: []
   isAttackingEnemy: 0
+  spellObject: {fileID: 0}
   isImmortal: 0
   castTime: 0
   castTimer: 0

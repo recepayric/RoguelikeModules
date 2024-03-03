@@ -117,7 +117,10 @@ namespace Runtime.EnemyRelated
             var increase = _tower.baseStatIncrease * Mathf.Pow(_tower.statIncreaseRatePerFloor, floor);
             currentDamage *= increase;
             currentMaxHealth *= increase;
-            currentSpeed *= increase;
+            var speedIncrease = increase / 10;
+            if (speedIncrease < 1)
+                speedIncrease = 1;
+            currentSpeed *= speedIncrease;
             //currentAttackSpeed *= increase;
             //currentAttackRange *= increase;
             //currentMaxAttackRange *= increase;

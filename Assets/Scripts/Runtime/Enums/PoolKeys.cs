@@ -1,8 +1,11 @@
 ﻿namespace Runtime.Enums
 {
+    //69
     public enum PoolKeys
     {
         Explosion1 = 0,
+        ExplosionPlayer1 = 66,
+        ExplosionBoss1 = 67,
         ProjectileSplit1 = 1,
         Enemy1 = 2,
         Minion1 = 3,
@@ -18,6 +21,7 @@
         EnemyCursedTree = 52,
         EnemyHiveTree1 = 53,
         EnemyTreeMinion1 = 54,
+        EnemyBoss1 = 68,
         ProjectileMagic = 10,
         ProjectileRock = 11,
         CharacterIconUI = 12,
@@ -41,7 +45,7 @@
         DummyBloodDrinker = 38,
         DummyBluntSword = 39,
         DummyReapersSword = 40,
-        DummyArrow1 = 44,
+        DummyBasicBow = 44,
         DummyArrow2 = 45,
         DummyArrow3 = 46,
         DummyArrow4 = 47,
@@ -63,6 +67,13 @@
         WeaponSwordNormal = 35,
         WeaponBloodDrinkerSword = 50,
         WeaponBluntSword = 51,
+        WeaponReapersSword = 65,
+        WeaponBasicBow = 58,
+        WeaponSnipeBow = 60,
+        WeaponBouncyBow = 61,
+        WeaponSparkBow = 62,
+        RunemasterQuill = 63,
+        SigilScepter = 64,
         
         //Slashes
         Slash_Normal = 36,
@@ -73,7 +84,12 @@
         //UI Stuff
         EndGameItemIcon = 57,
         
+        //Explosion Runes
+        Explosion_Rune_1 = 59,
+        
+        //Spell Relatedd
+        
         //Reserve for enemies!! At least 20!!!
-        //58
+        
     }
 }

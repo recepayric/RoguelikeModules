@@ -7,7 +7,7 @@ namespace Runtime.Interfaces
     public interface IDamageable
     {
         Transform Transform { get; set; }
-        void DealDamage(float damage, bool isCriticalHit);
+        void DealDamage(float damage, bool isCriticalHit, float knockbackAmount = 0);
         void AddElementalAilment(ElementModifiers ailment, float time, float effect, int spreadAmount = 0);
     }
 }

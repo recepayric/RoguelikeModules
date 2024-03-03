@@ -10796,7 +10796,9 @@ MonoBehaviour:
     rotationDistanceFromPlayer: 0
     hasHomingProjectiles: 0
     hasRotatingProjectiles: 0
-    isRotatinSword: 1
+    isRotatinSword: 0
+    spellNames: 
+    spells: []
     rotatingWeaponKey: 0
     specialModifiers: 
     _weaponDataSo: {fileID: 0}
@@ -10819,6 +10821,7 @@ MonoBehaviour:
     burnSpreadAmount: 0
     burnSpreadMultiplier: 1
   swordSwinger: {fileID: 0}
+  AttackHelper: {fileID: 0}
   projectilePrefab: {fileID: 7280217749031058319, guid: 9c2a0d9fa8fa0ae4096b4658e5f36c84, type: 3}
   projectilePoint: {fileID: 3220777079054858423}
   slashKey: 36
@@ -10842,6 +10845,7 @@ MonoBehaviour:
   - {fileID: 7373108936657687854}
   - {fileID: 3416209828981481157}
   styleCount: 0
+  spells: []
 --- !u!114 &4512411336291033651
 MonoBehaviour:
   m_ObjectHideFlags: 0

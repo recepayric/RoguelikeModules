@@ -80,6 +80,7 @@ namespace Runtime.UIRelated.MapSelect
         public void SelectTieredMaps()
         {
             pickedMapType = PickTypes.Tiered;
+            selectedTier = currentTier;
             CheckPickerMove();
             pickerImage.DOAnchorPosX(tieredMap.anchoredPosition.x, UIConfig.PickerMoveTime).SetId(PickerMoveID);
             ChangeTowerImage();
@@ -131,6 +132,7 @@ namespace Runtime.UIRelated.MapSelect
             mapDetailUI.SetTier(selectedTier);
             //mapDetailUI.UpdateTowerDetails();
         }
+        
 
         private void CheckPickerMove()
         {
@@ -141,6 +143,11 @@ namespace Runtime.UIRelated.MapSelect
         public void StartTower()
         {
             EventManager.Instance.LoadTower();
+        }
+
+        public void ReturnToCharacterSelectScreen()
+        {
+            EventManager.Instance.OpenScreen(Screens.CharacterSelect, true);
         }
 
         public void OnOpened()

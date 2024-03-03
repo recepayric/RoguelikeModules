@@ -9,6 +9,14 @@ namespace Runtime.PlayerRelated
         private Player _playerScript;
         private Stats _stats;
 
+        private bool canDash = false;
+        private float dashCooldownTime = 3;
+        private float dashTimer = 0;
+        private float dashSpeedMult = 5;
+        private float dashSpeedMultCurrent = 1;
+        private float dashTime = 0.05f;
+        private float dashTimeRemaining = 0.25f;
+
 
         [SerializeField] private float _moveSpeed;
         public float baseMoveSpeed = 1;
@@ -34,8 +42,37 @@ namespace Runtime.PlayerRelated
             _moveSpeed = baseMoveSpeed + baseMoveSpeed*(_stats.moveSpeed/100f);
         }
 
+        private void Dash()
+        {
+            if (!canDash) return;
+            canDash = false;
+            dashTimer = dashCooldownTime;
+            dashTimeRemaining = dashTime;
+            dashSpeedMultCurrent = dashSpeedMult;
+        }
+
+        private void UpdateDash()
+        {
+            dashSpeedMultCurrent -= Time.deltaTime / dashTime;
+            if (dashSpeedMultCurrent <= 1)
+            {
+                dashSpeedMultCurrent = 1;
+            }
+        }
+
         private void Update()
         {
+            UpdateDash();
+            dashTimer -= Time.deltaTime;
+            if (dashTimer < 0)
+            {
+                canDash = true;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Dash();
+            }
             _moveX = Input.GetAxisRaw("Horizontal");
             _moveY = Input.GetAxisRaw("Vertical");
 
@@ -43,8 +80,8 @@ namespace Runtime.PlayerRelated
 
             //todo if goes to both axis, reduce the speed
 
-            _deltaX = Time.deltaTime * _moveSpeed * _moveX;
-            _deltaY = Time.deltaTime * _moveSpeed * _moveY;
+            _deltaX = Time.deltaTime * (_moveSpeed*dashSpeedMultCurrent) * _moveX;
+            _deltaY = Time.deltaTime * (_moveSpeed*dashSpeedMultCurrent) * _moveY;
 
             _targetPosition.x = transform.position.x + _deltaX;
             _targetPosition.y = transform.position.y + _deltaY;

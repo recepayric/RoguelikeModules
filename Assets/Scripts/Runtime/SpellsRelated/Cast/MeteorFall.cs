@@ -1,10 +1,11 @@
 using DG.Tweening;
+using Runtime.Enums;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Runtime.SpellsRelated.Cast
 {
-    public class MeteorFall : Spell
+    public class MeteorFall : MonoBehaviour, IPoolObject
     {
         public GameObject meteorToSummon;
         public GameObject shadow;
@@ -13,14 +14,13 @@ namespace Runtime.SpellsRelated.Cast
         public Vector3 meteorPositionOffset;
         public float animationTotalTime;
 
-        public override void Activate()
+        public void Activate()
         {
-            base.Activate();
             Cast();
         }
 
         [Button]
-        public override void Cast()
+        public void Cast()
         {
             SetMeteorsPosition();
             StartShadowScaleUp();
@@ -28,11 +28,9 @@ namespace Runtime.SpellsRelated.Cast
             SpellEnd();
         }
 
-        public override void SetPosition(Vector3 targetPosition)
+        public void SetPosition(Vector3 targetPosition)
         {
-            base.SetPosition(targetPosition);
             transform.position = targetPosition;
-            //meteorFallPosition = targetPosition;
         }
 
         private void StartShadowScaleUp()
@@ -57,6 +55,18 @@ namespace Runtime.SpellsRelated.Cast
             {
                 BasicPool.instance.Return(gameObject);
             });
+        }
+
+        public PoolKeys PoolKeys { get; set; }
+        public void OnReturn()
+        {
+            
+        }
+
+        public void OnGet()
+        {
+            SetMeteorsPosition();
+            Cast();
         }
     }
 }

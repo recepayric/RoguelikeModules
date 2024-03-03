@@ -7,6 +7,7 @@ using Runtime.ItemsRelated;
 using Runtime.StatValue;
 using Runtime.TowerRelated;
 using Runtime.UIRelated;
+using Runtime.UIRelated.RuneRelated;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -36,6 +37,9 @@ namespace Runtime.Managers
 
         public event UnityAction<Tower> UpdateTowerEvent;
         public void UpdateTower(Tower tower) => UpdateTowerEvent?.Invoke(tower);
+
+        public event UnityAction UpgradeTowerEvent;
+        public void UpgradeTower() => UpgradeTowerEvent?.Invoke();
 
         #region Animation Related
 
@@ -95,6 +99,9 @@ namespace Runtime.Managers
 
         public event UnityAction<Item> ItemBuyEvent;
         public void ItemBuy(Item item) => ItemBuyEvent?.Invoke(item);
+        
+        public event UnityAction<PoolKeys> WeaponBuyEvent;
+        public void WeaponBuy(PoolKeys weaponPoolKey) => WeaponBuyEvent?.Invoke(weaponPoolKey);
 
         #endregion
 
@@ -155,11 +162,37 @@ namespace Runtime.Managers
 
         public event UnityAction<bool> SetCharacterCameraStatusEvent;
         public void SetCharacterCameraStatus(bool status) => SetCharacterCameraStatusEvent?.Invoke(status);
+
+        public event UnityAction<RuneInventorySlotUI> HoverRuneEvent;
+        public void HoverRune(RuneInventorySlotUI rune) => HoverRuneEvent?.Invoke(rune);
+
+        public event UnityAction CloseRuneDetailsEvent;
+        public void CloseRuneDetails() => CloseRuneDetailsEvent?.Invoke();
+
+        public event UnityAction RuneDragStartEvent;
+        public void RuneDragStart() => RuneDragStartEvent?.Invoke();
+
+        public event UnityAction RuneDragCancelledEvent;
+        public void RuneDragCancelled() => RuneDragCancelledEvent?.Invoke();
+
+        public event UnityAction<RuneInventorySlotUI, RuneInventorySlotUI> RuneReplaceEvent;
+
+        public void RuneReplace(RuneInventorySlotUI newRune, RuneInventorySlotUI oldRune) =>
+            RuneReplaceEvent?.Invoke(newRune, oldRune);
         
         #endregion
 
         public event UnityAction PlayerDiesEvent;
         public void PlayerDies() => PlayerDiesEvent?.Invoke();
+
+
+        #region Sound Related
+
+        public event UnityAction<Sounds, float> PlaySoundOnceEvent;
+        public void PlaySoundOnce(Sounds sound, float volume) => PlaySoundOnceEvent?.Invoke(sound, volume);
+        
+
+        #endregion
 
         #region Static Events
 

@@ -20,6 +20,7 @@ namespace Runtime.UIRelated.Market
         public float turnSpeed;
         public Vector3 turnSpeedVector;
         public Item item;
+        public WeaponDataSo weapon;
 
         public string ScaleId;
 
@@ -55,6 +56,7 @@ namespace Runtime.UIRelated.Market
         {
             canBeBought = false;
             isItem = false;
+            weapon = weaponDataSo;
             DOTween.Kill(ScaleId);
 
             itemIcon.gameObject.transform
@@ -68,7 +70,11 @@ namespace Runtime.UIRelated.Market
 
         public void SetIcon()
         {
-            itemIcon.sprite = item.itemIcon;
+            if (isItem)
+                itemIcon.sprite = item.itemIcon;
+            else
+                itemIcon.sprite = weapon.waaponSprite;
+
             itemIcon.gameObject.transform
                 .DOScale(new Vector3(1, 1, 1), AnimationConfig.MarketResetItemAnimationTime / 2)
                 .SetId(ScaleId).OnComplete(() => { canBeBought = true; });
@@ -77,8 +83,17 @@ namespace Runtime.UIRelated.Market
         public void BuyItem()
         {
             if (!canBeBought) return;
-            EventManager.Instance.ItemBuy(item);
-            marketUI.BuyItem(item);
+            if (isItem)
+            {
+                EventManager.Instance.ItemBuy(item);
+                marketUI.BuyItem(item);    
+            }
+            else
+            {
+                EventManager.Instance.WeaponBuy(weapon.WeaponPoolKey);
+                marketUI.BuyWeapon();
+            }
+            
             RemoveItem();
         }
 
@@ -94,8 +109,13 @@ namespace Runtime.UIRelated.Market
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if(canBeBought)
-                marketUI.SetItemDetails(item);
+            if (canBeBought)
+            {
+                if(isItem)
+                    marketUI.SetItemDetails(item);
+                else
+                    marketUI.SetWeaponDetails(weapon);
+            }
         }
 
         public void OnPointerExit(PointerEventData eventData)

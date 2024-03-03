@@ -83,6 +83,26 @@ public class BasicPool : MonoBehaviour
         }
     }
 
+    public List<PoolKeys> missingKeys;
+
+    [Button]
+    public void CheckMissingKeys()
+    {
+        if (missingKeys == null) missingKeys = new List<PoolKeys>();
+        missingKeys.Clear();
+
+        var PieceTypeNames = System.Enum.GetValues(typeof(PoolKeys));
+
+        for (int i = 0; i < PieceTypeNames.Length; i++)
+        {
+            var key = (PoolKeys) PieceTypeNames.GetValue(i);
+            if (!keys.Contains(key))
+            {
+                missingKeys.Add(key);
+            }
+        }
+    }
+
     public void Return(GameObject obj)
     {
         poolObjects[_allObjects[obj].PoolKeys].ReturnObject(obj);

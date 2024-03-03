@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Runtime.Enums;
+using Runtime.SpellsRelated;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -23,11 +24,13 @@ namespace Data.WeaponDataRelated
         public int BaseBounceNumber;
         public int rotationDistanceFromPlayer;
         public List<SpecialModifiers> specialModifiersList;
+        public List<Spells> spells;
         public PoolKeys WeaponPoolKey;
         public PoolKeys DummyWeaponKey;
         public PoolKeys RotatingWeaponKey;
         public WeaponData WeaponData;
         public Sprite waaponSprite;
+        public Sounds attackSound;
     }
 }
 

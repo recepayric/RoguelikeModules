@@ -1,0 +1,209 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2940871622718479351
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2940871622718479344}
+  - component: {fileID: 2940871622718479346}
+  - component: {fileID: 2940871622718479345}
+  - component: {fileID: 7870715103987115140}
+  - component: {fileID: -6162119142460112661}
+  m_Layer: 0
+  m_Name: Rune
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2940871622718479344
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2940871622718479351}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2164538958391429329}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 80, y: 80}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2940871622718479346
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2940871622718479351}
+  m_CullTransparentMesh: 1
+--- !u!114 &2940871622718479345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2940871622718479351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7870715103987115140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2940871622718479351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fccd0d3b638e4047b0d76c0cca3e690e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalBackground: {fileID: 21300000, guid: 50a12961b9a683545ad9cb84fcee775c, type: 3}
+  magicBackground: {fileID: 21300000, guid: 78d8537fa6ac6eb44b98788bc0edd033, type: 3}
+  rareBackground: {fileID: 21300000, guid: b8ce6dacea9c29a47a0f1ce97207bacd, type: 3}
+  epicBackground: {fileID: 21300000, guid: 475d078ecdeaa6b47892f62df80c0ae7, type: 3}
+  uniqueBackground: {fileID: 21300000, guid: 70e1a1e58395d4044bf84d7ef83e26e9, type: 3}
+  runeImages:
+  - {fileID: -90107008, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - {fileID: 835302026, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - {fileID: 1488977155, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - {fileID: 1675601176, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - {fileID: 1385291017, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - {fileID: 817775490, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - {fileID: -1289065449, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - {fileID: -940112520, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - {fileID: -102801008, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - {fileID: 1085471257, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - {fileID: -986200641, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  - {fileID: 1835226401, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  backgroundImage: {fileID: 2940871622718479345}
+  runeImage: {fileID: 51752565841076392}
+  rune:
+    rune_id: 0
+    rune_level: 0
+    runeRarity: 0
+    BodyPart: 0
+    stats: []
+    itemIcon: {fileID: 0}
+  targetAnchoredPosition: {x: 0, y: 0}
+--- !u!114 &-6162119142460112661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2940871622718479351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7141471fec7446a596f3087018741d7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &5831663215235142707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2164538958391429329}
+  - component: {fileID: 4968331125417731700}
+  - component: {fileID: 51752565841076392}
+  m_Layer: 0
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2164538958391429329
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5831663215235142707}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2940871622718479344}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -20, y: -20}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4968331125417731700
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5831663215235142707}
+  m_CullTransparentMesh: 1
+--- !u!114 &51752565841076392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5831663215235142707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -90107008, guid: b9b7b08dc0eb37b43b184bbb852c8238, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1

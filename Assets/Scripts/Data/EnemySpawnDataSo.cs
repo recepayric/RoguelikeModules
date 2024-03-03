@@ -131,6 +131,7 @@ namespace Data
             round = 0;
             var enemyNumIncrease = floor * enemyNumberIncreaesPerFloor;
 
+            
             do
             {
                 var enemyToAdd = Random.Range(minEnemySpawn, maxEnemySpawn);
@@ -145,7 +146,6 @@ namespace Data
                     timeBetween = floorTime - totalSpawnTime;
 
                 totalSpawnTime += timeBetween;
-                round++;
 
                 SpawnData spawnData = new SpawnData();
                 spawnData.Amount = enemyToAdd;
@@ -153,6 +153,14 @@ namespace Data
                 spawnData.spawnWait = timeBetween;
                 SpawnBuffer(spawnData);
                 SpawnDatas[floor].Add(spawnData);
+                
+                if (floor == 19 && round == 0)
+                {
+                    spawnData.hasBoss = true;
+                    spawnData.BossKey = PoolKeys.EnemyBoss1;
+                }
+
+                round++;
 
                 if (round > 100)
                     break;
@@ -173,6 +181,7 @@ namespace Data
             for (int i = 0; i < floorNumber; i++)
             {
                 floorTime = 30 + floor * 5;
+                //floorTime = 5;
                 if (floorTime > 60)
                     floorTime = 60;
                 
@@ -188,7 +197,9 @@ namespace Data
     {
         public PoolKeys EnemyKey;
         public PoolKeys BufferKey;
+        public PoolKeys BossKey;
         public bool hasBuffer;
+        public bool hasBoss;
         public int Amount;
         public int BufferAmount;
         public float spawnWait;

@@ -39,6 +39,11 @@ namespace Runtime.Effects
             //explosionRange = 1;
             explosionDamage = 1;
         }
+
+        public void SetDamage(float damage)
+        {
+            explosionDamage = damage;
+        }
         
 
         // Update is called once per frame
@@ -90,7 +95,7 @@ namespace Runtime.Effects
         private void DealDamage(IDamageable damageable)
         {
             Debug.Log("Dealing damage to: " + damageable);
-            damageable.DealDamage(explosionDamage, false);
+            damageable.DealDamage(explosionDamage, false, 1);
         }
 
         public PoolKeys PoolKeys { get; set; }
@@ -99,7 +104,7 @@ namespace Runtime.Effects
         {
             DictionaryHolder.Explosions.Add(gameObject, this);
             SetStats();
-            DOVirtual.DelayedCall(1, () => BasicPool.instance.Return(gameObject));
+            DOVirtual.DelayedCall(explosionTime*1.1f, () => BasicPool.instance.Return(gameObject));
         }
 
         public void OnReturn()
