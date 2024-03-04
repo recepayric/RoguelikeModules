@@ -136,7 +136,6 @@ namespace Runtime.WorldRelated
 
         public void StartSpawning(int floorNum)
         {
-            Debug.Log("Spawning! " + floorNum);
             floorNumber = floorNum;
             if (isStarted)
             {

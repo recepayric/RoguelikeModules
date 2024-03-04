@@ -75,7 +75,7 @@ MonoBehaviour:
   BaseBounceNumber: 0
   rotationDistanceFromPlayer: 0
   specialModifiersList: 
-  spells: 
+  spells: 08000000
   WeaponPoolKey: 58
   DummyWeaponKey: 26
   RotatingWeaponKey: 0

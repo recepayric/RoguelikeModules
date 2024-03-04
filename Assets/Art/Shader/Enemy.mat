@@ -8,7 +8,10 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Enemy
-  m_Shader: {fileID: -6465566751694194690, guid: 0d930118ba0b5bd41a17cc918b5d3eaf, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 0d930118ba0b5bd41a17cc918b5d3eaf,
+    type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -17,11 +20,13 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: -8328923581568760697, guid: 04b98fdf596619c488c9e023d42ed704, type: 3}
+        m_Texture: {fileID: -8328923581568760697, guid: 04b98fdf596619c488c9e023d42ed704,
+          type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -43,3 +48,16 @@ Material:
     - _HitColor: {r: 0.6320754, g: 0.2713154, b: 0.2713154, a: 1}
     - _HitValue: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
+--- !u!114 &7842085716709655664
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7

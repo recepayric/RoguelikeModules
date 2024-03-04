@@ -108,7 +108,6 @@ namespace Runtime
             {
                 var modifier = ModifierCreator.GetModifier(specialModifiersList[i]);
                 modifier.RegisterUser(gameObject);
-                Debug.Log("Adding special modifiers to the enemy! " + modifier.useArea);
                 switch (modifier.useArea)
                 {
                     case ModifierUseArea.OnStart:
@@ -120,7 +119,6 @@ namespace Runtime
                         break;
 
                     case ModifierUseArea.OnGetHit:
-                        Debug.Log("On Get Hit Modifier!");
                         if (!modifiersOnGetHit.Contains(modifier))
                             modifiersOnGetHit.Add(modifier);
                         break;
@@ -224,7 +222,6 @@ namespace Runtime
             var projNumber = _stats.currentProjectileNumber;
             var minRadious = 1f;
             var maxRadious = 3f;
-            Debug.Log("Spawning Minions! " + projNumber);
             for (int i = 0; i < projNumber; i++)
             {
                 var angle = Random.Range(0, 360);

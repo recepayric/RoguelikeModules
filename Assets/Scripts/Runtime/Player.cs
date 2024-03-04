@@ -516,14 +516,12 @@ namespace Runtime
 
         private void OnFloorStarts()
         {
-            Debug.Log("Floor Started!!!");
             CalculateStats();
             AddSpells();
             ResetHealth();
             isDead = false;
             for (int i = 0; i < weapons.Count; i++)
             {
-                Debug.Log("Weapon Updating!");
                 weapons[i].OnFloorStart();
             }
             
@@ -534,7 +532,6 @@ namespace Runtime
         {
             for (int i = 0; i < weapons.Count; i++)
             {
-                Debug.Log("Weapon Updating!");
                 weapons[i].OnFloorEnds();
             }
         }

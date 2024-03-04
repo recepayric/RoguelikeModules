@@ -80,7 +80,6 @@ public class GameController : MonoBehaviour
     [Button]
     public void StartSpawningMonsters()
     {
-        Debug.Log("Floor Num: " + floorInitializer.currentFloor);
         enemySpawner.StartSpawning(floorInitializer.currentFloor);
     }
 
@@ -106,9 +105,7 @@ public class GameController : MonoBehaviour
     private void OnLoadLevel()
     {
         //Load Player here!!!
-        Debug.Log("Player is being created");
         CreatePlayer();
-        Debug.Log("Starter weapon is being given!");
         EventManager.Instance.OpenScreen(Screens.Floor, true);
         EventManager.Instance.FloorLoad();
     }

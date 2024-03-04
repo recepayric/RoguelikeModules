@@ -29,7 +29,6 @@ namespace Runtime.UIRelated.MapSelect
 
         public void UpdateTowerDetails()
         {
-            Debug.Log(gameObject.name);
             var tower = selectedTower;
             towerNameText.text = tower.towerName;
 
@@ -72,7 +71,6 @@ namespace Runtime.UIRelated.MapSelect
         public void SetTier(int pTier)
         {
             currentTier = pTier;
-            Debug.Log("Preparing tower with tier: " + pTier);
             EventManager.Instance.PrepareTower(currentTier);
         }
 

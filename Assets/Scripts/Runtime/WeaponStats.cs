@@ -112,8 +112,6 @@ namespace Runtime
                 statsFromTree = new Dictionary<AllStats, float>();
 
             var data = _weaponDataSo;
-            Debug.Log(data);
-            Debug.Log(_weaponDataSo);
             rotatingWeaponKey = data.RotatingWeaponKey;
             rotationDistanceFromPlayer = data.rotationDistanceFromPlayer;
             //extra damages
