@@ -51,16 +51,20 @@ namespace Runtime.SpellsRelated.Aura
             base.DeActivate();
             DOTween.Kill(spellScaleID);
             RemoveAllBuffs();
+            Debug.Log("Deactivating the enemy aura spell");
             transform.DOScale(Vector3.zero, deactivateTime).OnComplete(() =>
             {
+                Debug.Log("Returned the aura spell");
                 BasicPool.instance.Return(gameObject);
             }).SetId(spellScaleID);
+            Debug.Log("Deactivated!! the enemy aura spell");
 
             isActive = false;
         }
 
         public override void Prepare()
         {
+            Debug.Log("Preparing the enemy aura spell");
             DOTween.Kill(spellScaleID);
             UpdateSize();
             transform.DOScale(targetScale, activateTime).SetId(spellScaleID);

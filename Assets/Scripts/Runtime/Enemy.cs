@@ -162,7 +162,7 @@ namespace Runtime
             ailments.UpdateAilments();
             UpdateDeath();
 
-            if (_stats.AttackType == AttackType.AuraUser && !isAuraOn)
+            if (_stats.AttackType == AttackType.AuraUser && !isAuraOn && !_isDead)
             {
                 CastSpell();
             }
@@ -336,7 +336,7 @@ namespace Runtime
             if (_stats.currentHealth <= 0)
             {
                 _stats.currentHealth = 0;
-                Die();
+                //Die();
             }
 
             health.UpdateHealth(_stats.currentHealth);
@@ -432,7 +432,6 @@ namespace Runtime
             DictionaryHolder.Enemies.Remove(gameObject);
             DictionaryHolder.Damageables.Remove(gameObject);
             isAttackingEnemy = false;
-            _isDead = false;
             
             if (_stats.AttackType == AttackType.Boss)
             {
@@ -456,6 +455,7 @@ namespace Runtime
             SetSpecialModifiers();
             SetStats();
             Initialise();
+            _isDead = false;
         }
 
         private void UpdateDeath()
