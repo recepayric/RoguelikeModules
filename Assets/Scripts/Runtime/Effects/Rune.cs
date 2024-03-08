@@ -29,6 +29,11 @@ namespace Runtime.Effects
         public void Prepare()
         {
             isExpanding = true;
+
+            if (enemiesInRange == null)
+                enemiesInRange = new List<IDamageable>();
+
+            enemiesInRange.Clear();
         }
 
         public void Explode()
@@ -51,7 +56,7 @@ namespace Runtime.Effects
         {
             if (isExpanding)
                 ScaleUp();
-            
+
             if (isRotating)
                 Rotate();
 
@@ -85,7 +90,7 @@ namespace Runtime.Effects
         {
             if (enemiesInRange == null)
                 enemiesInRange = new List<IDamageable>();
-            
+
             if (enemiesInRange.Count > 0)
             {
                 Activate();
@@ -115,8 +120,19 @@ namespace Runtime.Effects
 
             if (enemiesInRange == null)
                 enemiesInRange = new List<IDamageable>();
-            
+
             enemiesInRange.Add(enemy);
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            var enemy = DictionaryHolder.Damageables[other.gameObject];
+
+            if (enemiesInRange == null)
+                enemiesInRange = new List<IDamageable>();
+
+            if (enemiesInRange.Contains(enemy))
+                enemiesInRange.Remove(enemy);
         }
 
         public void OnGet()
@@ -125,6 +141,7 @@ namespace Runtime.Effects
             isExpanding = false;
             isActivated = false;
             isDetonated = false;
+
             Prepare();
             DictionaryHolder.Runes.Add(gameObject, this);
         }

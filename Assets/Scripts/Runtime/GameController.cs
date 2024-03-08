@@ -122,6 +122,7 @@ public class GameController : MonoBehaviour
         player.ResetStatsForMarket();
         KillAllEnemies();
         CollectAllCollectables();
+        ReturnAllRunes();
 
         //todo check if player is in endless mode!!!
         if (floorInitializer.isPlayerDead)
@@ -192,6 +193,15 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < enemies.Count; i++)
         {
             BasicPool.instance.Return(enemies[i]);
+        }
+    }
+
+    private void ReturnAllRunes()
+    {
+        var runes = DictionaryHolder.Runes.Keys.ToList();
+        for (int i = 0; i < runes.Count; i++)
+        {
+            BasicPool.instance.Return(runes[i]);
         }
     }
 

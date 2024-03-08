@@ -373,7 +373,7 @@ namespace Runtime
             //2- acisal
             //3 - duz + acisal
             var totalAngle = Mathf.PI * 2;
-            var projectileAmount = weaponStats.projectileAmount;
+            var projectileAmount = (weaponStats.projectileAmount-1);
             var angleBetweenProjectiles = 10f;
             var middlePoint = angleBetweenProjectiles * projectileAmount;
             var halfMiddle = middlePoint / 2;
