@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22ca9504dbd540a6ac16fd39776622c8, type: 3}
-  m_Name: Lightning
+  m_Name: RuneMaster
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -40,16 +40,16 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
     - Name: $k
       Entry: 3
-      Data: 0
+      Data: 14
     - Name: $v
       Entry: 4
-      Data: 10
+      Data: 50
     - Name: 
       Entry: 8
       Data: 
@@ -58,10 +58,22 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 13
+      Data: 40
     - Name: $v
       Entry: 4
-      Data: 300
+      Data: -0.5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 4
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
@@ -72,17 +84,17 @@ MonoBehaviour:
       Entry: 8
       Data: 
   level: 0
-  characterName: Lightning
+  characterName: Rune Master
   description: A very balanced and easy to play character! Very few bad things can
     be said about this little fella!
   footer: Not many of them surviveD
   specialModifiers: 
   characterUniqueModifiers: 
-  starterSpells: 04000000
+  starterSpells: 
   unlockCondition: 
   baseExpNeeded: 5
   baseExpNeedIncrease: 1.2
   baseExpGainMultiplier: 1
-  ExplanationText: Shocks enemies around it!
-  playerPoolKey: 29
-  mannqueenPoolKey: 69
+  ExplanationText: Moves Faster!
+  playerPoolKey: 55
+  mannqueenPoolKey: 72

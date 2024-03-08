@@ -9,12 +9,11 @@ namespace Runtime.UIRelated.RawCameraRelated
     public class CharacterSelectCameraController : MonoBehaviour
     {
         public GameObject cameraObject;
-
-        public List<string> characterNames;
-        public List<GameObject> charactersList;
         public GameObject lastActiveCharacter;
-
         public GameObject characterPosition;
+        public CharacterMannqueen characterMannqueen;
+        public bool hasWeaponSelected = false;
+        public PoolKeys selectedWeapon;
 
         private void Awake()
         {
@@ -27,20 +26,6 @@ namespace Runtime.UIRelated.RawCameraRelated
             cameraObject.SetActive(status);
         }
 
-
-        private void OnCharacterSelect(string characterName)
-        {
-            var index = characterNames.IndexOf(characterName);
-
-            if (lastActiveCharacter != null)
-                lastActiveCharacter.SetActive(false);
-
-            if (index >= charactersList.Count) return;
-
-            lastActiveCharacter = charactersList[index];
-            lastActiveCharacter.SetActive(true);
-        }
-
         private void OnCharacterSelect(PoolKeys poolKeys)
         {
             if (lastActiveCharacter != null)
@@ -49,12 +34,26 @@ namespace Runtime.UIRelated.RawCameraRelated
             var character = BasicPool.instance.Get(poolKeys);
             character.transform.position = characterPosition.transform.position;
             lastActiveCharacter = character;
+            characterMannqueen = lastActiveCharacter.GetComponent<CharacterMannqueen>();
+
+            if (hasWeaponSelected)
+            {
+                characterMannqueen.SetWeapon(selectedWeapon);
+            }
+        }
+        
+        public void OnWeaponSelectChanged(PoolKeys poolKeys)
+        {
+            hasWeaponSelected = true;
+            selectedWeapon = poolKeys;
+            characterMannqueen.SetWeapon(selectedWeapon);
         }
 
         private void AddEvents()
         {
             EventManager.Instance.CharacterSelectChangedEvent += OnCharacterSelect;
             EventManager.Instance.SetCharacterCameraStatusEvent += OnSetCharacterCameraController;
+            EventManager.Instance.WeaponSelectChangedEvent += OnWeaponSelectChanged;
         }
 
 
@@ -62,6 +61,7 @@ namespace Runtime.UIRelated.RawCameraRelated
         {
             EventManager.Instance.CharacterSelectChangedEvent -= OnCharacterSelect;
             EventManager.Instance.SetCharacterCameraStatusEvent -= OnSetCharacterCameraController;
+            EventManager.Instance.WeaponSelectChangedEvent -= OnWeaponSelectChanged;
         }
 
         private void OnDestroy()

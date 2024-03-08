@@ -1,6 +1,6 @@
 ﻿namespace Runtime.Enums
 {
-    //69
+    //73
     public enum PoolKeys
     {
         Explosion1 = 0,
@@ -34,8 +34,12 @@
         WindShield = 19,
         EnemyBuffSpell = 20,
 
-        MannequeenHades = 23,
-        MannequeenDemon = 24,
+        MannequinFire = 23,
+        MannequinIce = 24,
+        MannequinLightning = 69,
+        MannequinSpeedy = 70,
+        MannequinGambler = 71,
+        MannequinRuneMaster = 72,
 
         DummySword1 = 25,
         DummyWand1 = 26,

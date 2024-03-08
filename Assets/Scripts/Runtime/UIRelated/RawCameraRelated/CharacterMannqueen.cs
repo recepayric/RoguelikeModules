@@ -2,14 +2,14 @@ using Runtime.Enums;
 using Runtime.Managers;
 using UnityEngine;
 
-namespace Runtime.UIRelated.CharacterSelect
+namespace Runtime.UIRelated.RawCameraRelated
 {
     public class CharacterMannqueen : MonoBehaviour, IPoolObject
     {
         private GameObject selecterWeapon;
         public GameObject weaponHolder;
     
-        public void OnWeaponSelectChanged(PoolKeys poolKeys)
+        public void SetWeapon(PoolKeys poolKeys)
         {
             if(selecterWeapon != null)
                 BasicPool.instance.Return(selecterWeapon);
@@ -22,16 +22,23 @@ namespace Runtime.UIRelated.CharacterSelect
             selecterWeapon = weapon;
         }
 
+        private void RemoveWeapon()
+        {
+            if(selecterWeapon != null)
+                BasicPool.instance.Return(selecterWeapon);
+        }
+
         public PoolKeys PoolKeys { get; set; }
 
         public void OnReturn()
         {
-            EventManager.Instance.WeaponSelectChangedEvent -= OnWeaponSelectChanged;
+            RemoveWeapon();
+            //EventManager.Instance.WeaponSelectChangedEvent -= OnWeaponSelectChanged;
         }
 
         public void OnGet()
         {
-            EventManager.Instance.WeaponSelectChangedEvent += OnWeaponSelectChanged;
+            //EventManager.Instance.WeaponSelectChangedEvent += OnWeaponSelectChanged;
         }
     }
 }
