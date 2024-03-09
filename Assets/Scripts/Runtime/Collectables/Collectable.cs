@@ -47,7 +47,6 @@ namespace Runtime.Collectables
             }
 
             speedMult += Time.deltaTime * 10f;
-            
         }
 
         private void UpdateBackspeed()
@@ -55,24 +54,6 @@ namespace Runtime.Collectables
             backSpeedMult += Time.deltaTime / backSpeedMultTime;
             if (backSpeedMult > 1)
                 backSpeedMult = 1;
-        }
-
-        private IEnumerator ReturnMoveLoop()
-        {
-            var isCloseToTarget = false;
-            do
-            {
-                transform.position = Vector3.Lerp(transform.position, _target.position, Time.deltaTime * moveSpeed);
-                var distance = Vector3.Distance(transform.position, _target.position);
-
-                if (distance < 0.5f)
-                    isCloseToTarget = true;
-
-
-                yield return null;
-            } while (!isCloseToTarget);
-
-            FinishedCollecting();
         }
 
         private void FinishedCollecting()

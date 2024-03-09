@@ -11,11 +11,11 @@ namespace Runtime.Effects
     public class Rune : MonoBehaviour, IPoolObject
     {
         public PoolKeys PoolKeys { get; set; }
-        public bool isRotating = false;
-        public bool isActivated = false;
-        public bool isDetonated = false;
-        public bool isExpanding = false;
-        public bool canExplode = false;
+        public bool isRotating;
+        public bool isActivated;
+        public bool isDetonated;
+        public bool isExpanding;
+        public bool canExplode;
         public float rotateSpeed;
         public float scaleUpTime;
         public float targetScale;
@@ -126,6 +126,8 @@ namespace Runtime.Effects
 
         private void OnTriggerExit2D(Collider2D other)
         {
+            if (!DictionaryHolder.Damageables.ContainsKey(other.gameObject)) return;
+
             var enemy = DictionaryHolder.Damageables[other.gameObject];
 
             if (enemiesInRange == null)

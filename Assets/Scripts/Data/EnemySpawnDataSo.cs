@@ -181,7 +181,7 @@ namespace Data
             for (int i = 0; i < floorNumber; i++)
             {
                 floorTime = 30 + floor * 5;
-                //floorTime = 5;
+                floorTime = 15;
                 if (floorTime > 60)
                     floorTime = 60;
                 

@@ -364,6 +364,15 @@ namespace Runtime
                 SpawnMinions();
         }
 
+        private void ClearEnemy()
+        {
+            if (spellScript != null)
+            {
+                spellScript.DeActivate();
+                isAuraOn = false;
+            }
+        }
+
         private void ReturnObject()
         {
             ItemDropManager.instance.DropItemFromEnemy(this);
@@ -437,6 +446,8 @@ namespace Runtime
             {
                 bossBehaviour.Stop();
             }
+            
+            ClearEnemy();
         }
 
         private void Initialise()

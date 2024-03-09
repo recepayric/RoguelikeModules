@@ -9,5 +9,7 @@
         public static readonly float ModifyToExperienceRateMultiplier = 0.5f;
 
         public static readonly int TutorialMapOffset = -3;
+
+        public static readonly float EnemySpawnTimer = 0.5f;
     }
 }

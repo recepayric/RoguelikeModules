@@ -15,7 +15,7 @@ namespace Runtime.WorldRelated
         [SerializeField] public int currentFloor;
         [SerializeField] private int currentTimeOnFloor;
         public bool isPlayerDead = false;
-        public int starterFloor = 19;
+        private int starterFloor = 0;
 
         public void Reset()
         {

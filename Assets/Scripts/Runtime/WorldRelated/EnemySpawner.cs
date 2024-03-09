@@ -73,6 +73,13 @@ namespace Runtime.WorldRelated
             //totalWave = (int)(totalWaveTime / spawnTime);
         }
 
+        private void Spawn(PoolKeys poolKeys, float posX, float posY)
+        {
+            var marker = BasicPool.instance.Get(PoolKeys.EnemySpawnMarker1);
+            marker.transform.position = new Vector3(posX, posY);
+            DictionaryHolder.EnemySpawnMarkers[marker].enemySpawnKey = poolKeys;
+        }
+
         public void SpawnMonster()
         {
             
@@ -81,9 +88,10 @@ namespace Runtime.WorldRelated
                 var randX = Random.Range(-xBound, xBound);
                 var randY = Random.Range(-yBound, yBound);
 
-                var enemy = BasicPool.instance.Get(SpawnDatas[waveSpawned].BossKey);
-                enemy.transform.position = new Vector2(randX, randY);
-                enemy.name = "Boss " + Random.Range(0, 100000);
+                //var enemy = BasicPool.instance.Get(SpawnDatas[waveSpawned].BossKey);
+                //enemy.transform.position = new Vector2(randX, randY);
+                //enemy.name = "Boss " + Random.Range(0, 100000);
+                Spawn(SpawnDatas[waveSpawned].BossKey, randX, randY);
                 return;
             }
             
@@ -92,9 +100,11 @@ namespace Runtime.WorldRelated
                 var randX = Random.Range(-xBound, xBound);
                 var randY = Random.Range(-yBound, yBound);
                 //Debug.Log("Type: " + SpawnDatas[waveSpawned].EnemyKey);
-                var enemy = BasicPool.instance.Get(SpawnDatas[waveSpawned].EnemyKey);
-                enemy.transform.position = new Vector2(randX, randY);
-                enemy.name = "Enemy " + Random.Range(0, 100000);
+                //var enemy = BasicPool.instance.Get(SpawnDatas[waveSpawned].EnemyKey);
+                //enemy.transform.position = new Vector2(randX, randY);
+                //enemy.name = "Enemy " + Random.Range(0, 100000);
+                Spawn(SpawnDatas[waveSpawned].EnemyKey, randX, randY);
+
             }
 
             //spawn buffer here!!
@@ -103,9 +113,10 @@ namespace Runtime.WorldRelated
                 var randX = Random.Range(-xBound, xBound);
                 var randY = Random.Range(-yBound, yBound);
 
-                var enemy = BasicPool.instance.Get(SpawnDatas[waveSpawned].BufferKey);
-                enemy.transform.position = new Vector2(randX, randY);
-                enemy.name = "Buffer " + Random.Range(0, 100000);
+                //var enemy = BasicPool.instance.Get(SpawnDatas[waveSpawned].BufferKey);
+                //enemy.transform.position = new Vector2(randX, randY);
+                //enemy.name = "Buffer " + Random.Range(0, 100000);
+                Spawn(SpawnDatas[waveSpawned].BufferKey, randX, randY);
             }
             
             //Spawn Boss Here

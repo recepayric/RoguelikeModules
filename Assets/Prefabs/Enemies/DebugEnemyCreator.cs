@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Runtime.Configs;
+using Runtime.Enums;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -15,6 +17,21 @@ public class DebugEnemyCreator : MonoBehaviour
     public List<GameObject> enemies;
 
     public int createAmount;
+
+    public int collectableAmount;
+    
+    [Button]
+    public void CreateCollectable()
+    {
+        for (int i = 0; i < collectableAmount; i++)
+        {
+            var orb = BasicPool.instance.Get(PoolKeys.OrbPurple1);
+            var randX = Random.Range(-GameConfig.MapWidth, GameConfig.MapWidth);
+            var randY = Random.Range(-GameConfig.MapHeight, GameConfig.MapHeight);
+            orb.transform.position = new Vector3(randX, randY);
+        }
+    }
+    
     [Button]
     public void CreateEnemy()
     {

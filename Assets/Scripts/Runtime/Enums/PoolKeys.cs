@@ -1,6 +1,6 @@
 ﻿namespace Runtime.Enums
 {
-    //73
+    //74
     public enum PoolKeys
     {
         Explosion1 = 0,
@@ -94,6 +94,8 @@
         //Spell Relatedd
         
         //Reserve for enemies!! At least 20!!!
+        
+        EnemySpawnMarker1 = 73,
         
     }
 }

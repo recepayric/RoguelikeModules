@@ -5,6 +5,7 @@ using Runtime.Interfaces;
 using Runtime.Minions;
 using Runtime.TowerRelated;
 using Runtime.WeaponRelated;
+using Runtime.WorldRelated;
 using UnityEngine;
 
 namespace Runtime
@@ -22,6 +23,7 @@ namespace Runtime
         public static Dictionary<GameObject, ICursable> Cursable = new Dictionary<GameObject, ICursable>();
 
         public static Dictionary<GameObject, Rune> Runes = new Dictionary<GameObject, Rune>();
+        public static Dictionary<GameObject, EnemySpawnMarker> EnemySpawnMarkers = new Dictionary<GameObject, EnemySpawnMarker>();
 
 
         public static Tower CurrentTower;
