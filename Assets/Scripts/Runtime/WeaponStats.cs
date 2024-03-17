@@ -17,7 +17,6 @@ namespace Runtime
     {
         public WeaponTypes weaponType;
         
-        public int attackNumber;
         public float explosionDamageMultiplier;
         public bool explodingProjectile;
 
@@ -49,6 +48,16 @@ namespace Runtime
         public Dictionary<AllStats, float> statsFromTree = new Dictionary<AllStats, float>();
         public WeaponDataSo _weaponDataSo;
         public Sounds attackSound;
+
+        public float totalDamageWithThisWeapon;
+        public float totalDamageInThisFloor;
+        public float totalDamageInThisTower;
+        public int totalKillInThisTower;
+        public int totalKillInThisFloor;
+        public int totalKillWithoutGotHit;
+        public int totalKillWithThisWeapon;
+        public int totalAttackNumber;
+        public int totalAttackNumberWithoutGettingHit;
 
         //Elemental Values
         [ShowInInspector] public bool addBurn;

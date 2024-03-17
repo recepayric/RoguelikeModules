@@ -77,7 +77,7 @@ MonoBehaviour:
   specialModifiersList: 
   spells: 08000000
   WeaponPoolKey: 58
-  DummyWeaponKey: 26
+  DummyWeaponKey: 44
   RotatingWeaponKey: 0
   waaponSprite: {fileID: 21300000, guid: addaf49bbacb11842ae4887226167c92, type: 3}
   attackSound: 1

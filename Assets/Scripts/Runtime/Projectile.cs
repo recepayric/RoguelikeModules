@@ -365,7 +365,7 @@ namespace Runtime
 
             //ResetTravelData();
             var isCrit = Random.Range(0, 1f) <= criticalHitChance;
-            enemy.DealDamage((int)damage, isCrit, 1);
+            enemy.DealDamage((int)damage, isCrit, weapon,1);
 
 
             _piercedEnemyCount++;

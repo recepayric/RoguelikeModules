@@ -1,6 +1,6 @@
 ﻿namespace Runtime.Enums
 {
-    //74
+    //79
     public enum PoolKeys
     {
         Explosion1 = 0,
@@ -21,6 +21,11 @@
         EnemyCursedTree = 52,
         EnemyHiveTree1 = 53,
         EnemyTreeMinion1 = 54,
+        EnemyTankSkeletonBrute = 74,
+        EnemyWarriorGoblinDark = 75,
+        EnemyWarriorGoblinGreen = 76,
+        EnemyMageFlying = 77,
+        EnemyMageTank = 78,
         EnemyBoss1 = 68,
         ProjectileMagic = 10,
         ProjectileRock = 11,

@@ -28,7 +28,7 @@ namespace Runtime.Modifiers.WeaponSkillModifiers
             var explosionDamageMult =  skillData.secondEffectPerTier[tier];
 
             Debug.Log("Checking for explosion!!");
-            if (weapon.weaponStats.attackNumber % attackNumToExplode != 0)
+            if (weapon.weaponStats.totalAttackNumber % attackNumToExplode != 0)
             {
                 Debug.Log("No Explosion!");
 

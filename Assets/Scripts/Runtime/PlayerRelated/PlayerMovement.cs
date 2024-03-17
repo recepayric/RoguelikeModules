@@ -8,6 +8,7 @@ namespace Runtime.PlayerRelated
     {
         private Player _playerScript;
         private Stats _stats;
+        public Animator playerAnimator;
 
         private bool canDash = false;
         private float dashCooldownTime = 3;
@@ -27,6 +28,8 @@ namespace Runtime.PlayerRelated
         [SerializeField] private float _deltaY;
 
         public bool isTargetingEnemy = false;
+        private static readonly int IsRunning = Animator.StringToHash("IsRunning");
+        private static readonly int IsBackwards = Animator.StringToHash("IsBackwards");
 
         private void Start()
         {
@@ -93,12 +96,33 @@ namespace Runtime.PlayerRelated
             else
                 FaceTowards(-1);
 
+            if (_moveX == 0 && _moveY == 0)
+                playerAnimator.SetBool(IsRunning, false);
+            else
+                playerAnimator.SetBool(IsRunning, true);
+
         }
 
         private void FaceTowards(int side)
         {
-            if(isTargetingEnemy)
+            if (isTargetingEnemy)
+            {
+                if (side == 1)
+                {
+                    if(transform.localScale.x > 0)
+                        playerAnimator.SetBool(IsBackwards, true);
+                    else
+                        playerAnimator.SetBool(IsBackwards, false);
+                }
+                else
+                {
+                    if (transform.localScale.x > 0)
+                        playerAnimator.SetBool(IsBackwards, false);
+                    else
+                        playerAnimator.SetBool(IsBackwards, true);
+                }
                 return;
+            }
             //-1 left, stay original.
             //1 right, turn.
 

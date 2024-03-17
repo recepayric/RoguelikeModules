@@ -172,7 +172,13 @@ namespace Runtime
         public void AttackEnemy(bool isFirstAttack)
         {
             if (ailments.isStunned) return;
-            var attackTime = isFirstAttack ? 0.1f : _stats.currentAttackSpeed;
+            var attackTime = isFirstAttack ? 0.25f : _stats.currentAttackSpeed;
+
+            var speed = 1f / attackTime;
+
+            animator.SetFloat("AttackSpeed", speed);
+            animator.SetTrigger("Attack");
+            
             isAttackingEnemy = true;
             //todo change this to regular timer to get rid of dotween
             DOVirtual.DelayedCall(attackTime, () =>
@@ -194,7 +200,7 @@ namespace Runtime
                 return;
 
             if (_stats.AttackType == AttackType.Melee)
-                playerScript.DealDamage(_stats.currentDamage, false);
+                playerScript.DealDamage(_stats.currentDamage, false, null);
             else if (_stats.AttackType == AttackType.Magic)
             {
                 FireProjectile();
@@ -301,9 +307,13 @@ namespace Runtime
             }
         }
 
-        public void DealDamage(float damage, bool isCriticalHit, float knockbackAmount = 0)
+        public void DealDamage(float damage, bool isCriticalHit, Weapon weapon, float knockbackAmount = 0)
         {
-            damageTaken += damage;
+            //todo calculate damage after defence!!!
+            var calculatedDamage = damage;
+
+            weapon.UpdateDamageHit(calculatedDamage);
+            damageTaken += calculatedDamage;
             UIController.instance.AddDamageText(gameObject, damage, isCriticalHit);
             UpdateHealth();
             //_enemyDamageTaker.DamageTaken();
@@ -312,7 +322,7 @@ namespace Runtime
                 _enemyMovement.AddKnockback(1);
 
             if (_stats.currentHealth <= 0)
-                Die();
+                Die(weapon);
             else
             {
                 _enemyDamageTaker.DamageTaken();
@@ -322,6 +332,11 @@ namespace Runtime
                     modifiersOnGetHit[i].ApplyEffect(this);
                 }
             }
+        }
+
+        public void DealDamage(float damage, bool isCriticalHit, float knockbackAmount = 0)
+        {
+            //do nothing here..
         }
 
         public void AddElementalAilment(ElementModifiers element, float time, float effect, int spreadAmount)
@@ -344,7 +359,7 @@ namespace Runtime
 
         [Header("Immortal")] public bool isImmortal;
 
-        private void Die()
+        private void Die(Weapon weapon)
         {
             if (isImmortal) return;
             _isDead = true;
@@ -353,6 +368,7 @@ namespace Runtime
             animator.SetFloat("DieSpeed", 1f / AnimationConfig.DieAnimationTime);
             animator.SetTrigger("Die");
             dieTimer = AnimationConfig.DieAnimationTime * 1.25f;
+            weapon.UpdateKillCount();
 
             if (spellScript != null)
             {

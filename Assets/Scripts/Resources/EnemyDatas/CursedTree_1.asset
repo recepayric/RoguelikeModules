@@ -31,7 +31,7 @@ MonoBehaviour:
   baseAttackRange: 0
   baseMaxAttackRange: 0
   baseProjectileNumber: 1
-  minFloorToSpawn: 3
+  minFloorToSpawn: 13
   minSpawnAmount: 1
   maxSpawnAmount: 3
   attackType: 7

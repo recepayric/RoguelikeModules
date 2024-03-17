@@ -62,21 +62,7 @@ namespace Runtime
         public int styleCount;
 
         public List<SpellV2> spells;
-
-        private void Start()
-        {
-            
-            // //todo move these to get from pool!!
-            // weaponStats.SetStats();
-            // //weaponStats.CreateSpells();
-            // //spells = weaponStats.spells;
-            // //SetSpecialModifiers();
-            // SetSpecialModifiers(specialModifiersList);
-            // SetSpecialModifiers(weaponStats.specialModifiers);
-            // ActivateModifiers();
-            // UpdateStyle();
-        }
-
+        
         private void Update()
         {
             UpdateSpells();
@@ -229,7 +215,6 @@ namespace Runtime
 
         public void AddStyle(int number)
         {
-            Debug.Log("Don't forget to change your weapon's style!!!");
             styleCount++;
             UpdateStyle();
         }
@@ -260,7 +245,8 @@ namespace Runtime
                 AddSpecialModifier(pSpecialModifiersList[i]);
             }
         }
-
+        
+        //todo another script!
         private void AddSpecialModifier(SpecialModifiers specialModifier)
         {
             var modifier = ModifierCreator.GetModifier(specialModifier);
@@ -303,6 +289,7 @@ namespace Runtime
             }
         }
 
+        //todo another script!
         private void RemoveSpecialModifier(SpecialModifiers specialModifier)
         {
             var modifier = ModifierCreator.GetModifier(specialModifier);
@@ -314,7 +301,7 @@ namespace Runtime
                     if (modifiersOnStart.Contains(modifier))
                         modifiersOnStart.Remove(modifier);
                     break;
-                
+
                 case ModifierUseArea.OnHit:
                     break;
 
@@ -335,7 +322,7 @@ namespace Runtime
                     if (modifiersOnHealthChange.Contains(modifier))
                         modifiersOnHealthChange.Remove(modifier);
                     break;
-                
+
                 case ModifierUseArea.OnBeforeHit:
                     if (modifiersOnBeforeHit.Contains(modifier))
                         modifiersOnBeforeHit.Remove(modifier);
@@ -345,16 +332,14 @@ namespace Runtime
             }
         }
 
-
         private void CreateProjectile()
         {
-            
-
             if (targetEnemy == null || !targetEnemy.activeSelf || !DictionaryHolder.Enemies[targetEnemy].IsAvailable())
                 return;
-            
-            weaponStats.attackNumber++;
-            
+
+            weaponStats.totalAttackNumber++;
+            weaponStats.totalAttackNumberWithoutGettingHit++;
+
             EventManager.Instance.PlaySoundOnce(weaponStats.attackSound, 1);
 
             if (weaponDataSo.WeaponType == WeaponType.Sword)
@@ -362,33 +347,29 @@ namespace Runtime
                 SwordAttack();
                 return;
             }
-            
+
             for (int i = 0; i < modifiersOnBeforeHit.Count; i++)
             {
                 modifiersOnBeforeHit[i].ApplyEffect(this);
             }
 
-            //todo when multiple projectiles, send them with angle
-            //1 - duz
-            //2- acisal
-            //3 - duz + acisal
             var totalAngle = Mathf.PI * 2;
-            var projectileAmount = (weaponStats.projectileAmount-1);
+            var projectileAmount = (weaponStats.projectileAmount - 1);
             var angleBetweenProjectiles = 10f;
             var middlePoint = angleBetweenProjectiles * projectileAmount;
             var halfMiddle = middlePoint / 2;
             var startingAngle = -halfMiddle;
-            
+
             for (int i = 0; i < weaponStats.projectileAmount; i++)
             {
                 if (weaponDataSo.WeaponType == WeaponType.Sword) break;
-                
+
                 var angleToAdd = startingAngle + i * angleBetweenProjectiles;
-                
+
                 if (weaponDataSo.WeaponType == WeaponType.Wand)
                     CreateMagicProjectile(angleToAdd);
                 else if (weaponDataSo.WeaponType == WeaponType.Bow)
-                    CreateBowProjectile(angleToAdd);
+                    CreateMagicProjectile(angleToAdd);
             }
 
             if (weaponDataSo.WeaponType == WeaponType.Bow)
@@ -396,14 +377,13 @@ namespace Runtime
                 BowAttack();
             }
         }
-
-
+        
         private void CreateMagicProjectile(float angleToRotate)
         {
             //todo change this to pool and dictionary
             GameObject projectile = null;
 
-            if(weaponStats.hasSphereProjectile)
+            if (weaponStats.hasSphereProjectile)
                 projectile = Instantiate(sphereProjectile);
             else if (weaponStats.explodingProjectile)
                 projectile = Instantiate(explodingProjectile);
@@ -428,44 +408,6 @@ namespace Runtime
             sc.SetShooter(this);
             sc.isActive = true;
 
-            if (weaponStats.explodingProjectile)
-            {
-                sc.SetExplodingProjectile(weaponStats.explosionDamageMultiplier);
-            }
-        }
-
-        private void CreateBowProjectile(float angleToRotate)
-        {
-            //todo change this to pool and dictionary.
-            GameObject projectile = null;
-
-            if(weaponStats.hasSphereProjectile)
-                projectile = Instantiate(sphereProjectile);
-            else if (weaponStats.explodingProjectile)
-                projectile = Instantiate(explodingProjectile);
-            else
-                projectile = Instantiate(projectilePrefab);
-            
-            projectile.transform.position = projectilePoint.transform.position;
-            projectile.transform.right = targetEnemy.transform.position - projectile.transform.position;
-            projectile.transform.Rotate(new Vector3(0, 0, 1), angleToRotate);
-
-            var sc = projectile.GetComponent<Projectile>();
-
-            sc.bounceNum = weaponStats.hasSphereProjectile ? 0 : weaponStats.bounceNum;
-            sc.pierceNum = weaponStats.hasSphereProjectile ? 999 : weaponStats.pierceNum;
-            sc.criticalHitChance = weaponStats.criticalHitChance / 100f;
-            sc.criticalHitDamage = weaponStats.criticalHitDamage;
-            sc.weapon = this;
-            sc.SetModifiers(modifiers);
-            sc.SetMaxDistance(weaponStats.range);
-            sc.SetHomingProjectile(weaponStats.hasHomingProjectiles, targetEnemy);
-            sc.isRotating = weaponStats.hasRotatingProjectiles;
-            sc.SetShooter(this);
-
-            sc.isActive = true;
-            //AttackHelper.SetBowArrowAnimation(sc, projectilePoint, targetEnemy);
-            
             if (weaponStats.explodingProjectile)
             {
                 sc.SetExplodingProjectile(weaponStats.explosionDamageMultiplier);
@@ -481,19 +423,6 @@ namespace Runtime
                 swordSwinger.ActivateEnemyFollow();
             else
                 swordSwinger.DeActivateEnemyFollow();
-        }
-
-        public void SetEnemy(GameObject enemy)
-        {
-            if (enemy == null || !DictionaryHolder.Enemies[enemy].IsAvailable())
-            {
-                targetEnemy = null;
-                swordSwinger.SetTarget(null);
-                return;
-            }
-
-            targetEnemy = enemy;
-            swordSwinger.SetTarget(targetEnemy);
         }
 
         public void SetEnemy(GameObject enemy, float distance)
@@ -512,37 +441,47 @@ namespace Runtime
             swordSwinger.SetTarget(targetEnemy);
         }
 
+        public void UpdateDamageHit(float damageHit)
+        {
+            weaponStats.totalDamageInThisTower += damageHit;
+            weaponStats.totalDamageInThisFloor += damageHit;
+
+            //todo save this value!!!!!
+            weaponStats.totalDamageWithThisWeapon += damageHit;
+        }
+
+        public void UpdateKillCount()
+        {
+            weaponStats.totalKillInThisTower++;
+            weaponStats.totalKillInThisFloor++;
+            weaponStats.totalKillWithoutGotHit++;
+
+            //todo save this value!
+            weaponStats.totalKillWithThisWeapon++;
+        }
+
         public void OnFloorStart()
         {
-            Debug.Log("Activating!! weapon!!");
-            // weaponStats._weaponDataSo = weaponDataSo;
-            // weaponStats.statsFromTree = statsFromTree;
             weaponStats.SetStats();
             ActivateModifiers();
             ActivateRotatingWeapons();
+            ResetKillDamageValuesForFloor();
 
             for (int i = 0; i < spells.Count; i++)
-            {
-                Debug.Log("Activating Spell!");
                 spells[i].ActiavateSpell();
-            }
         }
 
         public void OnFloorEnds()
         {
             for (int i = 0; i < spells.Count; i++)
-            {
-                Debug.Log("Deactivating Spell");
                 spells[i].Deactivate();
-            }
         }
 
         private bool CanAttack()
         {
             return targetEnemy != null && distanceToEnemy <= weaponStats.range / GameConfig.RangeToRadius;
         }
-
-
+        
         public float GetDamage()
         {
             return weaponStats.damage;
@@ -556,9 +495,7 @@ namespace Runtime
         private void RemoveModifiers(List<SpecialModifiers> list)
         {
             for (int i = 0; i < list.Count; i++)
-            {
                 RemoveSpecialModifier(list[i]);
-            }
         }
 
         private void ResetWeapon()
@@ -566,23 +503,40 @@ namespace Runtime
             RemoveModifiers(specialModifiersList);
             RemoveModifiers(weaponStats.specialModifiers);
             spells.Clear();
-            if(statsFromTree != null)
+            
+            if (statsFromTree != null)
                 statsFromTree.Clear();
+            
             weaponUpgradeTree.ResetTree();
+        }
+
+        private void ResetKillDamageValues()
+        {
+            weaponStats.totalDamageInThisFloor = 0;
+            weaponStats.totalDamageInThisTower = 0;
+            weaponStats.totalKillInThisTower = 0;
+            weaponStats.totalKillInThisFloor = 0;
+            weaponStats.totalKillWithoutGotHit = 0;
+            weaponStats.totalAttackNumber = 0;
+            weaponStats.totalAttackNumberWithoutGettingHit = 0;
+        }
+
+        private void ResetKillDamageValuesForFloor()
+        {
+            weaponStats.totalDamageInThisFloor = 0;
+            weaponStats.totalKillInThisFloor = 0;
+            weaponStats.totalAttackNumber = 0;
+            weaponStats.totalAttackNumberWithoutGettingHit = 0;
         }
 
         private void InitialiseWeapon()
         {
-            //todo move these to get from pool!!
-            //weaponStats.SetStats();
-            //weaponStats.CreateSpells();
-            //spells = weaponStats.spells;
-            //SetSpecialModifiers();
             SetSpecialModifiers(specialModifiersList);
             SetSpecialModifiers(weaponStats.specialModifiers);
             ActivateModifiers();
             UpdateStyle();
             weaponUpgradeTree.ResetTree();
+            ResetKillDamageValues();
         }
 
         public PoolKeys PoolKeys { get; set; }
@@ -600,9 +554,6 @@ namespace Runtime
             weaponStats.SetStats();
             weaponStats.CreateSpells();
             spells = weaponStats.spells;
-
-            //ActivateModifiers();
-            //ActivateRotatingWeapons();
         }
     }
 }

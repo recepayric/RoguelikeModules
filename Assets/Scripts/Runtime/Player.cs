@@ -197,7 +197,17 @@ namespace Runtime
         }
 
         [Button]
-        public void DealDamage(float damage, bool isCriticalDamage, float knockbackAmount = 0)
+        public void DealDamage(float damage, bool isCriticalDamage, Weapon weapon, float knockbackAmount = 0)
+        {
+            damageTaken += damage;
+
+            for (int i = 0; i < modifiersOnGetHit.Count; i++)
+            {
+                modifiersOnGetHit[i].ApplyEffect(this);
+            }
+        }
+
+        public void DealDamage(float damage, bool isCriticalHit, float knockbackAmount = 0)
         {
             damageTaken += damage;
 

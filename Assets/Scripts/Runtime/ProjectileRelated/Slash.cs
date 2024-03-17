@@ -62,7 +62,7 @@ namespace Runtime.ProjectileRelated
             //ResetTravelData();
             var isCrit = Random.Range(0, 1f) <= _shooter?.GetCriticalDamageChance();
 
-            enemy.DealDamage((int)_damage, isCrit, 1);
+            enemy.DealDamage((int)_damage, isCrit, weapon,1);
 
             //Apply Ailments!
             //todo redo this!!!

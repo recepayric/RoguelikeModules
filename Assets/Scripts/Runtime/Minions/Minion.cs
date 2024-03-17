@@ -102,20 +102,7 @@ namespace Runtime.Minions
         {
             targetPosition = playerTransform.position + positionRelatedToPlayer;
             return;
-            GetClosestEnemy();
             
-            if(!isHitAnimationEnded)
-                return;
-            
-            if (!isMelee || targetEnemy == null)
-            {
-                walkSpeed = walkSpeedToFollow;
-            }
-            else
-            {
-                walkSpeed = walkSpeedToEnemy;
-                targetPosition = GetEnemyPosition();
-            }
         }
 
         private Vector3 GetEnemyPosition()
@@ -191,47 +178,7 @@ namespace Runtime.Minions
                 animator.SetBool("IsRunning", true);
             }
         }
-
-        private void GetClosestEnemy()
-        {
-            if (enemiesInRadius.Count == 0)
-            {
-                targetEnemy = null;
-                weapon.SetEnemy(null);
-                return;
-            }
-
-            //Check if curent enemy is in the list of enemies
-            if (targetEnemy != null && !enemiesInRadius.Contains(targetEnemy))
-            {
-                targetEnemy = null;
-                weapon.SetEnemy(null);
-            }
-
-            //update current distance with current enemy
-            if (targetEnemy != null)
-                closestEnemyDistance = Vector3.Distance(transform.position, targetEnemy.transform.position);
-
-            for (int i = 0; i < enemiesInRadius.Count; i++)
-            {
-                if (targetEnemy == null)
-                {
-                    targetEnemy = enemiesInRadius[i].gameObject;
-                    closestEnemyDistance = Vector3.Distance(transform.position, targetEnemy.transform.position);
-                    continue;
-                }
-
-                var distanceToCompare = Vector3.Distance(transform.position, enemiesInRadius[i].transform.position);
-                if (distanceToCompare < closestEnemyDistance)
-                {
-                    closestEnemyDistance = distanceToCompare;
-                    targetEnemy = enemiesInRadius[i].gameObject;
-                }
-            }
-
-            weapon.SetEnemy(targetEnemy);
-        }
-
+        
         private void CheckDirection()
         {
             var isLookingLeft = transform.localScale.x > 0;

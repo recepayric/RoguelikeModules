@@ -18,6 +18,7 @@ namespace Runtime.UIRelated.RawCameraRelated
             weapon.transform.SetParent(weaponHolder.transform);
 
             weapon.transform.localPosition = Vector3.zero;
+            weapon.transform.localScale = Vector3.one;
             weapon.transform.localRotation = Quaternion.identity;
             selecterWeapon = weapon;
         }

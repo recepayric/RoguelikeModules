@@ -41,7 +41,6 @@ namespace Runtime.Effects
             isActivated = false;
             DealDamageToTargets();
             RemoveObject();
-            Debug.Log("Exploded!!");
         }
 
         public void DealDamageToTargets()
