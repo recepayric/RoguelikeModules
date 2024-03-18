@@ -12,6 +12,7 @@ using Runtime.ProjectileRelated;
 using Runtime.SpellsRelated;
 using Runtime.WeaponRelated;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Runtime
 {
@@ -32,6 +33,7 @@ namespace Runtime
         private float distanceToEnemy;
 
         //todo change to poolkey
+        public GameObject[] projectilePrefabsPerTier;
         public GameObject projectilePrefab;
         public GameObject explodingProjectile;
         public GameObject sphereProjectile;
@@ -367,9 +369,9 @@ namespace Runtime
                 var angleToAdd = startingAngle + i * angleBetweenProjectiles;
 
                 if (weaponDataSo.WeaponType == WeaponType.Wand)
-                    CreateMagicProjectile(angleToAdd);
+                    CreateMagicProjectile(angleToAdd, Random.Range(0, projectilePrefabsPerTier.Length));
                 else if (weaponDataSo.WeaponType == WeaponType.Bow)
-                    CreateMagicProjectile(angleToAdd);
+                    CreateMagicProjectile(angleToAdd,Random.Range(0, projectilePrefabsPerTier.Length));
             }
 
             if (weaponDataSo.WeaponType == WeaponType.Bow)
@@ -378,7 +380,7 @@ namespace Runtime
             }
         }
         
-        private void CreateMagicProjectile(float angleToRotate)
+        private void CreateMagicProjectile(float angleToRotate, int projectileIndex = 0)
         {
             //todo change this to pool and dictionary
             GameObject projectile = null;
@@ -388,7 +390,15 @@ namespace Runtime
             else if (weaponStats.explodingProjectile)
                 projectile = Instantiate(explodingProjectile);
             else
-                projectile = Instantiate(projectilePrefab);
+            {
+                var totalIndex = projectilePrefabsPerTier.Length; // 3
+                var changeLevel = 5; // 7
+                var index = weaponLevelSystem.weaponLevel/changeLevel;
+                if (index >= totalIndex)
+                    index = totalIndex - 1;
+                
+                projectile = Instantiate(projectilePrefabsPerTier[projectileIndex]);
+            }
 
             projectile.transform.position = projectilePoint.transform.position;
             projectile.transform.right = targetEnemy.transform.position - projectile.transform.position;

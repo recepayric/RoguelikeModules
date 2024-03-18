@@ -34,6 +34,9 @@
         SphereProjectileSkill,
         MeteorSpawnSkill,
         SpawnMiniProjectilesOnTheWaySkill,
+        BleedChanceOnHitSkill,
+        CriticalHitOnXHitSkill,
+        DoubleDamageChanceSkill,
         
     }
 }

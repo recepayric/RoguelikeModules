@@ -19,6 +19,8 @@ namespace Runtime
         
         public float explosionDamageMultiplier;
         public bool explodingProjectile;
+        public bool criticalHitForSure;
+        public float doubleDamageChance;
 
         public bool hasSphereProjectile;
         public float damageReductionOnPierce;
@@ -65,7 +67,8 @@ namespace Runtime
         [ShowInInspector] public bool addShock;
         [ShowInInspector] public bool addBleed;
         [ShowInInspector] public bool addStun;
-        
+
+        [ShowInInspector] public float bleedChance;
         [ShowInInspector] public float stunChance;
 
         [ShowInInspector] public float burnTime;

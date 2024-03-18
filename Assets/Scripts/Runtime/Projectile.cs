@@ -25,6 +25,8 @@ namespace Runtime
         public Vector3 spinAxis;
 
         [Header("General")] public GameObject projectileObject;
+        //todo change it into pool!
+        [Header("General")] public GameObject hitParticleEffect;
 
         public bool destroyAfterTravelingMax = true;
         public bool followTarget = false;
@@ -96,6 +98,7 @@ namespace Runtime
             pTransform = transform;
             //Debug.Log("Projectile created!");
 
+            return;
             _renderer = GetComponent<SpriteRenderer>();
             _collider2D = GetComponent<CircleCollider2D>();
 
@@ -320,9 +323,10 @@ namespace Runtime
         private void StartDestroying()
         {
             projectileSpeed = 0;
-            _renderer.enabled = false;
-            _collider2D.enabled = false;
-            DOVirtual.DelayedCall(0.25f, () => { Destroy(gameObject); });
+            //_renderer.enabled = false;
+            //_collider2D.enabled = false;
+            //DOVirtual.DelayedCall(0.25f, () => { Destroy(gameObject); });
+            Destroy(gameObject);
         }
 
         public void Explode()
@@ -362,6 +366,12 @@ namespace Runtime
             damage -= damageReduction;
             damage = damage < 1 ? 1 : damage;
             EventManager.Instance.PlaySoundOnce(hitSound, 1);
+
+            if (hitParticleEffect != null)
+            {
+                var hit = Instantiate(hitParticleEffect);
+                hit.transform.position = transform.position;
+            }
 
             //ResetTravelData();
             var isCrit = Random.Range(0, 1f) <= criticalHitChance;
