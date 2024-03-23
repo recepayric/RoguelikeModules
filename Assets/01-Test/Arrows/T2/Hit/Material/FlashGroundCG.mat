@@ -100,7 +100,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 1
     - _DstMode: 10
-    - _Emission: 2
+    - _Emission: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1

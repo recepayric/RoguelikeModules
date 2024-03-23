@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.73125666, g: 0.39999998, b: 1, a: 1}
+      maxColor: {r: 1, g: 0.8687447, b: 0.39999998, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5141,7 +5141,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6773369, g: 0.5896226, b: 1, a: 1}
+      maxColor: {r: 0.96778625, g: 1, b: 0.5882353, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -10047,7 +10047,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6491439, g: 0.23921567, b: 1, a: 0.14117648}
+      maxColor: {r: 1, g: 0.94793135, b: 0.23921567, a: 0.14117648}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -14978,7 +14978,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 2
       minColor: {r: 0.7484276, g: 0.60684377, b: 0.06354563, a: 1}
-      maxColor: {r: 0.57146424, g: 0.16470587, b: 1, a: 1}
+      maxColor: {r: 1, g: 0.9800983, b: 0.16470587, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -19896,7 +19896,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 2
       minColor: {r: 0.7460947, g: 0.8490566, b: 0.3724635, a: 1}
-      maxColor: {r: 0.19921157, g: 0.0072188117, b: 0.45911938, a: 1}
+      maxColor: {r: 0.45882353, g: 0.4081325, b: 0.007843137, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -24814,7 +24814,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.60387146, g: 0.2588235, b: 1, a: 1}
+      maxColor: {r: 0.8290371, g: 1, b: 0.2588235, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
