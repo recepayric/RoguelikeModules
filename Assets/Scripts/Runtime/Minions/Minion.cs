@@ -89,6 +89,7 @@ namespace Runtime.Minions
 
         public void SetDefaultPosition(Vector3 positionRelatedToPlayer, Transform playerTransform)
         {
+            Debug.Log("Minion's position updated");
             this.positionRelatedToPlayer = positionRelatedToPlayer;
             this.playerTransform = playerTransform;
         }

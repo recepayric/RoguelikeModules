@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6873209427289570912}
   - component: {fileID: 1223930134386974054}
   - component: {fileID: 3602254433883830771}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4911,7 +4911,7 @@ GameObject:
   - component: {fileID: 6257920351990537093}
   - component: {fileID: 4833971235293904889}
   - component: {fileID: 875825864912745865}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Arrow_Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9814,7 +9814,7 @@ GameObject:
   - component: {fileID: 3057320649684563287}
   - component: {fileID: 5933080759778130689}
   - component: {fileID: 7109263647888702480}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14714,7 +14714,7 @@ GameObject:
   - component: {fileID: 6743702655190365707}
   - component: {fileID: 6844139787244053039}
   - component: {fileID: 412781243075529288}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19615,7 +19615,7 @@ GameObject:
   - component: {fileID: 2687466833027157241}
   - component: {fileID: 7301833974975989383}
   - component: {fileID: -8265122617156483789}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Arrow_T2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

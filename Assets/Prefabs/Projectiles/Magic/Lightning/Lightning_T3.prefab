@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1665531979788552454}
   - component: {fileID: 5818221416413032904}
   - component: {fileID: 3709024121850799897}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Electricy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4853,7 +4853,7 @@ GameObject:
   - component: {fileID: 8698218831991556753}
   - component: {fileID: 5822540844496436114}
   - component: {fileID: 5524488894949563047}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9695,7 +9695,7 @@ GameObject:
   - component: {fileID: 5197781808905350070}
   - component: {fileID: 1356894728259302649}
   - component: {fileID: 3052608806987645615}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Orb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14722,7 +14722,7 @@ GameObject:
   - component: {fileID: 4844136969583552049}
   - component: {fileID: 4255975114593413223}
   - component: {fileID: 4876602196406935926}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Lightning_Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19625,7 +19625,7 @@ GameObject:
   - component: {fileID: 3099416437683705377}
   - component: {fileID: 2391891840536248541}
   - component: {fileID: 8743134999504854560}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Electro_Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}

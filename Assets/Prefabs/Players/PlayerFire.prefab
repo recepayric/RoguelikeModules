@@ -1291,7 +1291,7 @@ MonoBehaviour:
   equippedWeapon: {fileID: 0}
   weaponPrefab: {fileID: 7849511378969271077, guid: 43ab0f77b0a82cd4b9f155a90f7b8409,
     type: 3}
-  weaponRadius: 2
+  weaponRadius: 4
   baseRange: 5
   finalRange: 0
   damageTaken: 0

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1691519937793305459}
   - component: {fileID: 4314263066540380637}
   - component: {fileID: -9033102510926441155}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Arrow_T3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 4491062160618753958}
   - component: {fileID: 1717030937831977404}
   - component: {fileID: 5227513299772662062}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Waves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5036,7 +5036,7 @@ GameObject:
   - component: {fileID: 4646983632634094549}
   - component: {fileID: 3382371798514708341}
   - component: {fileID: 5126625271941646015}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Arrow_Trail_Cut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9879,7 +9879,7 @@ GameObject:
   - component: {fileID: 2968436577609367526}
   - component: {fileID: 6555754690774137484}
   - component: {fileID: 8300400349745127979}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Extra_Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14721,7 +14721,7 @@ GameObject:
   - component: {fileID: 6469309266254726585}
   - component: {fileID: 7507698327869481035}
   - component: {fileID: 7783038738562008075}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Arrow_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

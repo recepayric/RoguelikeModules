@@ -55,7 +55,7 @@ MonoBehaviour:
       Data: false
     - Name: Amount
       Entry: 3
-      Data: 30
+      Data: 3
     - Name: BufferAmount
       Entry: 3
       Data: 0
@@ -26734,7 +26734,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6dd840415b9209f409fa6ff6c9ed090c, type: 2}
   - {fileID: 11400000, guid: f4cfa78d67ed8aa4fa1f10d526679de1, type: 2}
   floorTimes:
-  - 60
+  - 5
   - 60
   - 60
   - 60

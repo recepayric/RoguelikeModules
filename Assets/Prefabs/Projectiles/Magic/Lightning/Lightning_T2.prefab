@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 385564740676508123}
   - component: {fileID: 5933208370158080979}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TrailAB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   - component: {fileID: 5765065745542646296}
   - component: {fileID: 5278440353787302701}
   - component: {fileID: 5930947961378316964}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5195,7 +5195,7 @@ GameObject:
   - component: {fileID: 1507976714387600878}
   - component: {fileID: 5171994337885732056}
   - component: {fileID: 6185345052354318492}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10038,7 +10038,7 @@ GameObject:
   - component: {fileID: 7883638914488367763}
   - component: {fileID: 8031549955422973861}
   - component: {fileID: 572999152533312318}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BeamAB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14943,7 +14943,7 @@ GameObject:
   - component: {fileID: 6509427398780076317}
   - component: {fileID: 3395860660992454275}
   - component: {fileID: 2205922022463621891}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19852,7 +19852,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1314829432143841521}
   - component: {fileID: 3805611057120710003}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

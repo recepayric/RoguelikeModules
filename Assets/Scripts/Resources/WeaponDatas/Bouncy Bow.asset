@@ -60,7 +60,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  WeaponName: Bow
+  WeaponName: Bouncy Bow
   Description: Basic wand for everyone to use!
   isStarterWeapon: 1
   WeaponType: 3
@@ -79,5 +79,5 @@ MonoBehaviour:
   WeaponPoolKey: 61
   DummyWeaponKey: 46
   RotatingWeaponKey: 0
-  waaponSprite: {fileID: 21300000, guid: addaf49bbacb11842ae4887226167c92, type: 3}
+  waaponSprite: {fileID: 21300000, guid: 438faa879697aca4fba3f855898a5d0e, type: 3}
   attackSound: 1

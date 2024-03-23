@@ -15529,7 +15529,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 30
-  m_Sprite: {fileID: 21300000, guid: 24177f6a2f178054eab3a23a82e95b36, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5d0299c6f04a1d041a7000b540c52b97, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -15658,6 +15658,8 @@ MonoBehaviour:
     weaponType: 0
     explosionDamageMultiplier: 0
     explodingProjectile: 0
+    criticalHitForSure: 0
+    doubleDamageChance: 0
     hasSphereProjectile: 0
     damageReductionOnPierce: 0
     attackSpeed: 0
@@ -15692,6 +15694,7 @@ MonoBehaviour:
     addShock: 0
     addBleed: 0
     addStun: 0
+    bleedChance: 0
     stunChance: 0
     burnTime: 0
     burnDamage: 0
@@ -16070,7 +16073,7 @@ PrefabInstance:
     - target: {fileID: 721388519363200528, guid: 76e49fc6b456a4943b796f6eb2967141,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

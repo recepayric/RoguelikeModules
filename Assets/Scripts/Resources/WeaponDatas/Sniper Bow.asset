@@ -60,7 +60,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  WeaponName: Bow
+  WeaponName: Sniper Bow
   Description: Basic wand for everyone to use!
   isStarterWeapon: 1
   WeaponType: 3
@@ -79,5 +79,5 @@ MonoBehaviour:
   WeaponPoolKey: 60
   DummyWeaponKey: 45
   RotatingWeaponKey: 0
-  waaponSprite: {fileID: 21300000, guid: addaf49bbacb11842ae4887226167c92, type: 3}
+  waaponSprite: {fileID: 21300000, guid: 8eb6f965250d4da4ca23a5ceba3f8660, type: 3}
   attackSound: 1

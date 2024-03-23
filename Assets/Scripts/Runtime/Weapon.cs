@@ -134,8 +134,8 @@ namespace Runtime
 
         private void BowAttack()
         {
-            AttackHelper.weaponType = WeaponType.Bow;
-            AttackHelper.attackSpeed = weaponStats.attackSpeed;
+            //AttackHelper.weaponType = WeaponType.Bow;
+            //AttackHelper.attackSpeed = weaponStats.attackSpeed;
             //AttackHelper.StartAttack();
         }
 

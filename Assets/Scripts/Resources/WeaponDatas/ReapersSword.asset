@@ -60,7 +60,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  WeaponName: Blood Drinker
+  WeaponName: Reapers Sword
   Description: Basic sword for everyone to use!
   isStarterWeapon: 1
   WeaponType: 1

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4461402203146048231}
   - component: {fileID: 3093368499199365155}
   - component: {fileID: 6305960360300124404}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4979,7 +4979,7 @@ GameObject:
   - component: {fileID: 8224594316104672252}
   - component: {fileID: 7630412455541116498}
   - component: {fileID: 3599960916033271520}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9879,7 +9879,7 @@ GameObject:
   - component: {fileID: 5693229525520634336}
   - component: {fileID: 3420087583805925602}
   - component: {fileID: 2411518728107972894}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14721,7 +14721,7 @@ GameObject:
   - component: {fileID: 6342026592477270691}
   - component: {fileID: 6891386813817961503}
   - component: {fileID: 4941254356879915987}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 2D Projectile 10
   m_TagString: Untagged
   m_Icon: {fileID: 0}

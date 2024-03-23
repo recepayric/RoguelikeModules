@@ -155,7 +155,7 @@ namespace Runtime
         void Update()
         {
             CheckForCollectables();
-            CheckEnemies();
+            //CheckEnemies();
             UpdateHealth();
         }
 
@@ -470,7 +470,7 @@ namespace Runtime
             weaponObjects.Add(weapon);
             weapons.Add(weaponScript);
 
-            if (weaponObjects.Count == 1)
+            if (weaponObjects.Count == 0)
             {
                 weapon.transform.SetParent(WeaponPoint.transform);
                 weapon.transform.localPosition = Vector3.zero;
@@ -483,6 +483,7 @@ namespace Runtime
             }
             else
             {
+                Debug.Log("Adding minion with a weapon!");
                 var minion = BasicPool.instance.Get(PoolKeys.Minion1);
                 var minionScript = DictionaryHolder.Minions[minion];
                 minionScript.EquipWeapon(weaponScript);
@@ -511,14 +512,15 @@ namespace Runtime
         [Button]
         public void OrganiseWeapons()
         {
-            if (weapons.Count == 1) return;
+            //if (weapons.Count == 0) return;
             
-            float angleBetween = 360f / (weapons.Count-1);
-            for (int i = 0; i < weapons.Count-1; i++)
+            float angleBetween = 360f / (weapons.Count);
+            for (int i = 0; i < weapons.Count; i++)
             {
                 var angle = angleBetween * i * Mathf.Deg2Rad;
                 var posX = weaponRadius * Mathf.Cos(angle);
                 var posY = weaponRadius * Mathf.Sin(angle);
+                Debug.Log(posX + "  " + posY + "   " + weaponRadius + "   " + angle);
                 //weaponObjects[i].transform.localPosition = new Vector3(posX, posY, 0);
                 minions[i].SetDefaultPosition(new Vector3(posX, posY, 0), transform);
             }
@@ -646,7 +648,7 @@ namespace Runtime
             {
                 BasicPool.instance.Return(minions[i].gameObject);
             }
-            BasicPool.instance.Return(equippedWeapon.gameObject);
+            //BasicPool.instance.Return(equippedWeapon.gameObject);
             
             RemoveSpecialModifiers();
             weapons.Clear();

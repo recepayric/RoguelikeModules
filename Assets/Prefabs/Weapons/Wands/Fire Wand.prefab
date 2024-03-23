@@ -15274,7 +15274,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 30
-  m_Sprite: {fileID: 21300000, guid: 24177f6a2f178054eab3a23a82e95b36, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 71d69431e9fe4d1418732833e2549d08, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -15311,8 +15311,8 @@ Transform:
   m_GameObject: {fileID: 5582572694268642788}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -0.47, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.26, y: -3.54, z: 0}
+  m_LocalScale: {x: 2.3555624, y: 2.3555624, z: 2.3555624}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 253805682944891667}
@@ -15658,6 +15658,8 @@ MonoBehaviour:
     weaponType: 0
     explosionDamageMultiplier: 0
     explodingProjectile: 0
+    criticalHitForSure: 0
+    doubleDamageChance: 0
     hasSphereProjectile: 0
     damageReductionOnPierce: 0
     attackSpeed: 0
@@ -15692,6 +15694,7 @@ MonoBehaviour:
     addShock: 0
     addBleed: 0
     addStun: 0
+    bleedChance: 0
     stunChance: 0
     burnTime: 0
     burnDamage: 0
@@ -15708,9 +15711,9 @@ MonoBehaviour:
   swordSwinger: {fileID: 0}
   AttackHelper: {fileID: 0}
   projectilePrefabsPerTier:
-  - {fileID: 3492086858474217408, guid: 61599994db688bc449e8996211129b9b, type: 3}
-  - {fileID: 770851481768194528, guid: 05529d2b40330a8429df70b908601e7a, type: 3}
-  - {fileID: 5548037518589838557, guid: e20ca234f8e767e49837d0b544dd89d2, type: 3}
+  - {fileID: 528558706977218448, guid: 53f57bcc06a912d46aa2cd2dbfe94bd3, type: 3}
+  - {fileID: 2246522270503347309, guid: 8908f2d3ed1f78d49a5069044a6f57bc, type: 3}
+  - {fileID: 8608210459916862159, guid: 6c1fb888151ae9644abe51a4620e06a7, type: 3}
   projectilePrefab: {fileID: 7280217749031058319, guid: 9c2a0d9fa8fa0ae4096b4658e5f36c84,
     type: 3}
   explodingProjectile: {fileID: 7280217749031058319, guid: ff27a00fd90caef4da5215d9864c248c,
