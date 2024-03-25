@@ -9,13 +9,20 @@ namespace Runtime.Misc
         public Vector3 distanceFromPlayer;
         public bool isFollowingPlayer = false;
         public GameObject playerObject;
-
         
-
         private void LateUpdate()
         {
-            if (!isFollowingPlayer) return;
+            if (!isFollowingPlayer)
+            {
+                FollowPlayer();
+                return;
+            }
 
+            transform.position = playerObject.transform.position + distanceFromPlayer;
+        }
+
+        private void FollowPlayer()
+        {
             transform.position = playerObject.transform.position + distanceFromPlayer;
         }
 
