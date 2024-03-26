@@ -78,6 +78,7 @@ namespace Test_Runtime
             {
                 var hitParticle = Instantiate(hitParticlePrefab);
                 hitParticle.transform.position = transform.position;
+                Destroy(hitParticle,0.5f);
             }
             else
             {

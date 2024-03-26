@@ -50,7 +50,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -9821,7 +9821,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3273135045802290953}
   - component: {fileID: 1857487097518719388}
-  - component: {fileID: 4020500549065444133}
   m_Layer: 7
   m_Name: Slash_T2
   m_TagString: Projectile
@@ -9837,14 +9836,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6428694747844652365}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6901162066934887592}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1857487097518719388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9857,45 +9856,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a1000f2012f46279f75ae961db9f648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isShot: 0
+  isHoming: 0
   speed: 0
+  turnTime: 0
+  turningTimer: 0
   lifetime: 0
   hitParticlePrefab: {fileID: 1889983584387741989, guid: 09eda542142086f4ba604f609ee81c61,
     type: 3}
---- !u!58 &4020500549065444133
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6428694747844652365}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.54625726, y: 0.05517745}
-  serializedVersion: 2
-  m_Radius: 1.719424
+  targetPoint: {fileID: 0}
+  initialRotation: {x: 0, y: 0, z: 0}
+  targetRotation: {x: 0, y: 0, z: 0}
 --- !u!1 &9139487878256150351
 GameObject:
   m_ObjectHideFlags: 0
