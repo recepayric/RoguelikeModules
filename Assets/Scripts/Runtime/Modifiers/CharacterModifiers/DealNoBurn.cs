@@ -1,4 +1,5 @@
 ﻿using Runtime.Enums;
+using Runtime.PlayerRelated;
 
 namespace Runtime.Modifiers.CharacterModifiers
 {

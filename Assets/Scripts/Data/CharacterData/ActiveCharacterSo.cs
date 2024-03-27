@@ -2,6 +2,7 @@
 using Runtime;
 using Runtime.Enums;
 using Runtime.ItemsRelated;
+using Runtime.PlayerRelated;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;

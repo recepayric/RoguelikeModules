@@ -29,6 +29,9 @@ namespace Runtime
         
         //[Header("Data")] public EnemyData enemyData;
         public Transform Transform { get; set; }
+        [SerializeField] private GameObject _hitPoint;
+        public GameObject HitPoint => _hitPoint;
+
         public EnemyBossBehaviour bossBehaviour;
 
         public GameObject spellPosition;
@@ -49,7 +52,7 @@ namespace Runtime
         private EnemyDamageTaker _enemyDamageTaker;
 
         public Animator animator;
-        public BoxCollider2D boxCollider2D;
+        public Collider boxCollider2D;
 
         private bool _isDead = false;
 
@@ -401,7 +404,9 @@ namespace Runtime
             if (health == null) health = GetComponent<Health>();
 
             playerScript = DictionaryHolder.Player;
-            playerObject = playerScript.gameObject;
+            
+            if(playerScript != null)
+                playerObject = playerScript.gameObject;
 
             _stats.SetStats();
 

@@ -39,6 +39,11 @@ namespace Runtime.UIRelated
         {
             EventManager.Instance.FloorLoad();
         }
+
+        public void AddWeapon()
+        {
+            EventManager.Instance.WeaponBuy(PoolKeys.WeaponWandFire);
+        }
         
         
         private string CalculateFPS()

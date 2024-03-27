@@ -31,6 +31,7 @@ namespace Runtime.PlayerRelated
 
         public void UpdateHealthBar()
         {
+            return;
             healthPercentage = currentHealth / maxHealth;
             healthBar.transform.localScale = new Vector3(healthPercentage, 1, 1);
         }

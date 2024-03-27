@@ -11,12 +11,12 @@ namespace Runtime.PlayerRelated
 
         private float _moveX;
         private float _moveZ;
-        public float moveSpeed;
-        public float angleThreshold;
-        public float angleOffset;
+        public float moveSpeed = 5;
+        public float angleThreshold = 0.1f;
+        public float angleOffset = -45;
         public float angleDegree;
         public float targetAngle;
-        public float turnSpeed;
+        public float turnSpeed = 180;
 
         private void Start()
         {
@@ -49,8 +49,8 @@ namespace Runtime.PlayerRelated
             Rotate();
         }
 
-        public float diffNormal;
-        public float diffInverse;
+        private float diffNormal;
+        private float diffInverse;
         private void Rotate()
         {
            var turn = angleDegree < targetAngle ? 1 : -1;

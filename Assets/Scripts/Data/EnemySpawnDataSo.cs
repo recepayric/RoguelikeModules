@@ -50,7 +50,7 @@ namespace Data
             for (int i = 0; i < enemyDataObjects.Length; i++)
             {
                 var data = (EnemyData)enemyDataObjects[i];
-                if (data.CanBeSpawnedNormally)
+                if (data.CanBeSpawnedNormally && data.canBeSpawned)
                     enemyDatas.Add(data);
             }
         }
@@ -122,6 +122,10 @@ namespace Data
         {
             SetPoolKeys();
             CheckBuffers();
+            
+            if (poolKeys.Count == 0)
+                return;
+            
             if (SpawnDatas.Count <= floor)
                 SpawnDatas.Add(new List<SpawnData>());
             else

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Data;
 using Runtime.Enums;
+using Runtime.PlayerRelated;
 using Runtime.ProjectileRelated;
 using Runtime.WeaponRelated;
 using UnityEngine;

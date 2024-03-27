@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Runtime.Enums;
+using Runtime.PlayerRelated;
 using UnityEngine;
 
 namespace Runtime.Modifiers.CharacterModifiers

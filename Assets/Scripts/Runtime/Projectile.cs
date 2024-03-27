@@ -247,15 +247,21 @@ namespace Runtime
             transform.right = Vector3.Lerp(transform.right, targetRight, Time.deltaTime * homingTurnSpeed);
 
             deltaTravel = Time.deltaTime * projectileSpeed * pTransform.right;
-            distanceTraveled += Vector2.Distance(pTransform.position, pTransform.position + deltaTravel);
+            distanceTraveled += Vector3.Distance(pTransform.position, pTransform.position + deltaTravel);
             pTransform.position += deltaTravel;
         }
 
         private void UpdateRegularMove()
         {
-            deltaTravel = Time.deltaTime * projectileSpeed * pTransform.right;
-            distanceTraveled += Vector2.Distance(pTransform.position, pTransform.position + deltaTravel);
+            deltaTravel = Time.deltaTime * projectileSpeed * pTransform.forward;
+            distanceTraveled += Vector3.Distance(pTransform.position, pTransform.position + deltaTravel);
             pTransform.position += deltaTravel;
+
+            if (transform.position.y > 2.5f)
+            {
+                transform.rotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 0));
+
+            }
 
             if (destroyAfterTravelingMax && distanceTraveled >= maxTravel)
             {
@@ -371,6 +377,7 @@ namespace Runtime
             {
                 var hit = Instantiate(hitParticleEffect);
                 hit.transform.position = transform.position;
+                hit.transform.rotation = transform.rotation;
             }
 
             //ResetTravelData();
@@ -460,12 +467,14 @@ namespace Runtime
             return null;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter(Collider other)
         {
             var damageable = other.gameObject.GetComponent<IDamageable>();
             if (damageable != null)
                 HitTarget(damageable);
         }
+        
+        
 
         public PoolKeys PoolKeys { get; set; }
 

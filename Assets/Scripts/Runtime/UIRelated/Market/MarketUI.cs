@@ -4,6 +4,7 @@ using Data.WeaponDataRelated;
 using Runtime.Enums;
 using Runtime.ItemsRelated;
 using Runtime.Managers;
+using Runtime.PlayerRelated;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
