@@ -35,7 +35,7 @@ namespace Runtime.EnemyRelated
         
         public bool isFirstAttack = true;
         private Animator _animator;
-        private static readonly int IsRunning = Animator.StringToHash("isRunning");
+        private static readonly int IsRunning = Animator.StringToHash("IsRunning");
 
         public bool isKnockbacked = false;
         public float knockbackAmount = -1f;
@@ -54,7 +54,7 @@ namespace Runtime.EnemyRelated
             enemy = GetComponent<Enemy>();
             stats = GetComponent<EnemyStats>();
             rigidBody = GetComponent<Rigidbody>();
-            _animator = GetComponent<Animator>();
+            //_animator = GetComponent<Animator>();
         }
 
         public void AddKnockback(float knockbackAmount)
@@ -160,6 +160,10 @@ namespace Runtime.EnemyRelated
                 hasNoTarget = true;
                 return;
             }
+            
+            FaceTowardsPlayer();
+
+            
             //Check player rotation
             //return;
             if (!enemy.IsAvailable()) return;
@@ -182,7 +186,6 @@ namespace Runtime.EnemyRelated
             var playerY = targetObject.transform.position.y;
 
             var angle = Mathf.Atan2(playerY - posY, playerX - posX);
-            transform.forward =  targetObject.transform.position - transform.position;
 
             var speedMult = isCharging ? 2 : 1;
 
@@ -190,13 +193,16 @@ namespace Runtime.EnemyRelated
             var deltaY = Time.deltaTime * speedAfterFreeze * speedMult * Mathf.Sin(angle);
 
             var MoveAmount = new Vector3(deltaX, deltaY, 0);
-            //Debug.Log(transform.forward);
+            
             MoveAmount = transform.forward * Time.deltaTime * speedAfterFreeze * speedMult;
             var knockbackSpeed = isKnockbacked ?  -knockbackAmount : 1;
             MoveAmount *= knockbackSpeed;
-
-            //transform.position += new Vector3(deltaX, deltaY, 0);
             rigidBody.MovePosition(transform.position + MoveAmount);
+        }
+
+        private void FaceTowardsPlayer()
+        {
+            transform.forward =  targetObject.transform.position - transform.position;
         }
         
         
@@ -249,6 +255,11 @@ namespace Runtime.EnemyRelated
                 return true;
 
             return false;
+        }
+
+        public void SetAnimator(Animator animator)
+        {
+            _animator = animator;
         }
     }
 }

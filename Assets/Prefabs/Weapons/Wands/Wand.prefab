@@ -14678,7 +14678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3500805180359318085
 Transform:
   m_ObjectHideFlags: 0
@@ -14939,7 +14939,7 @@ Transform:
   m_GameObject: {fileID: 3220777079054858423}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.54, y: 0.113, z: 0}
+  m_LocalPosition: {x: 0.98, y: -0.074, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15116,6 +15116,89 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4195807352381126128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3562716887623561034}
+  - component: {fileID: 494986628697776367}
+  - component: {fileID: 2394363585318458405}
+  m_Layer: 0
+  m_Name: Wand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3562716887623561034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195807352381126128}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 7849511378969271083}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!33 &494986628697776367
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195807352381126128}
+  m_Mesh: {fileID: -4006300823370068072, guid: 67be24e8ee52ec04497cfee5403c5fa3, type: 3}
+--- !u!23 &2394363585318458405
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195807352381126128}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 37061580f1d5a6540bca7f9077145d28, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4267076707543509131
 GameObject:
   m_ObjectHideFlags: 0
@@ -15571,8 +15654,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.532, y: 1.173, z: 0}
-  m_LocalScale: {x: 0.4326, y: 0.4326, z: 0.4326}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3500805180359318085}
   - {fileID: 6585186188376994440}
@@ -15585,6 +15668,7 @@ Transform:
   - {fileID: 430925230703946885}
   - {fileID: 2363536221356995986}
   - {fileID: 8798832144072603927}
+  - {fileID: 3562716887623561034}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7849511378969271082
@@ -15651,6 +15735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b4b196bb98b7a14e87fd8a4a94b6ae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileTier: 0
   weaponLevelSystem: {fileID: 4512411336291033651}
   weaponUpgradeTree: {fileID: -2118557062214317711}
   weaponDataSo: {fileID: 11400000, guid: 9031c0be6a9837446be992083aeef7ec, type: 2}
@@ -15711,9 +15796,9 @@ MonoBehaviour:
   swordSwinger: {fileID: 0}
   AttackHelper: {fileID: 0}
   projectilePrefabsPerTier:
-  - {fileID: 3492086858474217408, guid: 61599994db688bc449e8996211129b9b, type: 3}
-  - {fileID: 770851481768194528, guid: 05529d2b40330a8429df70b908601e7a, type: 3}
-  - {fileID: 5548037518589838557, guid: e20ca234f8e767e49837d0b544dd89d2, type: 3}
+  - {fileID: 528558706977218448, guid: 9a1006c123f52604fa7f871db29818b5, type: 3}
+  - {fileID: 8608210459916862159, guid: 6f867130944caa3488966d30256c11d7, type: 3}
+  - {fileID: 2246522270503347309, guid: 1708f8e48dc9deb458718beb4786bcc5, type: 3}
   projectilePrefab: {fileID: 7280217749031058319, guid: 9c2a0d9fa8fa0ae4096b4658e5f36c84,
     type: 3}
   explodingProjectile: {fileID: 7280217749031058319, guid: ff27a00fd90caef4da5215d9864c248c,
@@ -15736,7 +15821,7 @@ MonoBehaviour:
   swirlObject: {fileID: 3115470710417006726}
   isAttacking: 0
   styles:
-  - {fileID: 1926029247403731760}
+  - {fileID: 4195807352381126128}
   - {fileID: 919715885374278766}
   - {fileID: 4466652527552664451}
   - {fileID: 6549957704723098696}
@@ -16073,7 +16158,7 @@ PrefabInstance:
     - target: {fileID: 721388519363200528, guid: 76e49fc6b456a4943b796f6eb2967141,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

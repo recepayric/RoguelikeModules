@@ -90,6 +90,7 @@ namespace Runtime
             _enemyDamageTaker = GetComponent<EnemyDamageTaker>();
 
             _enemyMovement.Ailments = ailments;
+            _enemyMovement.SetAnimator(animator);
         }
 
         private void SetUpAilments()

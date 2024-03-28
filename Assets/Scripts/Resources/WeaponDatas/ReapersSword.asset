@@ -62,7 +62,7 @@ MonoBehaviour:
       Data: 
   WeaponName: Reapers Sword
   Description: Basic sword for everyone to use!
-  isStarterWeapon: 1
+  isStarterWeapon: 0
   WeaponType: 1
   BaseAttackSpeed: 1
   BaseAttackRange: 400

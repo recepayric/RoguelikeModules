@@ -1631,7 +1631,7 @@ MonoBehaviour:
   isCloseToTarget: 0
   rangeToAttack: 1.5
   moveDistanceThreshold: 0.2
-  walkSpeed: 3
+  walkSpeed: 4
   walkSpeedToFollow: 20
   walkSpeedToEnemy: 3
   weapon: {fileID: 0}

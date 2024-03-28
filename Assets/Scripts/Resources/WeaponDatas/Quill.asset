@@ -62,7 +62,7 @@ MonoBehaviour:
       Data: 
   WeaponName: Quill
   Description: Basic wand for everyone to use!
-  isStarterWeapon: 1
+  isStarterWeapon: 0
   WeaponType: 0
   BaseAttackSpeed: 1
   BaseAttackRange: 400

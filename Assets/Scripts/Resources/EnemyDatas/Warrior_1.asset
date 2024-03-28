@@ -29,8 +29,8 @@ MonoBehaviour:
   baseAttackSpeed: 1
   baseEvasion: 0
   baseDefence: 0
-  baseAttackRange: 3
-  baseMaxAttackRange: 4
+  baseAttackRange: 1
+  baseMaxAttackRange: 2
   baseProjectileNumber: 0
   minFloorToSpawn: 0
   minSpawnAmount: 1

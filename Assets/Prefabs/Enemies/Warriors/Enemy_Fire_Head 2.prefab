@@ -69,6 +69,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 2000659858743788801}
   - {fileID: 1039887514343090592}
   - {fileID: 1039887513902653884}
   - {fileID: 1039887514568787121}
@@ -83,7 +84,6 @@ Transform:
   - {fileID: 439451560258111023}
   - {fileID: 4253356553506417331}
   - {fileID: 8366935466027577813}
-  - {fileID: 2000659858743788801}
   - {fileID: 7031262490803155871}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -95,7 +95,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1039887513155052041}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: f91bfa253fbbced4ab242e5b6f455908, type: 2}
   m_CullingMode: 0
@@ -352,7 +352,7 @@ MonoBehaviour:
       ailmentRemainingTimes: []
       ailmentEffects: []
   _stats: {fileID: 0}
-  animator: {fileID: 1039887513155052046}
+  animator: {fileID: 4296867143984084483}
   boxCollider2D: {fileID: 3134655458507993630}
   damageTaken: 0
   dieTimer: 0
@@ -2342,6 +2342,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeepSeaLizard_BlueRed
       objectReference: {fileID: 0}
+    - target: {fileID: 7249969145162977201, guid: c30805660668e3543b207ae7029a855a,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: bf570a06a976d6d4dadb401bd32273a2,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 5813564342740697636, guid: c30805660668e3543b207ae7029a855a, type: 3}
     - {fileID: 6227954164926645509, guid: c30805660668e3543b207ae7029a855a, type: 3}
@@ -2352,6 +2358,12 @@ PrefabInstance:
 --- !u!4 &2000659858743788801 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4971794677910092979, guid: c30805660668e3543b207ae7029a855a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6862528571375401394}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4296867143984084483 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7249969145162977201, guid: c30805660668e3543b207ae7029a855a,
     type: 3}
   m_PrefabInstance: {fileID: 6862528571375401394}
   m_PrefabAsset: {fileID: 0}
