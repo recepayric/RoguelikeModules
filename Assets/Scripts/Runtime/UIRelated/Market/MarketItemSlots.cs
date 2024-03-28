@@ -28,7 +28,6 @@ namespace Runtime.UIRelated.Market
 
         public void Start()
         {
-            ScaleId = "Scale" + GetInstanceID();
             turnSpeedVector = new Vector3(0, 0, turnSpeed * turnDirection);
         }
 
@@ -39,6 +38,7 @@ namespace Runtime.UIRelated.Market
 
         public void SetItem(Item pItem)
         {
+            ScaleId = "Scale" + GetInstanceID();
             canBeBought = false;
             isItem = true;
             DOTween.Kill(ScaleId);

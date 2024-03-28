@@ -168,10 +168,12 @@ namespace Runtime.UIRelated.Market
             LoadAllWeapons();
             SetPlayerScript();
             SetStats();
-            GetRandomItems();
             SetWeapons();
+            GetRandomItems();
 
             weaponDeskManager.AddEvents();
+            
+            Debug.Log("Market screen opened!");
         }
 
         public void OnClosed()
