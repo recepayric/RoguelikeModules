@@ -19,23 +19,33 @@ namespace Runtime.Modifiers.WeaponSkillModifiers
             SetSpecialModifier(SpecialModifiers.BounceOnHitSkill);
             SetWeaponSkill();
             SetUseArea(ModifierUseArea.OnStart);
+            GetSkillData();
         }
 
         public override void ApplyEffect(Weapon weapon)
         {
             base.ApplyEffect(weapon);
 
-            var addAmount = 3;
+            //var addAmount = 3;
+            int tier = skillData.slotData.Find(t => t.weapon == weapon.gameObject).tier;
+
+            var bounceAmount = (int) skillData.effectPerTier[tier];
+            
             if (addedAmount.ContainsKey(weapon.gameObject))
             {
-                weapon.weaponStats.bounceNum -= addedAmount[weapon.gameObject];
+                weapon.weaponStats.AddStatFromTree(AllStats.BounceNumber, -addedAmount[weapon.gameObject]);;
             }
             else
             {
-                addedAmount.Add(weapon.gameObject, addAmount);
+                addedAmount.Add(weapon.gameObject, bounceAmount);
             }
+
+            //Debug.Log("Bounce before adding modifier: " + weapon.weaponStats.bounceNum);
+            Debug.Log("Bounce before adding modifier: " + weapon.weaponStats.GetStat(AllStats.BounceNumber));
+            weapon.weaponStats.AddStatFromTree(AllStats.BounceNumber, bounceAmount);;
+            //Debug.Log("Bounce after adding modifier: " + weapon.weaponStats.bounceNum);
+            Debug.Log("Bounce after adding modifier: " + weapon.weaponStats.GetStat(AllStats.BounceNumber));
             
-            weapon.weaponStats.bounceNum += addAmount;
         }
 
         public override void ApplyEffect(GameObject projectile, Projectile projectileScript, bool isCrit)

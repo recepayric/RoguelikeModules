@@ -25,6 +25,7 @@ namespace Runtime
         public Vector3 spinAxis;
 
         [Header("General")] public GameObject projectileObject;
+
         //todo change it into pool!
         [Header("General")] public GameObject hitParticleEffect;
 
@@ -47,6 +48,8 @@ namespace Runtime
         public Collider2D[] collider2Ds;
 
         private List<Modifier> modifiers;
+        public List<GameObject> enemiesWasHit;
+        private GameObject lastHitEnemy;
 
         public bool isActive = false;
         public bool isStickingToEnemy = false;
@@ -97,18 +100,6 @@ namespace Runtime
             //maxTravel = 200f / GameConfig.RangeToRadius;
             pTransform = transform;
             //Debug.Log("Projectile created!");
-
-            return;
-            _renderer = GetComponent<SpriteRenderer>();
-            _collider2D = GetComponent<CircleCollider2D>();
-
-            if (_renderer == null)
-                _renderer = projectileObject.GetComponent<SpriteRenderer>();
-            if (_collider2D == null)
-                _collider2D = projectileObject.GetComponent<CircleCollider2D>();
-
-            _renderer.enabled = true;
-            _collider2D.enabled = true;
         }
 
         private void Update()
@@ -116,12 +107,11 @@ namespace Runtime
             if (!isActive) return;
 
 
-            if (isRotating)
-                UpdateRotatingMove();
-            else if (isHomingProjectile)
-                UpdateHomingV2();
-            else
-                UpdateRegularMove();
+            if (isHomingProjectile)
+                UpdateHomingV3();
+            
+            
+            UpdateRegularMove();
 
             if (doesSpin)
                 Spin();
@@ -217,21 +207,36 @@ namespace Runtime
             projectileObject.transform.Rotate(spinAxis, Time.deltaTime * spinSpeed);
         }
 
-        private void UpdateHoming()
+        private float turnMultiplier = 0f;
+        private float turnTime = 1f;
+        private float turningTimer;
+        private Vector3 initialRotation;
+
+        private void UpdateHomingV3()
         {
-            var perc = moveTimer / timeToMove;
-            var diff = targetEnemy.transform.position - initialPos;
+            if (targetEnemy == null)
+            {
+                isHomingProjectile = false;
+                return;
+            }
 
-            transform.right = targetEnemy.transform.position - initialPos;
+            if (!DictionaryHolder.Enemies.ContainsKey(targetEnemy))
+            {
+                isHomingProjectile = false;
+                return;
+            }
+            
+            turningTimer += Time.deltaTime/turnTime*turnMultiplier;
 
-            var top = transform.up * _projectileCurve.curveY.Evaluate(perc);
-            var targetPoss = initialPos + diff * (_projectileCurve.curveX.Evaluate(perc)) + top * direction;
+            turnMultiplier += Time.deltaTime/0.125f;
+            
+            if (turningTimer > 1)
+                turningTimer = 1;
+            
+            var targetRotation = DictionaryHolder.Enemies[targetEnemy].HitPoint.transform.position - transform.position;
 
-            //transform.right = targetPos.transform.position - initialPos.transform.position;
-            transform.right = targetPoss - transform.position;
-            transform.position = targetPoss;
-
-            moveTimer += Time.deltaTime;
+            var angle = Vector3.Lerp(initialRotation, targetRotation, turningTimer);
+            transform.forward = angle;
         }
 
         private void UpdateHomingV2()
@@ -260,57 +265,12 @@ namespace Runtime
             if (transform.position.y > 2.5f)
             {
                 transform.rotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 0));
-
             }
 
             if (destroyAfterTravelingMax && distanceTraveled >= maxTravel)
             {
-                //Debug.Log("Travelled: " + distanceTraveled + "    " + maxTravel);
+                Debug.Log("Destroying because of distance traveled");
                 Destroy(gameObject);
-            }
-        }
-
-        private void UpdateRotatingMove()
-        {
-            rotationAngle += Time.deltaTime * projectileSpeed * 10;
-            if (rotationAngle >= 360f) rotationAngle -= 360f;
-            var targetAngle = rotationAngle + Weapon.RotationGlobal;
-
-            var posX = rotatingDistance * Mathf.Cos(Mathf.Deg2Rad * targetAngle);
-            var posY = rotatingDistance * Mathf.Sin(Mathf.Deg2Rad * targetAngle);
-
-            var currentPos = pTransform.position;
-            var targetPos = DictionaryHolder.Player.transform.position + new Vector3(posX, posY, 0);
-
-            pTransform.right = targetPos - currentPos;
-
-            deltaTravel = Time.deltaTime * projectileSpeed * pTransform.right;
-            distanceTraveled += Vector2.Distance(currentPos, currentPos + deltaTravel);
-            currentPos += deltaTravel;
-            pTransform.position = currentPos;
-
-            if (destroyAfterTravelingMax && distanceTraveled >= maxTravel * 2)
-            {
-                //Debug.Log("Travelled: " + distanceTraveled + "    " + maxTravel);
-                //Destroy(gameObject);
-                if (isHomingProjectile)
-                {
-                    SelectRandomEnemy();
-                    isHomingProjectile = true;
-                    isRotating = false;
-                }
-                else
-                {
-                    Destroy(gameObject);
-                }
-            }
-
-            rotationTimer -= Time.deltaTime;
-
-            if (rotationTimer <= Random.Range(0, -1f))
-            {
-                //Debug.Log("Travelled: " + distanceTraveled + "    " + maxTravel);
-                //Destroy(gameObject);
             }
         }
 
@@ -332,6 +292,7 @@ namespace Runtime
             //_renderer.enabled = false;
             //_collider2D.enabled = false;
             //DOVirtual.DelayedCall(0.25f, () => { Destroy(gameObject); });
+            Debug.Log("Destroying because of hit");
             Destroy(gameObject);
         }
 
@@ -365,7 +326,7 @@ namespace Runtime
             //damage = weapon.weaponStats.damage;
             damage = Shooter?.GetDamage() ?? 0;
             var damageReduction = 0f;
-            
+
             if (weapon != null)
                 damageReduction = damage * (weapon.weaponStats.damageReductionOnPierce * _piercedEnemyCount) / 100f;
 
@@ -382,12 +343,10 @@ namespace Runtime
 
             //ResetTravelData();
             var isCrit = Random.Range(0, 1f) <= criticalHitChance;
-            enemy.DealDamage((int)damage, isCrit, weapon,1);
-
-
+            enemy.DealDamage((int)damage, isCrit, weapon, 1);
+            
             _piercedEnemyCount++;
-
-
+            
             //Apply Ailments!
             //todo redo this!!!
             //
@@ -405,6 +364,7 @@ namespace Runtime
 
             if (modifiers == null)
                 modifiers = new List<Modifier>();
+
             foreach (var modifier in modifiers)
             {
                 modifier.ApplyEffect(gameObject, this, isCrit);
@@ -424,15 +384,27 @@ namespace Runtime
             }
             else if (bounceNum > 0)
             {
+                Debug.Log("Bouncing!!");
                 //isHomingProjectile = false;
                 StopTravelDestroy();
                 ResetTravelData();
                 bounceNum--;
+                isHomingProjectile = true;
                 var newTarget = GetClosestEnemy(enemy.Transform.gameObject);
                 if (newTarget == null)
+                {
                     Destroy(gameObject);
+                    Debug.Log("No target to bounce. Destroying");
+                }
                 else
-                    transform.right = newTarget.transform.position - transform.position;
+                {
+                    Debug.Log("Old target: " + targetEnemy + "  new: " + newTarget);
+                    targetEnemy = newTarget;
+                    transform.forward = DictionaryHolder.Enemies[newTarget].HitPoint.transform.position -
+                                        transform.position;
+                    initialRotation = transform.forward;
+                }
+                //Debug.LogError("Stop!!!");
             }
             else if (pierceNum > 0)
             {
@@ -449,32 +421,64 @@ namespace Runtime
 
         private GameObject GetClosestEnemy(GameObject currentEnemy)
         {
-            Physics2D.OverlapCircleNonAlloc(transform.position, 500,
-                collider2Ds); //layermask to filter the varius useless colliders
-
-            foreach (var collidedEnemy in collider2Ds)
+            Debug.Log("Current Target: " + targetEnemy);
+            //todo do this in one loop!!!
+            var closestEnemy = (GameObject)null;
+            var closestDistance = 99999f;
+            bool isInIgnoreList = false;
+            foreach (var enemy in DictionaryHolder.Enemies)
             {
-                if (collidedEnemy == null) break;
-
-                if (collidedEnemy.CompareTag("Enemy") && collidedEnemy.gameObject != currentEnemy)
+                Debug.Log(enemy.Key + "  " + lastHitEnemy);
+                if (enemy.Key == lastHitEnemy)
                 {
-                    if (DictionaryHolder.Enemies[collidedEnemy.gameObject].IsAvailable())
-                        return collidedEnemy.gameObject;
+                    Debug.Log("Current enemy is this enemy!!!");
+                    continue;
+                }
+
+                //Check for ignore list
+                for (int i = 0; i < enemiesWasHit.Count; i++)
+                {
+                    if (enemy.Key == enemiesWasHit[i])
+                    {
+                        isInIgnoreList = true;
+                        break;
+                    }
+                }
+
+                if (isInIgnoreList)
+                    continue;
+
+                var distance = Vector3.Distance(gameObject.transform.position, enemy.Key.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestEnemy = enemy.Key;
                 }
             }
+            Debug.Log("New enemy: " + closestEnemy);
 
-
-            return null;
+            return closestEnemy;
         }
 
         private void OnTriggerEnter(Collider other)
         {
+            var hitBefore = false;
+            
+            for (int i = 0; i < enemiesWasHit.Count; i++)
+            {
+                if (enemiesWasHit[i] == other.gameObject)
+                    return;
+            }
+
             var damageable = other.gameObject.GetComponent<IDamageable>();
             if (damageable != null)
+            {
+                lastHitEnemy = other.gameObject;
                 HitTarget(damageable);
+                enemiesWasHit.Add(other.gameObject);
+            }
         }
-        
-        
+
 
         public PoolKeys PoolKeys { get; set; }
 

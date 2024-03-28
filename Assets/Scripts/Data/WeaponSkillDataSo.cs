@@ -68,6 +68,19 @@ namespace Data
             if (!weaponSkills.ContainsKey(specialModifiers)) return null;
             return weaponSkills[specialModifiers];
         }
+
+        [Button]
+        public void UpdateNumbers()
+        {
+            int index = 0;
+            foreach (var skill in weaponSkills)
+            {
+                skill.Value.skillNumber = index;
+
+                index++;
+            }
+                
+        }
     }
 
     [Serializable]

@@ -2,6 +2,7 @@
 using Runtime.Configs;
 using Runtime.Enums;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Runtime.WorldRelated
 {
@@ -31,6 +32,7 @@ namespace Runtime.WorldRelated
         {
             var enemy = BasicPool.instance.Get(enemySpawnKey);
             enemy.transform.position = transform.position;
+            enemy.name = "Enemy " + Random.Range(0, 100000);
             BasicPool.instance.Return(gameObject);
         }
 

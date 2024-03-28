@@ -102,7 +102,6 @@ namespace Runtime.WorldRelated
                 //Debug.Log("Type: " + SpawnDatas[waveSpawned].EnemyKey);
                 //var enemy = BasicPool.instance.Get(SpawnDatas[waveSpawned].EnemyKey);
                 //enemy.transform.position = new Vector2(randX, randY);
-                //enemy.name = "Enemy " + Random.Range(0, 100000);
                 Spawn(SpawnDatas[waveSpawned].EnemyKey, randX, randY);
 
             }

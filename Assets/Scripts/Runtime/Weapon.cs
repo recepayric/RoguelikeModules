@@ -45,7 +45,6 @@ namespace Runtime
         public GameObject targetEnemy;
         public GameObject rotatingWeaponParent;
 
-        public Dictionary<AllStats, float> statsFromTree;
         public List<SpecialModifiers> specialModifiersFromTree;
         public List<SpecialModifiers> specialModifiersList;
         public List<Modifier> modifiers;
@@ -184,18 +183,7 @@ namespace Runtime
             }
         }
 
-        public void AddStatFromTree(AllStats stat, float value)
-        {
-            if (statsFromTree == null)
-                statsFromTree = new Dictionary<AllStats, float>();
-
-            if (statsFromTree.ContainsKey(stat))
-                statsFromTree[stat] += value;
-            else
-                statsFromTree.Add(stat, value);
-
-            weaponStats.SetStats();
-        }
+       
 
         public void AddModifierFromTree(SpecialModifiers specialModifier)
         {
@@ -421,6 +409,7 @@ namespace Runtime
             sc.isRotating = weaponStats.hasRotatingProjectiles;
             sc.SetShooter(this);
             sc.isActive = true;
+            sc.targetEnemy = targetEnemy;
 
             if (weaponStats.explodingProjectile)
             {
@@ -519,8 +508,9 @@ namespace Runtime
             RemoveModifiers(weaponStats.specialModifiers);
             spells.Clear();
             
-            if (statsFromTree != null)
-                statsFromTree.Clear();
+            Debug.Log("Clearing the stats from tree!!!");
+            if (weaponStats.statsFromTree != null)
+                weaponStats.statsFromTree.Clear();
             
             weaponUpgradeTree.ResetTree();
         }
@@ -565,7 +555,6 @@ namespace Runtime
         {
             InitialiseWeapon();
             weaponStats._weaponDataSo = weaponDataSo;
-            weaponStats.statsFromTree = statsFromTree;
             weaponStats.SetStats();
             weaponStats.CreateSpells();
             spells = weaponStats.spells;

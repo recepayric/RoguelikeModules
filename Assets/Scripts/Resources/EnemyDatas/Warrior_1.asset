@@ -25,7 +25,7 @@ MonoBehaviour:
   CanBeSpawnedNormally: 1
   baseHealth: 3
   baseDamage: 0
-  baseMoveSpeed: 5
+  baseMoveSpeed: 1
   baseAttackSpeed: 1
   baseEvasion: 0
   baseDefence: 0

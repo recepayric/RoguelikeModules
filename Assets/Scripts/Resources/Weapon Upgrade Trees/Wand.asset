@@ -61,7 +61,7 @@ MonoBehaviour:
     Modifier: 0
     styleNumber: 0
     PreviousNodeIDs: []
-  - isBought: 1
+  - isBought: 0
     ID: 5
     NodeName: Damage Augment
     NodeText: Increase Base Damage
@@ -74,7 +74,7 @@ MonoBehaviour:
     Modifier: 0
     styleNumber: 0
     PreviousNodeIDs: []
-  - isBought: 1
+  - isBought: 0
     ID: 6
     NodeName: Damage Augment
     NodeText: Increase Base Damage
@@ -87,7 +87,7 @@ MonoBehaviour:
     Modifier: 0
     styleNumber: 0
     PreviousNodeIDs: []
-  - isBought: 1
+  - isBought: 0
     ID: 7
     NodeName: Damage Augment
     NodeText: Increase Base Damage
@@ -218,6 +218,19 @@ MonoBehaviour:
     styleNumber: 0
     PreviousNodeIDs: []
   SkillSlotNodes:
+  - isBought: 0
+    ID: 
+    NodeName: 
+    NodeText: 
+    doesAddStyle: 0
+    WeaponType: 0
+    UpgradeType: 0
+    ElementToAdd: 0
+    Stat: 0
+    IncreaseAmount: 0
+    Modifier: 0
+    styleNumber: 0
+    PreviousNodeIDs: []
   - isBought: 0
     ID: 
     NodeName: 
