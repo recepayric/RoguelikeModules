@@ -155,6 +155,8 @@ namespace Runtime
 
             var projectileFromTree = GetStat(AllStats.ProjectileNumber);
             var bounceFromTree = GetStat(AllStats.BounceNumber);
+            Debug.Log("bounce from tree:  " + bounceFromTree);
+            Debug.Log("extra damage:  " + damagePoint);
 
             //var data = weaponDatsSo.WeaponData[weaponType];
             damage = data.BaseDamage + extraDamage + damagePoint;
@@ -170,7 +172,7 @@ namespace Runtime
             attackSpeed = attackSpeed / multiplier;
 
             projectileAmount = data.BaseProjectileAmount + (int)projectileFromTree;
-            bounceNum = (int)bounceFromTree;
+            bounceNum = data.BaseBounceNumber + (int)bounceFromTree;
 
             criticalHitChance = data.BaseCriticalHitChance;
             criticalHitDamage = data.BaseCriticalHitDamage;
@@ -183,7 +185,7 @@ namespace Runtime
             burnSpreadAmount *= burnSpreadMultiplier;
         }
 
-        private float GetStat(AllStats stat)
+        public float GetStat(AllStats stat)
         {
             if (statsFromTree == null)
                 statsFromTree = new Dictionary<AllStats, float>();
@@ -191,6 +193,25 @@ namespace Runtime
                 return statsFromTree[stat];
 
             return 0;
+        }
+        
+        public void AddStatFromTree(AllStats stat, float value)
+        {
+            if (statsFromTree == null)
+                statsFromTree = new Dictionary<AllStats, float>();
+
+            if (statsFromTree.ContainsKey(stat))
+                statsFromTree[stat] += value;
+            else
+                statsFromTree.Add(stat, value);
+            
+            
+            foreach (var stats in statsFromTree)
+            {
+                Debug.Log("Added the stat: " + stats.Key + "   " +stats.Value);
+            }
+            
+            SetStats();
         }
     }
 }

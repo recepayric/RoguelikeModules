@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Runtime.Enums;
@@ -34,18 +35,32 @@ namespace Runtime.Minions
         public float attackSpeed = 1;
 
         public bool isHitAnimationEnded = false;
-        
+
         void Update()
         {
             CheckForTarget();
             CheckEnemies();
-            CheckDirection();
             CheckForDistance();
-
-            if (!isCloseToTarget)
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * walkSpeed);
         }
-        
+
+        private void FixedUpdate()
+        {
+            Move();
+        }
+
+        private void Move()
+        {
+            if (isCloseToTarget) return;
+            
+            var targetPos = targetPosition;
+            transform.forward = targetPosition - transform.position;
+            transform.position += walkSpeed *Time.deltaTime* transform.forward;
+            return;
+            if (!isCloseToTarget)
+                transform.position =
+                    Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * walkSpeed);
+        }
+
         private void CheckEnemies()
         {
             GameObject closestEnemy = null;
@@ -55,7 +70,7 @@ namespace Runtime.Minions
             {
                 if (!enemies.Value.IsAvailable())
                     continue;
-                
+
                 var distance = Vector3.Distance(transform.position, enemies.Key.transform.position);
                 if (distance < closestDistance)
                 {
@@ -66,9 +81,8 @@ namespace Runtime.Minions
 
             if (closestEnemy != null)
                 this.closestEnemy = closestEnemy;
-            
+
             SetWeaponEnemy(closestEnemy, closestDistance);
-            
         }
 
         public void SetWeaponEnemy(GameObject enemy, float distance)
@@ -103,7 +117,6 @@ namespace Runtime.Minions
         {
             targetPosition = playerTransform.position + positionRelatedToPlayer;
             return;
-            
         }
 
         private Vector3 GetEnemyPosition()
@@ -124,7 +137,7 @@ namespace Runtime.Minions
         private void StartAttackLoop()
         {
             if (DOTween.IsTweening(gameObject.GetInstanceID() + "AttackLoop")) return;
-            
+
             if (targetEnemy == null || !isCloseToTarget)
             {
                 StopAttackLoop();
@@ -146,7 +159,6 @@ namespace Runtime.Minions
                 {
                     animator.SetTrigger("StartAttack");
                 }
-                
             }).SetId(gameObject.GetInstanceID() + "AttackLoop").SetLoops(-1);
         }
 
@@ -171,7 +183,7 @@ namespace Runtime.Minions
             {
                 isCloseToTarget = true;
                 animator.SetBool("IsRunning", false);
-                animator.SetBool("IsAttacking", false);
+                //animator.SetBool("IsAttacking", false);
             }
             else
             {
@@ -179,18 +191,8 @@ namespace Runtime.Minions
                 animator.SetBool("IsRunning", true);
             }
         }
-        
-        private void CheckDirection()
-        {
-            var isLookingLeft = transform.localScale.x > 0;
-            var isTargetOnLeft = (transform.position.x - targetPosition.x) >= 0;
 
-            //Debug.Log(isLookingLeft + " " + isTargetOnLeft);
-            if (isTargetOnLeft != isLookingLeft)
-            {
-                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-            }
-        }
+     
 
         private void ResetMinion()
         {
@@ -203,7 +205,6 @@ namespace Runtime.Minions
         {
             ResetMinion();
             DictionaryHolder.Minions.Remove(gameObject);
-
         }
 
         public void OnGet()

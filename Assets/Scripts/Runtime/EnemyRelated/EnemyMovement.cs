@@ -1,11 +1,13 @@
 ﻿using System;
 using Data.EnemyDataRelated;
 using Runtime.AilmentsRelated;
+using Runtime.Configs;
 using Runtime.DamageRelated;
 using Runtime.Enums;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Runtime.EnemyRelated
 {
@@ -17,7 +19,7 @@ namespace Runtime.EnemyRelated
     public class EnemyMovement : MonoBehaviour
     {
         public Ailments Ailments;
-        public Rigidbody2D rigidBody;
+        public Rigidbody rigidBody;
         public GameObject targetObject;
         public Enemy enemy;
         public EnemyStats stats;
@@ -33,7 +35,7 @@ namespace Runtime.EnemyRelated
         
         public bool isFirstAttack = true;
         private Animator _animator;
-        private static readonly int IsRunning = Animator.StringToHash("isRunning");
+        private static readonly int IsRunning = Animator.StringToHash("IsRunning");
 
         public bool isKnockbacked = false;
         public float knockbackAmount = -1f;
@@ -42,14 +44,17 @@ namespace Runtime.EnemyRelated
 
         public float speedAfterFreeze;
 
+        public bool hasNoTarget;
+
         private void Start()
         {
-            targetObject = DictionaryHolder.Player.gameObject;
+            if (DictionaryHolder.Player != null)
+                targetObject = DictionaryHolder.Player.gameObject;
             //todo change these todos based on performance check!
             enemy = GetComponent<Enemy>();
             stats = GetComponent<EnemyStats>();
-            rigidBody = GetComponent<Rigidbody2D>();
-            _animator = GetComponent<Animator>();
+            rigidBody = GetComponent<Rigidbody>();
+            //_animator = GetComponent<Animator>();
         }
 
         public void AddKnockback(float knockbackAmount)
@@ -71,11 +76,7 @@ namespace Runtime.EnemyRelated
             }
         }
 
-        private void CheckForPlayerRotation()
-        {
-            TurnToPlayer();
-        }
-
+        
         public void StartCharging(Vector3 targetPosition)
         {
             chargePosition = targetPosition;
@@ -93,30 +94,7 @@ namespace Runtime.EnemyRelated
             isCharging = false;
             rigidBody.mass = 1;
         }
-
-        private void TurnToPlayer()
-        {
-            if (Ailments.isStunned) return;
-            if (isCharging) return;
-
-            if (targetObject.transform.position.x <= transform.position.x)
-            {
-                if (transform.localScale.x < 0)
-                {
-                    var scale = transform.localScale;
-                    transform.localScale = new Vector3(-scale.x, scale.y, scale.z);
-                }
-            }
-            else
-            {
-                if (transform.localScale.x > 0)
-                {
-                    var scale = transform.localScale;
-                    transform.localScale = new Vector3(-scale.x, scale.y, scale.z);
-                }
-            }
-        }
-
+        
         private void FixedUpdate()
         {
 
@@ -132,7 +110,60 @@ namespace Runtime.EnemyRelated
             }
             if (Ailments.isStunned) return;
 
-            CheckForPlayerRotation();
+            if(!hasNoTarget)
+                MoveTowardsPlayer();
+            else
+                MoveRandomly();
+        }
+
+        private float timeToChangeTarget = 3;
+        private float changeTargetTimer = 3;
+        private float randomTargetX;
+        private float randomTargetZ;
+        private void MoveRandomly()
+        {
+            changeTargetTimer -= Time.deltaTime;
+
+            if (changeTargetTimer <= 0)
+            {
+                changeTargetTimer = timeToChangeTarget;
+                GetRandomPosition();
+            }
+            
+            var posX = transform.position.x;
+            var posY = transform.position.z;
+            
+            var angle = Mathf.Atan2(randomTargetZ - posY, randomTargetX - posX);
+            angle *= Mathf.Rad2Deg;
+            
+            transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
+            transform.forward = new Vector3(randomTargetX, 0, randomTargetZ) - transform.position;
+
+            var speedMult = isCharging ? 2 : 1;
+
+            var deltaX = Time.deltaTime * speedAfterFreeze * speedMult * Mathf.Cos(angle);
+            var deltaY = Time.deltaTime * speedAfterFreeze * speedMult * Mathf.Sin(angle);
+
+            var MoveAmount = new Vector3(deltaX, 0, deltaY);
+            var knockbackSpeed = isKnockbacked ?  -knockbackAmount : 1;
+            MoveAmount *= knockbackSpeed;
+
+            //transform.position += new Vector3(deltaX, deltaY, 0);
+            rigidBody.MovePosition(transform.position + MoveAmount);
+        }
+
+
+        private void MoveTowardsPlayer()
+        {
+            if (targetObject == null)
+            {
+                hasNoTarget = true;
+                return;
+            }
+            
+            FaceTowardsPlayer();
+
+            
             //Check player rotation
             //return;
             if (!enemy.IsAvailable()) return;
@@ -162,11 +193,23 @@ namespace Runtime.EnemyRelated
             var deltaY = Time.deltaTime * speedAfterFreeze * speedMult * Mathf.Sin(angle);
 
             var MoveAmount = new Vector3(deltaX, deltaY, 0);
+            
+            MoveAmount = transform.forward * Time.deltaTime * speedAfterFreeze * speedMult;
             var knockbackSpeed = isKnockbacked ?  -knockbackAmount : 1;
             MoveAmount *= knockbackSpeed;
-
-            //transform.position += new Vector3(deltaX, deltaY, 0);
             rigidBody.MovePosition(transform.position + MoveAmount);
+        }
+
+        private void FaceTowardsPlayer()
+        {
+            transform.forward =  targetObject.transform.position - transform.position;
+        }
+        
+        
+        private void GetRandomPosition()
+        {
+            randomTargetX = Random.Range(-GameConfig.MapWidth, GameConfig.MapWidth);
+            randomTargetZ = Random.Range(-GameConfig.MapHeight, GameConfig.MapHeight);
         }
 
         
@@ -212,6 +255,11 @@ namespace Runtime.EnemyRelated
                 return true;
 
             return false;
+        }
+
+        public void SetAnimator(Animator animator)
+        {
+            _animator = animator;
         }
     }
 }

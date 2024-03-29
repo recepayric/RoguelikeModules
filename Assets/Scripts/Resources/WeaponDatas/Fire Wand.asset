@@ -62,7 +62,7 @@ MonoBehaviour:
       Data: 
   WeaponName: Fire Wand
   Description: Wands that burns enemies!
-  isStarterWeapon: 0
+  isStarterWeapon: 1
   WeaponType: 0
   BaseAttackSpeed: 1
   BaseAttackRange: 400
@@ -72,7 +72,7 @@ MonoBehaviour:
   BaseCriticalHitChance: 50
   BaseCriticalHitDamage: 2
   BasePierceNumber: 0
-  BaseBounceNumber: 0
+  BaseBounceNumber: 3
   rotationDistanceFromPlayer: 0
   specialModifiersList: 04000000
   spells: 

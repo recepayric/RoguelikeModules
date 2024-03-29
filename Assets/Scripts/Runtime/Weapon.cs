@@ -20,6 +20,8 @@ namespace Runtime
     [RequireComponent(typeof(WeaponUpgradeTree))]
     public class Weapon : MonoBehaviour, IShooter, IPoolObject
     {
+        //todo delete this later bitch
+        public int projectileTier;
         public WeaponLevelSystem weaponLevelSystem;
         public WeaponUpgradeTree weaponUpgradeTree;
 
@@ -43,7 +45,6 @@ namespace Runtime
         public GameObject targetEnemy;
         public GameObject rotatingWeaponParent;
 
-        public Dictionary<AllStats, float> statsFromTree;
         public List<SpecialModifiers> specialModifiersFromTree;
         public List<SpecialModifiers> specialModifiersList;
         public List<Modifier> modifiers;
@@ -182,18 +183,7 @@ namespace Runtime
             }
         }
 
-        public void AddStatFromTree(AllStats stat, float value)
-        {
-            if (statsFromTree == null)
-                statsFromTree = new Dictionary<AllStats, float>();
-
-            if (statsFromTree.ContainsKey(stat))
-                statsFromTree[stat] += value;
-            else
-                statsFromTree.Add(stat, value);
-
-            weaponStats.SetStats();
-        }
+       
 
         public void AddModifierFromTree(SpecialModifiers specialModifier)
         {
@@ -397,11 +387,13 @@ namespace Runtime
                 if (index >= totalIndex)
                     index = totalIndex - 1;
                 
-                projectile = Instantiate(projectilePrefabsPerTier[projectileIndex]);
+                projectile = Instantiate(projectilePrefabsPerTier[projectileTier]);
             }
 
             projectile.transform.position = projectilePoint.transform.position;
-            projectile.transform.right = targetEnemy.transform.position - projectile.transform.position;
+            
+            projectile.transform.forward = DictionaryHolder.Enemies[targetEnemy].HitPoint.transform.position - projectile.transform.position;
+            //projectile.transform.rotation = Quaternion.Euler(new Vector3(0, projectile.transform.eulerAngles.y, 0));
             projectile.transform.Rotate(new Vector3(0, 0, 1), angleToRotate);
 
             var sc = projectile.GetComponent<Projectile>();
@@ -417,6 +409,7 @@ namespace Runtime
             sc.isRotating = weaponStats.hasRotatingProjectiles;
             sc.SetShooter(this);
             sc.isActive = true;
+            sc.targetEnemy = targetEnemy;
 
             if (weaponStats.explodingProjectile)
             {
@@ -426,6 +419,7 @@ namespace Runtime
 
         public void SetSwordSwinger(PlayerSwordSwinger pSwordSwinger)
         {
+            return;
             swordSwinger = pSwordSwinger;
             swordSwinger.SetWeapon(this);
             swordSwinger.SetSlashPosition(projectilePoint);
@@ -439,7 +433,7 @@ namespace Runtime
         {
             if (enemy == null || !DictionaryHolder.Enemies[enemy].IsAvailable())
             {
-                swordSwinger.SetTarget(null);
+                //swordSwinger.SetTarget(null);
                 targetEnemy = null;
                 return;
             }
@@ -448,7 +442,7 @@ namespace Runtime
 
             distanceToEnemy = distance;
             EventManager.Instance.SetDistanceBetweenEnemy(distance * GameConfig.RangeToRadius);
-            swordSwinger.SetTarget(targetEnemy);
+            //swordSwinger.SetTarget(targetEnemy);
         }
 
         public void UpdateDamageHit(float damageHit)
@@ -514,8 +508,9 @@ namespace Runtime
             RemoveModifiers(weaponStats.specialModifiers);
             spells.Clear();
             
-            if (statsFromTree != null)
-                statsFromTree.Clear();
+            Debug.Log("Clearing the stats from tree!!!");
+            if (weaponStats.statsFromTree != null)
+                weaponStats.statsFromTree.Clear();
             
             weaponUpgradeTree.ResetTree();
         }
@@ -560,7 +555,6 @@ namespace Runtime
         {
             InitialiseWeapon();
             weaponStats._weaponDataSo = weaponDataSo;
-            weaponStats.statsFromTree = statsFromTree;
             weaponStats.SetStats();
             weaponStats.CreateSpells();
             spells = weaponStats.spells;

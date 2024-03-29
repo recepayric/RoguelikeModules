@@ -4,6 +4,7 @@ using Data.WeaponDataRelated;
 using Runtime.Enums;
 using Runtime.ItemsRelated;
 using Runtime.Managers;
+using Runtime.PlayerRelated;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -167,10 +168,12 @@ namespace Runtime.UIRelated.Market
             LoadAllWeapons();
             SetPlayerScript();
             SetStats();
-            GetRandomItems();
             SetWeapons();
+            GetRandomItems();
 
             weaponDeskManager.AddEvents();
+            
+            Debug.Log("Market screen opened!");
         }
 
         public void OnClosed()

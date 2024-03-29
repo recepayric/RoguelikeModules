@@ -56,7 +56,7 @@ namespace Runtime.WeaponRelated
             var upgradeType = upgradeTreeNode.UpgradeType;
 
             if (upgradeType == UpgradeType.Stats)
-                weapon.AddStatFromTree(upgradeTreeNode.Stat, upgradeTreeNode.IncreaseAmount);
+                weapon.weaponStats.AddStatFromTree(upgradeTreeNode.Stat, upgradeTreeNode.IncreaseAmount);
             else if (upgradeType == UpgradeType.SpecialModifier)
                 weapon.AddModifierFromTree(upgradeTreeNode.Modifier);
             

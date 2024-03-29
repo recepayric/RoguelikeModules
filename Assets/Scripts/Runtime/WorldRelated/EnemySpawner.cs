@@ -48,10 +48,10 @@ namespace Runtime.WorldRelated
             var data = enemySpawnDataSo;
             if (selectedTower.tier == -3)
                 data = tutorialTower1DataSo;
-            else if (selectedTower.tier == -3)
-                data = tutorialTower1DataSo;
-            else if (selectedTower.tier == -3)
-                data = tutorialTower1DataSo;
+            else if (selectedTower.tier == -2)
+                data = tutorialTower2DataSo;
+            else if (selectedTower.tier == -1)
+                data = tutorialTower3DataSo;
 
             return data;
         }
@@ -73,10 +73,10 @@ namespace Runtime.WorldRelated
             //totalWave = (int)(totalWaveTime / spawnTime);
         }
 
-        private void Spawn(PoolKeys poolKeys, float posX, float posY)
+        private void Spawn(PoolKeys poolKeys, float posX, float posZ)
         {
             var marker = BasicPool.instance.Get(PoolKeys.EnemySpawnMarker1);
-            marker.transform.position = new Vector3(posX, posY);
+            marker.transform.position = new Vector3(posX, 0, posZ);
             DictionaryHolder.EnemySpawnMarkers[marker].enemySpawnKey = poolKeys;
         }
 
@@ -102,7 +102,6 @@ namespace Runtime.WorldRelated
                 //Debug.Log("Type: " + SpawnDatas[waveSpawned].EnemyKey);
                 //var enemy = BasicPool.instance.Get(SpawnDatas[waveSpawned].EnemyKey);
                 //enemy.transform.position = new Vector2(randX, randY);
-                //enemy.name = "Enemy " + Random.Range(0, 100000);
                 Spawn(SpawnDatas[waveSpawned].EnemyKey, randX, randY);
 
             }
@@ -175,6 +174,7 @@ namespace Runtime.WorldRelated
         private void OnUpdateTower(Tower tower)
         {
             selectedTower = tower;
+            Debug.Log("Enemy Spawner Tower Updated");
         }
 
         public void Destroy()

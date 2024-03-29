@@ -1,4 +1,5 @@
-﻿using Data;
+﻿using System.Collections.Generic;
+using Data;
 using Data.WeaponDataRelated;
 using Runtime.Enums;
 using Runtime.Managers;
@@ -13,7 +14,8 @@ namespace Runtime.UIRelated.CharacterSelect
         public Object[] _charactersObj;
         public Object[] _weaponObj;
         public CharacterDataSo[] characters;
-        public WeaponDataSo[] weapons;
+        //public WeaponDataSo[] weapons;
+        public List<WeaponDataSo> weapons;
         public CharacterDataSo selectedCharacter;
         public WeaponDataSo selectedWeapon;
         public GameObject charactersContainer;
@@ -38,11 +40,14 @@ namespace Runtime.UIRelated.CharacterSelect
         private void LoadAllWeapons()
         {
             _weaponObj = Resources.LoadAll("WeaponDatas", typeof(WeaponDataSo));
-
-            weapons = new WeaponDataSo[_weaponObj.Length];
+            
+            weapons = new List<WeaponDataSo>();
+            
             for (int i = 0; i < _weaponObj.Length; i++)
             {
-                weapons[i] = (WeaponDataSo)_weaponObj[i];
+                var wep = (WeaponDataSo)_weaponObj[i];
+                if(wep.isStarterWeapon)
+                    weapons.Add(wep);
             }
         }
 
@@ -65,7 +70,7 @@ namespace Runtime.UIRelated.CharacterSelect
         private void CreateWeaponIcons()
         {
             if (isCreated) return;
-            for (int i = 0; i < weapons.Length; i++)
+            for (int i = 0; i < weapons.Count; i++)
             {
                 var icon = BasicPool.instance.Get(PoolKeys.WeaponIconUI);
                 icon.transform.SetParent(weaponContainer.transform);
