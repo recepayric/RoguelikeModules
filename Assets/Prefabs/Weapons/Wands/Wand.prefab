@@ -15798,7 +15798,7 @@ MonoBehaviour:
   projectilePrefabsPerTier:
   - {fileID: 528558706977218448, guid: 9a1006c123f52604fa7f871db29818b5, type: 3}
   - {fileID: 8608210459916862159, guid: 6f867130944caa3488966d30256c11d7, type: 3}
-  - {fileID: 2246522270503347309, guid: 1708f8e48dc9deb458718beb4786bcc5, type: 3}
+  - {fileID: 8608210459916862159, guid: e0e83f3c73ea22749b39f61f2b4841e6, type: 3}
   projectilePrefab: {fileID: 7280217749031058319, guid: 9c2a0d9fa8fa0ae4096b4658e5f36c84,
     type: 3}
   explodingProjectile: {fileID: 7280217749031058319, guid: ff27a00fd90caef4da5215d9864c248c,

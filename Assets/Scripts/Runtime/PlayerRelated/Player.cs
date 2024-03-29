@@ -66,8 +66,8 @@ namespace Runtime.PlayerRelated
 
         private void Start()
         {
-            Initialise();
-            AddEvents();
+            //Initialise();
+            //AddEvents();
         }
 
         private void OnDestroy()
@@ -110,6 +110,7 @@ namespace Runtime.PlayerRelated
 
         public void BuyWeapon(PoolKeys weaponPoolKey)
         {
+            Debug.Log("Adding weapon!");
             var weapon = BasicPool.instance.Get(weaponPoolKey);
             AddWeapon(weapon);
         }

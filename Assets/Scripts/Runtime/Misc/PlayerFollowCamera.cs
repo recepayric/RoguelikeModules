@@ -14,7 +14,7 @@ namespace Runtime.Misc
         {
             if (!isFollowingPlayer)
             {
-                FollowPlayer();
+                //FollowPlayer();
                 return;
             }
 
