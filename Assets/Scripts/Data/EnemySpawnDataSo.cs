@@ -187,7 +187,7 @@ namespace Data
                 floorTime = 30 + floor * 5;
                 
                 if(floor == 0)
-                    floorTime = 3;
+                    floorTime = 300;
                 
                 if (floorTime > 60)
                     floorTime = 60;

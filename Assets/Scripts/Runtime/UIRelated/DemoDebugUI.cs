@@ -43,6 +43,8 @@ namespace Runtime.UIRelated
         public void AddWeapon()
         {
             EventManager.Instance.WeaponBuy(PoolKeys.WeaponWandFire);
+            EventManager.Instance.WeaponBuy(PoolKeys.WeaponWandIce);
+            EventManager.Instance.WeaponBuy(PoolKeys.WeaponWandLightning);
         }
         
         

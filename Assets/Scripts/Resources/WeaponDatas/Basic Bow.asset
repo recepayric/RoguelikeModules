@@ -62,13 +62,13 @@ MonoBehaviour:
       Data: 
   WeaponName: Basic Bow
   Description: Basic wand for everyone to use!
-  isStarterWeapon: 0
+  isStarterWeapon: 1
   WeaponType: 3
   BaseAttackSpeed: 1
   BaseAttackRange: 400
   BaseAttackRangeSword: 0
   BaseDamage: 1
-  BaseProjectileAmount: 3
+  BaseProjectileAmount: 1
   BaseCriticalHitChance: 50
   BaseCriticalHitDamage: 2
   BasePierceNumber: 0

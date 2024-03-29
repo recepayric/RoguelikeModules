@@ -23,7 +23,7 @@ MonoBehaviour:
     SerializationNodes: []
   canBeSpawned: 1
   CanBeSpawnedNormally: 1
-  baseHealth: 3
+  baseHealth: 3000
   baseDamage: 0
   baseMoveSpeed: 1
   baseAttackSpeed: 1

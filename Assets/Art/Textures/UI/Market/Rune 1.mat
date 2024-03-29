@@ -61,6 +61,6 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Glow_Color: {r: 5.6568537, g: 1.3300025, b: 0, a: 1}
+    - _Glow_Color: {r: 1.6055588, g: 0.3774885, b: 0, a: 1}
     - _Turn_Speed: {r: -0.2, g: -0.2, b: 0, a: 0}
   m_BuildTextureStacks: []
