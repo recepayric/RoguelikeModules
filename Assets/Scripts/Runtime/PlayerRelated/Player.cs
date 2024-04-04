@@ -35,6 +35,7 @@ namespace Runtime.PlayerRelated
         public AllStats statFromGamble;
         public float gambleStatIncrease;
         
+        public GameObject hitPoint;
         public GameObject spellPosition;
         public GameObject rotatingWeaponParent;
         public ActiveCharacterSo activeCharacterSo;

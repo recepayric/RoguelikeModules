@@ -7,12 +7,17 @@ namespace Runtime.PlayerRelated
 {
     public class PlayerCreator : MonoBehaviour
     {
+        public GameObject playerHitPoint;
+        public GameObject playerSpellPosition;
         public CharacterDataSo characterDataSo;
         private Player _playerScript;
         public Health health;
         public PlayerMovement3D playerMovement;
         public SpecialModifierHelper specialModifierHelper;
         public PlayerLevel playerLevel;
+
+        public Rigidbody playerRigidBody;
+        public CapsuleCollider capsuleCollider;
 
         [Button]
         public void Create()
@@ -22,6 +27,7 @@ namespace Runtime.PlayerRelated
             AddMovement();
             AddSpecialModifierHelper();
             AddPlayerLevel();
+            AddRigidbodyAndCollider();
             
             Initialise();
         }
@@ -30,6 +36,8 @@ namespace Runtime.PlayerRelated
         {
             _playerScript.characterDataSo = characterDataSo;
             _playerScript.InitialiseVariables();
+            _playerScript.hitPoint = playerHitPoint;
+            _playerScript.spellPosition = playerSpellPosition;
         }
         
         
@@ -84,5 +92,26 @@ namespace Runtime.PlayerRelated
             playerMovement = GetComponent<PlayerMovement3D>();
         }
 
+        private void AddRigidbodyAndCollider()
+        {
+            var oldRigidBody = GetComponent<Rigidbody>();
+            var oldCollider = GetComponent<CapsuleCollider>();
+            
+            if (oldRigidBody != null)
+                DestroyImmediate(oldRigidBody);
+
+            transform.AddComponent<Rigidbody>();
+            playerRigidBody = GetComponent<Rigidbody>();
+
+            playerRigidBody.useGravity = false;
+            playerRigidBody.isKinematic = true;
+
+
+            if (oldCollider == null)
+            {
+                transform.AddComponent<CapsuleCollider>();
+                capsuleCollider = GetComponent<CapsuleCollider>();
+            }
+        }
     }
 }

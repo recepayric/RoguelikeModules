@@ -23,6 +23,7 @@ namespace Runtime
         [Header("Properties")] public bool doesSpin;
         public float spinSpeed;
         public Vector3 spinAxis;
+        public GameObject createdBy;
 
         [Header("General")] public GameObject projectileObject;
 
@@ -343,6 +344,8 @@ namespace Runtime
 
             //ResetTravelData();
             var isCrit = Random.Range(0, 1f) <= criticalHitChance;
+            Debug.Log("Created By: " + createdBy);
+            Debug.Log("Hit to: " + enemy.Transform.gameObject);
             enemy.DealDamage((int)damage, isCrit, weapon, 1);
             
             _piercedEnemyCount++;

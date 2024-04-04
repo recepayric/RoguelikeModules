@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  canBeSpawned: 1
+  canBeSpawned: 0
   CanBeSpawnedNormally: 1
   baseHealth: 3000
   baseDamage: 0

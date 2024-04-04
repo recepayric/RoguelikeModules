@@ -123,8 +123,13 @@ namespace Data
             SetPoolKeys();
             CheckBuffers();
             
+            Debug.Log("PoolKeysCount: " + poolKeys.Count);
             if (poolKeys.Count == 0)
+            {
+                SpawnDatas[floor].Add(new SpawnData());
+
                 return;
+            }
             
             if (SpawnDatas.Count <= floor)
                 SpawnDatas.Add(new List<SpawnData>());
@@ -156,6 +161,8 @@ namespace Data
                 spawnData.EnemyKey = poolKeys[Random.Range(0, poolKeys.Count)];
                 spawnData.spawnWait = timeBetween;
                 SpawnBuffer(spawnData);
+                
+                Debug.Log("floor: " + floor);
                 SpawnDatas[floor].Add(spawnData);
                 
                 if (floor == 19 && round == 0)
@@ -184,10 +191,10 @@ namespace Data
             
             for (int i = 0; i < floorNumber; i++)
             {
+                Debug.Log("floor: " + floor);
                 floorTime = 30 + floor * 5;
                 
-                if(floor == 0)
-                    floorTime = 300;
+                
                 
                 if (floorTime > 60)
                     floorTime = 60;

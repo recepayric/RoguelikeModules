@@ -410,6 +410,7 @@ namespace Runtime
             sc.SetShooter(this);
             sc.isActive = true;
             sc.targetEnemy = targetEnemy;
+            sc.createdBy = gameObject;
 
             if (weaponStats.explodingProjectile)
             {

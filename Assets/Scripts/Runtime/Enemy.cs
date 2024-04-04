@@ -179,9 +179,13 @@ namespace Runtime
             var attackTime = isFirstAttack ? 0.25f : _stats.currentAttackSpeed;
 
             var speed = 1f / attackTime;
+            
+            Debug.Log("size1: " + animator.GetCurrentAnimatorStateInfo(0).length);
 
             animator.SetFloat("AttackSpeed", speed);
             animator.SetTrigger("Attack");
+            
+            Debug.Log("size2: " + animator.GetCurrentAnimatorStateInfo(0).length);
             
             isAttackingEnemy = true;
             //todo change this to regular timer to get rid of dotween
@@ -191,7 +195,7 @@ namespace Runtime
                 
                 if (_enemyMovement.IsCloseToEnemy())
                 {
-                    HandleAttack();
+                    //HandleAttack();
                 }
 
                 isAttackingEnemy = false;
@@ -225,6 +229,20 @@ namespace Runtime
             {
                 SpawnMinions();
             }
+        }
+        
+        private bool _isProjectileReady;
+        
+        
+        public void CreateProjectile()
+        {
+            
+        }
+
+        public void TriggerAttack()
+        {
+            CreateProjectile();
+            FireProjectile();
         }
 
         private void SpawnMinions()
@@ -265,7 +283,7 @@ namespace Runtime
                 //todo change this to pool and dictionary.
                 var projectile = Instantiate(projectilePrefab);
                 projectile.transform.position = projectilePoint.transform.position;
-                projectile.transform.right = playerObject.transform.position - projectile.transform.position;
+                projectile.transform.forward = playerScript.hitPoint.transform.position - projectile.transform.position;
 
                 var sc = projectile.GetComponent<Projectile>();
                 sc.pierceNum = 0;
@@ -275,6 +293,7 @@ namespace Runtime
                 sc.SetMaxDistance(_stats.currentAttackRange * GameConfig.RangeToRadius * 2);
                 sc.SetShooter(this);
                 sc.isActive = true;
+                sc.createdBy = gameObject;
             }
         }
 
@@ -300,15 +319,6 @@ namespace Runtime
             spellScript.SetOwnerScript(this);
             spellScript.StartSpell();
             isAuraOn = true;
-        }
-
-        private void OnTriggerEnter2D(Collider2D col)
-        {
-            if (col.CompareTag("Projectile"))
-            {
-                //todo change this!!!
-                //col.GetComponent<Projectile>().HitTarget(this);
-            }
         }
 
         public void DealDamage(float damage, bool isCriticalHit, Weapon weapon, float knockbackAmount = 0)
