@@ -29,7 +29,7 @@ namespace Runtime
         
         //[Header("Data")] public EnemyData enemyData;
         public Transform Transform { get; set; }
-        [SerializeField] private GameObject _hitPoint;
+        [SerializeField] protected internal GameObject _hitPoint;
         public GameObject HitPoint => _hitPoint;
 
         public EnemyBossBehaviour bossBehaviour;

@@ -26780,7 +26780,7 @@ MonoBehaviour:
   - {fileID: 1039887513155052041, guid: 3351ec285ce706b42aed77d0fc3b8542, type: 3}
   - {fileID: 1039887513155052041, guid: e1f9d630736958442b3a035df5502313, type: 3}
   - {fileID: 1039887513155052041, guid: 94183588097637543bcc0c5f6b4dc274, type: 3}
-  - {fileID: 1039887513155052041, guid: eb972e8c0a41cbd43a8899685dc1cfc6, type: 3}
+  - {fileID: 1039887513155052041, guid: 65a65b12bb6964843be8208b7f03f0d6, type: 3}
   - {fileID: 7280217749031058319, guid: 9c2a0d9fa8fa0ae4096b4658e5f36c84, type: 3}
   - {fileID: 2227207856419950999, guid: c3e804bddee264d41ba6310edb7d4d2e, type: 3}
   - {fileID: 4669471996179011683, guid: f4f348b9011929546bbf4e739e7a0313, type: 3}
@@ -26849,8 +26849,9 @@ MonoBehaviour:
   prefab: {fileID: 0}
   key: 9
   isEditing: 1
-  poolKeyToEdit: 9
-  objectForTheKey: {fileID: 0}
+  poolKeyToEdit: 8
+  objectForTheKey: {fileID: 1039887513155052041, guid: 65a65b12bb6964843be8208b7f03f0d6,
+    type: 3}
   missingKeys: 2f000000310000003f0000004000000041000000
 --- !u!4 &850885066
 Transform:
