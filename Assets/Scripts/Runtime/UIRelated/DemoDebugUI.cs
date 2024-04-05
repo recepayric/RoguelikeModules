@@ -19,6 +19,9 @@ namespace Runtime.UIRelated
         public Image levelUpProgress;
         public TextMeshProUGUI levelValues;
 
+        public Image healthBarFill;
+        public TextMeshProUGUI healthBarValue;
+        
         private void Start()
         {
             //Debug.Log("Loading");
@@ -89,12 +92,19 @@ namespace Runtime.UIRelated
             monsterSpawnStatus.text = "is spawning: " + status;
         }
 
+        private void OnUpdatePlayerHealth(int value, float percentage)
+        {
+            healthBarFill.fillAmount = percentage;
+            healthBarValue.text = value.ToString();
+        }
+
         private void OnEnable()
         {
             EventManager.Instance.SetMonsterSpawning += OnSetMonsterSpawning;
             EventManager.Instance.UpdateResCountEvent += OnUpdateItemCount;
             EventManager.EventSetDistanceBetweenEnemy += OnSetClosestMonsterDistance;
             EventManager.Instance.UpdateLevelProgressEvent += OnUpdateLevelProgress;
+            EventManager.Instance.UpdatePlayerHealthEvent += OnUpdatePlayerHealth;
         }
 
         private void OnDisable()
@@ -103,6 +113,7 @@ namespace Runtime.UIRelated
             EventManager.Instance.UpdateResCountEvent -= OnUpdateItemCount;
             EventManager.EventSetDistanceBetweenEnemy -= OnSetClosestMonsterDistance;
             EventManager.Instance.UpdateLevelProgressEvent -= OnUpdateLevelProgress;
+            EventManager.Instance.UpdatePlayerHealthEvent -= OnUpdatePlayerHealth;
         }
     }
 }

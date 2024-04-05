@@ -22,10 +22,10 @@ namespace Runtime.Managers
             Instance = this;
             //Debug.Log("Event Manager is loaded!");
         }
-        
+
         public event UnityAction<bool> SetMonsterSpawning;
         public void SetMonsterSpawn(bool status) => SetMonsterSpawning?.Invoke(status);
-        
+
         public event UnityAction UpdateResCountEvent;
         public void UpdateResCount() => UpdateResCountEvent?.Invoke();
 
@@ -40,6 +40,12 @@ namespace Runtime.Managers
 
         public event UnityAction UpgradeTowerEvent;
         public void UpgradeTower() => UpgradeTowerEvent?.Invoke();
+
+
+        public event UnityAction<int, float> UpdatePlayerHealthEvent;
+
+        public void UpdatePlayerHealth(int health, float percentage) =>
+            UpdatePlayerHealthEvent?.Invoke(health, percentage);
 
         #region Animation Related
 
@@ -61,10 +67,10 @@ namespace Runtime.Managers
 
         public event UnityAction WeaponsUpdatedEvent;
         public void WeaponsUpdated() => WeaponsUpdatedEvent?.Invoke();
-        
+
         public event UnityAction<bool> GameEndEvent;
         public void GameEnd(bool isWon) => GameEndEvent?.Invoke(isWon);
-        
+
         public event UnityAction RestartGameEvent;
         public void RestartGame() => RestartGameEvent?.Invoke();
 
@@ -72,19 +78,21 @@ namespace Runtime.Managers
 
         public void AddCurse(GameObject gameObject, AllStats stat, float amount, float time) =>
             AddCurseEvent?.Invoke(gameObject, stat, amount, time);
-        
+
         #endregion
 
         #region Game Start Related
 
         public event UnityAction<CharacterDataSo> CharacterSelectedEvent;
-        public void CharacterSelected(CharacterDataSo characterDataSo) => CharacterSelectedEvent?.Invoke(characterDataSo);
-        
+
+        public void CharacterSelected(CharacterDataSo characterDataSo) =>
+            CharacterSelectedEvent?.Invoke(characterDataSo);
+
         public event UnityAction<WeaponDataSo> WeaponSelectedEvent;
         public void WeaponSelected(WeaponDataSo weaponDataSo) => WeaponSelectedEvent?.Invoke(weaponDataSo);
 
         #endregion
-        
+
         #region Level Up Related
 
         public event UnityAction<LevelUpStats> LevelUpStatSelectedEvent;
@@ -99,7 +107,7 @@ namespace Runtime.Managers
 
         public event UnityAction<Item> ItemBuyEvent;
         public void ItemBuy(Item item) => ItemBuyEvent?.Invoke(item);
-        
+
         public event UnityAction<PoolKeys> WeaponBuyEvent;
         public void WeaponBuy(PoolKeys weaponPoolKey) => WeaponBuyEvent?.Invoke(weaponPoolKey);
 
@@ -118,7 +126,6 @@ namespace Runtime.Managers
 
         public event UnityAction FloorExitEvent;
         public void FloorExit() => FloorExitEvent?.Invoke();
-
 
         #endregion
 
@@ -139,24 +146,27 @@ namespace Runtime.Managers
         public void CloseScreen(Screens sceneToClose) => OnCloseScreen?.Invoke(sceneToClose);
 
         public event UnityAction<float, float, float> UpdateLevelProgressEvent;
+
         public void UpdateLevelProgress(float percentage, float experience, float neededExperience) =>
             UpdateLevelProgressEvent?.Invoke(percentage, experience, neededExperience);
-        
+
         public event UnityAction<int> SetLevelUpAmountEvent;
         public void SetLevelUpAmount(int levelUpAmount) => SetLevelUpAmountEvent?.Invoke(levelUpAmount);
 
         public event UnityAction<WeaponUpgradeTreeSo> SetWeaponDataForTreeEvent;
-        public void SetWeaponDataForTree(WeaponUpgradeTreeSo weaponTreeDatasSo) => SetWeaponDataForTreeEvent?.Invoke(weaponTreeDatasSo);
-        
+
+        public void SetWeaponDataForTree(WeaponUpgradeTreeSo weaponTreeDatasSo) =>
+            SetWeaponDataForTreeEvent?.Invoke(weaponTreeDatasSo);
+
         public event UnityAction<Weapon> SetWeaponForTreeEvent;
         public void SetWeaponForTree(Weapon weapon) => SetWeaponForTreeEvent?.Invoke(weapon);
 
         //public event UnityAction<string> CharacterSelectChangedEvent;
         //public void CharacterSelectChanged(string characterName) => CharacterSelectChangedEvent?.Invoke(characterName);
-        
+
         public event UnityAction<PoolKeys> CharacterSelectChangedEvent;
         public void CharacterSelectChanged(PoolKeys poolKey) => CharacterSelectChangedEvent?.Invoke(poolKey);
-        
+
         public event UnityAction<PoolKeys> WeaponSelectChangedEvent;
         public void WeaponSelectChanged(PoolKeys poolKey) => WeaponSelectChangedEvent?.Invoke(poolKey);
 
@@ -179,7 +189,7 @@ namespace Runtime.Managers
 
         public void RuneReplace(RuneInventorySlotUI newRune, RuneInventorySlotUI oldRune) =>
             RuneReplaceEvent?.Invoke(newRune, oldRune);
-        
+
         #endregion
 
         public event UnityAction PlayerDiesEvent;
@@ -190,7 +200,6 @@ namespace Runtime.Managers
 
         public event UnityAction<Sounds, float> PlaySoundOnceEvent;
         public void PlaySoundOnce(Sounds sound, float volume) => PlaySoundOnceEvent?.Invoke(sound, volume);
-        
 
         #endregion
 

@@ -170,6 +170,10 @@ namespace Runtime.PlayerRelated
             healthBar.UpdateHealth(currentHealth);
 
             specialModifierHelper.UpdateModifiersOnHealthChange();
+
+            var percentage = currentHealth / stats.GetStat(AllStats.MaxHealth);
+            
+            EventManager.Instance.UpdatePlayerHealth((int)currentHealth, percentage);
         }
 
         [Button]
