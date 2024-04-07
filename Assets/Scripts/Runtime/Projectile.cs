@@ -270,7 +270,7 @@ namespace Runtime
 
             if (destroyAfterTravelingMax && distanceTraveled >= maxTravel)
             {
-                Debug.Log("Destroying because of distance traveled");
+                //Debug.Log("Destroying because of distance traveled");
                 Destroy(gameObject);
             }
         }
@@ -293,14 +293,14 @@ namespace Runtime
             //_renderer.enabled = false;
             //_collider2D.enabled = false;
             //DOVirtual.DelayedCall(0.25f, () => { Destroy(gameObject); });
-            Debug.Log("Destroying because of hit");
+            //Debug.Log("Destroying because of hit");
             Destroy(gameObject);
         }
 
         public void Explode()
         {
             if (!doesExplode) return;
-            Debug.Log("Expliding!!!!");
+            //Debug.Log("Expliding!!!!");
             var explosion = BasicPool.instance.Get(explosionPoolKey);
             explosion.transform.position = transform.position;
 
@@ -344,8 +344,8 @@ namespace Runtime
 
             //ResetTravelData();
             var isCrit = Random.Range(0, 1f) <= criticalHitChance;
-            Debug.Log("Created By: " + createdBy);
-            Debug.Log("Hit to: " + enemy.Transform.gameObject);
+            //Debug.Log("Created By: " + createdBy);
+            //Debug.Log("Hit to: " + enemy.Transform.gameObject);
             enemy.DealDamage((int)damage, isCrit, weapon, 1);
             
             _piercedEnemyCount++;
@@ -387,7 +387,7 @@ namespace Runtime
             }
             else if (bounceNum > 0)
             {
-                Debug.Log("Bouncing!!");
+                //Debug.Log("Bouncing!!");
                 //isHomingProjectile = false;
                 StopTravelDestroy();
                 ResetTravelData();
@@ -397,11 +397,11 @@ namespace Runtime
                 if (newTarget == null)
                 {
                     Destroy(gameObject);
-                    Debug.Log("No target to bounce. Destroying");
+                    //Debug.Log("No target to bounce. Destroying");
                 }
                 else
                 {
-                    Debug.Log("Old target: " + targetEnemy + "  new: " + newTarget);
+                    //Debug.Log("Old target: " + targetEnemy + "  new: " + newTarget);
                     targetEnemy = newTarget;
                     transform.forward = DictionaryHolder.Enemies[newTarget].HitPoint.transform.position -
                                         transform.position;
@@ -424,17 +424,17 @@ namespace Runtime
 
         private GameObject GetClosestEnemy(GameObject currentEnemy)
         {
-            Debug.Log("Current Target: " + targetEnemy);
+            //Debug.Log("Current Target: " + targetEnemy);
             //todo do this in one loop!!!
             var closestEnemy = (GameObject)null;
             var closestDistance = 99999f;
             bool isInIgnoreList = false;
             foreach (var enemy in DictionaryHolder.Enemies)
             {
-                Debug.Log(enemy.Key + "  " + lastHitEnemy);
+                //Debug.Log(enemy.Key + "  " + lastHitEnemy);
                 if (enemy.Key == lastHitEnemy)
                 {
-                    Debug.Log("Current enemy is this enemy!!!");
+                    //Debug.Log("Current enemy is this enemy!!!");
                     continue;
                 }
 
@@ -458,7 +458,7 @@ namespace Runtime
                     closestEnemy = enemy.Key;
                 }
             }
-            Debug.Log("New enemy: " + closestEnemy);
+            //Debug.Log("New enemy: " + closestEnemy);
 
             return closestEnemy;
         }

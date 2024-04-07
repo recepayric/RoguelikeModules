@@ -193,8 +193,9 @@ namespace Data
             {
                 Debug.Log("floor: " + floor);
                 floorTime = 30 + floor * 5;
-                
-                
+
+                if (floor == 0)
+                    floorTime = 300;
                 
                 if (floorTime > 60)
                     floorTime = 60;

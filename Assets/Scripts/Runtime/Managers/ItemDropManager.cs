@@ -32,6 +32,8 @@ namespace Runtime.Managers
 
            DropCurrency(Random.Range(0, 1f), enemy);
            DropTowerFragment(Random.Range(0, 1f), enemy);
+           
+           
         }
 
         private void DropTowerFragment(float rnd, Enemy enemy)
@@ -43,6 +45,7 @@ namespace Runtime.Managers
             var randX = Random.Range(-0.5f, 0.5f);
             var randY = Random.Range(-0.5f, 0.5f);
             orb.transform.position = dropPos + new Vector3(randX, randY);
+            Debug.Log("Tower fragment dropped");
 
         }
 
@@ -56,6 +59,7 @@ namespace Runtime.Managers
             var randX = Random.Range(-0.5f, 0.5f);
             var randY = Random.Range(-0.5f, 0.5f);
             orb.transform.position = dropPos + new Vector3(randX, randY);
+            Debug.Log("Currency dropped");
         }
     }
 }

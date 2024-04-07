@@ -180,12 +180,12 @@ namespace Runtime
 
             var speed = 1f / attackTime;
             
-            Debug.Log("size1: " + animator.GetCurrentAnimatorStateInfo(0).length);
+            //Debug.Log("size1: " + animator.GetCurrentAnimatorStateInfo(0).length);
 
             animator.SetFloat("AttackSpeed", speed);
             animator.SetTrigger("Attack");
             
-            Debug.Log("size2: " + animator.GetCurrentAnimatorStateInfo(0).length);
+            //Debug.Log("size2: " + animator.GetCurrentAnimatorStateInfo(0).length);
             
             isAttackingEnemy = true;
             //todo change this to regular timer to get rid of dotween

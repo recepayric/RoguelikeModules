@@ -8,6 +8,7 @@ namespace Runtime.UIRelated.WeaponUpgrades
 {
     public class UpgradeNodeUI : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
     {
+        public GameObject lockedImage;
         public WeaponUpgradeScreenUI weaponUpgradeScreenUI;
         public UpgradeTreeNode upgradeTreeNode;
         public List<string> attributes;
@@ -21,6 +22,8 @@ namespace Runtime.UIRelated.WeaponUpgrades
         {
             isBought = status;
             btnBuy.interactable = !isBought;
+            
+            
         }
 
         public void SetAvailable(bool status)
@@ -29,6 +32,8 @@ namespace Runtime.UIRelated.WeaponUpgrades
             
             canBeBought = status;
             btnBuy.interactable = status;
+            
+            //lockedImage.SetActive(!status);
         }
 
         public void SetUpgradeTreeNode(UpgradeTreeNode pUpgradeTreeNode)
