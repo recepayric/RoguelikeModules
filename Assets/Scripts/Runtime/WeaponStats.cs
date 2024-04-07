@@ -155,8 +155,8 @@ namespace Runtime
 
             var projectileFromTree = GetStat(AllStats.ProjectileNumber);
             var bounceFromTree = GetStat(AllStats.BounceNumber);
-            Debug.Log("bounce from tree:  " + bounceFromTree);
-            Debug.Log("extra damage:  " + damagePoint);
+            //Debug.Log("bounce from tree:  " + bounceFromTree);
+            //Debug.Log("extra damage:  " + damagePoint);
 
             //var data = weaponDatsSo.WeaponData[weaponType];
             damage = data.BaseDamage + extraDamage + damagePoint;

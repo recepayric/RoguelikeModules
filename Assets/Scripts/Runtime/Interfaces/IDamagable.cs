@@ -10,6 +10,7 @@ namespace Runtime.Interfaces
         GameObject HitPoint { get;}
         void DealDamage(float damage, bool isCriticalHit, Weapon weapon, float knockbackAmount = 0);
         void DealDamage(float damage, bool isCriticalHit, float knockbackAmount = 0);
+        void AddElementalAilment(ElementModifiers ailment, float time, float effect, Weapon weapon, int spreadAmount = 0);
         void AddElementalAilment(ElementModifiers ailment, float time, float effect, int spreadAmount = 0);
     }
 }

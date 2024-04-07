@@ -355,15 +355,15 @@ namespace Runtime
             //
             if (weapon != null && weapon.weaponStats.addBurn)
                 enemy.AddElementalAilment(ElementModifiers.Fire, weapon.weaponStats.burnTime,
-                    weapon.weaponStats.burnDamage, weapon.weaponStats.burnSpreadAmount);
+                    weapon.weaponStats.burnDamage, weapon, weapon.weaponStats.burnSpreadAmount);
 
             if (weapon != null && weapon.weaponStats.addFreeze)
                 enemy.AddElementalAilment(ElementModifiers.Ice, weapon.weaponStats.freezeTime,
-                    weapon.weaponStats.freezeEffect);
+                    weapon.weaponStats.freezeEffect, weapon);
 
             if (weapon != null && weapon.weaponStats.addShock)
                 enemy.AddElementalAilment(ElementModifiers.Lightning, weapon.weaponStats.shockTime,
-                    weapon.weaponStats.shockEffect);
+                    weapon.weaponStats.shockEffect, weapon);
 
             if (modifiers == null)
                 modifiers = new List<Modifier>();

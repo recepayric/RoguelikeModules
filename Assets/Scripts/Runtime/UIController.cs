@@ -15,6 +15,8 @@ public class UIController : MonoBehaviour
     
     public GameObject textObject;
 
+    private List<GameObject> damageTexts = new List<GameObject>();
+
     private void Awake()
     {
         instance = this;
@@ -23,12 +25,20 @@ public class UIController : MonoBehaviour
     public void AddDamageText(GameObject enemy, float damage, bool isCritical)
     {
         var text = Instantiate(textObject);
-        text.transform.position = enemy.transform.position + Vector3.up * 0.5f;
+        text.transform.position = enemy.transform.position + Vector3.up * 1.5f;
 
         text.GetComponent<TextMeshPro>().text = damage.ToString();
         text.GetComponent<TextMeshPro>().color = isCritical ? Color.red : Color.white;
 
-        text.transform.DOMoveY(1, 0.5f).SetRelative(true).OnComplete(() => { Destroy(text); });
+        text.transform.DOMoveY(1, 0.5f).SetRelative(true).OnComplete(() => { DestroyText(text); });
+        
+        damageTexts.Add(text);
+    }
+
+    private void DestroyText(GameObject textObject)
+    {
+        damageTexts.Remove(textObject);
+        Destroy(textObject);
     }
 
     // Start is called before the first frame update
@@ -39,6 +49,11 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        for (int i = 0; i < damageTexts.Count; i++)
+        {
+            damageTexts[i].transform.LookAt(Camera.main.transform);
+        }
+        
         if(Input.GetKeyDown(KeyCode.Alpha1))
             EventManager.Instance.OpenScreen(Screens.Floor, true);
         

@@ -189,6 +189,11 @@ namespace Runtime.PlayerRelated
             specialModifierHelper.UpdateModifiersOnGetHit();
         }
 
+        public void AddElementalAilment(ElementModifiers ailment, float time, float effect, Weapon weapon, int spreadAmount = 0)
+        {
+            
+        }
+
         public void AddElementalAilment(ElementModifiers element, float time, float effect, int spreadAmount)
         {
             
@@ -346,7 +351,7 @@ namespace Runtime.PlayerRelated
                 var angle = angleBetween * i * Mathf.Deg2Rad;
                 var posX = weaponRadius * Mathf.Cos(angle);
                 var posZ = weaponRadius * Mathf.Sin(angle);
-                Debug.Log(posX + "  " + posZ + "   " + weaponRadius + "   " + angle);
+                //Debug.Log(posX + "  " + posZ + "   " + weaponRadius + "   " + angle);
                 minions[i].SetDefaultPosition(new Vector3(posX, 0, posZ), transform);
             }
         }

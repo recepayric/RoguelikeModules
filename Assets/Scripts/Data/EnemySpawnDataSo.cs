@@ -123,7 +123,7 @@ namespace Data
             SetPoolKeys();
             CheckBuffers();
             
-            Debug.Log("PoolKeysCount: " + poolKeys.Count);
+            //Debug.Log("PoolKeysCount: " + poolKeys.Count);
             if (poolKeys.Count == 0)
             {
                 SpawnDatas[floor].Add(new SpawnData());
@@ -162,7 +162,7 @@ namespace Data
                 spawnData.spawnWait = timeBetween;
                 SpawnBuffer(spawnData);
                 
-                Debug.Log("floor: " + floor);
+                //Debug.Log("floor: " + floor);
                 SpawnDatas[floor].Add(spawnData);
                 
                 if (floor == 19 && round == 0)
@@ -199,6 +199,8 @@ namespace Data
                 
                 if (floorTime > 60)
                     floorTime = 60;
+
+                //floorTime = 5;
                 
                 floorTimes.Add(floorTime);
                 FillSpawnData();

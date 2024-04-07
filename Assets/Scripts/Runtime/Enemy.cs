@@ -26,7 +26,6 @@ namespace Runtime
     [RequireComponent(typeof(EnemyDamageTaker))]
     public class Enemy : MonoBehaviour, IPoolObject, IDamageable, IShooter, ISpellCaster, ICursable
     {
-        
         //[Header("Data")] public EnemyData enemyData;
         public Transform Transform { get; set; }
         [SerializeField] protected internal GameObject _hitPoint;
@@ -164,12 +163,20 @@ namespace Runtime
         void Update()
         {
             ailments.UpdateAilments();
+            ChangeAilmentTextFacingToCamera();
             UpdateDeath();
 
             if (_stats.AttackType == AttackType.AuraUser && !isAuraOn && !_isDead)
             {
                 CastSpell();
             }
+        }
+
+        private void ChangeAilmentTextFacingToCamera()
+        {
+            burnAilmentObject.transform.LookAt(Camera.main.transform);
+            shockAilmentObject.transform.LookAt(Camera.main.transform);
+            freezeAilmentObject.transform.LookAt(Camera.main.transform);
         }
 
         //Perform an animation and attack!
@@ -179,20 +186,20 @@ namespace Runtime
             var attackTime = isFirstAttack ? 0.25f : _stats.currentAttackSpeed;
 
             var speed = 1f / attackTime;
-            
+
             //Debug.Log("size1: " + animator.GetCurrentAnimatorStateInfo(0).length);
 
             animator.SetFloat("AttackSpeed", speed);
             animator.SetTrigger("Attack");
-            
+
             //Debug.Log("size2: " + animator.GetCurrentAnimatorStateInfo(0).length);
-            
+
             isAttackingEnemy = true;
             //todo change this to regular timer to get rid of dotween
             DOVirtual.DelayedCall(attackTime, () =>
             {
                 if (!gameObject.activeSelf) return;
-                
+
                 if (_enemyMovement.IsCloseToEnemy())
                 {
                     //HandleAttack();
@@ -230,13 +237,12 @@ namespace Runtime
                 SpawnMinions();
             }
         }
-        
+
         private bool _isProjectileReady;
-        
-        
+
+
         public void CreateProjectile()
         {
-            
         }
 
         public void TriggerAttack()
@@ -326,13 +332,14 @@ namespace Runtime
             //todo calculate damage after defence!!!
             var calculatedDamage = damage;
 
-            weapon.UpdateDamageHit(calculatedDamage);
+            if (weapon != null)
+                weapon.UpdateDamageHit(calculatedDamage);
             damageTaken += calculatedDamage;
             UIController.instance.AddDamageText(gameObject, damage, isCriticalHit);
             UpdateHealth();
             //_enemyDamageTaker.DamageTaken();
 
-            if (knockbackAmount > 0 )
+            if (knockbackAmount > 0)
                 _enemyMovement.AddKnockback(1);
 
             if (_stats.currentHealth <= 0)
@@ -350,12 +357,18 @@ namespace Runtime
 
         public void DealDamage(float damage, bool isCriticalHit, float knockbackAmount = 0)
         {
-            //do nothing here..
+            DealDamage(damage, isCriticalHit, null, knockbackAmount);
         }
 
-        public void AddElementalAilment(ElementModifiers element, float time, float effect, int spreadAmount)
+        public void AddElementalAilment(ElementModifiers element, float time, float effect, Weapon weapon,
+            int spreadAmount)
         {
-            ailments.AddElementalAilment(element, time, effect, spreadAmount);
+            ailments.AddElementalAilment(element, time, effect, weapon, spreadAmount);
+        }
+
+        public void AddElementalAilment(ElementModifiers element, float time, float effect, int spreadAmount = 0)
+        {
+            ailments.AddElementalAilment(element, time, effect, null, spreadAmount);
         }
 
         private void UpdateHealth()
@@ -382,7 +395,9 @@ namespace Runtime
             animator.SetFloat("DieSpeed", 1f / AnimationConfig.DieAnimationTime);
             animator.SetTrigger("Die");
             dieTimer = AnimationConfig.DieAnimationTime * 1.25f;
-            weapon.UpdateKillCount();
+
+            if (weapon != null)
+                weapon.UpdateKillCount();
 
             if (spellScript != null)
             {
@@ -415,8 +430,8 @@ namespace Runtime
             if (health == null) health = GetComponent<Health>();
 
             playerScript = DictionaryHolder.Player;
-            
-            if(playerScript != null)
+
+            if (playerScript != null)
                 playerObject = playerScript.gameObject;
 
             _stats.SetStats();
@@ -473,12 +488,12 @@ namespace Runtime
             DictionaryHolder.Enemies.Remove(gameObject);
             DictionaryHolder.Damageables.Remove(gameObject);
             isAttackingEnemy = false;
-            
+
             if (_stats.AttackType == AttackType.Boss)
             {
                 bossBehaviour.Stop();
             }
-            
+
             ClearEnemy();
         }
 

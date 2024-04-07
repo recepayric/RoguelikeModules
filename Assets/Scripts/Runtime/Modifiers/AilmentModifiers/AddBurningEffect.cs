@@ -9,6 +9,7 @@ namespace Runtime.Modifiers.AilmentModifiers
     {
         public AddBurningEffect()
         {
+            SetSpecialModifier(SpecialModifiers.BurnOnHit);
             SetUseArea(ModifierUseArea.OnStart);
         }
         

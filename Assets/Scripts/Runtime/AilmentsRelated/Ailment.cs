@@ -21,6 +21,7 @@ namespace Runtime.AilmentsRelated
         public List<int> finishedAilments;
         public List<float> ailmentRemainingTimes;
         public List<float> ailmentEffects;
+        public List<Weapon> weapons;
         private UnityAction<float> _applyEffectEvent;
         private UnityAction _ailmentFinished;
         private UnityAction _ailmentAdded;
@@ -33,6 +34,7 @@ namespace Runtime.AilmentsRelated
             ailmentRemainingTimes = new List<float>();
             ailmentEffects = new List<float>();
             finishedAilments = new List<int>();
+            weapons = new List<Weapon>();
         }
 
         public void UpdateAilment()
@@ -110,17 +112,19 @@ namespace Runtime.AilmentsRelated
             _applyEffectEvent?.Invoke(lastEffectAmount);
         }
 
-        public void AddAilmentEffect(float time, float effect)
+        public void AddAilmentEffect(float time, float effect, Weapon weapon)
         {
             if (!CheckCanBeStacked())
             {
                 ailmentEffects[0] = effect;
                 ailmentRemainingTimes[0] = time;
+                weapons[0] = weapon;
             }
             else
             {
                 ailmentEffects.Add(effect);
                 ailmentRemainingTimes.Add(time);
+                weapons.Add(weapon);
             }
 
             isActive = true;

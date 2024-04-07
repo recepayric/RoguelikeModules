@@ -234,6 +234,7 @@ namespace Runtime
         {
             for (int i = 0; i < pSpecialModifiersList.Count; i++)
             {
+                Debug.Log("Adding special modifier: " + pSpecialModifiersList[i]);
                 AddSpecialModifier(pSpecialModifiersList[i]);
             }
         }
@@ -554,11 +555,11 @@ namespace Runtime
 
         public void OnGet()
         {
-            InitialiseWeapon();
             weaponStats._weaponDataSo = weaponDataSo;
             weaponStats.SetStats();
             weaponStats.CreateSpells();
             spells = weaponStats.spells;
+            InitialiseWeapon();
         }
     }
 }

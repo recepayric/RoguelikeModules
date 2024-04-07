@@ -103,10 +103,10 @@ namespace Runtime.AilmentsRelated
 
         #region Stun
 
-        private void AddStun(float time, float effect)
+        private void AddStun(float time, float effect, Weapon weapon)
         {
             isStunned = true;
-            stunAilment.AddAilmentEffect(time, effect);
+            stunAilment.AddAilmentEffect(time, effect, weapon);
         }
         
         private void FinishStun()
@@ -124,9 +124,9 @@ namespace Runtime.AilmentsRelated
             //bleedingAilmentObject.SetActive(true);
         }
 
-        public void AddBleeding(float time, float effect)
+        public void AddBleeding(float time, float effect, Weapon weapon)
         {
-            bleedAilment.AddAilmentEffect(time, effect);
+            bleedAilment.AddAilmentEffect(time, effect, weapon);
             isBleeding = true;
         }
         
@@ -140,12 +140,12 @@ namespace Runtime.AilmentsRelated
         
         #region Burn
 
-        private void AddBurning(float burnTimeToAdd, float burningDamage)
+        private void AddBurning(float burnTimeToAdd, float burningDamage, Weapon weapon)
         {
             isBurning = true;
             burnTime = burnTimeToAdd;
             burnAilmentObject.SetActive(true);
-            burnAilment.AddAilmentEffect(burnTime, burningDamage);
+            burnAilment.AddAilmentEffect(burnTime, burningDamage, weapon);
         }
 
         private void FinishBurn()
@@ -160,6 +160,7 @@ namespace Runtime.AilmentsRelated
         private void ApplyBurn(float damage)
         {
             damageable.DealDamage((int)damage, false);
+            //Debug.Log("Dealing Burning Damage: " + (int)damage);
         }
 
         #endregion
@@ -214,11 +215,11 @@ namespace Runtime.AilmentsRelated
 
         #endregion
         
-        public void AddElementalAilment(ElementModifiers element, float time, float effect, int spreadAmount)
+        public void AddElementalAilment(ElementModifiers element, float time, float effect, Weapon weapon, int spreadAmount)
         {
             if (element == ElementModifiers.Fire)
             {
-                AddBurning(time, effect);
+                AddBurning(time, effect,weapon);
             }else if (element == ElementModifiers.Ice)
             {
                 AddFreeze(time, effect);
@@ -227,10 +228,10 @@ namespace Runtime.AilmentsRelated
                 AddShock(time, effect);
             }else if (element == ElementModifiers.Bleed)
             {
-                AddBleeding(time, effect);
+                AddBleeding(time, effect, weapon);
             }else if (element == ElementModifiers.Stun)
             {
-                AddStun(time, effect);
+                AddStun(time, effect, weapon);
             }
 
 
@@ -248,9 +249,10 @@ namespace Runtime.AilmentsRelated
                 
                 Debug.Log("Fire is spreading!!!!!!");
                 enemiesToSpreadAilment.Add(closeEnemy);
-                DictionaryHolder.Damageables[closeEnemy].AddElementalAilment(element, time, effect, 0);
+                DictionaryHolder.Damageables[closeEnemy].AddElementalAilment(element, time, effect, weapon, 0);
             }
         }
+        
         
         private GameObject GetClosestEnemy(List<GameObject> ignoreList)
         {
