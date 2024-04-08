@@ -8,6 +8,7 @@ namespace Data.EnemyDataRelated
     [CreateAssetMenu(fileName = "Data", menuName = "Enemies/EnemyData", order = 1)]
     public class EnemyData : SerializedScriptableObject
     {
+        public string enemyName;
         public bool canBeSpawned;
         public bool CanBeSpawnedNormally;
         public float baseHealth;

@@ -21,7 +21,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  canBeSpawned: 0
+  enemyName: Skeleton Archer
+  canBeSpawned: 1
   CanBeSpawnedNormally: 1
   baseHealth: 15
   baseDamage: 0

@@ -5,6 +5,7 @@ namespace Runtime.Configs
 {
     public class GameConfig
     {
+        public static bool IsDebug = true;
         public static float MapWidth = 30;
         public static float MapHeight = 24;
         public static Screens FirstScreenToOpen = Screens.CharacterSelect;

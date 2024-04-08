@@ -21,7 +21,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  canBeSpawned: 0
+  enemyName: Skeleton Mage
+  canBeSpawned: 1
   CanBeSpawnedNormally: 1
   baseHealth: 1
   baseDamage: 0

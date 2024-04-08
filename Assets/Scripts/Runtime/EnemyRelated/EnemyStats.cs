@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Data.EnemyDataRelated;
 using Runtime.Enums;
+using Runtime.Managers;
 using Runtime.PlayerRelated;
 using Runtime.StatValue;
 using Runtime.TowerRelated;
@@ -17,7 +18,8 @@ namespace Runtime.EnemyRelated
     /// </summary>
     public class EnemyStats : MonoBehaviour
     {
-        [SerializeField] private EnemyData enemyData;
+        public Enemy enemy;
+        [SerializeField] public EnemyData enemyData;
         private Health _health;
         private Tower _tower;
 
@@ -84,6 +86,8 @@ namespace Runtime.EnemyRelated
 
         public void SetStats()
         {
+            DebugEvents.Instance.AddEnemyToDebugList(enemy);
+
             if (ElementalStatus == null) ElementalStatus = new ElementalAilmentStatus();
             if (enemyData == null) return;
             _health = GetComponent<Health>();
@@ -101,9 +105,15 @@ namespace Runtime.EnemyRelated
             AttackType = enemyData.attackType;
             currentProjectileNumber = enemyData.baseProjectileNumber;
             explosionKey = enemyData.explosionKey;
+            
+            DebugEvents.Instance.UpdateEnemyBaseStats(enemy);
 
             SetFloorStats();
+            DebugEvents.Instance.UpdateEnemyTowerStats(enemy);
+
             SetTowerStats(_tower);
+            DebugEvents.Instance.UpdateEnemyModifierStats(enemy);
+
 
             currentHealth = currentMaxHealth;
             _health.SetMaxHealth(currentMaxHealth);
@@ -113,6 +123,8 @@ namespace Runtime.EnemyRelated
         private void SetFloorStats()
         {
             if (_tower == null) return;
+
+            
             var floor = GameController.instance.enemySpawner.floorNumber;
             var increase = _tower.baseStatIncrease * Mathf.Pow(_tower.statIncreaseRatePerFloor, floor);
             currentDamage *= increase;
@@ -126,6 +138,12 @@ namespace Runtime.EnemyRelated
             //currentMaxAttackRange *= increase;
             currentEvasion *= increase;
             currentDefence *= increase;
+            
+            
+            float towerBoost = _tower.baseStatIncrease;
+            float floorBoost = Mathf.Pow(_tower.statIncreaseRatePerFloor, floor);
+            
+            DebugEvents.Instance.UpdateTowerStatBoostValues(towerBoost, floorBoost);
         }
 
         private void SetTowerStats(Tower tower)

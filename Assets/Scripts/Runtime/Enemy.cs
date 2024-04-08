@@ -90,6 +90,8 @@ namespace Runtime
 
             _enemyMovement.Ailments = ailments;
             _enemyMovement.SetAnimator(animator);
+
+            _stats.enemy = this;
         }
 
         private void SetUpAilments()

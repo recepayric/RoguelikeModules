@@ -153,6 +153,7 @@ MonoBehaviour:
       finishedAilments: 
       ailmentRemainingTimes: []
       ailmentEffects: []
+      weapons: []
     freezeAilment:
       AilmentType: 0
       stackStatForAilment: 0
@@ -161,6 +162,7 @@ MonoBehaviour:
       finishedAilments: 
       ailmentRemainingTimes: []
       ailmentEffects: []
+      weapons: []
     shockAilment:
       AilmentType: 0
       stackStatForAilment: 0
@@ -169,6 +171,7 @@ MonoBehaviour:
       finishedAilments: 
       ailmentRemainingTimes: []
       ailmentEffects: []
+      weapons: []
     bleedAilment:
       AilmentType: 0
       stackStatForAilment: 0
@@ -177,6 +180,7 @@ MonoBehaviour:
       finishedAilments: 
       ailmentRemainingTimes: []
       ailmentEffects: []
+      weapons: []
     stunAilment:
       AilmentType: 0
       stackStatForAilment: 0
@@ -185,6 +189,7 @@ MonoBehaviour:
       finishedAilments: 
       ailmentRemainingTimes: []
       ailmentEffects: []
+      weapons: []
   rigidBody: {fileID: 0}
   targetObject: {fileID: 0}
   enemy: {fileID: 0}
@@ -214,7 +219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25048db895b4edd8de42ccebb430021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: e2140f7119b147349806390bbc31902c, type: 2}
+  enemy: {fileID: 0}
+  enemyData: {fileID: 11400000, guid: ea0abc2c9a40a5c43ace488f3cab36a4, type: 2}
   currentHealth: 0
   currentMaxHealth: 0
   currentHealthRegen: 0
@@ -311,6 +317,7 @@ MonoBehaviour:
       finishedAilments: 
       ailmentRemainingTimes: []
       ailmentEffects: []
+      weapons: []
     freezeAilment:
       AilmentType: 0
       stackStatForAilment: 0
@@ -319,6 +326,7 @@ MonoBehaviour:
       finishedAilments: 
       ailmentRemainingTimes: []
       ailmentEffects: []
+      weapons: []
     shockAilment:
       AilmentType: 0
       stackStatForAilment: 0
@@ -327,6 +335,7 @@ MonoBehaviour:
       finishedAilments: 
       ailmentRemainingTimes: []
       ailmentEffects: []
+      weapons: []
     bleedAilment:
       AilmentType: 0
       stackStatForAilment: 0
@@ -335,6 +344,7 @@ MonoBehaviour:
       finishedAilments: 
       ailmentRemainingTimes: []
       ailmentEffects: []
+      weapons: []
     stunAilment:
       AilmentType: 0
       stackStatForAilment: 0
@@ -343,6 +353,7 @@ MonoBehaviour:
       finishedAilments: 
       ailmentRemainingTimes: []
       ailmentEffects: []
+      weapons: []
   _stats: {fileID: 0}
   animator: {fileID: 4161730950124875292}
   boxCollider2D: {fileID: 314102435110076034}

@@ -21,6 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  enemyName: Imp
   canBeSpawned: 1
   CanBeSpawnedNormally: 1
   baseHealth: 3000
