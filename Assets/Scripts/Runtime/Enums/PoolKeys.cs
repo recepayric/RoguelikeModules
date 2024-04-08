@@ -1,6 +1,6 @@
 ﻿namespace Runtime.Enums
 {
-    //79
+    //83
     public enum PoolKeys
     {
         Explosion1 = 0,
@@ -13,6 +13,9 @@
         OrbTowerFragment = 56,
         EnemyBuffer1 = 5,
         EnemyWarrior1 = 6,
+        EnemyWarriorHound = 79,
+        EnemyWarriorHound2 = 81,
+        EnemyWarriorHound3 = 82,
         EnemyTank1 = 7,
         EnemyMage1 = 8,
         EnemyRanger1 = 9,
@@ -67,6 +70,7 @@
         PlayerLightning = 29,
         PlayerGambler = 30,
         PlayerSpeedy = 55,
+        PlayerRunemaster = 80,
 
         //Weapons!!!
         WeaponWandNormal = 31,

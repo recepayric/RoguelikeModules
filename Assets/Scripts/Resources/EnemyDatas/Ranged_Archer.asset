@@ -24,8 +24,8 @@ MonoBehaviour:
   enemyName: Skeleton Archer
   canBeSpawned: 1
   CanBeSpawnedNormally: 1
-  baseHealth: 15
-  baseDamage: 0
+  baseHealth: 3
+  baseDamage: 3
   baseMoveSpeed: 5
   baseAttackSpeed: 1
   baseEvasion: 0
@@ -33,7 +33,7 @@ MonoBehaviour:
   baseAttackRange: 10
   baseMaxAttackRange: 12
   baseProjectileNumber: 1
-  minFloorToSpawn: 0
+  minFloorToSpawn: 5
   minSpawnAmount: 1
   maxSpawnAmount: 5
   attackType: 2

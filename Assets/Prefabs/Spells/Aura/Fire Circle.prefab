@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 855111284736726273}
   - component: {fileID: 855111284736726274}
-  - component: {fileID: 855111284736726275}
   - component: {fileID: 855111284736726284}
+  - component: {fileID: 1881862713449226715}
   m_Layer: 11
   m_Name: Fire Circle
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 855111284736726272}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -1.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -86,62 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &855111284736726275
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 855111284736726272}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.0000000018626451, y: 0.27651834}
-      - {x: -0.15550768, y: 0.22108988}
-      - {x: -0.23469977, y: 0.12870635}
-      - {x: -0.2779385, y: 0.0010517016}
-      - {x: -0.21759664, y: -0.18123962}
-      - {x: -0.030869879, y: -0.26975578}
-      - {x: 0.13015123, y: -0.23225549}
-      - {x: 0.20998046, y: -0.15724733}
-      - {x: 0.24474931, y: -0.065944076}
-      - {x: 0.25194344, y: 0.09595955}
-      - {x: 0.14438769, y: 0.22156584}
-  m_UseDelaunayMesh: 0
 --- !u!114 &855111284736726284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,8 +101,29 @@ MonoBehaviour:
   playerScript: {fileID: 0}
   enemiesInRange: []
   baseRange: 0
-  baseScale: {x: 13, y: 8.45605, z: 13}
+  baseScale: {x: 7, y: 7, z: 7}
   targetScale: {x: 0, y: 0, z: 0}
   isActive: 0
   activateTime: 1
   deactivateTime: 1
+--- !u!135 &1881862713449226715
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855111284736726272}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.32000008
+  m_Center: {x: 0, y: 0, z: 0}

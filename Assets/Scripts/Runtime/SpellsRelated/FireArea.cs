@@ -73,7 +73,7 @@ namespace Runtime.SpellsRelated
             var radToScale = radius / GameConfig.RangeToRadius;
             var scaleForY = radToScale * (baseScale.y / baseScale.x);
 
-            var newScale = new Vector3(baseScale.x + radToScale, baseScale.y + scaleForY, baseScale.z + radToScale);
+            var newScale = new Vector3(baseScale.x + radToScale, baseScale.y + radToScale, baseScale.z + radToScale);
             //transform.localScale = newScale;
             targetScale = newScale;
         }
@@ -107,6 +107,12 @@ namespace Runtime.SpellsRelated
         {
             for (int i = 0; i < enemiesInRange.Count; i++)
             {
+                if (!enemiesInRange[i].activeSelf)
+                {
+                    enemiesInRange.Remove(enemiesInRange[i]);
+                    i--;
+                    continue;
+                }
                 if (!DictionaryHolder.Enemies[enemiesInRange[i]].IsAvailable())
                 {
                     enemiesInRange.Remove(enemiesInRange[i]);
@@ -125,7 +131,7 @@ namespace Runtime.SpellsRelated
             transform.localScale = newScale;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Enemy"))
             {
@@ -133,7 +139,7 @@ namespace Runtime.SpellsRelated
             }
         }
 
-        private void OnTriggerExit2D(Collider2D other)
+        private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("Enemy"))
             {

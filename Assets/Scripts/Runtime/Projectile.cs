@@ -105,13 +105,18 @@ namespace Runtime
 
         private void Update()
         {
+            
+        }
+
+        private void FixedUpdate()
+        {
             if (!isActive) return;
 
 
             if (isHomingProjectile)
                 UpdateHomingV3();
-            
-            
+
+
             UpdateRegularMove();
 
             if (doesSpin)
@@ -226,14 +231,14 @@ namespace Runtime
                 isHomingProjectile = false;
                 return;
             }
-            
-            turningTimer += Time.deltaTime/turnTime*turnMultiplier;
 
-            turnMultiplier += Time.deltaTime/0.125f;
-            
+            turningTimer += Time.deltaTime / turnTime * turnMultiplier;
+
+            turnMultiplier += Time.deltaTime / 0.125f;
+
             if (turningTimer > 1)
                 turningTimer = 1;
-            
+
             var targetRotation = DictionaryHolder.Enemies[targetEnemy].HitPoint.transform.position - transform.position;
 
             var angle = Vector3.Lerp(initialRotation, targetRotation, turningTimer);
@@ -259,14 +264,27 @@ namespace Runtime
 
         private void UpdateRegularMove()
         {
-            deltaTravel = Time.deltaTime * projectileSpeed * pTransform.forward;
+            deltaTravel = Time.fixedDeltaTime * projectileSpeed * pTransform.forward;
             distanceTraveled += Vector3.Distance(pTransform.position, pTransform.position + deltaTravel);
             pTransform.position += deltaTravel;
 
-            if (transform.position.y > 2.5f)
+
+            if (gameObject.layer == 7)
             {
-                transform.rotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 0));
+
+                if (transform.rotation.eulerAngles.x > 270 && transform.position.y > 1.2f)
+                {
+                    Debug.Log("going up stopping " + transform.rotation.eulerAngles.x);
+                    transform.rotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 0));
+                }
+                else if (transform.rotation.eulerAngles.x > 0 && transform.rotation.eulerAngles.x < 90  && transform.position.y < 0.8f)
+                {
+                    Debug.Log("going down stopping " + transform.rotation.eulerAngles.x);
+
+                    transform.rotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 0));
+                }
             }
+
 
             if (destroyAfterTravelingMax && distanceTraveled >= maxTravel)
             {
@@ -347,9 +365,9 @@ namespace Runtime
             //Debug.Log("Created By: " + createdBy);
             //Debug.Log("Hit to: " + enemy.Transform.gameObject);
             enemy.DealDamage((int)damage, isCrit, weapon, 1);
-            
+
             _piercedEnemyCount++;
-            
+
             //Apply Ailments!
             //todo redo this!!!
             //
@@ -463,10 +481,11 @@ namespace Runtime
             return closestEnemy;
         }
 
+        private int hitNumber = 0;
         private void OnTriggerEnter(Collider other)
         {
             var hitBefore = false;
-            
+
             for (int i = 0; i < enemiesWasHit.Count; i++)
             {
                 if (enemiesWasHit[i] == other.gameObject)
@@ -479,7 +498,11 @@ namespace Runtime
                 lastHitEnemy = other.gameObject;
                 HitTarget(damageable);
                 enemiesWasHit.Add(other.gameObject);
+
+                hitNumber++;
             }
+            
+            Debug.Log("Hit Total: " + hitNumber);
         }
 
 

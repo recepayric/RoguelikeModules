@@ -63,6 +63,7 @@ namespace Runtime.PlayerRelated
             healthBar = GetComponent<Health>();
             playerLevel = GetComponent<PlayerLevel>();
             specialModifierHelper = GetComponent<SpecialModifierHelper>();
+            
         }
 
         private void Start()

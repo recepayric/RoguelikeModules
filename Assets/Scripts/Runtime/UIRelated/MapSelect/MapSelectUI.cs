@@ -153,6 +153,10 @@ namespace Runtime.UIRelated.MapSelect
         public void OnOpened()
         {
             UpdateTierText();
+            DOVirtual.DelayedCall(0.5f, () =>
+            {
+                SelectTutorialMap(0);
+            });
         }
 
         public void OnClosed()

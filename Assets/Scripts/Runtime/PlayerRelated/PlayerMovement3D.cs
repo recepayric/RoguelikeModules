@@ -21,6 +21,7 @@ namespace Runtime.PlayerRelated
         private void Start()
         {
             angleDegree = transform.rotation.eulerAngles.y;
+            playerAnimator = GetComponent<Animator>();
         }
 
         private void FixedUpdate()
@@ -31,8 +32,11 @@ namespace Runtime.PlayerRelated
             if (_moveX == 0 && _moveZ == 0)
             {
                 Stop();
+                playerAnimator.SetBool(IsRunning, false);
                 return;
             }
+            
+            playerAnimator.SetBool(IsRunning, true);
             var angle = Mathf.Atan2(_moveX, _moveZ);
             targetAngle = Mathf.Rad2Deg * angle;
             if (targetAngle < 0)

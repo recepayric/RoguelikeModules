@@ -45,7 +45,6 @@ namespace Runtime.Managers
             var randX = Random.Range(-0.5f, 0.5f);
             var randY = Random.Range(-0.5f, 0.5f);
             orb.transform.position = dropPos + new Vector3(randX, randY);
-            Debug.Log("Tower fragment dropped");
 
         }
 
@@ -59,7 +58,6 @@ namespace Runtime.Managers
             var randX = Random.Range(-0.5f, 0.5f);
             var randY = Random.Range(-0.5f, 0.5f);
             orb.transform.position = dropPos + new Vector3(randX, randY);
-            Debug.Log("Currency dropped");
         }
     }
 }

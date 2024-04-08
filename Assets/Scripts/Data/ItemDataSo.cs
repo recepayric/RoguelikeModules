@@ -112,7 +112,7 @@ namespace Data
             for (int i = 0; i < statAddAmount; i++)
             {
                 var rand = Random.Range(0, copyStats.Count);
-                var randAmount = Random.Range(-15, 15);
+                var randAmount = Random.Range(-5, 20);
                 item.statNames.Add(copyStats[rand]);
                 item.statValues.Add(randAmount);
             }

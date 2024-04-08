@@ -74,7 +74,6 @@ namespace Runtime.Collectables
             CollectableManager.instance.OnCollected(this);
             EventManager.Instance.OrbCollected(value);
             BasicPool.instance.Return(gameObject);
-            Debug.Log("Collectable collected!");
         }
 
         public PoolKeys PoolKeys { get; set; }

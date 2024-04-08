@@ -54,7 +54,6 @@ namespace Runtime.DebugRelated
             statText += "<color=\"white\">Floor Stat Boost: <color=\"green\">" + floorBaseBuff+ "\n";
             
             statText += "\n";
-            
             statText += "<color=\"white\">Base Health: <color=\"green\">" + enemyData.baseHealth + "\n";
             statText += "<color=\"white\">Base Damage: <color=\"green\">" + enemyData.baseAttackDamage + "\n";
             statText += "<color=\"white\">Base Attack Speed: <color=\"green\">" + enemyData.baseaAttackSpeed + "\n";
@@ -62,12 +61,18 @@ namespace Runtime.DebugRelated
             statText += "<color=\"white\">Base Move Speed: <color=\"green\">" + enemyData.baseMoveSpeed + "\n";
             
             statText += "\n";
-            
             statText += "<color=\"white\">Floor Health: <color=\"green\">" + enemyData.afterTowerBuffHealth + "\n";
             statText += "<color=\"white\">Floor Damage: <color=\"green\">" + enemyData.afterTowerBuffAttackDamage + "\n";
             statText += "<color=\"white\">Floor Attack Speed: <color=\"green\">" + enemyData.afterTowerBuffaAttackSpeed + "\n";
             statText += "<color=\"white\">Floor Attack Range: <color=\"green\">" + enemyData.afterTowerBuffAttackRange + "\n";
             statText += "<color=\"white\">Floor Move Speed: <color=\"green\">" + enemyData.afterTowerBuffMoveSpeed + "\n";
+            
+            statText += "\n";
+            statText += "<color=\"white\">Modifier Health: <color=\"green\">" + enemyData.afterTowerStatBuffHealth + "\n";
+            statText += "<color=\"white\">Modifier Damage: <color=\"green\">" + enemyData.afterTowerStatBuffAttackDamage + "\n";
+            statText += "<color=\"white\">Modifier Attack Speed: <color=\"green\">" + enemyData.afterTowerStatBuffaAttackSpeed + "\n";
+            statText += "<color=\"white\">Modifier Attack Range: <color=\"green\">" + enemyData.afterTowerStatBuffAttackRange + "\n";
+            statText += "<color=\"white\">Modifier Move Speed: <color=\"green\">" + enemyData.afterTowerStatBuffMoveSpeed + "\n";
             
             enemyStatText.text = statText;
         }
@@ -218,12 +223,6 @@ namespace Runtime.DebugRelated
         public float afterTowerBuffaAttackSpeed;
         public float afterTowerBuffMoveSpeed;
         public float afterTowerBuffAttackRange;
-
-        public float afterFloorBuffHealth;
-        public float afterFloorBuffAttackDamage;
-        public float afterFloorBuffaAttackSpeed;
-        public float afterFloorBuffMoveSpeed;
-        public float afterFloorBuffAttackRange;
 
         public float afterTowerStatBuffHealth;
         public float afterTowerStatBuffAttackDamage;

@@ -60,7 +60,8 @@ namespace Runtime.UIRelated.CharacterSelect
                 icon.transform.SetParent(charactersContainer.transform);
                 icon.transform.localScale = Vector3.one;
                 icon.transform.localPosition = Vector3.zero;
-        
+                icon.transform.localRotation = Quaternion.identity;
+
                 var script = icon.GetComponent<CharacterFrameUI>();
                 script.SetCharacterDetails(characters[i]);
                 script.SetCharacterSelectUI(this);
@@ -76,6 +77,7 @@ namespace Runtime.UIRelated.CharacterSelect
                 icon.transform.SetParent(weaponContainer.transform);
                 icon.transform.localScale = Vector3.one;
                 icon.transform.localPosition = Vector3.zero;
+                icon.transform.localRotation = Quaternion.identity;
                 var script = icon.GetComponent<WeaponFrameUI>();
                 script.SetWeaponObject(weapons[i]);
                 script.SetCharacterSelectUI(this);

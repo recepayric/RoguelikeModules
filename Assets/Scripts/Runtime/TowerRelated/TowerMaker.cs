@@ -24,6 +24,8 @@ namespace Runtime.TowerRelated
         public float towerMinStatMulti;
         public float towerMaxStatMulti;
 
+        public Tower currentTower;
+
 
         private void Awake()
         {
@@ -45,6 +47,7 @@ namespace Runtime.TowerRelated
 
         private void OnPrepareTower(int tierToPrepare)
         {
+            Debug.Log("Preparing the tower: " + tierToPrepare);
             if (tierToPrepare < 0)
             {
                 var tier = tierToPrepare - MapConfig.TutorialMapOffset;
@@ -54,9 +57,13 @@ namespace Runtime.TowerRelated
             }
             else
             {
+                tier = tierToPrepare;
+                Debug.Log("Tier for tiered tower: " + tierToPrepare);
                 DictionaryHolder.CurrentTower = towers[tierToPrepare];
                 EventManager.Instance.UpdateTower(towers[tierToPrepare]);
             }
+
+            currentTower = DictionaryHolder.CurrentTower;
         }
 
         private void OnCreateTower(int tierToCreate)
@@ -69,15 +76,15 @@ namespace Runtime.TowerRelated
             else
             {
                 tier = tierToCreate;
-                CreateTower(towers[tier]);
+                CreateTower(towers[tier], towers[tier].towerRarity);
             }
            
         }
 
         private void OnUpgradeTower()
         {
-            
             var currentTier = (int)towers[tier].towerRarity;
+            Debug.Log((ItemRarity)currentTier);
 
             var tiers = Enum.GetValues(typeof(ItemRarity));
             var maxTier = tiers.Length;
@@ -85,7 +92,11 @@ namespace Runtime.TowerRelated
             if (currentTier < maxTier)
                 currentTier++;
 
+
+            Debug.Log((ItemRarity)currentTier);
             CreateTower(towers[tier], (ItemRarity)currentTier);
+            //currentTower = towers[tier];
+
         }
 
         [Button]
@@ -126,11 +137,17 @@ namespace Runtime.TowerRelated
                 modifier.RandomizeValue(tier);
                 modifiers.Add(modifier.TextToShow);
                 tower.AddModifier(modifier);
-                tower.statIncreaseRatePerFloor = Random.Range(1.1f, 1.5f);
-                tower.baseStatIncrease = Random.Range(towerMinStatMulti, towerMaxStatMulti);
+                //tower.statIncreaseRatePerFloor = Random.Range(1.1f, 1.5f);
+                //tower.baseStatIncrease = Random.Range(towerMinStatMulti, towerMaxStatMulti);
             }
+            
+            tower.statIncreaseRatePerFloor = 1.34f + (tower.tier + 1) * 0.01f;
+            tower.baseStatIncrease = 2f + (tower.tier + 1) / 2f;
 
             tower.CalculateRates();
+            
+            Debug.Log("Tower Created!!");
+            //currentTower = tower;
         }
 
         [Button]

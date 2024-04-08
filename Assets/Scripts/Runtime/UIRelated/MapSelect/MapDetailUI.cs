@@ -54,6 +54,7 @@ namespace Runtime.UIRelated.MapSelect
                 btnUpgrade.gameObject.SetActive(false);
             else
                 btnUpgrade.gameObject.SetActive(true);
+            Debug.Log("Tower updated!");
         }
 
         private bool CanUpgrade()
@@ -84,9 +85,9 @@ namespace Runtime.UIRelated.MapSelect
 
         public void UpgradeMap()
         {
+            _currencyDataSo.AddCollectable(CollectableTypes.TowerFragment, -selectedTower.GetUpgradeCost());
             EventManager.Instance.UpgradeTower();
             EventManager.Instance.PrepareTower(currentTier);
-            _currencyDataSo.AddCollectable(CollectableTypes.TowerFragment, -selectedTower.GetUpgradeCost());
         }
 
         public void StartTower()
