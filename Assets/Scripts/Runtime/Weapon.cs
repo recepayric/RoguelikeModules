@@ -444,7 +444,7 @@ namespace Runtime
             targetEnemy = enemy;
 
             distanceToEnemy = distance;
-            EventManager.Instance.SetDistanceBetweenEnemy(distance * GameConfig.RangeToRadius);
+            //EventManager.Instance.SetDistanceBetweenEnemy(distance * GameConfig.RangeToRadius);
             //swordSwinger.SetTarget(targetEnemy);
         }
 

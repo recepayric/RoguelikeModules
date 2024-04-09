@@ -24,10 +24,10 @@ MonoBehaviour:
   enemyName: Skeleton Mage
   canBeSpawned: 1
   CanBeSpawnedNormally: 1
-  baseHealth: 1
-  baseDamage: 3
+  baseHealth: 3
+  baseDamage: 5
   baseMoveSpeed: 5
-  baseAttackSpeed: 1
+  baseAttackSpeed: 2
   baseEvasion: 0
   baseDefence: 0
   baseAttackRange: 10

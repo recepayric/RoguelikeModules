@@ -26,6 +26,7 @@ namespace Runtime
     [RequireComponent(typeof(EnemyDamageTaker))]
     public class Enemy : MonoBehaviour, IPoolObject, IDamageable, IShooter, ISpellCaster, ICursable
     {
+        
         //[Header("Data")] public EnemyData enemyData;
         public Transform Transform { get; set; }
         [SerializeField] protected internal GameObject _hitPoint;
@@ -186,13 +187,16 @@ namespace Runtime
         {
             if (ailments.isStunned) return;
             var attackTime = isFirstAttack ? 0.25f : _stats.currentAttackSpeed;
+            attackTime = _stats.currentAttackSpeed;
 
-            var speed = 1f / attackTime;
+            var clip = FindAnimation(animator, "attack");
+            var speed = clip.length / attackTime;
+            //Debug.Log("Attakc Time: " + attackTime);
 
             //Debug.Log("size1: " + animator.GetCurrentAnimatorStateInfo(0).length);
 
             animator.SetFloat("AttackSpeed", speed);
-            animator.SetTrigger("Attack");
+            animator.SetBool("IsAttacking", true);
 
             //Debug.Log("size2: " + animator.GetCurrentAnimatorStateInfo(0).length);
 
@@ -404,9 +408,14 @@ namespace Runtime
             _isDead = true;
             boxCollider2D.enabled = false;
             animator.SetBool("IsDead", true);
-            animator.SetFloat("DieSpeed", 1f / AnimationConfig.DieAnimationTime);
+            
+            var clip = FindAnimation(animator, "Death");
+            var speed = clip.length / AnimationConfig.DieAnimationTime;
+            //animator.SetFloat("HitSpeed", 1);
+            animator.SetFloat("DieSpeed", 1);
             animator.SetTrigger("Die");
-            dieTimer = AnimationConfig.DieAnimationTime * 1.25f;
+            dieTimer = AnimationConfig.DieAnimationTime;
+            dieTimer = clip.length;
 
             if (weapon != null)
                 weapon.UpdateKillCount();
@@ -486,9 +495,10 @@ namespace Runtime
             spellScript.Activate();
         }
 
+        public bool isActive = false;
         public bool IsAvailable()
         {
-            return !_isDead && gameObject.activeSelf;
+            return !_isDead && gameObject.activeSelf && isActive;
         }
 
         public PoolKeys PoolKeys { get; set; }
@@ -517,6 +527,25 @@ namespace Runtime
             }
         }
 
+
+        
+        private void Activate()
+        {
+            //DictionaryHolder.Enemies.Add(gameObject, this);
+            //DictionaryHolder.Damageables.Add(gameObject, this);
+            
+            isActive = true;
+        }
+        public void Spawn(Vector3 targetPos)
+        {
+            isActive = false;
+            //transform.position = transform.position + Vector3.down * 3;
+            transform.DOMove(targetPos, 0.5f).OnComplete(() =>
+            {
+                Activate();
+            });
+        }
+        
         public void OnGet()
         {
             DictionaryHolder.Enemies.Add(gameObject, this);
@@ -525,6 +554,7 @@ namespace Runtime
             SetSpecialModifiers();
             SetStats();
             Initialise();
+            isActive = false;
             _isDead = false;
         }
 
@@ -575,6 +605,19 @@ namespace Runtime
 
         public void RemoveCurse(AllStats stat, float amount)
         {
+        }
+        
+        public AnimationClip FindAnimation (Animator animator, string name) 
+        {
+            foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
+            {
+                if (clip.name == name)
+                {
+                    return clip;
+                }
+            }
+
+            return null;
         }
     }
 }

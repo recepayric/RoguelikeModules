@@ -67,7 +67,7 @@ MonoBehaviour:
   BaseAttackSpeed: 1
   BaseAttackRange: 400
   BaseAttackRangeSword: 0
-  BaseDamage: 1
+  BaseDamage: 2
   BaseProjectileAmount: 1
   BaseCriticalHitChance: 50
   BaseCriticalHitDamage: 2

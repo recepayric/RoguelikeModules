@@ -18,6 +18,8 @@ namespace Runtime.EnemyRelated
     /// </summary>
     public class EnemyMovement : MonoBehaviour
     {
+        public float runTime;
+        public float runSpeedPerMovementSpeed;
         public Ailments Ailments;
         public Rigidbody rigidBody;
         public GameObject targetObject;
@@ -40,11 +42,13 @@ namespace Runtime.EnemyRelated
         public bool isKnockbacked = false;
         public float knockbackAmount = -1f;
         public float targetKnockbackAmount;
-        public float knockbackTime = 0.25f;
+        public float knockbackTime = AnimationConfig.DamageTakenColorChangeTime;
 
         public float speedAfterFreeze;
 
         public bool hasNoTarget;
+        
+
 
         private void Start()
         {
@@ -97,7 +101,10 @@ namespace Runtime.EnemyRelated
         
         private void FixedUpdate()
         {
-
+            if (!enemy.isActive) return;
+            
+            rigidBody.velocity = Vector3.zero;
+            
             speedAfterFreeze = stats.currentSpeed - stats.currentSpeed * (Ailments.freezeEffect/100f);
             //return;
             
@@ -178,7 +185,12 @@ namespace Runtime.EnemyRelated
                 return;
             }
 
+            _animator.SetBool("IsAttacking", false);
+            var time = enemy._stats.currentSpeed/runSpeedPerMovementSpeed;
+            var clip = FindAnimation(_animator, "run");
+            var speed = clip.length / time;
             _animator.SetBool(IsRunning, true);
+            _animator.SetFloat("RunSpeed", speed);
             isFirstAttack = true;
             var posX = transform.position.x;
             var posY = transform.position.y;
@@ -260,6 +272,19 @@ namespace Runtime.EnemyRelated
         public void SetAnimator(Animator animator)
         {
             _animator = animator;
+        }
+        
+        public AnimationClip FindAnimation (Animator animator, string name) 
+        {
+            foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
+            {
+                if (clip.name == name)
+                {
+                    return clip;
+                }
+            }
+
+            return null;
         }
     }
 }

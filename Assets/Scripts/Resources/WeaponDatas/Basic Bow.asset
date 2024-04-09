@@ -64,10 +64,10 @@ MonoBehaviour:
   Description: Basic wand for everyone to use!
   isStarterWeapon: 1
   WeaponType: 3
-  BaseAttackSpeed: 1
+  BaseAttackSpeed: 0.25
   BaseAttackRange: 400
   BaseAttackRangeSword: 0
-  BaseDamage: 1
+  BaseDamage: 5
   BaseProjectileAmount: 1
   BaseCriticalHitChance: 50
   BaseCriticalHitDamage: 2
@@ -75,7 +75,7 @@ MonoBehaviour:
   BaseBounceNumber: 0
   rotationDistanceFromPlayer: 0
   specialModifiersList: 
-  spells: 08000000
+  spells: 
   WeaponPoolKey: 58
   DummyWeaponKey: 44
   RotatingWeaponKey: 0

@@ -41,6 +41,9 @@ namespace Runtime.WorldRelated
             //EventManager.Instance.FloorStartsEvent += StartSpawning;
             EventManager.Instance.FloorEndsEvent += OnFloorEnds;
             EventManager.Instance.UpdateTowerEvent += OnUpdateTower;
+
+            xBound = GameConfig.MapWidth;
+            yBound = GameConfig.MapHeight;
         }
 
         private EnemySpawnDataSo UpdateSpawnData()

@@ -220,7 +220,7 @@ namespace Runtime.PlayerRelated
                 //todo change to magnitude!!
                 var dist = Vector3.Distance(transform.position, collectable.Key.transform.position);
                 if (dist <= 2+stats.collectRange)
-                    collectable.Value.Collect(transform);
+                    collectable.Value.Collect(hitPoint.transform);
             }
         }
 

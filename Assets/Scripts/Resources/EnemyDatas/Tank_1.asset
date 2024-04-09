@@ -24,14 +24,14 @@ MonoBehaviour:
   enemyName: 
   canBeSpawned: 1
   CanBeSpawnedNormally: 1
-  baseHealth: 70
-  baseDamage: 3
+  baseHealth: 10
+  baseDamage: 5
   baseMoveSpeed: 4
   baseAttackSpeed: 1.25
   baseEvasion: 0
   baseDefence: 0
-  baseAttackRange: 3
-  baseMaxAttackRange: 4
+  baseAttackRange: 1
+  baseMaxAttackRange: 2
   baseProjectileNumber: 0
   minFloorToSpawn: 3
   minSpawnAmount: 1

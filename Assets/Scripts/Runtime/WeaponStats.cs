@@ -146,6 +146,7 @@ namespace Runtime
 
             //From Upgrade Tree!!!
             var rangeIncreaseFromTree = GetStat(AllStats.Range);
+            var rangeIncreaseFromPlayer = DictionaryHolder.Player.stats.GetStat(AllStats.Range);
             var damageIncreaseFromTree = GetStat(AllStats.Damage);
             var attackSpeedIncreaseFromTree = GetStat(AllStats.AttackSpeed);
             var damagePoint = GetStat(AllStats.MagicalAttack);
@@ -164,7 +165,7 @@ namespace Runtime
             damage += damage * damageIncreasePercentage;
             damage += damage * damageIncreaseFromTree;
 
-            range = data.BaseAttackRange + rangeIncreaseFromTree;
+            range = data.BaseAttackRange + rangeIncreaseFromTree + rangeIncreaseFromPlayer;
 
             attackSpeed = data.BaseAttackSpeed;
             var multiplier = (1 + attackSpeedIncreaseFromTree / 100f);

@@ -64,7 +64,7 @@ MonoBehaviour:
   Description: Wands that burns enemies!
   isStarterWeapon: 1
   WeaponType: 0
-  BaseAttackSpeed: 1
+  BaseAttackSpeed: 0.75
   BaseAttackRange: 400
   BaseAttackRangeSword: 0
   BaseDamage: 1
@@ -72,7 +72,7 @@ MonoBehaviour:
   BaseCriticalHitChance: 50
   BaseCriticalHitDamage: 2
   BasePierceNumber: 0
-  BaseBounceNumber: 0
+  BaseBounceNumber: 2
   rotationDistanceFromPlayer: 0
   specialModifiersList: 06000000
   spells: 

@@ -56,7 +56,7 @@ MonoBehaviour:
   characterUniqueModifiers: 
   starterSpells: 05000000
   unlockCondition: 
-  baseExpNeeded: 5
+  baseExpNeeded: 30
   baseExpNeedIncrease: 1.2
   baseExpGainMultiplier: 1
   ExplanationText: Burns enemies around it!

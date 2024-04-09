@@ -52,6 +52,7 @@ MonoBehaviour:
   doesSpin: 0
   spinSpeed: 0
   spinAxis: {x: 0, y: 0, z: 0}
+  createdBy: {fileID: 0}
   projectileObject: {fileID: 0}
   hitParticleEffect: {fileID: 8771303840968410538, guid: bf1972ac97f55cd499cc2a4ddaa46447,
     type: 3}
@@ -61,7 +62,7 @@ MonoBehaviour:
   pierceNum: 0
   criticalHitChance: 0
   criticalHitDamage: 0
-  projectileSpeed: 10
+  projectileSpeed: 20
   pTransform: {fileID: 0}
   distanceTraveled: 0
   deltaTravel: {x: 0, y: 0, z: 0}

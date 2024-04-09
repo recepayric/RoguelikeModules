@@ -6,10 +6,10 @@ namespace Runtime.Configs
     public class GameConfig
     {
         public static bool IsDebug = true;
-        public static float MapWidth = 20;
-        public static float MapHeight = 20;
+        public static float MapWidth = 10;
+        public static float MapHeight = 10;
         public static Screens FirstScreenToOpen = Screens.CharacterSelect;
-        public static float RangeToRadius = 20;
+        public static float RangeToRadius = 40;
         public static float MinRangeForExplosions = 5;
 
         public static float ResourceDropChance = 1;

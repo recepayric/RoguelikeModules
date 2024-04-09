@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using Runtime.Configs;
 using Runtime.Enums;
 using UnityEngine;
@@ -30,16 +31,29 @@ namespace Runtime.WorldRelated
 
         private void FinishSpawn()
         {
+            didSpawn = true;
+            
             var enemy = BasicPool.instance.Get(enemySpawnKey);
-            enemy.transform.position = transform.position;
+            enemy.transform.position = transform.position-Vector3.up*3;
+            DictionaryHolder.Enemies[enemy].Spawn(transform.position);
             enemy.name = "Enemy " + Random.Range(0, 100000);
-            BasicPool.instance.Return(gameObject);
-        }
 
+            DOVirtual.DelayedCall(0.5f, () =>
+            {
+                transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
+                {
+                    BasicPool.instance.Return(gameObject);
+                });
+            });
+        }
+        
+        
         public PoolKeys PoolKeys { get; set; }
         public void OnReturn()
         {
             DictionaryHolder.EnemySpawnMarkers.Remove(gameObject);
+
+            
         }
 
         public void OnGet()

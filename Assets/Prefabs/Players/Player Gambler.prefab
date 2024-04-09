@@ -2588,7 +2588,7 @@ MonoBehaviour:
   angleOffset: -45
   angleDegree: 0
   targetAngle: 0
-  turnSpeed: 180
+  turnSpeed: 360
 --- !u!114 &161845469235601798
 MonoBehaviour:
   m_ObjectHideFlags: 0

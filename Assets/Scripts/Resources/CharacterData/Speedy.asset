@@ -80,7 +80,7 @@ MonoBehaviour:
   characterUniqueModifiers: 
   starterSpells: 
   unlockCondition: 
-  baseExpNeeded: 5
+  baseExpNeeded: 30
   baseExpNeedIncrease: 1.2
   baseExpGainMultiplier: 1
   ExplanationText: Moves Faster!

@@ -20,6 +20,10 @@ namespace Runtime.Collectables
         private float backSpeedMult = -1;
         private float backSpeedMultTime = 0.1f;
 
+        private float collectPercentage;
+        private float timer;
+        public float collectTime;
+
         public void Collect(Transform target)
         {
             if (isBeingCollected) return;
@@ -27,8 +31,10 @@ namespace Runtime.Collectables
             _targetTemp = _target.transform.position;
             _targetTemp.y = transform.position.y;
             isBeingCollected = true;
-            backSpeedMult = -1;
+            backSpeedMult = -2;
             //_returnCoroutine = StartCoroutine(ReturnMoveLoop());
+            timer = 0;
+
         }
 
 
@@ -43,6 +49,9 @@ namespace Runtime.Collectables
             if (speedMlt < 0)
             {
                 goAngle = _targetTemp - transform.position;
+
+                timer += Time.deltaTime;
+                collectPercentage = timer / collectTime;
             }
             
             var deltaTravel = Time.deltaTime * speedMlt * goAngle;
@@ -51,15 +60,15 @@ namespace Runtime.Collectables
             //transform.position = Vector3.Lerp(transform.position, _target.position, Time.deltaTime * speedMlt);
             var distance = Vector3.Distance(transform.position, _target.position);
 
-            if (distance < 0.1f)
-            {
-                FinishedCollecting();
-            }
+            
 
-            speedMult += Time.deltaTime * 10f;
+            speedMult += Time.deltaTime * 20f;
 
             if (speedMult > speedMultMax)
+            {
                 speedMult = speedMultMax;
+                Debug.Log("Speed multi is at max: " + speedMult);
+            }
         }
 
         private void UpdateBackspeed()
@@ -74,6 +83,11 @@ namespace Runtime.Collectables
             CollectableManager.instance.OnCollected(this);
             EventManager.Instance.OrbCollected(value);
             BasicPool.instance.Return(gameObject);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            FinishedCollecting();
         }
 
         public PoolKeys PoolKeys { get; set; }

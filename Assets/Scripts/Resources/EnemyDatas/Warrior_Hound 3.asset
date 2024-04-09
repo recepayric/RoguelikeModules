@@ -21,13 +21,13 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  enemyName: Hound
-  canBeSpawned: 1
+  enemyName: Hound 3
+  canBeSpawned: 0
   CanBeSpawnedNormally: 1
-  baseHealth: 1
+  baseHealth: 2
   baseDamage: 1
   baseMoveSpeed: 4
-  baseAttackSpeed: 1
+  baseAttackSpeed: 0.75
   baseEvasion: 0
   baseDefence: 0
   baseAttackRange: 1

@@ -235,6 +235,13 @@ namespace Runtime
                 isHomingProjectile = false;
                 return;
             }
+            var isEnemyActive = DictionaryHolder.Enemies[targetEnemy].IsAvailable();
+
+            if (!isEnemyActive)
+            {
+                isHomingProjectile = false;
+                return;
+            }
 
             turningTimer += Time.deltaTime / turnTime * turnMultiplier;
 
@@ -246,7 +253,13 @@ namespace Runtime
             var targetRotation = DictionaryHolder.Enemies[targetEnemy].HitPoint.transform.position - transform.position;
 
             var angle = Vector3.Lerp(initialRotation, targetRotation, turningTimer);
-            transform.forward = angle;
+
+            if (transform.forward != angle)
+            {
+                //Debug.Log("current: " + transform.forward + "  target: " + angle);
+                if(angle != Vector3.zero)
+                    transform.forward = angle.normalized;
+            }
         }
 
         private void UpdateHomingV2()
@@ -433,7 +446,7 @@ namespace Runtime
             }
             else if (pierceNum > 0)
             {
-                //isHomingProjectile = false;
+                isHomingProjectile = false;
                 pierceNum--;
                 StartTravelDestroy();
             }
