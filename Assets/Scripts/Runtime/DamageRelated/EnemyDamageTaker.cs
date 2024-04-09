@@ -53,33 +53,37 @@ namespace Runtime.DamageRelated
             }
         }
 
-        public void DamageTaken()
+        public void DamageTaken(bool playAnimation)
         {
             //animator.SetFloat("HitSpeed", 1/AnimationConfig.DamageTakenColorChangeTime);
-            animator.SetTrigger("GetHit");
+            if(playAnimation)
+                animator.SetTrigger("GetHit");
             
             var clip = FindAnimation(animator, "hit");
             var speed = clip.length / AnimationConfig.DamageTakenColorChangeTime*2;
             animator.SetFloat("HitSpeed", speed);
             
+            
+
             colorChangeAmount = 1;
+            
+            PropertyBlock.SetFloat("_HitValue", colorChangeAmount);
+            PropertyBlockArmor.SetFloat("_HitValue", colorChangeAmount);
+            PropertyBlockWeapon.SetFloat("_HitValue", colorChangeAmount);
+            
             for (int i = 0; i < renderers.Count; i++)
             {
-                PropertyBlock.SetFloat("_HitValue", colorChangeAmount);
                 renderers[i].SetPropertyBlock(PropertyBlock);
             }
             
-            
             for (int i = 0; i < renderersArmor.Count; i++)
             {
-                PropertyBlockArmor.SetFloat("_HitValue", colorChangeAmount);
                 renderersArmor[i].SetPropertyBlock(PropertyBlockArmor);
             }
             
             for (int i = 0; i < renderersWeapon.Count; i++)
             {
-                PropertyBlock.SetFloat("_HitValue", colorChangeAmount);
-                renderersWeapon[i].SetPropertyBlock(PropertyBlock);
+                renderersWeapon[i].SetPropertyBlock(PropertyBlockWeapon);
             }
         }
 
@@ -95,6 +99,8 @@ namespace Runtime.DamageRelated
             PropertyBlock.SetFloat("_HitValue", colorChangeAmount);
             PropertyBlockArmor.SetFloat("_HitValue", colorChangeAmount);
             PropertyBlockWeapon.SetFloat("_HitValue", colorChangeAmount);
+
+            
             if (tryAdd)
             {
                 for (int i = 0; i < renderers.Count; i++)

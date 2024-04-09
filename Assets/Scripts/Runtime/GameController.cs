@@ -122,10 +122,20 @@ public class GameController : MonoBehaviour
 
     private void OnFloorEnd(int floorNumber)
     {
-        var playerLevelDiff = player.playerLevel.CalculateLevelUp();
-        player.ResetStatsForMarket();
         KillAllEnemies();
         CollectAllCollectables();
+
+        DOVirtual.DelayedCall(2f, () =>
+        {
+            ChangeScreens(floorNumber);
+        });
+    }
+
+    private void ChangeScreens(int floorNumber)
+    {
+        var playerLevelDiff = player.playerLevel.CalculateLevelUp();
+        player.ResetStatsForMarket();
+        
         ReturnAllRunes();
 
         //todo check if player is in endless mode!!!
@@ -223,11 +233,10 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < collectables.Count; i++)
         {
             int a = i;
-            collectables[i].transform.DOMove(pos, 1).OnComplete(() =>
+            collectables[i].transform.DOMove(player.hitPoint.transform.position, 1f).OnComplete(() =>
             {
-                
-                GameObject obj = collectables[a];
-                BasicPool.instance.Return(obj);
+                //GameObject obj = collectables[a];
+                //BasicPool.instance.Return(obj);
             });
         }
     }

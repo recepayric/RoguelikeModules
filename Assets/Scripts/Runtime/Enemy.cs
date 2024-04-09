@@ -356,10 +356,13 @@ namespace Runtime
                 _enemyMovement.AddKnockback(1);
 
             if (_stats.currentHealth <= 0)
+            {
+                _enemyDamageTaker.DamageTaken(false);
                 Die(weapon);
+            }
             else
             {
-                _enemyDamageTaker.DamageTaken();
+                _enemyDamageTaker.DamageTaken(true);
 
                 for (int i = 0; i < modifiersOnGetHit.Count; i++)
                 {
