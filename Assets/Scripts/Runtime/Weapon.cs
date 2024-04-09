@@ -348,7 +348,7 @@ namespace Runtime
 
             var totalAngle = Mathf.PI * 2;
             var projectileAmount = (weaponStats.projectileAmount - 1);
-            var angleBetweenProjectiles = 10f;
+            var angleBetweenProjectiles = 30f;
             var middlePoint = angleBetweenProjectiles * projectileAmount;
             var halfMiddle = middlePoint / 2;
             var startingAngle = -halfMiddle;
@@ -359,10 +359,11 @@ namespace Runtime
 
                 var angleToAdd = startingAngle + i * angleBetweenProjectiles;
 
+                var addHoming = weaponStats.projectileAmount % 2 == 0 ? false : angleToAdd == 0;
                 if (weaponDataSo.WeaponType == WeaponType.Wand)
-                    CreateMagicProjectile(angleToAdd, Random.Range(0, projectilePrefabsPerTier.Length));
+                    CreateMagicProjectile(angleToAdd, addHoming, Random.Range(0, projectilePrefabsPerTier.Length));
                 else if (weaponDataSo.WeaponType == WeaponType.Bow)
-                    CreateMagicProjectile(angleToAdd,Random.Range(0, projectilePrefabsPerTier.Length));
+                    CreateMagicProjectile(angleToAdd,addHoming, Random.Range(0, projectilePrefabsPerTier.Length));
             }
 
             if (weaponDataSo.WeaponType == WeaponType.Bow)
@@ -371,7 +372,7 @@ namespace Runtime
             }
         }
         
-        private void CreateMagicProjectile(float angleToRotate, int projectileIndex = 0)
+        private void CreateMagicProjectile(float angleToRotate, bool addHoming, int projectileIndex = 0)
         {
             //todo change this to pool and dictionary
             GameObject projectile = null;
@@ -395,7 +396,7 @@ namespace Runtime
             
             projectile.transform.forward = DictionaryHolder.Enemies[targetEnemy].HitPoint.transform.position - projectile.transform.position;
             //projectile.transform.rotation = Quaternion.Euler(new Vector3(0, projectile.transform.eulerAngles.y, 0));
-            projectile.transform.Rotate(new Vector3(0, 0, 1), angleToRotate);
+            projectile.transform.Rotate(new Vector3(0, 1, 0), angleToRotate);
 
             var sc = projectile.GetComponent<Projectile>();
 
@@ -406,7 +407,7 @@ namespace Runtime
             sc.weapon = this;
             sc.SetModifiers(modifiers);
             sc.SetMaxDistance(weaponStats.range);
-            sc.SetHomingProjectile(weaponStats.hasHomingProjectiles, targetEnemy);
+            sc.SetHomingProjectile(addHoming, targetEnemy);
             sc.isRotating = weaponStats.hasRotatingProjectiles;
             sc.SetShooter(this);
             sc.isActive = true;

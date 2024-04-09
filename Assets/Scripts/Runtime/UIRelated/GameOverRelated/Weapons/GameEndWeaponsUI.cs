@@ -3,7 +3,7 @@ using Data;
 using Runtime.ItemsRelated;
 using UnityEngine;
 
-namespace Runtime.UIRelated.GameOverRelated
+namespace Runtime.UIRelated.GameOverRelated.Weapons
 {
     public class GameEndWeaponsUI : MonoBehaviour
     {
@@ -30,7 +30,6 @@ namespace Runtime.UIRelated.GameOverRelated
 
         public void ShowWeaponDetail(Weapon weapon)
         {
-            Debug.Log("Showing weapon deatilsd");
             itemDetails.gameObject.SetActive(true);
             itemDetails.ShowWeaponDetails(weapon);
         }
@@ -44,7 +43,6 @@ namespace Runtime.UIRelated.GameOverRelated
         public void HideWeapondetail()
         {
             itemDetails.gameObject.SetActive(false);
-            Debug.Log("Hiding weapon details");
         }
 
     }

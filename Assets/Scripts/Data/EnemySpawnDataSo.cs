@@ -199,7 +199,9 @@ namespace Data
                 
                 if (floorTime > 60)
                     floorTime = 60;
-
+                floorTime = 30 + floor * 5;
+                if (floorTime > 60)
+                    floorTime = 60;
                 //floorTime = 5;
                 
                 floorTimes.Add(floorTime);

@@ -204,7 +204,7 @@ namespace Runtime
 
                 if (_enemyMovement.IsCloseToEnemy())
                 {
-                    //HandleAttack();
+                    HandleAttack();
                 }
 
                 isAttackingEnemy = false;
@@ -220,23 +220,23 @@ namespace Runtime
                 playerScript.DealDamage(_stats.currentDamage, false, null);
             else if (_stats.AttackType == AttackType.Magic)
             {
-                FireProjectile();
+                //FireProjectile();
             }
             else if (_stats.AttackType == AttackType.Charge)
             {
-                _enemyMovement.StartCharging(playerObject.transform.position);
+                //_enemyMovement.StartCharging(playerObject.transform.position);
             }
             else if (_stats.AttackType == AttackType.Spell || _stats.AttackType == AttackType.AuraUser)
             {
-                CastSpell();
+                //CastSpell();
             }
             else if (_stats.AttackType == AttackType.Bomber)
             {
-                Explode();
+                //Explode();
             }
             else if (_stats.AttackType == AttackType.Hive)
             {
-                SpawnMinions();
+                //SpawnMinions();
             }
         }
 
@@ -249,8 +249,15 @@ namespace Runtime
 
         public void TriggerAttack()
         {
-            CreateProjectile();
-            FireProjectile();
+            if (_stats.AttackType == AttackType.Melee)
+            {
+                playerScript.DealDamage(_stats.currentDamage, false, null);
+            }
+            else
+            {
+                CreateProjectile();
+                FireProjectile();
+            }
         }
 
         private void SpawnMinions()
@@ -391,6 +398,9 @@ namespace Runtime
         private void Die(Weapon weapon)
         {
             if (isImmortal) return;
+
+            if (_isDead) return;
+            
             _isDead = true;
             boxCollider2D.enabled = false;
             animator.SetBool("IsDead", true);

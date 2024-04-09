@@ -154,6 +154,7 @@ namespace Runtime
 
 
             var projectileFromTree = GetStat(AllStats.ProjectileNumber);
+            var projectileFromPlayer = DictionaryHolder.Player.stats.GetStat(AllStats.ProjectileNumber);
             var bounceFromTree = GetStat(AllStats.BounceNumber);
             //Debug.Log("bounce from tree:  " + bounceFromTree);
             //Debug.Log("extra damage:  " + damagePoint);
@@ -171,7 +172,7 @@ namespace Runtime
                 multiplier = 0.01f;
             attackSpeed = attackSpeed / multiplier;
 
-            projectileAmount = data.BaseProjectileAmount + (int)projectileFromTree;
+            projectileAmount = data.BaseProjectileAmount + (int)projectileFromTree + (int)projectileFromPlayer;
             bounceNum = data.BaseBounceNumber + (int)bounceFromTree;
 
             criticalHitChance = data.BaseCriticalHitChance;

@@ -154,6 +154,10 @@ namespace Runtime
             this.targetEnemy = targetEnemy;
             isHomingProjectile = isHoming;
 
+            turningTimer = 0;
+
+            return;
+
             if (isHoming)
             {
                 _projectileCurve = GetComponent<ProjectileCurve>();
@@ -274,12 +278,12 @@ namespace Runtime
 
                 if (transform.rotation.eulerAngles.x > 270 && transform.position.y > 1.2f)
                 {
-                    Debug.Log("going up stopping " + transform.rotation.eulerAngles.x);
+                   // Debug.Log("going up stopping " + transform.rotation.eulerAngles.x);
                     transform.rotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 0));
                 }
                 else if (transform.rotation.eulerAngles.x > 0 && transform.rotation.eulerAngles.x < 90  && transform.position.y < 0.8f)
                 {
-                    Debug.Log("going down stopping " + transform.rotation.eulerAngles.x);
+                    //Debug.Log("going down stopping " + transform.rotation.eulerAngles.x);
 
                     transform.rotation = Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 0));
                 }
@@ -502,7 +506,7 @@ namespace Runtime
                 hitNumber++;
             }
             
-            Debug.Log("Hit Total: " + hitNumber);
+            //Debug.Log("Hit Total: " + hitNumber);
         }
 
 

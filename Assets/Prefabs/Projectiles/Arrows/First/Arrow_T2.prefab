@@ -52,6 +52,7 @@ MonoBehaviour:
   doesSpin: 0
   spinSpeed: 0
   spinAxis: {x: 0, y: 0, z: 0}
+  createdBy: {fileID: 0}
   projectileObject: {fileID: 0}
   hitParticleEffect: {fileID: 1396325640542327999, guid: b2479dfa7629ece44af003b2ef7991d4,
     type: 3}

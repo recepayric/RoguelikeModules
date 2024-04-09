@@ -328,20 +328,6 @@ namespace Runtime.PlayerRelated
         }
 
         [Button]
-        public void RemoveWeapons()
-        {
-            for (int i = 0; i < weapons.Count; i++)
-            {
-                Destroy(weaponObjects[i]);
-            }
-
-            weapons.Clear();
-            weaponObjects.Clear();
-
-            OrganiseWeapons();
-        }
-
-        [Button]
         public void OrganiseWeapons()
         {
             //if (weapons.Count == 0) return;

@@ -1,4 +1,5 @@
 ﻿using Runtime.Managers;
+using Runtime.UIRelated.GameOverRelated.Weapons;
 using UnityEngine;
 
 namespace Runtime.UIRelated.GameOverRelated

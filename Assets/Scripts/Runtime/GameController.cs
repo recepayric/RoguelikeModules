@@ -54,6 +54,9 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        Application.targetFrameRate = -1;
+        QualitySettings.vSyncCount = 0;
+
         floorInitializer.Initialise();
         enemySpawner.Initialise();
         weaponSkillDataSo.Reset();
@@ -128,12 +131,14 @@ public class GameController : MonoBehaviour
         //todo check if player is in endless mode!!!
         if (floorInitializer.isPlayerDead)
         {
-            ReturnPlayer();
+            floorInitializer.Reset();
             EventManager.Instance.OpenScreen(Screens.GameEnd, true);
+            //ReturnPlayer();
         }
         else if (floorNumber >= 19)
         {
-            ReturnPlayer();
+            floorInitializer.Reset();
+            //ReturnPlayer();
             EventManager.Instance.OpenScreen(Screens.GameEnd, true);
             EventManager.Instance.GameEnd(true);
         }
@@ -153,17 +158,21 @@ public class GameController : MonoBehaviour
         isNewPlayer = false;
         isPlayerCreated = false;
         Debug.Log("Return player!");
-        BasicPool.instance.Return(this.player.gameObject);
+        
+        if(player != null)
+            BasicPool.instance.Return(this.player.gameObject);
         floorInitializer.Reset();
     }
 
     private void CreatePlayer()
     {
+        
         if (isPlayerCreated && isNewPlayer)
         {
             BasicPool.instance.Return(this.player.gameObject);
         }else if (isPlayerCreated) return;
         
+        ReturnPlayer();
         var player = BasicPool.instance.Get(selectedCharacter.playerPoolKey);
         player.transform.position = Vector3.zero;
         isPlayerCreated = true;

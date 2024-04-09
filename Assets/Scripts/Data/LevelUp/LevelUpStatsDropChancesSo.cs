@@ -32,6 +32,18 @@ namespace Data.LevelUp
 
 
         [Button]
+        public void ChangeStats()
+        {
+            for (int i = 0; i < levelUpDrops.Count; i++)
+            {
+                var data = levelUpDrops[i];
+                var currentStat = data.stat;
+                var statToChange = currentStat + 1;
+                data.stat = statToChange;
+            }
+        }
+
+        [Button]
         public void AddStat()
         {
             Add(stat, ItemRarity.Normal, normalValue, normalWeight);

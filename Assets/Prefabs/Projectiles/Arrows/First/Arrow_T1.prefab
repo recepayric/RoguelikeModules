@@ -9865,7 +9865,7 @@ MonoBehaviour:
   pierceNum: 0
   criticalHitChance: 0
   criticalHitDamage: 0
-  projectileSpeed: 20
+  projectileSpeed: 40
   pTransform: {fileID: 0}
   distanceTraveled: 0
   deltaTravel: {x: 0, y: 0, z: 0}
