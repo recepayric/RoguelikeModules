@@ -1,0 +1,19 @@
+﻿using MVC.Base.Runtime.Abstract.Data.ValueObject;
+using MVC.Base.Runtime.Abstract.Function;
+using MVC.Base.Runtime.Abstract.View;
+using UnityEngine.Events;
+
+namespace %TemplateNS%
+{
+    public class %Template%View : MVCView, IPanel
+    {
+	    public IPanelVo vo { get; set; }
+	    
+	    //We want this to be initialized by ScreenManager
+	    public override bool autoRegisterWithContext { get=>false; }
+        
+        %UnityAction%
+        
+        %ListenerFunction%
+    }
+}

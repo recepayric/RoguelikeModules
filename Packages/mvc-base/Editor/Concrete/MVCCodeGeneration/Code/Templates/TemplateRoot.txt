@@ -1,0 +1,10 @@
+﻿using MVC.Base.Runtime.Concrete.Root;
+using Runtime.Context;
+
+namespace %TemplateNS%
+{
+    public class %Template%Root : MVCContextRoot<%Template%Context>
+    {
+
+    }
+}

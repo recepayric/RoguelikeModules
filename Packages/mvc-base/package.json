@@ -1,0 +1,25 @@
+{
+  "name": "mvc-base",
+  "version": "1.0.0",
+  "displayName": "MVC Base",
+  "description": "MVC Base library. All GG libraries depend on this. Contains strange-ioc.",
+  "unity": "2019.1",
+  "unityRelease": "0b5",
+  "keywords": [],
+  "author": {
+    "name": "MVC",
+    "email": "unity@example.com",
+    "url": "https://www.unity3d.com"
+  },
+"samples": [
+    {
+      "displayName": "MVC Base Sample",
+      "description": "Useful MVC samples and tests",
+      "path": "Samples~/mvc-base-samples"
+    }
+],
+  "dependencies": {
+    "com.unity.textmeshpro": "3.0.1"
+  },
+  "hideInEditor": false
+}

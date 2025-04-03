@@ -1,0 +1,1 @@
+This folder is a working folder for artists. When artists put art assets into this folder, developer should move them to their final directories

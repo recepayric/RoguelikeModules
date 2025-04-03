@@ -1,0 +1,3 @@
+<linker>
+	<assembly fullname="mvc-base.runtime" preserve="all" />
+</linker>

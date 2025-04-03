@@ -1,0 +1,19 @@
+﻿using MVC.Base.Runtime.Concrete.Context;
+
+namespace %TemplateNS%
+{
+    public class %Template%Context : MVCContext
+    {
+
+        protected override void mapBindings()
+        {
+            base.mapBindings();
+            
+        }
+        
+        public override void Launch()
+        {
+            base.Launch();
+        }
+    }
+}

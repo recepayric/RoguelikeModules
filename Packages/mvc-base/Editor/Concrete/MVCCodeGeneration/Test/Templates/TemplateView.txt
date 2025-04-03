@@ -1,0 +1,13 @@
+﻿using UnityEngine.Events;
+using MVC.Base.Runtime.Abstract.View;
+using UnityEngine;
+
+namespace %TemplateNS%
+{
+    public class %Template% : MVCView
+    {
+        %UnityAction%
+        
+        %ListenerFunction%
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "name": "mvc-base.editor",
+    "rootNamespace": "MVC.Base",
+    "references": [
+        "GUID:e5160b5cfc335cd419f41616e228bc83"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,34 @@
+﻿namespace Runtime.Enums
+{
+    public enum EnemyType
+    {
+        Abomination,
+        AirWarlord,
+        Bear,
+        Boar,
+        DeepSeaLizard,
+        DemonSummoner,
+        DemonWarrior,
+        Eagle,
+        ForestDemon,
+        BoneGolem,
+        RockGolem,
+        GraveDigger,
+        HellGuard,
+        Imp,
+        MechaBot,
+        MushroomMan,
+        RatKing,
+        Rat,
+        ScarabMan,
+        SkeletonWarrior,
+        SkeletonMage,
+        SkeletonArcher,
+        Slime,
+        SlimeMan,
+        Spider,
+        Hound,
+        Zombie,
+        Vampire
+    }
+}
