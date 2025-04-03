@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 066cf82f8f80d408c856e48fc8f1127b, type: 3}
+  m_Name: vFavorites Data
+  m_EditorClassIdentifier: 
+  pages:
+  - items: []
+    name: Page 1
+    _id: 1060827805
+  - items: []
+    name: Page 2
+    _id: 1057774201
+  - items: []
+    name: Page 3
+    _id: 1061655476
+  - items: []
+    name: Page 4
+    _id: 1046808066
+  - items: []
+    name: Page 5
+    _id: 1043170497
+  - items: []
+    name: Page 6
+    _id: 1056382958
+  - items: []
+    name: Page 7
+    _id: 1054079250
+  - items: []
+    name: Page 8
+    _id: 1062505382
+  - items: []
+    name: Page 9
+    _id: 1064589968
+  - items: []
+    name: Page 10
+    _id: 1056237554
+  - items: []
+    name: Page 11
+    _id: 1059537187
+  - items: []
+    name: Page 12
+    _id: 1038768066
+  - items: []
+    name: Page 13
+    _id: 1025966049
+  - items: []
+    name: Page 14
+    _id: 1041023825
+  - items: []
+    name: Page 15
+    _id: 1064959844
+  - items: []
+    name: Page 16
+    _id: 1041237305
+  - items: []
+    name: Page 17
+    _id: 1049874261
+  - items: []
+    name: Page 18
+    _id: 1055374030
+  - items: []
+    name: Page 19
+    _id: 1050171657
+  - items: []
+    name: Page 20
+    _id: 1041867209
+  - items: []
+    name: Page 21
+    _id: 1052979222
+  - items: []
+    name: Page 22
+    _id: 1057282189
+  - items: []
+    name: Page 23
+    _id: 1033843873
+  - items: []
+    name: Page 24
+    _id: 1063155326
+  - items: []
+    name: Page 25
+    _id: 1062930374
+  - items: []
+    name: Page 26
+    _id: 1054074390
+  - items: []
+    name: Page 27
+    _id: 1060798581
+  - items: []
+    name: Page 28
+    _id: 1063745450
+  - items: []
+    name: Page 29
+    _id: 1061011319
+  - items: []
+    name: Page 30
+    _id: 1058467849
+  - items: []
+    name: Page 31
+    _id: 1058689007
+  - items: []
+    name: Page 32
+    _id: 1059729987
+  - items: []
+    name: Page 33
+    _id: 0
+  rowScale: 1
